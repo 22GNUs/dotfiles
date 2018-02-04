@@ -7,7 +7,7 @@
 " <leader>" 双引号包裹当前单词
 " <leader>' 单引号包裹当前单词
 " jj 映射 <esc>
-" <leader>/ 清除搜索高亮
+" <leader>, 清除搜索高亮
 " <leader>te 快速打开当前目录下的文件
 " <leader>cd 快速切换到当前路径
 " <leader>ss 打开/关闭 拼写检查
@@ -64,6 +64,9 @@ set mat=2
 " utf8编码
 set encoding=utf8
 
+" 设置剪贴板为系统剪贴板
+set clipboard=unnamedplus
+
 " 大写W sudo 保存
 command W w !sudo tee % > /dev/null
 
@@ -111,6 +114,7 @@ nnoremap <leader>s :source $MYVIMRC<cr>
 " 用双引号包围当前单词
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
+
 " }}}
 
 " ===> Insert模式快捷键 {{{
@@ -121,10 +125,6 @@ inoremap jj <esc>
 " }}}
 
 " ===> Visual模式快捷键 {{{
-
-" Visual模式下使用 * 或 # 全文搜索当前选中内容
-vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
-vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
 " }}}
 
