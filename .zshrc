@@ -1,19 +1,15 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-export TERM="xterm-256color"
-
-if [[ $TERM != screen* ]]; then
-    export TERM=xterm-256color
-fi
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/wangxinhua/.oh-my-zsh
-  export DEFAULT_USER=wangxinhua
+export TERM="xterm-256color"
+export ZSH=/usr/share/oh-my-zsh
+export DEFAULT_USER=wangxinhua
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# ------------------------------------------------
+
 POWERLEVEL9K_MODE='awesome-fontconfig'
+#POWERLEVEL9K_MODE='awesome-patched'
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
 POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
 POWERLEVEL9K_STATUS_VERBOSE=false
@@ -21,8 +17,19 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status os_icon load context dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time)
 POWERLEVEL9K_SHOW_CHANGESET=true
 POWERLEVEL9K_CHANGESET_HASH_LENGTH=6
+# ------------------------------------------------
 
-ZSH_THEME="powerlevel9k/powerlevel9k"
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# ZSH_THEME="powerlevel9k/powerlevel9k"
+
+# Set list of themes to load
+# Setting this variable when ZSH_THEME=random
+# cause zsh load theme from this variable instead of
+# looking in ~/.oh-my-zsh/themes/
+# An empty array have no effect
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -32,7 +39,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
@@ -66,9 +73,10 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(cp sudo extract z zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(
+  git sudo extract z
+)
 
-source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -99,14 +107,32 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias curl='curl --socks5-hostname 127.0.0.1:1080'
-alias tencent='ssh ubuntu@115.159.79.51'
-alias phttpserver='python3 -m http.server'
-alias xquark_hgw='ssh root@121.42.184.125'
-alias xquark_qinyuan='ssh root@47.100.25.173'
-alias to166='ssh wangxinhua@192.168.1.166'
-alias sha='Files/gitrepo/shadowsocksr/shadowsocks/local.py -c ~/Files/.config/.ss/config_sy.json'
+ZSH_CACHE_DIR=$HOME/.oh-my-zsh-cache
+if [[ ! -d $ZSH_CACHE_DIR ]]; then
+  mkdir $ZSH_CACHE_DIR
+fi
 
-# 设置npm模块安装到当前用户级别
-PATH="$HOME/.node_modules/bin:$PATH"
-export npm_config_prefix=~/.node_modules
+alias tencent="ssh wangxinhua@118.89.182.235";
+alias phttpserver='python3 -m http.server';
+alias socks='sslocal -c ~/Files/.config/.ss/config.json';
+alias wemovie='ssh -R 80:localhost:8080 root@115.159.212.157'
+alias chinese='trans :zh'
+alias sus='sudo systemctl suspend'
+alias red='nohup redis-server > /dev/null &'
+alias ss='nohup sslocal -c Files/.config/.ss/config.json > /dev/null &'
+alias xquark_hgw='ssh root@121.42.184.125'
+alias xquark='ssh root@101.37.30.205'
+alias xquark_mpmk='ssh root@118.31.16.164'
+alias xquark_woxifan='ssh root@47.100.169.209'
+alias xquark_qinyuan='ssh root@47.100.25.173'
+alias xquark_germenwo='ssh root@47.97.18.139'
+alias pc='proxychains4 -q'
+
+source $ZSH/oh-my-zsh.sh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
+
+export SDKMAN_DIR="/home/wangxinhua/.sdkman"
+[[ -s "/home/wangxinhua/.sdkman/bin/sdkman-init.sh" ]] && source "/home/wangxinhua/.sdkman/bin/sdkman-init.sh"
+
