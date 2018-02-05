@@ -118,6 +118,11 @@ nnoremap <leader>s :source $MYVIMRC<cr>
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 
+" 使用Alt+, Alt+. 翻页
+" 仅在ideavim和neovim中有效
+nnoremap <A-.> gt
+nnoremap <A-,> gT
+
 " }}}
 
 " ===> Insert模式快捷键 {{{
