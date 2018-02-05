@@ -11,6 +11,11 @@
 " <leader>te 快速打开当前目录下的文件
 " <leader>cd 快速切换到当前路径
 " <leader>ss 打开/关闭 拼写检查
+" <c-n> 打开/关闭 nerdtree
+"
+" <c-p> 文件搜索
+" 文件搜索状态<c-j><c-k>上下选择
+" 文件搜索状态<c-t><c-v><c-x>打开tab或分屏打开
 
 " }}}
 
@@ -194,6 +199,12 @@ Plug 'elzr/vim-json'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
+" nerdtree 插件
+Plug 'scrooloose/nerdtree'
+
+" ctrlp 文件搜索插件
+Plug 'ctrlpvim/ctrlp.vim'
+
 call plug#end()
 
 " }}}
@@ -215,6 +226,40 @@ let g:vim_markdown_frontmatter = 1
 " set conceallevel=2
 
 " =====================
+
+" ==== nerdtree 插件设置
+
+" <c-n> 开启/关闭nerdtree
+map <C-n> :NERDTreeToggle<CR>
+
+" 若打开的是目录则自动打开nerdtree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+
+" 窗口中只剩下nerdtree时自动关闭
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" =====================
+
+" ==== ctrlp 插件设置
+
+" 设置查找目录
+let g:ctrlp_working_path_mode = 'ra'
+
+" 过滤文件
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
+" ====================
 
 
 " }}}
