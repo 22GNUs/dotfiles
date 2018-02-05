@@ -28,6 +28,9 @@ se cursorline
 " 启用高亮
 syntax enable
 
+" 显示相对行号
+" set relativenumber
+
 " 显示行号
 set number
 
