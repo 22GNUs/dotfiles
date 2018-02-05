@@ -1,5 +1,5 @@
 " Source Base Vim Config
-source ~/.vimrc_base
+source ~/.ideavimrc
 
 " ===> 插件 {{{
 
