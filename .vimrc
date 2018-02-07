@@ -7,11 +7,13 @@
 " <leader>" 双引号包裹当前单词
 " <leader>' 单引号包裹当前单词
 " jj 映射 <esc>
-" <leader>, 清除搜索高亮
+" <esc><esc> 清除搜索高亮
 " <leader>te 快速打开当前目录下的文件
 " <leader>cd 快速切换到当前路径
 " <leader>ss 打开/关闭 拼写检查
 " <c-n> 打开/关闭 nerdtree
+" <> tab 翻页
+" paste模式切换 <F3>
 "
 " <c-p> 文件搜索
 " 文件搜索状态<c-j><c-k>上下选择
@@ -76,7 +78,7 @@ set encoding=utf8
 set clipboard=unnamedplus
 
 " 大写W sudo 保存
-command W w !sudo tee % > /dev/null
+" command W w !sudo tee % > /dev/null
 
 " }}}
 
@@ -123,10 +125,9 @@ nnoremap <leader>s :source $MYVIMRC<cr>
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 
-" 使用Alt+, Alt+. 翻页
-" 仅在ideavim和neovim中有效
-nnoremap <A-.> gt
-nnoremap <A-,> gT
+" 使用 <> 翻页
+nnoremap > gt
+nnoremap < gT
 
 " }}}
 
@@ -143,8 +144,11 @@ inoremap jj <esc>
 
 " ===> 其他设置 {{{
 
+" 设置复制模式
+set pastetoggle=<F3>
+
 " <leader>,清除搜索高亮
-map <silent> <leader>, :noh<cr>
+nnoremap <esc><esc> :noh<return>
 
 " 切换到当前目录
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -199,6 +203,9 @@ Plug 'elzr/vim-json'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
+" markdown预览
+Plug 'iamcco/markdown-preview.vim'
+
 " nerdtree 插件
 Plug 'scrooloose/nerdtree'
 
@@ -222,8 +229,8 @@ let g:vim_markdown_toc_autofit = 1
 " 高亮YAML Front Matter
 let g:vim_markdown_frontmatter = 1
 
-" 隐藏部分标签
-" set conceallevel=2
+" 关闭编辑时代码缩写
+let g:vim_markdown_conceal = 0
 
 " =====================
 
