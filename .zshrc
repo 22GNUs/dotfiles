@@ -40,21 +40,16 @@ antigen theme halfo/lambda-mod-zsh-theme
 antigen apply
 
 # custom
-alias tencent="ssh wangxinhua@118.89.182.235";
 alias phttpserver='python3 -m http.server';
-alias socks='sslocal -c ~/Files/.config/.ss/config.json';
-alias wemovie='ssh -R 80:localhost:8080 root@115.159.212.157'
-alias chinese='trans :zh'
-alias sus='sudo systemctl suspend'
-alias red='nohup redis-server > /dev/null &'
-alias ss='nohup sslocal -c Files/.config/.ss/config.json > /dev/null &'
-alias xquark_hgw='ssh root@121.42.184.125'
+alias sha='Files/gitrepo/shadowsocksr/shadowsocks/local.py -c ~/Files/.config/.ss/config_sy.json'
+
+# ssh
 alias xquark='ssh root@101.37.30.205'
+alias xquark_hgw='ssh root@121.42.184.125'
 alias xquark_mpmk='ssh root@118.31.16.164'
 alias xquark_woxifan='ssh root@47.100.169.209'
 alias xquark_qinyuan='ssh root@47.100.25.173'
 alias xquark_germenwo='ssh root@47.97.18.139'
-alias pc='proxychains4 -q'
 
 # load sdk man
 export SDKMAN_DIR="/home/wangxinhua/.sdkman"
