@@ -77,8 +77,8 @@ set encoding=utf8
 " 设置剪贴板为系统剪贴板
 set clipboard=unnamedplus
 
-" 大写W sudo 保存
-" command W w !sudo tee % > /dev/null
+" w!! sudo 保存
+cmap w!! w !sudo tee > /dev/null %
 
 " }}}
 
