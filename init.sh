@@ -2,11 +2,20 @@
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-# install oh-my-zsh and plugins
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+# install tpm
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-yaourt zsh-autosuggestions zsh-syntax-highlighting
+# choose the closest pacman mirror
+pacman-mirrors -i -c China -m rank
+
+# install base devel package
+pacman -S base-devel
+
+# install gtk theme
+pacman -S adapta-gtk-theme
+
+# install icon theme
+pacman -S papirus-icon-theme
 
 # install tmux
-sudo pacman -S tmux
-
+pacman -S tmux
