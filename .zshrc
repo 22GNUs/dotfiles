@@ -41,7 +41,7 @@ antigen apply
 
 # custom
 alias phttpserver='python3 -m http.server';
-alias sha='Files/gitrepo/shadowsocksr/shadowsocks/local.py -c ~/Files/.config/.ss/config_sy.json'
+alias sha='nohup Files/gitrepo/shadowsocksr/shadowsocks/local.py -c ~/Files/.config/.ss/config_sy.json >> /dev/null &'
 
 # ssh
 alias xquark='ssh root@101.37.30.205'
