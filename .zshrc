@@ -1,5 +1,5 @@
 # common
-export TERM="xterm-256color"
+# export TERM="xterm-256color"
 
 # ------------------------------------------------
 # POWERLEVEL9K_MODE='awesome-fontconfig'
@@ -26,7 +26,6 @@ antigen bundle pip
 antigen bundle lein
 antigen bundle command-not-found
 antigen bundle z
-antigen bundle sudo
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
