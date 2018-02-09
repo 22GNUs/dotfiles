@@ -50,6 +50,10 @@ alias xquark_mpmk='ssh root@118.31.16.164'
 alias xquark_woxifan='ssh root@47.100.169.209'
 alias xquark_qinyuan='ssh root@47.100.25.173'
 alias xquark_germenwo='ssh root@47.97.18.139'
+# translate english to chinese
+# need tranlate-shell installed
+# See https://github.com/soimort/translate-shell
+alias transen='trans en:zh'
 
 # load sdk man
 export SDKMAN_DIR="/home/wangxinhua/.sdkman"
