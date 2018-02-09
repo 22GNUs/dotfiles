@@ -212,6 +212,18 @@ Plug 'scrooloose/nerdtree'
 " ctrlp 文件搜索插件
 Plug 'ctrlpvim/ctrlp.vim'
 
+" deoplete 自动补全
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+" supertab tab补全
+Plug 'ervandew/supertab'
+
 call plug#end()
 
 " }}}
@@ -267,6 +279,16 @@ let g:ctrlp_custom_ignore = {
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 " ====================
+
+" ==== deoplete 插件设置
+
+" 开启补全支持
+let g:deoplete#enable_at_startup = 1
+
+" 自动关闭补全窗口
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" ===================
 
 
 " }}}

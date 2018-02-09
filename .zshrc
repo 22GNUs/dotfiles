@@ -26,6 +26,7 @@ antigen bundle pip
 antigen bundle lein
 antigen bundle command-not-found
 antigen bundle z
+antigen bundle sudo
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting

@@ -19,3 +19,6 @@ pacman -S papirus-icon-theme
 
 # install tmux
 pacman -S tmux
+
+# install deoplete support
+pip3 install --upgrade neovim
