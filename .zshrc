@@ -26,6 +26,8 @@ antigen bundle pip
 antigen bundle lein
 antigen bundle command-not-found
 antigen bundle z
+antigen bundle sudo
+antigen bundle extract
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -41,7 +43,7 @@ antigen apply
 
 # custom
 alias phttpserver='python3 -m http.server';
-alias sha='nohup Files/gitrepo/shadowsocksr/shadowsocks/local.py -c ~/Files/.config/.ss/config_sy.json >> /dev/null &'
+alias sha='nohup Files/gitrepo/shadowsocksr/shadowsocks/local.py -c ~/Files/.config/.ss/config_vlutr.json >> /dev/null &'
 
 # ssh
 alias xquark='ssh root@101.37.30.205'
