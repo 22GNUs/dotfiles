@@ -193,6 +193,9 @@ call plug#begin('~/.vim/plugged')
 " spacevim 颜色主题
 Plug 'liuchengxu/space-vim-dark'
 
+" dracula 主题
+Plug 'dracula/vim', { 'as': 'dracula' }
+
 " spacevim 样式状态栏
 Plug 'liuchengxu/eleline.vim'
 
@@ -302,9 +305,10 @@ set termguicolors
 hi Comment cterm=italic
 
 " spacevim 主题深度
-let g:space_vim_dark_background = 235
+" let g:space_vim_dark_background = 235
 
 " 颜色主题
-colorscheme space-vim-dark
+" colorscheme space-vim-dark
+colorscheme dracula
 
 " }}}
