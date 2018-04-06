@@ -36,14 +36,15 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 
 # material theme
-antigen theme halfo/lambda-mod-zsh-theme
+# antigen theme halfo/lambda-mod-zsh-theme
+antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
 
 # Tell Antigen that you're done.
 antigen apply
 
 # custom
 alias phttpserver='python3 -m http.server';
-alias sha='nohup Files/gitrepo/shadowsocksr/shadowsocks/local.py -c ~/Files/.config/.ss/config_vlutr.json >> /dev/null &'
+alias sha='nohup Files/gitrepo/shadowsocksr/shadowsocks/local.py -c ~/Files/.config/.ss/config_sy.json >> /dev/null &'
 
 # ssh
 alias xquark='ssh root@101.37.30.205'
