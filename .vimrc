@@ -299,16 +299,15 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 " ===> Color Schemes 设置 {{{
 
 " 启用true color
-set termguicolors
+" set termguicolors
 
 " 启用斜体
 hi Comment cterm=italic
 
 " spacevim 主题深度
-" let g:space_vim_dark_background = 235
+let g:space_vim_dark_background = 235
 
 " 颜色主题
-" colorscheme space-vim-dark
-colorscheme dracula
+colorscheme space-vim-dark
 
 " }}}
