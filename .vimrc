@@ -224,8 +224,14 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
+" javascript deoplete 补全
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+
 " supertab tab补全
 Plug 'ervandew/supertab'
+
+" 自动补全括号
+Plug 'jiangmiao/auto-pairs'
 
 call plug#end()
 
@@ -305,9 +311,10 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 hi Comment cterm=italic
 
 " spacevim 主题深度
-let g:space_vim_dark_background = 235
+" let g:space_vim_dark_background = 235
 
 " 颜色主题
-colorscheme space-vim-dark
+" colorscheme space-vim-dark
+colorscheme dracula
 
 " }}}
