@@ -230,6 +230,9 @@ endif
 " supertab tab补全
 Plug 'ervandew/supertab'
 
+" 自动补全括号
+Plug 'jiangmiao/auto-pairs'
+
 call plug#end()
 
 " }}}
