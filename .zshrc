@@ -36,7 +36,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 
 # material theme
-# antigen theme halfo/lambda-mod-zsh-theme
+#antigen theme halfo/lambda-mod-zsh-theme
 antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
 #antigen theme bhilburn/powerlevel9k powerlevel9k
 
@@ -46,6 +46,8 @@ antigen apply
 # custom
 alias phttpserver='python3 -m http.server';
 alias sha='nohup Files/gitrepo/shadowsocksr/shadowsocks/local.py -c ~/Files/.config/.ss/config_sy.json >> /dev/null &'
+alias sbtNew='sbt new sbt/scala-seed.g8'
+alias ssh_hds_test='ssh root@47.100.41.165'
 
 # set npm install path to home
 PATH="$HOME/.node_modules/bin:$PATH"
@@ -60,3 +62,4 @@ export npm_config_prefix=~/.node_modules
 # export SDKMAN_DIR="/home/wangxinhua/.sdkman"
 # [[ -s "/home/wangxinhua/.sdkman/bin/sdkman-init.sh" ]] && source "/home/wangxinhua/.sdkman/bin/sdkman-init.sh"
 
+eval $(thefuck --alias)
