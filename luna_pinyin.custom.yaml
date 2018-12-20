@@ -3,6 +3,7 @@
 # 将该文件放到 .config/fcitx/rime
 
 patch:
+  punctuator/import_preset: alternative # 中文状态下默认打ascii标点
   switches:                   # 注意縮進
     - name: ascii_mode
       reset: 0                # reset 0 的作用是當從其他輸入方案切換到本方案時，
