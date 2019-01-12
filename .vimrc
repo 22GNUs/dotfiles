@@ -217,7 +217,7 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
 " markdown预览
-Plug 'iamcco/markdown-preview.vim'
+" Plug 'iamcco/markdown-preview.vim'
 
 " nerdtree 插件
 Plug 'scrooloose/nerdtree'
