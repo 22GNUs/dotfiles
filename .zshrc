@@ -28,6 +28,7 @@ antigen bundle command-not-found
 antigen bundle z
 antigen bundle sudo
 antigen bundle extract
+antigen bundle soimort/translate-shell
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -35,10 +36,8 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 # auto suggestion
 antigen bundle zsh-users/zsh-autosuggestions
 
-# material theme
-#antigen theme halfo/lambda-mod-zsh-theme
+# antigen theme halfo/lambda-mod-zsh-theme
 antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
-#antigen theme bhilburn/powerlevel9k powerlevel9k
 
 # Tell Antigen that you're done.
 antigen apply
@@ -56,7 +55,7 @@ export npm_config_prefix=~/.node_modules
 # translate english to chinese
 # need tranlate-shell installed
 # See https://github.com/soimort/translate-shell
-# alias transen='trans en:zh'
+alias transen='trans en:zh'
 
 # load sdk man
 # export SDKMAN_DIR="/home/wangxinhua/.sdkman"
