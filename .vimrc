@@ -110,10 +110,10 @@ nnoremap H ^
 nnoremap L $
 
 " 使用JK翻页
-nnoremap <c-d> <nop>
-nnoremap <c-u> <nop>
-nnoremap J <c-d>
-nnoremap K <c-u>
+" nnoremap <c-d> <nop>
+" nnoremap <c-u> <nop>
+" nnoremap J <c-d>
+" nnoremap K <c-u>
 
 " 编辑我的vimrc文件
 nnoremap <leader>e :vsplit $MYVIMRC<cr><c-w>w
@@ -234,8 +234,14 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
+" deoplete Golang支持
+Plug 'zchee/deoplete-go', { 'do': 'make'}
+
 " supertab tab补全
 Plug 'ervandew/supertab'
+
+" Go语言支持
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " 自动补全括号
 Plug 'jiangmiao/auto-pairs'
