@@ -13,7 +13,6 @@
 # POWERLEVEL9K_CHANGESET_HASH_LENGTH=6
 # ------------------------------------------------
 
-
 source ~/antigen.zsh
 
 # Load the oh-my-zsh's library.
@@ -35,10 +34,8 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 # auto suggestion
 antigen bundle zsh-users/zsh-autosuggestions
 
-# material theme
-#antigen theme halfo/lambda-mod-zsh-theme
-antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
-#antigen theme bhilburn/powerlevel9k powerlevel9k
+antigen theme halfo/lambda-mod-zsh-theme
+# antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
 
 # Tell Antigen that you're done.
 antigen apply
@@ -53,10 +50,15 @@ alias ssh_hds_test='ssh root@47.100.41.165'
 PATH="$HOME/.node_modules/bin:$PATH"
 export npm_config_prefix=~/.node_modules
 
+# export GOPATh
+export GOPATH=$(go env GOPATH)
+export PATH=$PATH:$(go env GOPATH)/bin
+#export GO111MODULE=on
+
 # translate english to chinese
 # need tranlate-shell installed
 # See https://github.com/soimort/translate-shell
-# alias transen='trans en:zh'
+alias transen='trans en:zh'
 
 # load sdk man
 # export SDKMAN_DIR="/home/wangxinhua/.sdkman"

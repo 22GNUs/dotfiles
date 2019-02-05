@@ -13,6 +13,7 @@
 " <leader>cd 快速切换到当前路径
 " <leader>ss 打开/关闭 拼写检查
 " <c-n> 打开/关闭 nerdtree
+" shift+a 完全展开nerdtree
 " <> tab 翻页
 " paste模式切换 <F3>
 "
@@ -26,13 +27,15 @@
 
 " 参考 https://github.com/fatih/vim-go-tutoria
 "
+" :GoDoc 显示go文档
 " :GoDecls 显示所有定义
 " :GoDeclsDir 显示目录下所有定义
+" :GoFreevars 重构方法
 " ctrl-] or gd 跳转到定义
 " ctrl-t 跳转回来
 " ]] -> 跳转到下一个方法
 " [[ -> 跳转到上一个方法
-
+" :A, :AS, :AV, :AT 在新窗口打开golang alternate
 " }}}
 
 " ===> 基础设置 {{{
@@ -88,6 +91,10 @@ set mat=2
 " utf8编码
 set encoding=utf8
 
+" 显示分隔线
+set listchars=tab:\|\ 
+set list
+
 " 设置剪贴板为系统剪贴板
 set clipboard=unnamedplus
 
@@ -121,6 +128,9 @@ set wrap "Wrap lines
 
 " }}}
 
+" ===> 全局快捷键 {{{
+" }}}
+
 " ===> Normal模式快捷键 {{{
 
 nnoremap H ^
@@ -149,6 +159,9 @@ nnoremap < gT
 " 黑洞删除
 nnoremap <leader>d "_d
 
+" 关闭错误提示
+nnoremap <leader>a :cclose<CR>
+
 " }}}
 
 " ===> Insert模式快捷键 {{{
@@ -171,6 +184,19 @@ vnoremap <leader>p "_dP
 " 打开终端
 command! -nargs=* T split | resize 10 | terminal <args>
 command! -nargs=* VT vsplit | terminal <args>
+
+" 绑定golang快速跳转
+autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+
+" 绑定gobuid和gorun
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+
+" 格式化golang代码
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 
 
 "}}}
 
@@ -224,12 +250,6 @@ call plug#begin('~/.vim/plugged')
 
 " spacevim 颜色主题
 Plug 'liuchengxu/space-vim-dark'
-
-" dracula 主题
-Plug 'dracula/vim', { 'as': 'dracula' }
-
-" onedark 主题
-Plug 'joshdick/onedark.vim', {'as': 'onedark'}
 
 " spacevim 样式状态栏
 Plug 'liuchengxu/eleline.vim'
@@ -318,12 +338,18 @@ let g:go_metalinter_autosave = 1
 " 自动保存时校验项
 let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck']
 
-" 格式化golang代码
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 
+" 自动补全imports
+let g:go_fmt_command = "goimports"
+
+" 自动弹出goInfo
+" let g:go_auto_type_info = 1
 
 " =====================
 
 " ==== nerdtree 插件设置
+
+" 设置宽度
+let g:NERDTreeWinSize = 20
 
 " <c-n> 开启/关闭nerdtree
 map <C-n> :NERDTreeToggle<CR>
@@ -376,10 +402,10 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 hi Comment cterm=italic
 
 " spacevim 主题深度
-" let g:space_vim_dark_background = 235
+" let g:space_vim_dark_background = 233
 
 " 颜色主题
-colorscheme onedark
+colorscheme space-vim-dark
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
@@ -393,6 +419,7 @@ endif
   " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
 if (has("termguicolors"))
   set termguicolors
+  hi LineNr ctermbg=NONE guibg=NONE
 endif
 
 " }}}
