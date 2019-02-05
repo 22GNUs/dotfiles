@@ -31,6 +31,7 @@
 " :GoDecls 显示所有定义
 " :GoDeclsDir 显示目录下所有定义
 " :GoFreevars 重构方法
+" :GI <args> 快速导包
 " ctrl-] or gd 跳转到定义
 " ctrl-t 跳转回来
 " ]] -> 跳转到下一个方法
@@ -95,6 +96,9 @@ set encoding=utf8
 set listchars=tab:\|\ 
 set list
 
+" 编译时自动写入
+set autowrite
+
 " 设置剪贴板为系统剪贴板
 set clipboard=unnamedplus
 
@@ -112,8 +116,8 @@ cmap w!! w !sudo tee > /dev/null %
 set expandtab
 
 " 2个空格=1个tab
-set shiftwidth=2
-set tabstop=2
+set shiftwidth=4
+set tabstop=4
 
 " 500个单词换行(Linebreak)
 set lbr
@@ -126,9 +130,6 @@ set smartindent
 " 显示时将过长的行换行
 set wrap "Wrap lines
 
-" }}}
-
-" ===> 全局快捷键 {{{
 " }}}
 
 " ===> Normal模式快捷键 {{{
@@ -166,8 +167,10 @@ nnoremap <leader>a :cclose<CR>
 
 " ===> Insert模式快捷键 {{{
 
-" jj映射esc
-" inoremap jj <esc>
+" tab代替<C-n>, <C-p>
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 
 " }}}
 
@@ -184,6 +187,9 @@ vnoremap <leader>p "_dP
 " 打开终端
 command! -nargs=* T split | resize 10 | terminal <args>
 command! -nargs=* VT vsplit | terminal <args>
+
+" 快速导入Go包
+command! -nargs=* GI GoImport <args>
 
 " 绑定golang快速跳转
 autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
@@ -281,9 +287,6 @@ endif
 
 " deoplete Golang支持
 Plug 'zchee/deoplete-go', { 'do': 'make'}
-
-" supertab tab补全
-Plug 'ervandew/supertab'
 
 " Go语言支持
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -387,6 +390,10 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 
 " 开启补全支持
 let g:deoplete#enable_at_startup = 1
+
+" deoplete-go设置
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
 " 自动关闭补全窗口
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
