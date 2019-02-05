@@ -4,6 +4,7 @@
 " J K 替代<c-d> <c-u> 上下翻页
 " <leader>e 编辑vimrc
 " <leader>s 保存vimrc
+" <C-\><C-n> 终端模式切换
 " <leader>" 双引号包裹当前单词
 " <leader>' 单引号包裹当前单词
 " jj 映射 <esc>
@@ -18,6 +19,19 @@
 " <c-p> 文件搜索
 " 文件搜索状态<c-j><c-k>上下选择
 " 文件搜索状态<c-t><c-v><c-x>打开tab或分屏打开
+
+" }}}
+
+" ===> 快捷键for Golang {{{
+
+" 参考 https://github.com/fatih/vim-go-tutoria
+"
+" :GoDecls 显示所有定义
+" :GoDeclsDir 显示目录下所有定义
+" ctrl-] or gd 跳转到定义
+" ctrl-t 跳转回来
+" ]] -> 跳转到下一个方法
+" [[ -> 跳转到上一个方法
 
 " }}}
 
@@ -76,6 +90,9 @@ set encoding=utf8
 
 " 设置剪贴板为系统剪贴板
 set clipboard=unnamedplus
+
+" 分割时将窗口分割到下方
+set splitbelow
 
 " w!! sudo 保存
 cmap w!! w !sudo tee > /dev/null %
@@ -148,6 +165,14 @@ vnoremap <leader>d "_d
 vnoremap <leader>p "_dP
 
 " }}}
+
+" ===> 命令绑定 {{{
+
+" 打开终端
+command! -nargs=* T split | resize 10 | terminal <args>
+command! -nargs=* VT vsplit | terminal <args>
+
+"}}}
 
 " ===> 其他设置 {{{
 
@@ -265,6 +290,36 @@ let g:vim_markdown_frontmatter = 1
 
 " 关闭编辑时代码缩写
 let g:vim_markdown_conceal = 0
+
+" =====================
+" ==== vim-for-go 插件设置
+
+" 高亮go类型
+let g:go_highlight_types = 1
+
+" 高亮go属性
+let g:go_highlight_fields = 1
+
+" 高亮go方法
+let g:go_highlight_functions = 1
+
+" 高亮go函数调用
+let g:go_highlight_function_calls = 1
+
+" 高亮符号
+let g:go_highlight_operators = 1
+
+" 高亮类型
+let g:go_highlight_extra_types = 1
+
+" 保存时自动go语法校验
+let g:go_metalinter_autosave = 1
+
+" 自动保存时校验项
+let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck']
+
+" 格式化golang代码
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 
 
 " =====================
 
