@@ -8,11 +8,12 @@
 " <leader>" 双引号包裹当前单词
 " <leader>' 单引号包裹当前单词
 " jj 映射 <esc>
+" <C-k> snippets 补全
 " <esc><esc> 清除搜索高亮
 " <leader>te 快速打开当前目录下的文件
 " <leader>cd 快速切换到当前路径
 " <leader>ss 打开/关闭 拼写检查
-" <c-n> 打开/关闭 nerdtree
+" <C-n> 打开/关闭 nerdtree
 " shift+a 完全展开nerdtree
 " <> tab 翻页
 " paste模式切换 <F3>
@@ -166,12 +167,8 @@ nnoremap <leader>a :cclose<CR>
 " }}}
 
 " ===> Insert模式快捷键 {{{
-
-" tab代替<C-n>, <C-p>
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-
 " }}}
 
 " ===> Visual模式快捷键 {{{
@@ -190,6 +187,9 @@ command! -nargs=* VT vsplit | terminal <args>
 
 " 快速导入Go包
 command! -nargs=* GI GoImport <args>
+
+" 重构命名
+command! -nargs=* GR GoRename <args>
 
 " 绑定golang快速跳转
 autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
@@ -260,6 +260,9 @@ Plug 'liuchengxu/space-vim-dark'
 " spacevim 样式状态栏
 Plug 'liuchengxu/eleline.vim'
 
+" 自动补全括号
+Plug 'jiangmiao/auto-pairs'
+
 " json显示插件
 Plug 'elzr/vim-json'
 
@@ -273,17 +276,12 @@ Plug 'plasticboy/vim-markdown'
 " nerdtree 插件
 Plug 'scrooloose/nerdtree'
 
-" ctrlp 文件搜索插件
-Plug 'ctrlpvim/ctrlp.vim'
-
 " deoplete 自动补全
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+" neosnippet 片段补全
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
 
 " deoplete Golang支持
 Plug 'zchee/deoplete-go', { 'do': 'make'}
@@ -291,8 +289,19 @@ Plug 'zchee/deoplete-go', { 'do': 'make'}
 " Go语言支持
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
+" Go测试插件
+Plug 'buoto/gotests-vim'
+
 " 自动补全括号
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
+
+" 模糊搜索
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+" git插件
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
@@ -366,25 +375,52 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 " =====================
 
-" ==== ctrlp 插件设置
+" ==== FZF 模糊搜索插件配置
 
-" 设置查找目录
-let g:ctrlp_working_path_mode = 'ra'
+" <ctrl-p> 模糊搜索
+nnoremap <silent> <C-p> :Files<CR>
 
-" 过滤文件
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+" 默认的打开快捷键
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
 
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
+" 配置位置
+let g:fzf_layout = { 'down': '~40%' }
 
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+" 适应配色方案
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 
-" ====================
+" 保存记录
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" 插入模式快捷键
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
+
+" =====================
 
 " ==== deoplete 插件设置
 
@@ -397,6 +433,19 @@ let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const
 
 " 自动关闭补全窗口
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" neosnippet配置
+" 设置快捷键
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
 
 " ===================
 
