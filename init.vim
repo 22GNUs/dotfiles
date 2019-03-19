@@ -24,22 +24,6 @@
 
 " }}}
 
-" ===> 快捷键for Golang {{{
-
-" 参考 https://github.com/fatih/vim-go-tutoria
-"
-" :GoDoc 显示go文档
-" :GoDecls 显示所有定义
-" :GoDeclsDir 显示目录下所有定义
-" :GoFreevars 重构方法
-" :GI <args> 快速导包
-" ctrl-] or gd 跳转到定义
-" ctrl-t 跳转回来
-" ]] -> 跳转到下一个方法
-" [[ -> 跳转到上一个方法
-" :A, :AS, :AV, :AT 在新窗口打开golang alternate
-" }}}
-
 " ===> 基础设置 {{{
 
 " 设置leader键映射
@@ -185,25 +169,6 @@ vnoremap <leader>p "_dP
 command! -nargs=* T split | resize 10 | terminal <args>
 command! -nargs=* VT vsplit | terminal <args>
 
-" 快速导入Go包
-command! -nargs=* GI GoImport <args>
-
-" 重构命名
-command! -nargs=* GR GoRename <args>
-
-" 绑定golang快速跳转
-autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
-
-" 绑定gobuid和gorun
-autocmd FileType go nmap <leader>b  <Plug>(go-build)
-autocmd FileType go nmap <leader>r  <Plug>(go-run)
-
-" 格式化golang代码
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 
-
 "}}}
 
 " ===> 其他设置 {{{
@@ -283,15 +248,6 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
-" deoplete Golang支持
-Plug 'zchee/deoplete-go', { 'do': 'make'}
-
-" Go语言支持
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
-" Go测试插件
-Plug 'buoto/gotests-vim'
-
 " 自动补全括号
 " Plug 'jiangmiao/auto-pairs'
 
@@ -322,39 +278,6 @@ let g:vim_markdown_frontmatter = 1
 
 " 关闭编辑时代码缩写
 let g:vim_markdown_conceal = 0
-
-" =====================
-" ==== vim-for-go 插件设置
-
-" 高亮go类型
-let g:go_highlight_types = 1
-
-" 高亮go属性
-let g:go_highlight_fields = 1
-
-" 高亮go方法
-let g:go_highlight_functions = 1
-
-" 高亮go函数调用
-let g:go_highlight_function_calls = 1
-
-" 高亮符号
-let g:go_highlight_operators = 1
-
-" 高亮类型
-let g:go_highlight_extra_types = 1
-
-" 保存时自动go语法校验
-let g:go_metalinter_autosave = 1
-
-" 自动保存时校验项
-let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck']
-
-" 自动补全imports
-let g:go_fmt_command = "goimports"
-
-" 自动弹出goInfo
-" let g:go_auto_type_info = 1
 
 " =====================
 
@@ -426,10 +349,6 @@ inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
 " 开启补全支持
 let g:deoplete#enable_at_startup = 1
-
-" deoplete-go设置
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
 " 自动关闭补全窗口
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
