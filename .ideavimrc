@@ -1,1 +1,84 @@
-source ~/.config/nvim/init.vim
+" ===> IDEA VIM 设置 {{{
+
+" nromal 模式下使用英文
+set keep-english-in-normal
+
+"}}}
+
+" ===> 基础设置 {{{
+
+" 设置leader键映射
+let mapleader=','
+
+" 显示状态栏
+set laststatus=2
+
+" 高亮选中行
+se cursorline
+
+" 启用高亮
+syntax enable
+
+" 显示相对行号
+" set relativenumber
+
+" 显示行号
+set number
+
+" 启用缩进规则
+filetype indent on
+
+" 外部改变文件时自动读取
+set autoread
+
+" 搜索时忽略大小写
+set ignorecase
+
+" 高亮搜索结果
+set hlsearch
+
+" 搜索时自动显示选中的关键字
+set incsearch
+
+" 增强性能
+set lazyredraw 
+
+" 正则匹配时转意设置
+set magic
+
+" 显示匹配的括号
+set showmatch
+
+" 匹配括号的时间
+set mat=2
+
+" utf8编码
+set encoding=utf8
+
+" 显示分隔线
+set listchars=tab:\|\ 
+set list
+
+" 编译时自动写入
+set autowrite
+
+" 设置剪贴板为系统剪贴板
+set clipboard=unnamedplus
+
+" 分割时将窗口分割到下方
+set splitbelow
+
+" w!! sudo 保存
+cmap w!! w !sudo tee > /dev/null %
+
+" }}}
+
+" ===> Normal模式快捷键 {{{
+nnoremap H ^
+nnoremap L $
+
+" 使用 <> 翻页
+nnoremap > gt
+nnoremap < gT
+
+" }}}
