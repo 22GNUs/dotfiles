@@ -1,18 +1,6 @@
 # common
 # export TERM="xterm-256color"
 
-# ------------------------------------------------
-# POWERLEVEL9K_MODE='awesome-fontconfig'
-# POWERLEVEL9K_MODE='awesome-patched'
-# POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
-# POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
-# POWERLEVEL9K_STATUS_VERBOSE=false
-# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status os_icon load context dir vcs)
-# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time)
-# POWERLEVEL9K_SHOW_CHANGESET=true
-# POWERLEVEL9K_CHANGESET_HASH_LENGTH=6
-# ------------------------------------------------
-
 source ~/antigen.zsh
 
 # Load the oh-my-zsh's library.
@@ -34,7 +22,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 # auto suggestion
 antigen bundle zsh-users/zsh-autosuggestions
 
-antigen theme halfo/lambda-mod-zsh-theme
+# antigen theme halfo/lambda-mod-zsh-theme
 # antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
 
 # Tell Antigen that you're done.
@@ -65,3 +53,9 @@ alias transen='trans en:zh'
 # [[ -s "/home/wangxinhua/.sdkman/bin/sdkman-init.sh" ]] && source "/home/wangxinhua/.sdkman/bin/sdkman-init.sh"
 
 eval $(thefuck --alias)
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# 先从aur安装powerline, powerline-fonts
+powerline-daemon -q
+. /usr/lib/python3.7/site-packages/powerline/bindings/zsh/powerline.zsh
