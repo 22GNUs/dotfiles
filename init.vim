@@ -17,10 +17,20 @@
 " shift+a 完全展开nerdtree
 " <> tab 翻页
 " paste模式切换 <F3>
+" <C-w> R 切换左右分屏
+" <C-w> T 切换上下分屏
 "
 " <c-p> 文件搜索
 " 文件搜索状态<c-j><c-k>上下选择
 " 文件搜索状态<c-t><c-v><c-x>打开tab或分屏打开
+
+" }}}
+
+" === 快捷操作 {{{
+
+" :T 打开终端
+" :VT 垂直打开终端
+" : SML* sml相关操作
 
 " }}}
 
@@ -260,6 +270,9 @@ Plug 'liuchengxu/space-vim-dark'
 " lightline
 Plug 'itchyny/lightline.vim'
 
+" lightline-ale
+Plug 'maximbaz/lightline-ale'
+
 " spacevim 样式状态栏
 " Plug 'liuchengxu/eleline.vim'
 
@@ -286,6 +299,12 @@ Plug 'junegunn/fzf.vim'
 " git插件
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+
+" lint
+Plug 'w0rp/ale'
+
+" sml
+Plug 'jez/vim-better-sml'
 
 call plug#end()
 
@@ -352,28 +371,28 @@ nnoremap <silent> <C-p> :Files<CR>
 
 " 默认的打开快捷键
 let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
+            \ 'ctrl-t': 'tab split',
+            \ 'ctrl-x': 'split',
+            \ 'ctrl-v': 'vsplit' }
 
 " 配置位置
 let g:fzf_layout = { 'down': '~40%' }
 
 " 适应配色方案
 let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+            \ { 'fg':      ['fg', 'Normal'],
+            \ 'bg':      ['bg', 'Normal'],
+            \ 'hl':      ['fg', 'Comment'],
+            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+            \ 'hl+':     ['fg', 'Statement'],
+            \ 'info':    ['fg', 'PreProc'],
+            \ 'border':  ['fg', 'Ignore'],
+            \ 'prompt':  ['fg', 'Conditional'],
+            \ 'pointer': ['fg', 'Exception'],
+            \ 'marker':  ['fg', 'Keyword'],
+            \ 'spinner': ['fg', 'Label'],
+            \ 'header':  ['fg', 'Comment'] }
 
 " 保存记录
 let g:fzf_history_dir = '~/.local/share/fzf-history'
@@ -395,15 +414,33 @@ inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 " ==== vim lightline 配置
 
 let g:lightline = {
-      \ 'colorscheme': 'one',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
+            \ 'colorscheme': 'powerline',
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified' ] ],
+            \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok', 'gitbranch' ] ]
+            \ },
+            \ 'component_function': {
+            \   'gitbranch': 'fugitive#head'
+            \ },
+            \ 'component_expand': {
+            \  'linter_checking': 'lightline#ale#checking',
+            \  'linter_warnings': 'lightline#ale#warnings',
+            \  'linter_errors': 'lightline#ale#errors',
+            \  'linter_ok': 'lightline#ale#ok',
+            \ },
+            \ 'component_type': {
+            \     'linter_checking': 'left',
+            \     'linter_warnings': 'warning',
+            \     'linter_errors': 'error',
+            \     'linter_ok': 'left',
+            \ }
+            \ }
+
+" 字体配置
+let g:lightline#ale#indicator_checking = "\uf110"
+let g:lightline#ale#indicator_warnings = "\uf071"
+let g:lightline#ale#indicator_errors = "\uf05e"
+let g:lightline#ale#indicator_ok = "\uf00c"
 
 " =====================
 
@@ -426,10 +463,10 @@ smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+            \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 if has('conceal')
-  set conceallevel=2 concealcursor=niv
+    set conceallevel=2 concealcursor=niv
 endif
 
 " ===================
@@ -453,14 +490,14 @@ colorscheme space-vim-dark
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
 if (has("nvim"))
     "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
 if (has("termguicolors"))
-  set termguicolors
-  hi LineNr ctermbg=NONE guibg=NONE
+    set termguicolors
+    hi LineNr ctermbg=NONE guibg=NONE
 endif
 
 " }}}
