@@ -26,11 +26,11 @@ antigen bundle zsh-users/zsh-autosuggestions
 
 # antigen theme halfo/lambda-mod-zsh-theme
 # antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
+
+POWERLEVEL9K_MODE='nerdfont-complete'
 antigen theme bhilburn/powerlevel9k powerlevel9k
 # Tell Antigen that you're done.
 antigen apply
-
-POWERLEVEL9K_MODE='nerdfont-complete'
 
 # custom
 alias phttpserver='python3 -m http.server';
