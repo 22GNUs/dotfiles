@@ -1,6 +1,8 @@
 # common
 # export TERM="xterm-256color"
 
+DEFAULT_USER=$USER
+
 source ~/antigen.zsh
 
 # Load the oh-my-zsh's library.
@@ -25,6 +27,8 @@ antigen bundle zsh-users/zsh-autosuggestions
 # antigen theme halfo/lambda-mod-zsh-theme
 # antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
 
+POWERLEVEL9K_MODE='nerdfont-complete'
+antigen theme bhilburn/powerlevel9k powerlevel9k
 # Tell Antigen that you're done.
 antigen apply
 
@@ -52,10 +56,10 @@ alias transen='trans en:zh'
 # export SDKMAN_DIR="/home/wangxinhua/.sdkman"
 # [[ -s "/home/wangxinhua/.sdkman/bin/sdkman-init.sh" ]] && source "/home/wangxinhua/.sdkman/bin/sdkman-init.sh"
 
-eval $(thefuck --alias)
+# eval $(thefuck --alias)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # 先从aur安装powerline, powerline-fonts
-powerline-daemon -q
-. /usr/lib/python3.7/site-packages/powerline/bindings/zsh/powerline.zsh
+# powerline-daemon -q
+# . /usr/lib/python3.7/site-packages/powerline/bindings/zsh/powerline.zsh
