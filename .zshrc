@@ -34,18 +34,16 @@ antigen apply
 
 # custom
 alias phttpserver='python3 -m http.server';
-alias sha='nohup Files/gitrepo/shadowsocksr/shadowsocks/local.py -c ~/Files/.config/.ss/config_sy.json >> /dev/null &'
-alias sbtNew='sbt new sbt/scala-seed.g8'
-alias ssh_hds_test='ssh root@47.100.41.165'
 
-# set npm install path to home
-PATH="$HOME/.node_modules/bin:$PATH"
+# PATH ========
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home
+
 export npm_config_prefix=~/.node_modules
 
-# export GOPATh
 export GOPATH=$(go env GOPATH)
-export PATH=$PATH:$(go env GOPATH)/bin
-#export GO111MODULE=on
+
+export PATH=$PATH:$(go env GOPATH)/bin:$JAVA_HOME/bin:$HOME/.node_modules/bin
+# PATH ========
 
 # translate english to chinese
 # need tranlate-shell installed
@@ -53,8 +51,8 @@ export PATH=$PATH:$(go env GOPATH)/bin
 alias transen='trans en:zh'
 
 # load sdk man
-# export SDKMAN_DIR="/home/wangxinhua/.sdkman"
-# [[ -s "/home/wangxinhua/.sdkman/bin/sdkman-init.sh" ]] && source "/home/wangxinhua/.sdkman/bin/sdkman-init.sh"
+export SDKMAN_DIR="/Users/wangxinhua/.sdkman"
+[[ -s "/Users/wangxinhua/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/wangxinhua/.sdkman/bin/sdkman-init.sh"
 
 # eval $(thefuck --alias)
 
