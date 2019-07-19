@@ -32,10 +32,6 @@ values."
    dotspacemacs-configuration-layers
    '(
      ruby
-     (go :variables
-         ;; go-use-gometalinter t
-         gofmt-command "goimports"
-         go-tab-width 4)
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -47,10 +43,10 @@ values."
      emacs-lisp
      git
      markdown
-     ;; org
+     org
      ;; (shell :variables
-     ;;       shell-default-height 30
-     ;;       shell-default-position 'bottom)
+     ;;        shell-default-height 30
+     ;;        shell-default-position 'bottom)
      ;; spell-checking
      syntax-checking
      version-control
@@ -183,7 +179,7 @@ values."
    dotspacemacs-display-default-layout nil
    ;; If non nil then the last auto saved layouts are resume automatically upon
    ;; start. (default nil)
-   dotspacemacs-auto-resume-layouts t
+   dotspacemacs-auto-resume-layouts nil
    ;; Size (in MB) above which spacemacs will prompt to open the large file
    ;; literally to avoid performance issues. Opening a file literally means that
    ;; no major mode or minor modes are active. (default is 1)
