@@ -63,7 +63,7 @@ set list
 set autowrite
 
 " 设置剪贴板为系统剪贴板
-set clipboard=unnamedplus
+set clipboard+=ideaput
 
 " 分割时将窗口分割到下方
 set splitbelow
