@@ -29,25 +29,9 @@
 " === 快捷操作 {{{
 
 " :T 打开终端
+" :Goyo 打开/关闭goyo模式
 " :VT 垂直打开终端
-" : SML* sml相关操作
 
-" }}}
-
-" ===> 快捷键for Golang {{{
-
-" 参考 https://github.com/fatih/vim-go-tutoria
-"
-" :GoDoc 显示go文档
-" :GoDecls 显示所有定义
-" :GoDeclsDir 显示目录下所有定义
-" :GoFreevars 重构方法
-" :GI <args> 快速导包
-" ctrl-] or gd 跳转到定义
-" ctrl-t 跳转回来
-" ]] -> 跳转到下一个方法
-" [[ -> 跳转到上一个方法
-" :A, :AS, :AV, :AT 在新窗口打开golang alternate
 " }}}
 
 " ===> 基础设置 {{{
@@ -194,26 +178,6 @@ vnoremap <leader>p "_dP
 " 打开终端
 command! -nargs=* T split | resize 10 | terminal <args>
 command! -nargs=* VT vsplit | terminal <args>
-
-" 快速导入Go包
-command! -nargs=* GI GoImport <args>
-
-" 重构命名
-command! -nargs=* GR GoRename <args>
-
-" 绑定golang快速跳转
-autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
-
-" 绑定gobuid和gorun
-autocmd FileType go nmap <leader>b  <Plug>(go-build)
-autocmd FileType go nmap <leader>r  <Plug>(go-run)
-
-" 格式化golang代码
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 
-
 "}}}
 
 " ===> 其他设置 {{{
@@ -282,15 +246,17 @@ Plug 'scrooloose/nerdtree'
 " deoplete 自动补全
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
+" deoplete for ruby
+Plug 'fishbullet/deoplete-ruby'
+
 " neosnippet 片段补全
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
-" deoplete Golang支持
-Plug 'zchee/deoplete-go', { 'do': 'make'}
+" scala插件
+Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' }
 
-" Go语言支持
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'derekwyatt/vim-scala'
 
 " 模糊搜索
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -303,49 +269,16 @@ Plug 'airblade/vim-gitgutter'
 " lint
 Plug 'w0rp/ale'
 
-" sml
-Plug 'jez/vim-better-sml'
+" autopair
+Plug 'jiangmiao/auto-pairs'
+
+Plug 'junegunn/goyo.vim'
 
 call plug#end()
 
 " }}}
 
 " ===> 插件设置 {{{
-
-" =====================
-" ==== vim-for-go 插件设置
-
-" 高亮go类型
-let g:go_highlight_types = 1
-
-" 高亮go属性
-let g:go_highlight_fields = 1
-
-" 高亮go方法
-let g:go_highlight_functions = 1
-
-" 高亮go函数调用
-let g:go_highlight_function_calls = 1
-
-" 高亮符号
-let g:go_highlight_operators = 1
-
-" 高亮类型
-let g:go_highlight_extra_types = 1
-
-" 保存时自动go语法校验
-let g:go_metalinter_autosave = 1
-
-" 自动保存时校验项
-let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck']
-
-" 自动补全imports
-let g:go_fmt_command = "goimports"
-
-" 自动弹出goInfo
-" let g:go_auto_type_info = 1
-
-" =====================
 
 " ==== nerdtree 插件设置
 
@@ -362,6 +295,13 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 " 窗口中只剩下nerdtree时自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+" =====================
+
+" ==== scala 设置 =====
+" scala typeCheck
+autocmd BufWritePost *.scala silent :EnTypeCheck
+
+nnoremap <localleader>t :EnType<CR>
 " =====================
 
 " ==== FZF 模糊搜索插件配置
@@ -448,10 +388,6 @@ let g:lightline#ale#indicator_ok = "\uf00c"
 
 " 开启补全支持
 let g:deoplete#enable_at_startup = 1
-
-" deoplete-go设置
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
 " 自动关闭补全窗口
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
