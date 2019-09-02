@@ -43,6 +43,10 @@ export GOPATH=$(go env GOPATH)
 export PATH=$PATH:$(go env GOPATH)/bin
 #export GO111MODULE=on
 
+# gem path
+PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
+export GEM_HOME=$HOME/.gem
+
 # translate english to chinese
 # need tranlate-shell installed
 # See https://github.com/soimort/translate-shell
