@@ -258,6 +258,9 @@ Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'derekwyatt/vim-scala'
 
+" lua 高亮插件
+Plug 'tbastos/vim-lua'
+
 " 模糊搜索
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -282,6 +285,7 @@ call plug#end()
 
 " ===> 插件设置 {{{
 
+" ====================
 " ==== nerdtree 插件设置
 
 " 设置宽度
