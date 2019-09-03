@@ -274,6 +274,8 @@ Plug 'jiangmiao/auto-pairs'
 
 Plug 'junegunn/goyo.vim'
 
+Plug 'hzchirs/vim-material'
+
 call plug#end()
 
 " }}}
@@ -354,7 +356,7 @@ inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 " ==== vim lightline 配置
 
 let g:lightline = {
-            \ 'colorscheme': 'powerline',
+            \ 'colorscheme': 'material',
             \ 'active': {
             \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified' ] ],
             \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok', 'gitbranch' ] ]
@@ -419,7 +421,12 @@ hi Comment cterm=italic
 " let g:space_vim_dark_background = 233
 
 " 颜色主题
-colorscheme space-vim-dark
+" colorscheme space-vim-dark
+
+" Oceanic
+let g:material_style='oceanic'
+set background=dark
+colorscheme vim-material
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
