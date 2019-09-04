@@ -19,7 +19,8 @@
 " paste模式切换 <F3>
 " <C-w> R 切换左右分屏
 " <C-w> T 切换上下分屏
-"
+" gr 在当前scope重构变量
+" gR 全局重构变量
 " <c-p> 文件搜索
 " 文件搜索状态<c-j><c-k>上下选择
 " 文件搜索状态<c-t><c-v><c-x>打开tab或分屏打开
@@ -31,6 +32,13 @@
 " :T 打开终端
 " :Goyo 打开/关闭goyo模式
 " :VT 垂直打开终端
+"
+" ------------ 以下操作依赖FZF插件
+" :FZF (:Files) 查看项目下所有文件
+" :Tags 查看项目下面所有Tag - 依赖 ctags -R . 生成tag
+" :BTags 查看Buffer下面所有Tag - 依赖 ctags -R . 生成tag
+" :Buffers 所有buffer
+" :Commits 查看所有commit
 
 " }}}
 
@@ -157,6 +165,12 @@ nnoremap <leader>d "_d
 
 " 关闭错误提示
 nnoremap <leader>a :cclose<CR>
+
+" 在scope内重构变量
+nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
+
+" 全局重构变量
+nnoremap gR gD:%s/<C-R>///gc<left><left><left>
 
 " }}}
 
