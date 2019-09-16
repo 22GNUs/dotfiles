@@ -1,4 +1,9 @@
-" ===> 快捷键 {{{
+" ===> Requirement {{{
+" 包管理器依赖: fzf, fd, ag 插件
+" pip依赖: neoplete
+" }}}
+
+"===> 快捷键 {{{
 
 " H L 跳至行首行尾
 " J K 替代<c-d> <c-u> 上下翻页
@@ -19,6 +24,9 @@
 " paste模式切换 <F3>
 " <C-w> R 切换左右分屏
 " <C-w> T 切换上下分屏
+" gd 跳转到定义处
+" ctrl-o 从gd调回来
+" ctrl-i 从ctrl-o再跳回去
 " gr 在当前scope重构变量
 " gR 全局重构变量
 " <c-p> 文件搜索
@@ -32,6 +40,7 @@
 " :T 打开终端
 " :Goyo 打开/关闭goyo模式
 " :VT 垂直打开终端
+" :Ack pattern dir 在目录下搜索关键字
 "
 " ------------ 以下操作依赖FZF插件
 " :FZF (:Files) 查看项目下所有文件
@@ -133,6 +142,22 @@ set smartindent
 " 显示时将过长的行换行
 set wrap "Wrap lines
 
+" }}}
+
+" ===> 缩进配置 {{{
+" 两个空格组
+autocmd Filetype html setlocal ts=2 sw=2 expandtab
+autocmd Filetype vue setlocal ts=2 sw=2 expandtab
+autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
+autocmd Filetype scala setlocal ts=2 sw=2 expandtab
+autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
+autocmd Filetype python setlocal ts=2 sw=2 expandtab
+autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
+autocmd Filetype coffeescript setlocal ts=2 sw=2 expandtab
+"
+" 四个空格组
+autocmd Filetype jade setlocal ts=4 sw=4 sts=0 expandtab"
+autocmd Filetype lua setlocal ts=4 sw=4 sts=0 expandtab"
 " }}}
 
 " ===> Normal模式快捷键 {{{
@@ -267,8 +292,11 @@ Plug 'fishbullet/deoplete-ruby'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
-" scala插件
-Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' }
+" js插件
+Plug 'pangloss/vim-javascript'
+
+" vue插件
+Plug 'posva/vim-vue'
 
 Plug 'derekwyatt/vim-scala'
 
@@ -293,6 +321,9 @@ Plug 'junegunn/goyo.vim'
 
 Plug 'hzchirs/vim-material'
 
+" 搜索插件
+Plug 'mileszs/ack.vim'
+
 call plug#end()
 
 " }}}
@@ -315,13 +346,6 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 " 窗口中只剩下nerdtree时自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" =====================
-
-" ==== scala 设置 =====
-" scala typeCheck
-autocmd BufWritePost *.scala silent :EnTypeCheck
-
-nnoremap <localleader>t :EnType<CR>
 " =====================
 
 " ==== FZF 模糊搜索插件配置
@@ -427,7 +451,17 @@ endif
 
 " ===================
 
+" ==== js插件设置
+" 打开jsdoc高亮
+let g:javascript_plugin_jsdoc = 1
+" 高亮js中的html和css
+let javascript_enable_domhtmlcss = 1
+" ===================
 
+" ==== ack插件配置
+" 配置ack插件使用ag
+let g:ackprg = 'ag --nogroup --nocolor --column'
+" ===================
 " }}}
 
 " ===> Color Schemes 设置 {{{
