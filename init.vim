@@ -1,6 +1,14 @@
-" ===> Requirement {{{
-" 包管理器依赖: fzf, fd, ag 插件
+" ===> Requirements {{{
+" 包管理器依赖:
+" fzf 模糊搜索
+" fd 忽略不需要的搜索结果
+" the_silver_searcher(ag)
+" ctags, ctags-exuberant
+"
 " pip依赖: neoplete
+" npm依赖: vue-formater
+"
+" scala: ensime [http://ensime.github.io/]
 " }}}
 
 "===> 快捷键 {{{
@@ -32,6 +40,8 @@
 " <c-p> 文件搜索
 " 文件搜索状态<c-j><c-k>上下选择
 " 文件搜索状态<c-t><c-v><c-x>打开tab或分屏打开
+" <C-k>, emmet补全
+" F12 生成ctags
 
 " }}}
 
@@ -150,7 +160,6 @@ autocmd Filetype html setlocal ts=2 sw=2 expandtab
 autocmd Filetype vue setlocal ts=2 sw=2 expandtab
 autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
 autocmd Filetype scala setlocal ts=2 sw=2 expandtab
-autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
 autocmd Filetype python setlocal ts=2 sw=2 expandtab
 autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
 autocmd Filetype coffeescript setlocal ts=2 sw=2 expandtab
@@ -196,6 +205,14 @@ nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
 
 " 全局重构变量
 nnoremap gR gD:%s/<C-R>///gc<left><left><left>
+
+" vue格式化
+autocmd FileType vue noremap <buffer> <leader>f :%!vue-formatter<CR>
+
+" 格式化代码, 依赖autoformat插件
+noremap <leader>f :Autoformat<CR>
+
+noremap <F12> :!ctags -R -f ./.git/tags .<CR>
 
 " }}}
 
@@ -300,6 +317,9 @@ Plug 'posva/vim-vue'
 
 Plug 'derekwyatt/vim-scala'
 
+" scala补全插件
+Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' }
+
 " lua 高亮插件
 Plug 'tbastos/vim-lua'
 
@@ -323,6 +343,12 @@ Plug 'hzchirs/vim-material'
 
 " 搜索插件
 Plug 'mileszs/ack.vim'
+
+" 代码格式化
+Plug 'Chiel92/vim-autoformat'
+
+" emmet html插件
+Plug 'mattn/emmet-vim'
 
 call plug#end()
 
@@ -404,7 +430,8 @@ let g:lightline = {
             \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok', 'gitbranch' ] ]
             \ },
             \ 'component_function': {
-            \   'gitbranch': 'fugitive#head'
+            \   'gitbranch': 'fugitive#head',
+            \   'filename': 'LightLineFilename'
             \ },
             \ 'component_expand': {
             \  'linter_checking': 'lightline#ale#checking',
@@ -420,6 +447,11 @@ let g:lightline = {
             \ }
             \ }
 
+" 文件名显示相对路径
+function! LightLineFilename()
+  return expand('%')
+endfunction
+
 " 字体配置
 let g:lightline#ale#indicator_checking = "\uf110"
 let g:lightline#ale#indicator_warnings = "\uf071"
@@ -432,6 +464,13 @@ let g:lightline#ale#indicator_ok = "\uf00c"
 
 " 开启补全支持
 let g:deoplete#enable_at_startup = 1
+
+" 针对scala配置
+" 参考: https://medium.com/@alandevlin7/neovim-scala-f392bcd8b7de<Paste>
+let g:deoplete#sources={} 
+let g:deoplete#sources._=['buffer', 'member', 'tag', 'file', 'omni', 'neosnippet'] 
+let g:deoplete#omni#input_patterns={} 
+let g:deoplete#omni#input_patterns.scala='[^. *\t]\.\w*'
 
 " 自动关闭补全窗口
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
@@ -462,7 +501,23 @@ let javascript_enable_domhtmlcss = 1
 " 配置ack插件使用ag
 let g:ackprg = 'ag --nogroup --nocolor --column'
 " ===================
+
+" ==== AutoFormat 设置
+" 去掉tab, 尾空格等等
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+let g:autoformat_remove_trailing_spaces = 0
+" ===================
 " }}}
+
+" ==== emmet 设置
+" 只在html, css, vue文件打开emmet
+let g:user_emmet_install_global = 0
+autocmd FileType html,css,vue EmmetInstall
+
+" 设置补快捷键为c-k
+let g:user_emmet_leader_key='<C-k>'
+" ===================
 
 " ===> Color Schemes 设置 {{{
 
