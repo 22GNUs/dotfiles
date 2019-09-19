@@ -468,10 +468,10 @@ let g:deoplete#enable_at_startup = 1
 
 " 针对scala配置
 " 参考: https://medium.com/@alandevlin7/neovim-scala-f392bcd8b7de<Paste>
-" let g:deoplete#sources={} 
-" let g:deoplete#sources._=['buffer', 'member', 'tag', 'file', 'omni', 'ultisnips'] 
-" let g:deoplete#omni#input_patterns={} 
-" let g:deoplete#omni#input_patterns.scala='[^. *\t]\.\w*'
+let g:deoplete#sources={} 
+let g:deoplete#sources._=['buffer', 'member', 'tag', 'file', 'omni', 'ultisnips'] 
+let g:deoplete#omni#input_patterns={} 
+let g:deoplete#omni#input_patterns.scala='[^. *\t]\.\w*'
 
 " 自动关闭补全窗口
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
