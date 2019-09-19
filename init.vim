@@ -381,6 +381,7 @@ nnoremap <silent> <C-p> :Files<CR>
 
 " 默认的打开快捷键
 let g:fzf_action = {
+            \ 'ctrl-o': 'edit',
             \ 'ctrl-t': 'tab split',
             \ 'ctrl-x': 'split',
             \ 'ctrl-v': 'vsplit' }
