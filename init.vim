@@ -282,7 +282,7 @@ map <leader>ss :setlocal spell!<cr>
 
 " ===> 插件 {{{
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.local/share/nvim/plugged')
 
 " spacevim 颜色主题
 Plug 'liuchengxu/space-vim-dark'
@@ -468,10 +468,10 @@ let g:deoplete#enable_at_startup = 1
 
 " 针对scala配置
 " 参考: https://medium.com/@alandevlin7/neovim-scala-f392bcd8b7de<Paste>
-let g:deoplete#sources={} 
-let g:deoplete#sources._=['buffer', 'member', 'tag', 'file', 'omni', 'neosnippet'] 
-let g:deoplete#omni#input_patterns={} 
-let g:deoplete#omni#input_patterns.scala='[^. *\t]\.\w*'
+" let g:deoplete#sources={} 
+" let g:deoplete#sources._=['buffer', 'member', 'tag', 'file', 'omni', 'ultisnips'] 
+" let g:deoplete#omni#input_patterns={} 
+" let g:deoplete#omni#input_patterns.scala='[^. *\t]\.\w*'
 
 " 自动关闭补全窗口
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
@@ -509,16 +509,19 @@ let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
 " ===================
-" }}}
 
 " ==== emmet 设置
 " 只在html, css, vue文件打开emmet
 let g:user_emmet_install_global = 0
 autocmd FileType html,css,vue EmmetInstall
-
 " 设置补快捷键为c-k
 let g:user_emmet_leader_key='<C-k>'
 " ===================
+
+" ==== ensime配置
+let ensime_server_v2=1
+" ===================
+" }}}
 
 " ===> Color Schemes 设置 {{{
 
