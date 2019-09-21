@@ -60,6 +60,9 @@ eval $(thefuck --alias)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# set FZF to use fd as per the example in the readme
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+
 # 先从aur安装powerline, powerline-fonts
 powerline-daemon -q
 . /usr/lib/python3.7/site-packages/powerline/bindings/zsh/powerline.zsh
