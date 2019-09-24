@@ -299,9 +299,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " lightline
 Plug 'itchyny/lightline.vim'
 
-" lightline-ale
-Plug 'maximbaz/lightline-ale'
-
 " spacevim 样式状态栏
 " Plug 'liuchengxu/eleline.vim'
 
@@ -326,9 +323,6 @@ Plug 'junegunn/fzf.vim'
 " git插件
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-
-" lint
-Plug 'w0rp/ale'
 
 " autopair
 Plug 'jiangmiao/auto-pairs'
@@ -550,18 +544,6 @@ let g:lightline = {
             \ 'component_function': {
             \   'gitbranch': 'fugitive#head',
             \   'filename': 'LightLineFilename'
-            \ },
-            \ 'component_expand': {
-            \  'linter_checking': 'lightline#ale#checking',
-            \  'linter_warnings': 'lightline#ale#warnings',
-            \  'linter_errors': 'lightline#ale#errors',
-            \  'linter_ok': 'lightline#ale#ok',
-            \ },
-            \ 'component_type': {
-            \     'linter_checking': 'left',
-            \     'linter_warnings': 'warning',
-            \     'linter_errors': 'error',
-            \     'linter_ok': 'left',
             \ }
             \ }
 
@@ -569,12 +551,6 @@ let g:lightline = {
 function! LightLineFilename()
   return expand('%')
 endfunction
-
-" 字体配置
-let g:lightline#ale#indicator_checking = "\uf110"
-let g:lightline#ale#indicator_warnings = "\uf071"
-let g:lightline#ale#indicator_errors = "\uf05e"
-let g:lightline#ale#indicator_ok = "\uf00c"
 
 " ==== js插件设置
 " 打开jsdoc高亮
