@@ -2,6 +2,9 @@
 " 包管理器依赖:
 " fzf 模糊搜索
 " fd 忽略不需要的搜索结果
+" 在.zshrc加入: 
+" export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+"
 " the_silver_searcher(ag)
 " ctags, ctags-exuberant
 "
@@ -9,6 +12,7 @@
 " npm依赖: vue-formater
 "
 " scala: ensime [http://ensime.github.io/]
+" scalafmt 格式化插件
 " }}}
 
 "===> 快捷键 {{{
@@ -508,6 +512,9 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
+" 设置scalafmt格式化scala代码
+let g:formatdef_scalafmt = '"scalafmt --stdin 2>/dev/null"'
+let g:formatters_scala = ['scalafmt']
 " ===================
 
 " ==== emmet 设置
