@@ -1,4 +1,8 @@
 " ===> Requirements {{{
+" coc插件:
+" :CocInstall coc-ultisnips
+" :CocInstall coc-neosnippet
+"
 " 包管理器依赖:
 " fzf 模糊搜索
 " fd 忽略不需要的搜索结果
@@ -11,7 +15,6 @@
 " pip依赖: neoplete
 " npm依赖: vue-formater
 "
-" scala: ensime [http://ensime.github.io/]
 " scalafmt 格式化插件
 " }}}
 
@@ -25,7 +28,6 @@
 " <leader>" 双引号包裹当前单词
 " <leader>' 单引号包裹当前单词
 " jj 映射 <esc>
-" <C-k> snippets 补全
 " <esc><esc> 清除搜索高亮
 " <leader>te 快速打开当前目录下的文件
 " <leader>cd 快速切换到当前路径
@@ -291,6 +293,9 @@ call plug#begin('~/.local/share/nvim/plugged')
 " spacevim 颜色主题
 Plug 'liuchengxu/space-vim-dark'
 
+" coc补全插件
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 " lightline
 Plug 'itchyny/lightline.vim'
 
@@ -303,16 +308,6 @@ Plug 'maximbaz/lightline-ale'
 " nerdtree 插件
 Plug 'scrooloose/nerdtree'
 
-" deoplete 自动补全
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-" deoplete for ruby
-Plug 'fishbullet/deoplete-ruby'
-
-" neosnippet 片段补全
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
-
 " js插件
 Plug 'pangloss/vim-javascript'
 
@@ -320,9 +315,6 @@ Plug 'pangloss/vim-javascript'
 Plug 'posva/vim-vue'
 
 Plug 'derekwyatt/vim-scala'
-
-" scala补全插件
-Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' }
 
 " lua 高亮插件
 Plug 'tbastos/vim-lua'
@@ -361,6 +353,127 @@ call plug#end()
 " ===> 插件设置 {{{
 
 " ====================
+" ==== coc 插件设置
+" 推荐配置: 
+set hidden
+set nobackup
+set nowritebackup
+set cmdheight=2
+set updatetime=300
+set shortmess+=c
+set signcolumn=yes
+
+" tab切换补全
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" <c-space> 触发补全
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" <cr> (在vim中就是Enter) 确认补全
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" 这个有点屌
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" K 显示文档
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" rn 重命名
+nmap <leader>rn <Plug>(coc-rename)
+
+" 代码格式化, 目前用Autoformat 暂时注释
+" xmap <leader>f  <Plug>(coc-format-selected)
+" nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Create mappings for function text object, requires document symbols feature of languageserver.
+
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" C-d 快捷键重复, 暂时注释
+" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+" nmap <silent> <C-d> <Plug>(coc-range-select)
+" xmap <silent> <C-d> <Plug>(coc-range-select)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+" =================
+
 " ==== nerdtree 插件设置
 
 " 设置宽度
@@ -463,44 +576,12 @@ let g:lightline#ale#indicator_warnings = "\uf071"
 let g:lightline#ale#indicator_errors = "\uf05e"
 let g:lightline#ale#indicator_ok = "\uf00c"
 
-" =====================
-
-" ==== deoplete 插件设置
-
-" 开启补全支持
-let g:deoplete#enable_at_startup = 1
-
-" 针对scala配置
-" 参考: https://medium.com/@alandevlin7/neovim-scala-f392bcd8b7de<Paste>
-let g:deoplete#sources={} 
-let g:deoplete#sources._=['buffer', 'member', 'tag', 'file', 'omni', 'ultisnips'] 
-let g:deoplete#omni#input_patterns={} 
-let g:deoplete#omni#input_patterns.scala='[^. *\t]\.\w*'
-
-" 自动关闭补全窗口
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
-" neosnippet配置
-" 设置快捷键
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-            \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-if has('conceal')
-    set conceallevel=2 concealcursor=niv
-endif
-
-" ===================
-
 " ==== js插件设置
 " 打开jsdoc高亮
 let g:javascript_plugin_jsdoc = 1
 " 高亮js中的html和css
 let javascript_enable_domhtmlcss = 1
-" ===================
+" ==================
 
 " ==== ack插件配置
 " 配置ack插件使用ag
@@ -525,9 +606,6 @@ autocmd FileType html,css,vue EmmetInstall
 let g:user_emmet_leader_key='<C-k>'
 " ===================
 
-" ==== ensime配置
-let ensime_server_v2=1
-" ===================
 " }}}
 
 " ===> Color Schemes 设置 {{{
