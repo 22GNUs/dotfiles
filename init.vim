@@ -40,8 +40,8 @@
 " gd 跳转到定义处
 " ctrl-o 从gd调回来
 " ctrl-i 从ctrl-o再跳回去
-" gr 在当前scope重构变量
-" gR 全局重构变量
+" gn 在当前scope重构变量
+" gN 全局重构变量
 " <c-p> 文件搜索
 " 文件搜索状态<c-j><c-k>上下选择
 " 文件搜索状态<c-t><c-v><c-x>打开tab或分屏打开
@@ -212,10 +212,10 @@ nnoremap <leader>d "_d
 nnoremap <leader>a :cclose<CR>
 
 " 在scope内重构变量
-nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
+nnoremap gn gd[{V%::s/<C-R>///gc<left><left><left>
 
 " 全局重构变量
-nnoremap gR gD:%s/<C-R>///gc<left><left><left>
+nnoremap gN gD:%s/<C-R>///gc<left><left><left>
 
 noremap <F12> :!ctags -R -f ./.git/tags .<CR>
 
