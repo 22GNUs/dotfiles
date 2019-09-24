@@ -1,7 +1,9 @@
 " ===> Requirements {{{
 " coc插件:
-" :CocInstall coc-ultisnips
-" :CocInstall coc-neosnippet
+" :CocInstall coc-ultisnips // 代码片段
+" :CocInstall coc-neosnippet // 代码片段
+" :CocInstall coc-json // json语法
+" :CocInstall coc-tsserver // js, ts
 "
 " 包管理器依赖:
 " fzf 模糊搜索
@@ -158,7 +160,7 @@ set wrap "Wrap lines
 
 " }}}
 
-" ===> 缩进配置 {{{
+" ===> 语言配置 {{{
 " 两个空格组
 autocmd Filetype html setlocal ts=2 sw=2 expandtab
 autocmd Filetype vue setlocal ts=2 sw=2 expandtab
@@ -171,6 +173,11 @@ autocmd Filetype coffeescript setlocal ts=2 sw=2 expandtab
 " 四个空格组
 autocmd Filetype jade setlocal ts=4 sw=4 sts=0 expandtab"
 autocmd Filetype lua setlocal ts=4 sw=4 sts=0 expandtab"
+
+" 设置sbt使用scala的高亮
+autocmd BufRead,BufNewFile *.sbt set filetype=scala
+" 高亮json的注释
+autocmd FileType json syntax match Comment +\/\/.\+$+
 " }}}
 
 " ===> Normal模式快捷键 {{{
@@ -560,7 +567,6 @@ autocmd FileType html,css,vue EmmetInstall
 " 设置补快捷键为c-k
 let g:user_emmet_leader_key='<C-k>'
 " ===================
-
 " }}}
 
 " ===> Color Schemes 设置 {{{
