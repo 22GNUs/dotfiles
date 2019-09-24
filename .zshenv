@@ -1,9 +1,5 @@
-# custom
-alias phttpserver='python3 -m http.server';
-
-export npm_config_prefix=~/.node_modules
-
 # PATH ========
+export npm_config_prefix=~/.node_modules
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home
 export ANDROID_HOME="/Users/wangxinhua/Library/Android/sdk"
 export ANDROID_SDK_ROOT="/Users/wangxinhua/Library/Android/sdk"
@@ -13,15 +9,7 @@ export PATH=$ANDROID_HOME/tools:$PATH
 export PATH=$ANDROID_HOME/platform-tools:$PATH
 export PATH=$ANDROID_HOME/build-tools/23.0.1:$PATH
 
-export GOPATH=$(go env GOPATH)
-export PATH=$PATH:$(go env GOPATH)/bin:$JAVA_HOME/bin:$HOME/.node_modules/bin
-# PATH ========
-
-# translate english to chinese
-# need tranlate-shell installed
-# See https://github.com/soimort/translate-shell
-alias transen='trans en:zh'
-alias scalafmt='ng scalafmt'
+export PATH=$PATH:$JAVA_HOME/bin:$HOME/.node_modules/bin
 
 # load sdk man
 export SDKMAN_DIR="/Users/wangxinhua/.sdkman"
@@ -31,7 +19,16 @@ export SDKMAN_DIR="/Users/wangxinhua/.sdkman"
 # 需要安装fd
 # 可以在项目中指定.fdignore文件来忽略, 格式类似.gitignore
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+# PATH ========
 
+# alias =======
+alias phttpserver='python3 -m http.server';
+# translate english to chinese
+# need tranlate-shell installed
+# See https://github.com/soimort/translate-shell
+alias transen='trans en:zh'
+alias scalafmt='ng scalafmt'
 # eval $(thefuck --alias)
+# =============
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

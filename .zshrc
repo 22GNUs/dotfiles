@@ -4,7 +4,6 @@
 DEFAULT_USER=$USER
 
 source ~/antigen.zsh
-source ~/.bash_profile
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
