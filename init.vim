@@ -12,10 +12,6 @@
 " the_silver_searcher(ag)
 " ctags, ctags-exuberant
 "
-" pip依赖: neoplete
-" npm依赖: vue-formater
-"
-" scalafmt 格式化插件
 " }}}
 
 "===> 快捷键 {{{
@@ -24,6 +20,7 @@
 " J K 替代<c-d> <c-u> 上下翻页
 " <leader>e 编辑vimrc
 " <leader>s 保存vimrc
+" <leader>f 格式化选中单位 - (依赖lsp server)
 " <C-\><C-n> 终端模式切换
 " <leader>" 双引号包裹当前单词
 " <leader>' 单引号包裹当前单词
@@ -64,6 +61,7 @@
 " :BTags 查看Buffer下面所有Tag - 依赖 ctags -R . 生成tag
 " :Buffers 所有buffer
 " :Commits 查看所有commit
+" :Format 全局格式化
 
 " }}}
 
@@ -212,12 +210,6 @@ nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
 " 全局重构变量
 nnoremap gR gD:%s/<C-R>///gc<left><left><left>
 
-" vue格式化
-autocmd FileType vue noremap <buffer> <leader>f :%!vue-formatter<CR>
-
-" 格式化代码, 依赖autoformat插件
-noremap <leader>f :Autoformat<CR>
-
 noremap <F12> :!ctags -R -f ./.git/tags .<CR>
 
 " }}}
@@ -334,9 +326,6 @@ Plug 'hzchirs/vim-material'
 " 搜索插件
 Plug 'mileszs/ack.vim'
 
-" 代码格式化
-Plug 'Chiel92/vim-autoformat'
-
 " emmet html插件
 Plug 'mattn/emmet-vim'
 
@@ -404,9 +393,9 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " rn 重命名
 nmap <leader>rn <Plug>(coc-rename)
 
-" 代码格式化, 目前用Autoformat 暂时注释
-" xmap <leader>f  <Plug>(coc-format-selected)
-" nmap <leader>f  <Plug>(coc-format-selected)
+" 代码格式化
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -562,16 +551,6 @@ let javascript_enable_domhtmlcss = 1
 " ==== ack插件配置
 " 配置ack插件使用ag
 let g:ackprg = 'ag --nogroup --nocolor --column'
-" ===================
-
-" ==== AutoFormat 设置
-" 去掉tab, 尾空格等等
-let g:autoformat_autoindent = 0
-let g:autoformat_retab = 0
-let g:autoformat_remove_trailing_spaces = 0
-" 设置scalafmt格式化scala代码
-let g:formatdef_scalafmt = '"scalafmt --stdin 2>/dev/null"'
-let g:formatters_scala = ['scalafmt']
 " ===================
 
 " ==== emmet 设置
