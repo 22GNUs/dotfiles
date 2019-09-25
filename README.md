@@ -22,4 +22,11 @@ coursier
 
 确保 `metals-vim` 可执行
 
-手动执行 `sbt bloopInstall` 安装, 自动安装不显示进度条
+进入VIM后可以手动执行 `:call CocRequestAsync('metals', 'workspace/executeCommand', { 'command': 'build-import' })`
+执行 `build`
+
+检查安装是否正确:
+
+```sh
+:call CocRequestAsync('metals', 'workspace/executeCommand', { 'command': 'doctor-run' })
+```

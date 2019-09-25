@@ -1,7 +1,6 @@
 " ===> Requirements {{{
 " coc插件:
-" :CocInstall coc-ultisnips // 代码片段
-" :CocInstall coc-neosnippet // 代码片段
+" :CocInstall coc-snippets
 " :CocInstall coc-json // json语法
 " :CocInstall coc-tsserver // js, ts
 "
@@ -20,6 +19,7 @@
 
 " H L 跳至行首行尾
 " J K 替代<c-d> <c-u> 上下翻页
+" <leader>B 编译metals
 " <leader>e 编辑vimrc
 " <leader>s 保存vimrc
 " <leader>f 格式化选中单位 - (依赖lsp server)
@@ -295,6 +295,9 @@ Plug 'liuchengxu/space-vim-dark'
 " coc补全插件
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" 代码片段
+Plug 'honza/vim-snippets'
+
 " lightline
 Plug 'itchyny/lightline.vim'
 
@@ -353,6 +356,10 @@ set updatetime=300
 set shortmess+=c
 set signcolumn=yes
 
+" 绑定metals快捷键
+" build-import
+nnoremap <leader>B :call CocRequestAsync('metals', 'workspace/executeCommand', { 'command': 'build-import' })<CR>
+
 " tab切换补全
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -365,8 +372,8 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" <c-space> 触发补全
-inoremap <silent><expr> <c-space> coc#refresh()
+" <c-\> 触发补全
+inoremap <silent><expr> <c-\> coc#refresh()
 
 " <cr> (在vim中就是Enter) 确认补全
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
