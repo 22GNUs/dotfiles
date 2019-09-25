@@ -4,7 +4,7 @@
 NVIM
 ----
 
-其他配置都是常规配置, 需要支持scala的话需要执行以下操作 (防止自己忘记了 😹):
+### Scala
 
 [coursier](https://github.com/coursier/coursier) 用包管理器安装
 
@@ -30,3 +30,13 @@ coursier
 ```sh
 :call CocRequestAsync('metals', 'workspace/executeCommand', { 'command': 'doctor-run' })
 ```
+
+### Lua
+
+使用 [luaRocks](https://luarocks.org/) 安装 lua 的lsp-server
+
+```sh
+luarocks install --server=http://luarocks.org/dev lua-lsp
+```
+
+在Vim内执行 `:CocInstall coc-lua` 安装客户端
