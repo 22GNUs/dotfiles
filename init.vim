@@ -239,6 +239,7 @@ vnoremap <leader>p "_dP
 " 打开终端
 command! -nargs=* T split | resize 10 | terminal <args>
 command! -nargs=* VT vsplit | terminal <args>
+command! -nargs=* Te tabedit | terminal <args>
 "}}}
 
 " ===> 其他设置 {{{
