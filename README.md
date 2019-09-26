@@ -32,7 +32,14 @@ NVIM
 }
 ```
 
-#### Scala
+### Scala
+
+**WorkSheet**
+
+* :WorksheetStart 打开worksheet
+* :WorksheetEval 执行脚本
+* :WorksheetClean 清理worksheet
+* :WorksheetEnd close 关闭
 
 [coursier](https://github.com/coursier/coursier) 用包管理器安装
 
@@ -59,7 +66,7 @@ coursier
 :call CocRequestAsync('metals', 'workspace/executeCommand', { 'command': 'doctor-run' })
 ```
 
-#### Lua
+### Lua
 
 使用 [luaRocks](https://luarocks.org/) 安装 lua 的lsp-server
 
