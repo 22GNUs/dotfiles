@@ -71,9 +71,9 @@ coursier
 使用 [luaRocks](https://luarocks.org/) 安装 lua 的lsp-server
 
 ```sh
-luarocks install --server=http://luarocks.org/dev lua-lsp
-luarocks install luacheck
-luarocks install lcf
+luarocks install --local --server=http://luarocks.org/dev lua-lsp
+luarocks install --local luacheck
+luarocks install --local lcf
 ```
 
 在Vim内执行 `:CocInstall coc-lua` 安装客户端
