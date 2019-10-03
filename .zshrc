@@ -30,7 +30,7 @@ if [ "$(uname 2> /dev/null)" = "Linux" ]; then
 else
 fi
 
-source .theme
+source ~/.theme
 antigen apply
 
 
