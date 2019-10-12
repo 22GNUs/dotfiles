@@ -289,9 +289,6 @@ map <leader>ss :setlocal spell!<cr>
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-" spacevim 颜色主题
-Plug 'liuchengxu/space-vim-dark'
-
 " coc补全插件
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -300,9 +297,6 @@ Plug 'honza/vim-snippets'
 
 " lightline
 Plug 'itchyny/lightline.vim'
-
-" spacevim 样式状态栏
-" Plug 'liuchengxu/eleline.vim'
 
 " nerdtree 插件
 Plug 'scrooloose/nerdtree'
@@ -569,12 +563,6 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " 启用斜体
 hi Comment cterm=italic
-
-" spacevim 主题深度
-" let g:space_vim_dark_background = 233
-
-" 颜色主题
-" colorscheme space-vim-dark
 
 " Oceanic
 let g:material_style='oceanic'
