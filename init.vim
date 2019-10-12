@@ -45,7 +45,6 @@
 " <c-p> 文件搜索
 " 文件搜索状态<c-j><c-k>上下选择
 " 文件搜索状态<c-t><c-v><c-x>打开tab或分屏打开
-" <C-k>, emmet补全
 " F12 生成ctags
 
 " }}}
@@ -217,7 +216,7 @@ nnoremap gn gd[{V%::s/<C-R>///gc<left><left><left>
 " 全局重构变量
 nnoremap gN gD:%s/<C-R>///gc<left><left><left>
 
-noremap <F12> :!ctags -R -f ./.git/tags .<CR>
+noremap <F12> :!ctags -R .<CR>
 
 " }}}
 
@@ -336,9 +335,6 @@ Plug 'hzchirs/vim-material'
 
 " 搜索插件
 Plug 'mileszs/ack.vim'
-
-" emmet html插件
-Plug 'mattn/emmet-vim'
 
 call plug#end()
 
@@ -566,14 +562,6 @@ let javascript_enable_domhtmlcss = 1
 " ==== ack插件配置
 " 配置ack插件使用ag
 let g:ackprg = 'ag --nogroup --nocolor --column'
-" ===================
-
-" ==== emmet 设置
-" 只在html, css, vue文件打开emmet
-let g:user_emmet_install_global = 0
-autocmd FileType html,css,vue EmmetInstall
-" 设置补快捷键为c-k
-let g:user_emmet_leader_key='<C-k>'
 " ===================
 " }}}
 
