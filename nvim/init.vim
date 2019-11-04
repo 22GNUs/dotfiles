@@ -298,6 +298,9 @@ Plug 'honza/vim-snippets'
 " lightline
 Plug 'itchyny/lightline.vim'
 
+" 图标
+Plug 'ryanoasis/vim-devicons'
+
 " nerdtree 插件
 Plug 'scrooloose/nerdtree'
 
