@@ -78,7 +78,7 @@ set laststatus=2
 se cursorline
 
 " 启用高亮
-syntax enable
+syntax on
 
 " 显示相对行号
 " set relativenumber
@@ -304,13 +304,8 @@ Plug 'scrooloose/nerdtree'
 " js插件
 Plug 'pangloss/vim-javascript'
 
-" vue插件
-Plug 'posva/vim-vue'
-
-Plug 'derekwyatt/vim-scala'
-
-" lua 高亮插件
-Plug 'tbastos/vim-lua'
+" 各种语言支持
+Plug 'sheerun/vim-polyglot'
 
 " 模糊搜索
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
