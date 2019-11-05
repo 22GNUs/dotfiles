@@ -304,11 +304,17 @@ Plug 'ryanoasis/vim-devicons'
 " nerdtree 插件
 Plug 'scrooloose/nerdtree'
 
-" js插件
+" js
 Plug 'pangloss/vim-javascript'
 
-" 各种语言支持
-Plug 'sheerun/vim-polyglot'
+" scala
+Plug 'derekwyatt/vim-scala'
+
+" lua
+Plug 'tbastos/vim-lua'
+
+" vue
+Plug 'posva/vim-vue'
 
 " 模糊搜索
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
