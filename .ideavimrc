@@ -82,3 +82,12 @@ nnoremap > gt
 nnoremap < gT
 
 " }}}
+
+" ===> 插件模拟 {{{
+" 打开vim surrond支持
+" 命令: ys, cs, ds, S
+set surround
+" 打开注释插件
+" 命令: gcc, gc + motion, vgc
+set commentary
+" }}}

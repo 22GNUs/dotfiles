@@ -3,6 +3,7 @@
 " :CocInstall coc-snippets
 " :CocInstall coc-json // json语法
 " :CocInstall coc-tsserver // js, ts
+" :CocInstall coc-java // for java
 "
 " 包管理器依赖:
 " fzf 模糊搜索
@@ -168,6 +169,7 @@ autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
 autocmd Filetype scala setlocal ts=2 sw=2 expandtab
 autocmd Filetype python setlocal ts=2 sw=2 expandtab
 autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
+autocmd Filetype java setlocal ts=2 sw=2 expandtab
 autocmd Filetype coffeescript setlocal ts=2 sw=2 expandtab
 "
 " 四个空格组
@@ -292,6 +294,12 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " coc补全插件
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" vim-surround
+Plug 'tpope/vim-surround'
+
+" commentary
+Plug 'tpope/vim-commentary'
 
 " 代码片段
 Plug 'honza/vim-snippets'
