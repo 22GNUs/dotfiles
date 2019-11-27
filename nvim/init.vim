@@ -34,6 +34,7 @@
 " <leader>cd 快速切换到当前路径
 " <leader>ss 打开/关闭 拼写检查
 " <C-n> 打开/关闭 nerdtree
+" <C-t> 打开/关闭 Vista
 " shift+a 完全展开nerdtree
 " <> tab 翻页
 " paste模式切换 <F3>
@@ -47,7 +48,6 @@
 " <c-p> 文件搜索
 " 文件搜索状态<c-j><c-k>上下选择
 " 文件搜索状态<c-t><c-v><c-x>打开tab或分屏打开
-" F12 生成ctags
 
 " }}}
 
@@ -65,6 +65,7 @@
 " :Buffers 所有buffer
 " :Commits 查看所有commit
 " :Format 全局格式化
+" :Vista 打开侧边标签栏
 
 " }}}
 
@@ -136,6 +137,9 @@ set splitbelow
 
 " w!! sudo 保存
 cmap w!! w !sudo tee > /dev/null %
+
+" 设置tags目录
+set tags=./.tags;,~/.vimtags
 
 " }}}
 
@@ -218,8 +222,6 @@ nnoremap gn gd[{V%::s/<C-R>///gc<left><left><left>
 
 " 全局重构变量
 nnoremap gN gD:%s/<C-R>///gc<left><left><left>
-
-noremap <F12> :!ctags -R .<CR>
 
 " }}}
 
@@ -304,6 +306,9 @@ Plug 'tpope/vim-commentary'
 " 代码片段
 Plug 'honza/vim-snippets'
 
+" 自动生成tag
+Plug 'ludovicchabant/vim-gutentags'
+
 " lightline
 Plug 'itchyny/lightline.vim'
 
@@ -328,6 +333,9 @@ Plug 'posva/vim-vue'
 " 模糊搜索
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+
+" tagbar
+Plug 'liuchengxu/vista.vim'
 
 " git插件
 Plug 'tpope/vim-fugitive'
@@ -480,8 +488,11 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " 设置宽度
 let g:NERDTreeWinSize = 20
 
-" <c-n> 开启/关闭nerdtree
+" <c-n> 开启/关闭 nerdtree
 map <C-n> :NERDTreeToggle<CR>
+
+" <c-t> 开启/关闭 Vista
+map <C-t> :Vista!!<CR>
 
 " 若打开的是目录则自动打开nerdtree
 autocmd StdinReadPre * let s:std_in=1
@@ -493,7 +504,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " =====================
 
 " ==== FZF 模糊搜索插件配置
-" 
 
 " 默认的打开快捷键
 let g:fzf_action = {
@@ -588,12 +598,13 @@ inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 let g:lightline = {
             \ 'colorscheme': 'material',
             \ 'active': {
-            \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified' ] ],
+            \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified', 'method' ] ],
             \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok', 'gitbranch' ] ]
             \ },
             \ 'component_function': {
             \   'gitbranch': 'fugitive#head',
-            \   'filename': 'LightLineFilename'
+            \   'filename': 'LightLineFilename',
+            \   'method': 'NearestMethodOrFunction'
             \ }
             \ }
 
@@ -613,6 +624,37 @@ let javascript_enable_domhtmlcss = 1
 " 配置ack插件使用ag
 let g:ackprg = 'ag --nogroup --nocolor --column'
 " ===================
+"
+" ==== gutentags 配置
+
+" gutentags搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归 "
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.project']
+
+" 所生成的数据文件的名称 "
+let g:gutentags_ctags_tagfile = '.tags'
+
+" 配置 ctags 的参数 "
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+pxI']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+" ===================
+"
+" ==== vista 配置
+" ===================
+
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+
+let g:vista_default_executive = 'coc'
+" fzf_preview
+let g:vista_fzf_preview = ['right:50%']
+" 启用icon
+let g:vista#renderer#enable_icon = 1
+
+" 默认icon
+let g:vista#renderer#icons = {
+\   "function": "\uf794",
+\   "variable": "\uf71b",
+\  }
 " }}}
 
 " ===> Color Schemes 设置 {{{
