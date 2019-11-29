@@ -135,6 +135,9 @@ set clipboard=unnamedplus
 " 分割时将窗口分割到下方
 set splitbelow
 
+" gitdiff 时横向分割
+set diffopt+=vertical
+
 " w!! sudo 保存
 cmap w!! w !sudo tee > /dev/null %
 
@@ -629,6 +632,9 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " gutentags搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归 "
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.project']
+
+" 忽略文件类型列表
+let g:gutentags_exclude_filetypes = ['gitcommit', 'gitconfig', 'gitrebase', 'gitsendemail', 'git']
 
 " 所生成的数据文件的名称 "
 let g:gutentags_ctags_tagfile = '.tags'
