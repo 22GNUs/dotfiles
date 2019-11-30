@@ -312,8 +312,8 @@ Plug 'honza/vim-snippets'
 " 自动生成tag
 Plug 'ludovicchabant/vim-gutentags'
 
-" lightline
-Plug 'itchyny/lightline.vim'
+" eleline
+Plug 'liuchengxu/eleline.vim'
 
 " 图标
 Plug 'ryanoasis/vim-devicons'
@@ -350,6 +350,8 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/goyo.vim'
 
 Plug 'hzchirs/vim-material'
+
+Plug 'liuchengxu/space-vim-dark'
 
 " 搜索插件
 Plug 'mileszs/ack.vim'
@@ -594,34 +596,7 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
-" =====================
-
-" ==== vim lightline 配置
-
-let g:lightline = {
-            \ 'colorscheme': 'material',
-            \ 'active': {
-            \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified', 'method' ] ],
-            \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok', 'gitbranch' ] ]
-            \ },
-            \ 'component_function': {
-            \   'gitbranch': 'fugitive#head',
-            \   'filename': 'LightLineFilename',
-            \   'method': 'NearestMethodOrFunction'
-            \ }
-            \ }
-
-" 文件名显示相对路径
-function! LightLineFilename()
-  return expand('%')
-endfunction
-
-" ==== js插件设置
-" 打开jsdoc高亮
-let g:javascript_plugin_jsdoc = 1
-" 高亮js中的html和css
-let javascript_enable_domhtmlcss = 1
-" ==================
+" ===================
 
 " ==== ack插件配置
 " 配置ack插件使用ag
@@ -665,13 +640,12 @@ let g:vista#renderer#icons = {
 
 " ===> Color Schemes 设置 {{{
 
+" Oceanic
+set background=dark
+colorscheme space-vim-dark
+
 " 启用斜体
 hi Comment cterm=italic
-
-" Oceanic
-let g:material_style='oceanic'
-set background=dark
-colorscheme vim-material
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
