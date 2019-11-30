@@ -309,9 +309,6 @@ Plug 'tpope/vim-commentary'
 " 代码片段
 Plug 'honza/vim-snippets'
 
-" 自动生成tag
-Plug 'ludovicchabant/vim-gutentags'
-
 " eleline
 Plug 'liuchengxu/eleline.vim'
 
@@ -602,24 +599,7 @@ inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 " 配置ack插件使用ag
 let g:ackprg = 'ag --nogroup --nocolor --column'
 " ===================
-"
-" ==== gutentags 配置
 
-" gutentags搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归 "
-let g:gutentags_project_root = ['.root', '.svn', '.git', '.project']
-
-" 忽略文件类型列表
-let g:gutentags_exclude_filetypes = ['gitcommit', 'gitconfig', 'gitrebase', 'gitsendemail', 'git']
-
-" 所生成的数据文件的名称 "
-let g:gutentags_ctags_tagfile = '.tags'
-
-" 配置 ctags 的参数 "
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-let g:gutentags_ctags_extra_args += ['--c++-kinds=+pxI']
-let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-" ===================
-"
 " ==== vista 配置
 " ===================
 
