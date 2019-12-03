@@ -19,5 +19,7 @@
     },
     "java.jdt.ls.vmargs": "-javaagent:/usr/local/share/lombok/lombok.jar -Xbootclasspath/a:/usr/local/share/lombok/lombok.jar",
     "java.codeGeneration.generateComments": true,
+    "typescript.suggestionActions.enabled": false,
+    "javascript.suggestionActions.enabled": false,
     "python.jediEnabled": false
 }
