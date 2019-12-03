@@ -1,4 +1,5 @@
 -server
+-ea
 -Xms768m
 -Xmx2048m
 -XX:ReservedCodeCacheSize=128m
@@ -15,3 +16,6 @@
 -Dsun.java2d.renderer=sun.java2d.marlin.MarlinRenderingEngine
 -XX:MaxMetaspaceSize=512m
 -Xverify:none
+
+-XX:ErrorFile=$USER_HOME/java_error_in_idea_%p.log
+-XX:HeapDumpPath=$USER_HOME/java_error_in_idea.hprof
