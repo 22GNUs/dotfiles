@@ -2,7 +2,7 @@
 -ea
 -Xms768m
 -Xmx2048m
--XX:ReservedCodeCacheSize=128m
+-XX:ReservedCodeCacheSize=256m
 -XX:+UseG1GC
 -XX:SurvivorRatio=8
 -XX:NewRatio=2
