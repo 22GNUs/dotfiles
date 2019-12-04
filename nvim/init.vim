@@ -82,6 +82,11 @@ let mapleader=','
 " 显示状态栏
 set laststatus=2
 
+" 默认折叠
+set foldmethod=syntax
+set foldnestmax=10
+set foldlevel=0
+
 " 高亮选中行
 se cursorline
 
