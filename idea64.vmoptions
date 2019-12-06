@@ -14,8 +14,10 @@
 -XX:-OmitStackTraceInFastThrow
 -Dawt.useSystemAAFontSettings=on
 -Dsun.java2d.renderer=sun.java2d.marlin.MarlinRenderingEngine
--XX:MaxMetaspaceSize=512m
+-XX:MetaspaceSize=768m
+-XX:MaxMetaspaceSize=768m
 -Xverify:none
 
--XX:ErrorFile=$USER_HOME/java_error_in_idea_%p.log
--XX:HeapDumpPath=$USER_HOME/java_error_in_idea.hprof
+-verbose:gc
+-XX:+PrintGCDateStamps
+-Xloggc:$USER_HOME/java_gclog_in_idea_%p.log
