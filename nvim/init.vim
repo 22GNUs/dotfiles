@@ -628,6 +628,12 @@ let g:vista#renderer#icons = {
 \  }
 " }}}
 
+" ==================
+
+" ==== eleline 配置
+let g:eleline_powerline_fonts = 1
+" ==================
+
 " ===> Color Schemes 设置 {{{
 
 " Oceanic
