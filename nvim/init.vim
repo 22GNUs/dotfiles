@@ -342,6 +342,7 @@ Plug 'posva/vim-vue'
 
 " 模糊搜索
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
 Plug 'junegunn/fzf.vim'
 
 " tagbar
@@ -359,6 +360,8 @@ Plug 'junegunn/goyo.vim'
 Plug 'hzchirs/vim-material'
 
 Plug 'liuchengxu/space-vim-dark'
+
+Plug 'wakatime/vim-wakatime'
 
 " 搜索插件
 Plug 'mileszs/ack.vim'
@@ -611,7 +614,6 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 " ===================
 
 " ==== vista 配置
-" ===================
 
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 
@@ -626,13 +628,13 @@ let g:vista#renderer#icons = {
 \   "function": "\uf794",
 \   "variable": "\uf71b",
 \  }
-" }}}
 
-" ==================
+" ===================
 
 " ==== eleline 配置
 let g:eleline_powerline_fonts = 1
 " ==================
+" }}}
 
 " ===> Color Schemes 设置 {{{
 
