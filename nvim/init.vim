@@ -236,6 +236,9 @@ nnoremap gn gd[{V%::s/<C-R>///gc<left><left><left>
 " 全局重构变量
 nnoremap gN gD:%s/<C-R>///gc<left><left><left>
 
+" F12 生成tags
+nnoremap <F12> :!ctags -f .tags -R .<CR>
+
 " }}}
 
 " ===> Insert模式快捷键 {{{
