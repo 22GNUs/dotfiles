@@ -239,6 +239,9 @@ nnoremap gN gD:%s/<C-R>///gc<left><left><left>
 " F12 生成tags
 nnoremap <F12> :!ctags -f .tags -R .<CR>
 
+" <leader-m> 打开markdown预览
+nnoremap <leader>m :MarkdownPreview<CR>
+
 " }}}
 
 " ===> Insert模式快捷键 {{{
@@ -312,6 +315,9 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " coc补全插件
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" markdown预览插件
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 
 " vim-surround
 Plug 'tpope/vim-surround'
