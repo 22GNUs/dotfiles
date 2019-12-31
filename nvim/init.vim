@@ -328,14 +328,14 @@ Plug 'tpope/vim-commentary'
 " 代码片段
 Plug 'honza/vim-snippets'
 
-" eleline
-Plug 'liuchengxu/eleline.vim'
-
 " 图标
 Plug 'ryanoasis/vim-devicons'
 
 " nerdtree 插件
 Plug 'scrooloose/nerdtree'
+
+" lightline
+Plug 'itchyny/lightline.vim'
 
 " js
 Plug 'pangloss/vim-javascript'
@@ -368,9 +368,9 @@ Plug 'junegunn/goyo.vim'
 
 Plug 'hzchirs/vim-material'
 
-Plug 'liuchengxu/space-vim-dark'
-
 Plug 'wakatime/vim-wakatime'
+
+Plug 'haishanh/night-owl.vim'
 
 " 搜索插件
 Plug 'mileszs/ack.vim'
@@ -640,16 +640,31 @@ let g:vista#renderer#icons = {
 
 " ===================
 
-" ==== eleline 配置
-let g:eleline_powerline_fonts = 1
-" ==================
-" }}}
+" ==== vim lightline 配置
+
+let g:lightline = {
+            \ 'colorscheme': 'nightowl',
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified', 'method' ] ],
+            \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok', 'gitbranch' ] ]
+            \ },
+            \ 'component_function': {
+            \   'gitbranch': 'fugitive#head',
+            \   'filename': 'LightLineFilename',
+            \   'method': 'NearestMethodOrFunction'
+            \ }
+            \ }
+
+" 文件名显示相对路径
+function! LightLineFilename()
+  return expand('%')
+endfunction
 
 " ===> Color Schemes 设置 {{{
 
 " Oceanic
 set background=dark
-colorscheme space-vim-dark
+colorscheme night-owl
 
 " 启用斜体
 hi Comment cterm=italic
