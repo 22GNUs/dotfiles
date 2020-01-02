@@ -248,12 +248,6 @@ nnoremap w= :resize +3<CR>
 nnoremap w[ :vertical resize -3<CR>
 nnoremap w] :vertical resize +3<CR>
 
-" 窗口移动相关
-nnoremap wh <C-W>H
-nnoremap wl <C-W>L
-nnoremap wj <C-W>J
-nnoremap wk <C-W>K
-
 " }}}
 
 " ===> Insert模式快捷键 {{{
