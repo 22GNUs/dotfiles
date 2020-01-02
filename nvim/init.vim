@@ -242,6 +242,18 @@ nnoremap <F12> :!ctags -f .tags -R .<CR>
 " <leader-m> 打开markdown预览
 nnoremap <leader>m :MarkdownPreview<CR>
 
+" 窗口调整相关
+nnoremap w- :resize -3<CR>
+nnoremap w= :resize +3<CR>
+nnoremap w[ :vertical resize -3<CR>
+nnoremap w] :vertical resize +3<CR>
+
+" 窗口移动相关
+nnoremap wh <C-W>H
+nnoremap wl <C-W>L
+nnoremap wj <C-W>J
+nnoremap wk <C-W>K
+
 " }}}
 
 " ===> Insert模式快捷键 {{{
@@ -318,6 +330,10 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " markdown预览插件
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+
+" markdown插件
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
 " vim-surround
 Plug 'tpope/vim-surround'
@@ -398,14 +414,14 @@ nnoremap <leader>B :call CocRequestAsync('metals', 'workspace/executeCommand', {
 
 " tab切换补全
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " <c-\> 触发补全
@@ -430,11 +446,11 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
 endfunction
 
 " Highlight symbol under cursor on CursorHold
@@ -448,11 +464,11 @@ xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    autocmd!
+    " Setup formatexpr specified filetype(s).
+    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    " Update signature help on jump placeholder
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
@@ -537,44 +553,44 @@ let g:fzf_action = {
             \ 'ctrl-v': 'vsplit' }
 
 function! Fzf_dev()
-  let l:fzf_files_options = ' -m --bind ctrl-d:preview-page-down,ctrl-u:preview-page-up --preview "rougify {2..-1} | head -'.&lines.'"'
+    let l:fzf_files_options = ' -m --bind ctrl-d:preview-page-down,ctrl-u:preview-page-up --preview "rougify {2..-1} | head -'.&lines.'"'
 
-  function! s:files()
-    let l:files = split(system($FZF_DEFAULT_COMMAND), '\n')
-    return s:prepend_icon(l:files)
-  endfunction
+    function! s:files()
+        let l:files = split(system($FZF_DEFAULT_COMMAND), '\n')
+        return s:prepend_icon(l:files)
+    endfunction
 
-  function! s:prepend_icon(candidates)
-    let result = []
-    for candidate in a:candidates
-      let filename = fnamemodify(candidate, ':p:t')
-      let icon = WebDevIconsGetFileTypeSymbol(filename, isdirectory(filename))
-      call add(result, printf("%s %s", icon, candidate))
-    endfor
+    function! s:prepend_icon(candidates)
+        let result = []
+        for candidate in a:candidates
+            let filename = fnamemodify(candidate, ':p:t')
+            let icon = WebDevIconsGetFileTypeSymbol(filename, isdirectory(filename))
+            call add(result, printf("%s %s", icon, candidate))
+        endfor
 
-    return result
-  endfunction
+        return result
+    endfunction
 
-  function! s:edit_file(items)
-    let items = a:items
-    let i = 1
-    let ln = len(items)
-    while i < ln
-      let item = items[i]
-      let parts = split(item, ' ')
-      let file_path = get(parts, 1, '')
-      let items[i] = file_path
-      let i += 1
-    endwhile
-    call s:Sink(items)
-  endfunction
+    function! s:edit_file(items)
+        let items = a:items
+        let i = 1
+        let ln = len(items)
+        while i < ln
+            let item = items[i]
+            let parts = split(item, ' ')
+            let file_path = get(parts, 1, '')
+            let items[i] = file_path
+            let i += 1
+        endwhile
+        call s:Sink(items)
+    endfunction
 
-  let opts = fzf#wrap({})
-  let opts.source = <sid>files()
-  let s:Sink = opts['sink*']
-  let opts['sink*'] = function('s:edit_file')
-  let opts.options .= l:fzf_files_options
-  call fzf#run(opts)
+    let opts = fzf#wrap({})
+    let opts.source = <sid>files()
+    let s:Sink = opts['sink*']
+    let opts['sink*'] = function('s:edit_file')
+    let opts.options .= l:fzf_files_options
+    call fzf#run(opts)
 
 endfunction
 
@@ -634,9 +650,9 @@ let g:vista#renderer#enable_icon = 1
 
 " 默认icon
 let g:vista#renderer#icons = {
-\   "function": "\uf794",
-\   "variable": "\uf71b",
-\  }
+            \   "function": "\uf794",
+            \   "variable": "\uf71b",
+            \  }
 
 " ===================
 
@@ -657,7 +673,7 @@ let g:lightline = {
 
 " 文件名显示相对路径
 function! LightLineFilename()
-  return expand('%')
+    return expand('%')
 endfunction
 
 " ===> Color Schemes 设置 {{{
