@@ -243,10 +243,10 @@ nnoremap <F12> :!ctags -f .tags -R .<CR>
 nnoremap <leader>m :MarkdownPreview<CR>
 
 " 窗口调整相关
-nnoremap w- :resize -3<CR>
-nnoremap w= :resize +3<CR>
-nnoremap w[ :vertical resize -3<CR>
-nnoremap w] :vertical resize +3<CR>
+nnoremap <leader>w- :resize -3<CR>
+nnoremap <leader>w= :resize +3<CR>
+nnoremap <leader>w[ :vertical resize -3<CR>
+nnoremap <leader>w] :vertical resize +3<CR>
 
 " }}}
 
