@@ -10,6 +10,7 @@ export PATH=$ANDROID_HOME/platform-tools:$PATH
 export PATH=$ANDROID_HOME/build-tools/23.0.1:$PATH
 
 export PATH=$PATH:$JAVA_HOME/bin:$HOME/.node_modules/bin
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 # load sdk man
 export SDKMAN_DIR="/Users/wangxinhua/.sdkman"
