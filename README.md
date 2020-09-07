@@ -77,3 +77,17 @@ luarocks install --local lcf
 ```
 
 在Vim内执行 `:CocInstall coc-lua` 安装客户端
+
+### ruby
+
+使用 [coc-solargraph](https://github.com/neoclide/coc-solargraph)
+
+```sh
+gem install solargraph
+```
+
+再通过coc安装
+
+```vim
+:CocInstall coc-solargraph
+```
