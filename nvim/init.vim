@@ -85,7 +85,7 @@ set laststatus=2
 " 默认折叠
 set foldmethod=syntax
 set foldnestmax=10
-set foldlevel=0
+set foldlevel=2
 
 " 高亮选中行
 se cursorline
@@ -153,6 +153,9 @@ cmap w!! w !sudo tee > /dev/null %
 
 " 设置tags目录
 set tags=./.tags;,~/.vimtags
+
+" 设置pyx版本为3
+set pyxversion=3
 
 " }}}
 
@@ -332,6 +335,9 @@ Plug 'plasticboy/vim-markdown'
 " vim-surround
 Plug 'tpope/vim-surround'
 
+" 自动处理swap文件
+Plug 'gioele/vim-autoswap'
+
 " commentary
 Plug 'tpope/vim-commentary'
 
@@ -384,6 +390,12 @@ Plug 'haishanh/night-owl.vim'
 
 " 搜索插件
 Plug 'mileszs/ack.vim'
+
+" plantuml 预览
+Plug 'skanehira/preview-uml.vim'
+
+" plantuml syntax
+Plug 'aklt/plantuml-syntax'
 
 call plug#end()
 
