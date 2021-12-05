@@ -14,6 +14,7 @@
 "
 " the_silver_searcher(ag)
 " ctags, ctags-exuberant
+" graphviz, 通过brew或包管理器安装
 "
 " }}}
 
@@ -326,7 +327,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " markdown预览插件
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 " markdown插件
 Plug 'godlygeek/tabular'
@@ -392,7 +393,8 @@ Plug 'haishanh/night-owl.vim'
 Plug 'mileszs/ack.vim'
 
 " plantuml 预览
-Plug 'skanehira/preview-uml.vim'
+Plug 'weirongxu/plantuml-previewer.vim'
+Plug 'tyru/open-browser.vim'
 
 " plantuml syntax
 Plug 'aklt/plantuml-syntax'
