@@ -1,11 +1,7 @@
-" ===> IDEA VIM 设置 {{{
-
-" nromal 模式下使用英文
-set keep-english-in-normal
-
-"}}}
-
 " ===> 基础设置 {{{
+
+" normal 模式下使用英文
+set keep-english-in-normal
 
 " 设置leader键映射
 let mapleader=','
@@ -68,6 +64,9 @@ set clipboard+=ideaput
 " 分割时将窗口分割到下方
 set splitbelow
 
+" 自动切换到当前目录
+:set autochdir
+
 " w!! sudo 保存
 cmap w!! w !sudo tee > /dev/null %
 
@@ -90,4 +89,10 @@ set surround
 " 打开注释插件
 " 命令: gcc, gc + motion, vgc
 set commentary
+
+" 启用nerdTree
+set NERDTree
+
+" nerdTree快捷键
+map <leader>n :NERDTreeToggle<CR>
 " }}}
