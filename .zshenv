@@ -10,6 +10,7 @@ export PATH=$ANDROID_HOME/platform-tools:$PATH
 export PATH=$ANDROID_HOME/build-tools/23.0.1:$PATH
 
 export PATH=$PATH:$JAVA_HOME/bin:$HOME/.node_modules/bin
+export PATH=$PATH:/Users/wangxinhua/Library/Python/3.8/bin
 export HOMEBREW_NO_AUTO_UPDATE=1
 
 # load sdk man
@@ -27,9 +28,19 @@ alias phttpserver='python3 -m http.server';
 # translate english to chinese
 # need tranlate-shell installed
 # See https://github.com/soimort/translate-shell
-alias transen='trans en:zh'
+alias transen='translate en:zh'
 alias scalafmt='ng scalafmt'
+alias redis-dev='redis-cli -h redis.addon-redis--tb0d9ebb1b54245358a17391094708967.svc.cluster.local -a "ipQsBwUKoUxMHgro"'
+# docker run zk
+alias dzk='docker run -d -p 2181:2181 --restart always -d zookeeper'
 # eval $(thefuck --alias)
 # =============
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PATH="/usr/local/opt/lua@5.3/bin:$PATH"
+export PATH="/Users/wangxinhua/.luarocks/bin:$PATH"
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
