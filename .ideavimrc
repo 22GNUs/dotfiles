@@ -4,7 +4,7 @@
 set keep-english-in-normal
 
 " 设置leader键映射
-let mapleader=','
+let mapleader ="\<Space>"
 
 " 显示状态栏
 set laststatus=2
@@ -94,5 +94,5 @@ set commentary
 set NERDTree
 
 " nerdTree快捷键
-map <leader>n :NERDTreeToggle<CR>
+nnoremap <C-n> :NERDTreeToggle<CR>
 " }}}
