@@ -30,10 +30,14 @@ alias phttpserver='python3 -m http.server';
 # See https://github.com/soimort/translate-shell
 alias transen='translate en:zh'
 alias scalafmt='ng scalafmt'
-alias redis-dev='redis-cli -h redis.addon-redis--tb0d9ebb1b54245358a17391094708967.svc.cluster.local -a "ipQsBwUKoUxMHgro"'
 # docker run zk
 alias dzk='docker run -d -p 2181:2181 --restart always -d zookeeper'
-# eval $(thefuck --alias)
+alias lg='lazygit'
+
+if [ -x "$(command -v git)" ]; then
+  eval $(thefuck --alias)
+fi
+
 # =============
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -44,3 +48,11 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+
+# if which go >/dev/null; then
+#   # Check if go installed in path, then set goproxy
+#   go env -w GO111MODULE=on
+#   go env -w GOPROXY=https://goproxy.io,direct
+# else
+#     echo go does not exist
+# fi
