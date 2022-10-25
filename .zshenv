@@ -34,7 +34,9 @@ alias scalafmt='ng scalafmt'
 alias dzk='docker run -d -p 2181:2181 --restart always -d zookeeper'
 alias lg='lazygit'
 
-if [ -x "$(command -v git)" ]; then
+alias mvnd8="JAVA_HOME=~/.sdkman/candidates/java/8.0.302-zulu && mvnd"
+
+if [ -x "$(command -v thefuck)" ]; then
   eval $(thefuck --alias)
 fi
 
