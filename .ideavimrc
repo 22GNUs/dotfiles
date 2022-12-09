@@ -1,7 +1,7 @@
 " ===> 基础设置 {{{
 
-" normal 模式下使用英文
-set keep-english-in-normal
+" normal 模式下使用英文, insert模式下切回
+set keep-english-in-normal-and-restore-in-insert
 
 " 设置leader键映射
 let mapleader ="\<Space>"
@@ -93,6 +93,32 @@ set commentary
 " 启用nerdTree
 set NERDTree
 
+" 启用easymotion
+set easymotion
+
 " nerdTree快捷键
 nnoremap <C-n> :NERDTreeToggle<CR>
+" }}}
+
+" ===> intellijmacs: https://github.com/MarcoIeni/intellimacs {{{
+source ~/.intellimacs/spacemacs.vim
+
+" (Optional) Enable other Intellimacs modules
+source ~/.intellimacs/extra.vim
+source ~/.intellimacs/major.vim
+source ~/.intellimacs/hybrid.vim
+
+" (Optional) Enable which-key plugin
+source ~/.intellimacs/which-key.vim
+
+" (Optional) My own vim commands
+nnoremap Y y$
+
+" (Optional) Comma for major mode
+nmap , <leader>m
+vmap , <leader>m
+
+" (Optional) Add/edit actions
+nnoremap <leader>gl    :action Vcs.Show.Log<CR>
+vnoremap <leader>gl    :action Vcs.Show.Log<CR>
 " }}}
