@@ -29,7 +29,7 @@ alias phttpserver='python3 -m http.server';
 # See https://github.com/soimort/translate-shell
 alias scalafmt='ng scalafmt'
 alias lg='lazygit'
-alias neovide="neovide --frame buttonless"
+alias neovide="neovide --multigrid"
 
 if [ -x "$(command -v thefuck)" ]; then
   eval $(thefuck --alias)
