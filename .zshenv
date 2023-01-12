@@ -1,6 +1,5 @@
 # PATH ========
 export npm_config_prefix=~/.node_modules
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home
 export ANDROID_HOME="/Users/wangxinhua/Library/Android/sdk"
 export ANDROID_SDK_ROOT="/Users/wangxinhua/Library/Android/sdk"
 export ANDROID_AVD_HOME=/Users/wangxinhua/.android/avd
@@ -28,13 +27,9 @@ alias phttpserver='python3 -m http.server';
 # translate english to chinese
 # need tranlate-shell installed
 # See https://github.com/soimort/translate-shell
-alias transen='translate en:zh'
 alias scalafmt='ng scalafmt'
-# docker run zk
-alias dzk='docker run -d -p 2181:2181 --restart always -d zookeeper'
 alias lg='lazygit'
-
-alias mvnd8="JAVA_HOME=~/.sdkman/candidates/java/8.0.302-zulu && mvnd"
+alias neovide="neovide --frame buttonless"
 
 if [ -x "$(command -v thefuck)" ]; then
   eval $(thefuck --alias)
