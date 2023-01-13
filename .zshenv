@@ -29,7 +29,7 @@ alias phttpserver='python3 -m http.server';
 # See https://github.com/soimort/translate-shell
 alias scalafmt='ng scalafmt'
 alias lg='lazygit'
-alias neovide="neovide --multigrid"
+alias nv='neovide --multigrid --frame buttonless'
 
 if [ -x "$(command -v thefuck)" ]; then
   eval $(thefuck --alias)
@@ -38,9 +38,6 @@ fi
 # =============
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export PATH="/usr/local/opt/lua@5.3/bin:$PATH"
-export PATH="/Users/wangxinhua/.luarocks/bin:$PATH"
-export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 export GOPATH=$HOME/go
