@@ -29,7 +29,7 @@ alias phttpserver='python3 -m http.server';
 # See https://github.com/soimort/translate-shell
 alias scalafmt='ng scalafmt'
 alias lg='lazygit'
-alias nv='neovide --multigrid --frame buttonless'
+alias gvim='neovide --multigrid --frame buttonless'
 
 if [ -x "$(command -v thefuck)" ]; then
   eval $(thefuck --alias)
@@ -42,6 +42,9 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+
+# See https://github.com/catppuccin/zsh-syntax-highlighting
+source ./.catppuccin_mocha-zsh-syntax-highlighting.zsh
 
 # if which go >/dev/null; then
 #   # Check if go installed in path, then set goproxy
