@@ -44,7 +44,7 @@ export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
 # See https://github.com/catppuccin/zsh-syntax-highlighting
-source ./.catppuccin_mocha-zsh-syntax-highlighting.zsh
+source ~/.catppuccin_mocha-zsh-syntax-highlighting.zsh
 
 # if which go >/dev/null; then
 #   # Check if go installed in path, then set goproxy
