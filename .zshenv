@@ -53,3 +53,4 @@ source ~/.catppuccin_mocha-zsh-syntax-highlighting.zsh
 # else
 #     echo go does not exist
 # fi
+. "$HOME/.cargo/env"
