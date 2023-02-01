@@ -181,6 +181,7 @@ format = '\[[$symbol($version)]($style)\]'
 [java]
 symbol = ' '
 format = '\[[$symbol($version)]($style)\]'
+style = 'fg:white'
 
 [julia]
 format = '\[[$symbol($version)]($style)\]'
@@ -210,7 +211,8 @@ format = '\[[$symbol($version)(\($switch_indicator$switch_name\))]($style)\]'
 [package]
 symbol = ' '
 format = ' \[[$symbol$version]($style)\] '
-style = '16'
+# style = '16'
+style = 'fg:bright-cyan'
 
 [perl]
 format = '\[[$symbol($version)]($style)\]'
