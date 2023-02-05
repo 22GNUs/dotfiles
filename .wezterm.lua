@@ -4,6 +4,7 @@ local fonts = {
 	cartograph = {
 		font = {
 			family = "Iosevka Nerd Font",
+			weight = "Medium",
 			harfbuzz_features = {
 				"cv06=1",
 				"cv14=1",
