@@ -16,7 +16,7 @@ local fonts = {
 		},
 		size = 18,
 		font_rules = {
-			italics = false,
+			italics = true,
 		},
 	},
 }
@@ -25,6 +25,7 @@ local function get_font(name)
 	return {
 		font = wezterm.font_with_fallback({
 			fonts[name].font,
+			{ family = "Sarasa UI SC", weight = "Medium" },
 			"Noto Color Emoji",
 		}),
 		size = fonts[name].size,
