@@ -185,6 +185,7 @@ local function scheme_for_appearance(appearance)
 end
 
 local font = get_font("cartograph")
+local border_color = "#181825"
 return {
 	font = font.font,
 	font_size = font.size,
@@ -210,9 +211,9 @@ return {
 		border_right_width = "0.5cell",
 		border_top_height = "0.25cell",
 		border_bottom_height = "0.25cell",
-		border_left_color = "#b3bdfd",
-		border_right_color = "#b3bdfd",
-		border_bottom_color = "#b3bdfd",
-		border_top_color = "#b3bdfd",
+		border_left_color = border_color,
+		border_right_color = border_color,
+		border_bottom_color = border_color,
+		border_top_color = border_color,
 	},
 }
