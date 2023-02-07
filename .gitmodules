@@ -1,0 +1,3 @@
+[submodule ".intellimacs"]
+	path = .intellimacs
+	url = git@github.com:22GNUs/intellimacs.git
