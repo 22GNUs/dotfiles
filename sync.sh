@@ -6,3 +6,6 @@ cp ~/.wezterm.lua ./
 cp ~/.ideavimrc ./
 cp ~/.tmux.conf ./
 cp ~/.gitconfig ./
+
+rm -rf ./.config/fish
+cp -r ~/.config/fish ./.config

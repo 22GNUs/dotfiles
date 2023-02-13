@@ -14,7 +14,7 @@ local fonts = {
 				"ss09=1",
 			},
 		},
-		size = 18,
+		size = 17,
 		font_rules = {
 			italics = true,
 		},
@@ -131,12 +131,14 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 		{ Background = { Color = s_bg } },
 		{ Foreground = { Color = s_fg } },
 		{
-			Text = " "
-				.. tab.tab_index + 1
-				.. ": "
-				.. tab.active_pane.title
-				.. numberStyle(count, "superscript")
-				.. " ",
+
+			Text = " " .. tab.tab_index + 1 .. " ",
+			-- Text = " "
+			-- 	.. tab.tab_index + 1
+			-- 	.. ": "
+			-- 	.. tab.active_pane.title
+			-- 	.. numberStyle(count, "superscript")
+			-- 	.. " ",
 		},
 		{ Background = { Color = e_bg } },
 		{ Foreground = { Color = e_fg } },
@@ -196,7 +198,7 @@ return {
 	window_background_opacity = 0.95,
 	use_fancy_tab_bar = false,
 	tab_bar_at_bottom = false,
-	hide_tab_bar_if_only_one_tab = false,
+	hide_tab_bar_if_only_one_tab = true,
 	tab_max_width = 50,
 
 	window_decorations = "RESIZE",

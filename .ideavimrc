@@ -76,9 +76,9 @@ cmap w!! w !sudo tee > /dev/null %
 nnoremap H ^
 nnoremap L $
 
-" 使用 <> 翻页
-nnoremap > gt
-nnoremap < gT
+" 使用 Tab 翻页
+nnoremap <Tab> gt
+nnoremap <S-Tab> gT
 
 " }}}
 

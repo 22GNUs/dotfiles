@@ -19,6 +19,8 @@ antigen bundle soimort/translate-shell
 antigen bundle docker
 antigen bundle docker-compose
 
+# See https://github.com/catppuccin/zsh-syntax-highlighting
+source ~/.catppuccin_mocha-zsh-syntax-highlighting.zsh
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
 
