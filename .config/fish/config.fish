@@ -5,6 +5,9 @@ fish_add_path "/opt/homebrew/bin/"
 # Add SDKMAN to path
 fish_add_path (find ~/.sdkman/candidates/*/current/bin -maxdepth 0)
 
+# Add cargo to path
+fish_add_path "$HOME/.cargo/bin"
+
 # Enable Starship prompt
 starship init fish | source
 
