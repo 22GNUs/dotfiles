@@ -16,11 +16,13 @@ window:
   dimensions:
     columns: 132
     lines: 33
-  padding:
-    x: 4
-    y: 4
   dynamic_padding: true
-  decorations: buttonless
+  padding:
+    x: 10
+    y: 22
+  decorations: transparent
+  # decorations: buttonless
+
   title: 22GNUs@MacBook-PRO 
   dynamic_title: false 
   option_as_alt: OnlyLeft
@@ -29,7 +31,15 @@ class:
   instance: Alacritty
   general: alacritty
 
+cursor:
+  style:
+    shape: Underline
+
 draw_bold_text_with_bright_colors: true
+
+selection:
+  semantic_escape_chars: ',│`|:"'' ()[]{}<>'
+  save_to_clipboard: true
 
 scrolling:
   history: 10000
@@ -37,25 +47,32 @@ scrolling:
 
 font:
   normal:
-    family: Iosevka Nerd Font
+    family: CartographCF Nerd Font
     style: Regular
   bold:
-    family: Iosevka Nerd Font  
+    family: CartographCF Nerd Font
     style: Bold
   italic:
-    family: Iosevka Nerd Font
-    style: Italic
+    family: CartographCF Nerd Font
+    style: Regular Italic
   bold_italic: 
-    family: Iosevka Nerd Font 
-    style: Bold Italic 
-  size: 17
+    family: CartographCF Nerd Font
+    style: Bold Italic
+  size: 16
+  # Adjuct offset to fix icon render
+  offset:
+    x: 0
+    y: 3
+  glyph_offset:
+    x: 0
+    y: 2
 
 import:
   # uncomment the flavour you want below:
+  #  - ~/.config/alacritty/catppuccin/catppuccin-macchiato.yml
+  #  - ~/.config/alacritty/catppuccin/catppuccin-frappe.yml
+  #  - ~/.config/alacritty/catppuccin/catppuccin-latte.yml
   - ~/.config/alacritty/catppuccin/catppuccin-mocha.yml
-#  - ~/.config/alacritty/catppuccin/catppuccin-macchiato.yml
-#  - ~/.config/alacritty/catppuccin/catppuccin-frappe.yml
-#  - ~/.config/alacritty/catppuccin/catppuccin-latte.yml
 
 key_bindings:
   # Fix Alt keybindings
