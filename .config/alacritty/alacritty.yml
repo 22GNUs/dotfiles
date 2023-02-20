@@ -47,25 +47,25 @@ scrolling:
 
 font:
   normal:
-    family: CartographCF Nerd Font
+    family: FantasqueSansMono Nerd Font
     style: Regular
   bold:
-    family: CartographCF Nerd Font
+    family: FantasqueSansMono Nerd Font
     style: Bold
   italic:
-    family: CartographCF Nerd Font
-    style: Regular Italic
-  bold_italic: 
-    family: CartographCF Nerd Font
+    family: FantasqueSansMono Nerd Font
+    style: Italic
+  bold_italic:
+    family: FantasqueSansMono Nerd Font
     style: Bold Italic
-  size: 16
+  size: 18
   # Adjuct offset to fix icon render
   offset:
     x: 0
-    y: 3
+    y: 2
   glyph_offset:
     x: 0
-    y: 2
+    y: 1
 
 import:
   # uncomment the flavour you want below:
