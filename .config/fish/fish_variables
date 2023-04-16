@@ -1,15 +1,17 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
+SETUVAR --export GEM_HOME:/Users/xinhua/\x2egem
 SETUVAR ZO_CMD:zo
 SETUVAR Z_CMD:z
-SETUVAR Z_DATA:/Users/wangxinhua/\x2elocal/share/z/data
-SETUVAR Z_DATA_DIR:/Users/wangxinhua/\x2elocal/share/z
-SETUVAR Z_EXCLUDE:\x5e/Users/wangxinhua\x24
+SETUVAR Z_DATA:/Users/xinhua/\x2elocal/share/z/data
+SETUVAR Z_DATA_DIR:/Users/xinhua/\x2elocal/share/z
+SETUVAR Z_EXCLUDE:\x5e/Users/xinhua\x24
 SETUVAR __fish_initialized:3400
 SETUVAR _fisher_catppuccin_2F_fish_files:\x7e/\x2econfig/fish/themes/Catppuccin\x20Frappe\x2etheme\x1e\x7e/\x2econfig/fish/themes/Catppuccin\x20Latte\x2etheme\x1e\x7e/\x2econfig/fish/themes/Catppuccin\x20Macchiato\x2etheme\x1e\x7e/\x2econfig/fish/themes/Catppuccin\x20Mocha\x2etheme
 SETUVAR _fisher_jethrokuan_2F_z_files:\x7e/\x2econfig/fish/functions/__z\x2efish\x1e\x7e/\x2econfig/fish/functions/__z_add\x2efish\x1e\x7e/\x2econfig/fish/functions/__z_clean\x2efish\x1e\x7e/\x2econfig/fish/functions/__z_complete\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/z\x2efish
 SETUVAR _fisher_jorgebucaran_2F_fisher_files:\x7e/\x2econfig/fish/functions/fisher\x2efish\x1e\x7e/\x2econfig/fish/completions/fisher\x2efish
-SETUVAR _fisher_plugins:jorgebucaran/fisher\x1ecatppuccin/fish\x1ejethrokuan/z
+SETUVAR _fisher_plugins:jorgebucaran/fisher\x1ejethrokuan/z\x1ecatppuccin/fish\x1ereitzig/sdkman\x2dfor\x2dfish
+SETUVAR _fisher_reitzig_2F_sdkman_2D_for_2D_fish_files:\x7e/\x2econfig/fish/functions/sdk\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/sdk\x2efish\x1e\x7e/\x2econfig/fish/completions/sdk\x2efish
 SETUVAR _fisher_upgraded_to_4_4:\x1d
 SETUVAR fish_color_autosuggestion:6c7086
 SETUVAR fish_color_cancel:f38ba8
@@ -50,4 +52,6 @@ SETUVAR fish_pager_color_selected_background:\x1d
 SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
-SETUVAR fish_user_paths:/Users/wangxinhua/\x2ecargo/bin\x1e/Users/wangxinhua/\x2esdkman/candidates/gradle/current/bin\x1e/Users/wangxinhua/\x2esdkman/candidates/java/current/bin\x1e/Users/wangxinhua/\x2esdkman/candidates/maven/current/bin\x1e/Users/wangxinhua/\x2esdkman/candidates/mvnd/current/bin\x1e/Users/wangxinhua/\x2esdkman/candidates/sbt/current/bin\x1e/Users/wangxinhua/\x2esdkman/candidates/scala/current/bin\x1e/Users/wangxinhua/\x2esdkman/candidates/visualvm/current/bin\x1e/opt/homebrew/bin
+SETUVAR fish_user_paths:/Users/xinhua/\x2elocal/bin\x1e/Users/xinhua/\x2ecargo/bin\x1e/Users/xinhua/\x2egem/bin\x1e/opt/homebrew/bin
+SETUVAR --export http_proxy:http\x3a//127\x2e0\x2e0\x2e1\x3a7890
+SETUVAR --export https_proxy:http\x3a//127\x2e0\x2e0\x2e1\x3a7890
