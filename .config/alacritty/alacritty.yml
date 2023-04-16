@@ -12,7 +12,7 @@ shell:
 
 live_config_reload: true
 window:
-  opacity: 0.97
+  opacity: 0.95
   dimensions:
     columns: 132
     lines: 33
@@ -68,8 +68,8 @@ font:
     y: 1
 
 import:
-  - ~/.config/alacritty/catppuccin/catppuccin-mocha.yml
-  # - ~/.config/alacritty/tokyonight/tokyonight_night.yml
+  # - ~/.config/alacritty/catppuccin/catppuccin-mocha.yml
+  - ~/.config/alacritty/tokyonight/tokyonight_moon.yml
 
 key_bindings:
   # Fix Alt keybindings
