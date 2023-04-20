@@ -1,6 +1,7 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
 SETUVAR --export GEM_HOME:/Users/xinhua/\x2egem
+SETUVAR --export OPENAI_API_KEY:sk\x2dWco5SPQPv2mxV2nqVi3ST3BlbkFJ0jotHjOvjBWCDT8VHimX
 SETUVAR ZO_CMD:zo
 SETUVAR Z_CMD:z
 SETUVAR Z_DATA:/Users/xinhua/\x2elocal/share/z/data
