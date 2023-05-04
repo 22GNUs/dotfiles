@@ -47,16 +47,16 @@ scrolling:
 
 font:
   normal:
-    family: FantasqueSansMono Nerd Font
+    family: FantasqueSansM Nerd Font
     style: Regular
   bold:
-    family: FantasqueSansMono Nerd Font
+    family: FantasqueSansM Nerd Font
     style: Bold
   italic:
-    family: FantasqueSansMono Nerd Font
+    family: FantasqueSansM Nerd Font
     style: Italic
   bold_italic:
-    family: FantasqueSansMono Nerd Font
+    family: FantasqueSansM Nerd Font
     style: Bold Italic
   size: 18
   # Adjuct offset to fix icon render
