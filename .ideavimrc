@@ -18,6 +18,9 @@ syntax enable
 " 显示行号
 set number
 
+" 显示相对行号
+set rnu
+
 " <leader>,清除搜索高亮
 nnoremap <esc><esc> :noh<return>
 
