@@ -10,7 +10,7 @@ fish_add_path "$HOME/.cargo/bin"
 # Enable Starship prompt
 starship init fish | source
 
-alias gvim="neovide --multigrid --frame transparent"
+alias gvim="neovide --frame transparent"
 
 if status is-interactive
     # Commands to run in interactive sessions can go here

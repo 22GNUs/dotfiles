@@ -54,6 +54,4 @@ SETUVAR fish_pager_color_selected_background:\x2d\x2dbackground\x3d3654a7
 SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
-SETUVAR fish_user_paths:/Users/xinhua/\x2elocal/bin\x1e/Users/xinhua/\x2ecargo/bin\x1e/Users/xinhua/\x2egem/bin\x1e/opt/homebrew/bin
-SETUVAR --export http_proxy:http\x3a//127\x2e0\x2e0\x2e1\x3a7890
-SETUVAR --export https_proxy:http\x3a//127\x2e0\x2e0\x2e1\x3a7890
+SETUVAR fish_user_paths:/Users/xinhua/Library/Python/3\x2e9/bin\x1e/Applications/IntelliJ\x20IDEA\x20CE\x2eapp/Contents/MacOS\x1e/Users/xinhua/\x2elocal/bin\x1e/Users/xinhua/\x2ecargo/bin\x1e/Users/xinhua/\x2egem/bin\x1e/opt/homebrew/bin

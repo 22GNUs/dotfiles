@@ -3,11 +3,10 @@ env:
   TERM: xterm-256color
 
 shell:
-  program: /opt/homebrew/bin/fish
+  program: /bin/zsh
   args:
     - -l
     - -c
-    # attach tmux when start
     - "tmux attach || tmux"
 
 live_config_reload: true
