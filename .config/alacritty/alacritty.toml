@@ -447,7 +447,7 @@ semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 
 [shell]
 args = ["-l", "-c", "tmux attach || tmux"]
-program = "/bin/zsh"
+program = "/opt/homebrew/bin/fish"
 
 [window]
 decorations = "transparent"

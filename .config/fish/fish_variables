@@ -1,6 +1,7 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR --export PYTORCH_ENABLE_MPS_FALLBACK:1
+SETUVAR --export GEM_HOME:/Users/xinhua/\x2egem
+SETUVAR --export OPENAI_API_KEY:sk\x2dWco5SPQPv2mxV2nqVi3ST3BlbkFJ0jotHjOvjBWCDT8VHimX
 SETUVAR ZO_CMD:zo
 SETUVAR Z_CMD:z
 SETUVAR Z_DATA:/Users/xinhua/\x2elocal/share/z/data
@@ -53,5 +54,4 @@ SETUVAR fish_pager_color_selected_background:\x2d\x2dbackground\x3d3654a7
 SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
-SETUVAR --export http_proxy:http\x3a//127\x2e0\x2e0\x2e1\x3a7890
-SETUVAR --export https_proxy:http\x3a//127\x2e0\x2e0\x2e1\x3a7890
+SETUVAR fish_user_paths:/Applications/IntelliJ\x20IDEA\x20CE\x2eapp/Contents/MacOS\x1e/Users/xinhua/\x2elocal/bin\x1e/Users/xinhua/\x2ecargo/bin\x1e/Users/xinhua/\x2egem/bin
