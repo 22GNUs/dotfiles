@@ -437,6 +437,16 @@ chars = "\u001B[32;5u"
 key = "Space"
 mods = "Control"
 
+[[keyboard.bindings]]
+chars = "\u001F"
+key = "Slash"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001F"
+key = "Slash"
+mods = "Control|Shift"
+
 [scrolling]
 history = 10000
 multiplier = 3
@@ -447,7 +457,7 @@ semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 
 [shell]
 args = ["-l", "-c", "tmux attach || tmux"]
-program = "/opt/homebrew/bin/fish"
+program = "/bin/zsh"
 
 [window]
 decorations = "transparent"
