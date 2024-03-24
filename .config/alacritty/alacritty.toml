@@ -1,4 +1,4 @@
-import = ["/Users/xinhua/.config/alacritty/tokyonight/tokyonight_moon.toml"]
+import = ["/Users/xinhua/.config/alacritty/tokyonight/tokyonight_night.toml"]
 live_config_reload = true
 
 [colors]
