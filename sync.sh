@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cp ~/.config/starship.toml ./.config/
+cp -r ~/.config/ghostty ./.config
 cp ~/.ideavimrc ./
 cp ~/.tmux.conf ./
 cp ~/.gitconfig ./
