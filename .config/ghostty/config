@@ -2,15 +2,15 @@ command = /opt/homebrew/bin/fish -l -c "tmux attach || tmux"
 
 # theme
 theme = tokyonight
-font-size = 18
-font-family = FantasqueSansM Nerd Font
+font-size = 15
+font-family = CommitMono, FantasqueSansM Nerd Font
 font-thicken
 
 background-opacity = 0.95
 background-blur-radius = 25
 
-window-padding-x = 8
-window-padding-y = 2,8
+window-padding-x = 6
+window-padding-y = 2,4
 window-save-state = always
 
 macos-non-native-fullscreen = true
@@ -18,4 +18,6 @@ macos-titlebar-style = transparent
 macos-option-as-alt = left
 
 keybind = unconsumed:ctrl+a=reload_config
-keybind = global:ctrl+/=toggle_quick_terminal
+keybind = global:ctrl+shift+.=toggle_quick_terminal
+
+custom-shader = ghostty-shaders/bloom_custom.glsl
