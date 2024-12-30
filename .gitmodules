@@ -1,3 +1,6 @@
 [submodule ".intellimacs"]
 	path = .intellimacs
 	url = git@github.com:22GNUs/intellimacs.git
+[submodule ".config/ghostty/ghostty-shaders"]
+	path = .config/ghostty/ghostty-shaders
+	url = git@github.com:22GNUs/ghostty-shaders.git
