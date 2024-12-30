@@ -1,4 +1,5 @@
 command = /opt/homebrew/bin/fish -l -c "tmux attach || tmux"
+# command = /opt/homebrew/bin/fish -l -c "zellij"
 
 # theme
 theme = tokyonight
@@ -17,7 +18,7 @@ macos-non-native-fullscreen = true
 macos-titlebar-style = transparent
 macos-option-as-alt = left
 
-keybind = unconsumed:ctrl+a=reload_config
+keybind = unconsumed:ctrl+shift+r=reload_config
 keybind = global:ctrl+shift+.=toggle_quick_terminal
 
 custom-shader = ghostty-shaders/bloom_custom.glsl
