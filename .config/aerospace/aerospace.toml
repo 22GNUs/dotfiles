@@ -10,14 +10,16 @@ after-login-command = []
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [
-	'exec-and-forget sketchybar --reload', # add reload flag
+  # 'exec-and-forget sketchybar --reload', # add reload flag
   'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0'
 ]
 
 # Notify Sketchybar about workspace change
-exec-on-workspace-change = ['/bin/bash', '-c',
-    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
-]
+# exec-on-workspace-change = [
+#     '/bin/bash',
+#     '-c',
+#     '/opt/homebrew/opt/sketchybar/bin/sketchybar --trigger aerospace_workspace_change AEROSPACE_FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE AEROSPACE_PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE',
+# ]
 
 # Start AeroSpace at login
 start-at-login = true
@@ -69,8 +71,8 @@ automatically-unhide-macos-hidden-apps = false
     inner.vertical =   20
     outer.left =       20
     outer.bottom =     20
-    outer.top =        10
-    outer.right =      80
+    outer.top =        20
+    outer.right =      20
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
