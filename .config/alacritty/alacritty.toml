@@ -457,6 +457,7 @@ semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 
 [shell]
 args = ["-l", "-c", "tmux attach || tmux"]
+# args = ["-l", "-c", "zellij"]
 program = "/bin/zsh"
 
 [window]
