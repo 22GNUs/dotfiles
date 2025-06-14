@@ -65,12 +65,12 @@ automatically-unhide-macos-hidden-apps = false
 #                 See:
 #                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-    inner.horizontal = 8
-    inner.vertical =   8
-    outer.left =       8
-    outer.bottom =     8
-    outer.top =        8
-    outer.right =      8
+    inner.horizontal = 20
+    inner.vertical =   20
+    outer.left =       20
+    outer.bottom =     20
+    outer.top =        10
+    outer.right =      80
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -198,6 +198,22 @@ automatically-unhide-macos-hidden-apps = false
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
     alt-shift-semicolon = 'mode service'
+
+# [[on-window-detected]]
+# if.app-id = 'com.apple.systempreferences'
+# if.app-name-regex-substring = 'settings'
+# if.window-title-regex-substring = 'substring'
+# if.workspace = 'workspace-name'
+# if.during-aerospace-startup = true
+# check-further-callbacks = true
+# run = ['layout floating', 'move-node-to-workspace S']  # The callback itself
+[[on-window-detected]]
+  if.app-name-regex-substring = 'finder'
+  run = 'layout floating'
+
+[[on-window-detected]]
+  if.app-name-regex-substring = 'telegram'
+  run = 'layout floating'
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes

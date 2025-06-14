@@ -20,6 +20,7 @@ brew install borders
 brew tap FelixKratz/formulae
 brew install sketchybar
 brew install --cask font-hack-nerd-font
+brew install --cask font-sf-pro
 mkdir -p ~/.config/sketchybar/plugins
 cp $(brew --prefix)/share/sketchybar/examples/sketchybarrc ~/.config/sketchybar/sketchybarrc
 cp -r $(brew --prefix)/share/sketchybar/examples/plugins/ ~/.config/sketchybar/plugins/
