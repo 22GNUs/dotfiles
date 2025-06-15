@@ -18,6 +18,9 @@ syntax enable
 " 显示行号
 set number
 
+" 显示相对行号
+set rnu
+
 " <leader>,清除搜索高亮
 nnoremap <esc><esc> :noh<return>
 
@@ -82,6 +85,12 @@ nnoremap <S-Tab> gT
 
 " }}}
 
+" ===> Insert模式快捷键 {{{
+inoremap jk <Esc>
+inoremap jj <Esc>
+inoremap <C-c> <Nop>
+" }}}
+
 " ===> 插件模拟 {{{
 " 打开vim surrond支持
 " 命令: ys, cs, ds, S
@@ -93,23 +102,13 @@ set commentary
 " 启用nerdTree
 set NERDTree
 
-" 启用easymotion
-set easymotion
-
 " nerdTree快捷键
 nnoremap <C-n> :NERDTreeToggle<CR>
 " }}}
 
-" ===> intellijmacs: https://github.com/MarcoIeni/intellimacs {{{
-source ~/.intellimacs/spacemacs.vim
-
-" (Optional) Enable other Intellimacs modules
-source ~/.intellimacs/extra.vim
-source ~/.intellimacs/major.vim
-source ~/.intellimacs/hybrid.vim
-
-" (Optional) Enable which-key plugin
-source ~/.intellimacs/which-key.vim
+" 启用easymotion
+set easymotion
+nmap s <Plug>(easymotion-s)
 
 " (Optional) My own vim commands
 nnoremap Y y$
@@ -121,4 +120,5 @@ vmap , <leader>m
 " (Optional) Add/edit actions
 nnoremap <leader>gl    :action Vcs.Show.Log<CR>
 vnoremap <leader>gl    :action Vcs.Show.Log<CR>
+
 " }}}
