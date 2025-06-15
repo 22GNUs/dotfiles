@@ -151,6 +151,7 @@ automatically-unhide-macos-hidden-apps = false
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
     alt-shift-semicolon = 'mode service'
+    alt-shift-enter = 'mode apps'
 
 # [[on-window-detected]]
 # if.app-id = 'com.apple.systempreferences'
@@ -242,3 +243,7 @@ automatically-unhide-macos-hidden-apps = false
     down = 'volume down'
     up = 'volume up'
     shift-down = ['volume set 0', 'mode main']
+
+[mode.apps.binding]
+    # https://github.com/ghostty-org/ghostty/discussions/3563
+    g = ['exec-and-forget open -a /Applications/Ghostty.app -n', 'mode main']
