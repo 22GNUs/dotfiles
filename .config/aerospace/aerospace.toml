@@ -247,3 +247,7 @@ automatically-unhide-macos-hidden-apps = false
 [mode.apps.binding]
     # https://github.com/ghostty-org/ghostty/discussions/3563
     g = ['exec-and-forget open -a /Applications/Ghostty.app -n', 'mode main']
+
+[workspace-to-monitor-force-assignment]
+    B = 'secondary'
+    T = 'secondary'
