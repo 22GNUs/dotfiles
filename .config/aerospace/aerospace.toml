@@ -224,6 +224,14 @@ automatically-unhide-macos-hidden-apps = false
   if.app-name-regex-substring = 'telegram'
   run = 'layout floating'
 
+[[on-window-detected]]
+  if.app-id = 'com.kangfenmao.CherryStudio'
+  run = 'layout floating'
+
+# move to workspace 1 by default
+[[on-window-detected]]
+    run = 'move-node-to-workspace 1'
+
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
