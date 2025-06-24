@@ -76,12 +76,12 @@ cmap w!! w !sudo tee > /dev/null %
 " }}}
 
 " ===> Normal模式快捷键 {{{
-nnoremap H ^
-nnoremap L $
+" nnoremap H ^
+" nnoremap L $
 
-" 使用 Tab 翻页
-nnoremap <Tab> gt
-nnoremap <S-Tab> gT
+" 使用 L-H 翻页
+nnoremap L gt
+nnoremap H gT
 
 " }}}
 
