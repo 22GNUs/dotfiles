@@ -11,7 +11,7 @@ after-login-command = []
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [
   # 'exec-and-forget sketchybar --reload', # add reload flag
-  'exec-and-forget borders active_color=0xffb4befe inactive_color=0xfff5e0dc width=8.0'
+  'exec-and-forget borders active_color=0xffb4befe inactive_color=0xfff5e0dc width=8.0 &'
 ]
 
 # Notify Sketchybar about workspace change
