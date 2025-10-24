@@ -17,8 +17,10 @@ window-save-state = always
 
 macos-non-native-fullscreen = true
 macos-titlebar-style = transparent
-macos-option-as-alt = left
+macos-option-as-alt = true
 
+keybind = alt+left=unbind
+keybind = alt+right=unbind
 keybind = unconsumed:ctrl+shift+r=reload_config
 keybind = global:ctrl+shift+.=toggle_quick_terminal
 

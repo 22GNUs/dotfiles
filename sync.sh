@@ -66,9 +66,6 @@ sync_file "$HOME/.gitconfig" "./.gitconfig" "Git配置"
 
 # 同步配置目录
 sync_dir "$HOME/.config/fish" "./.config/fish" "Fish Shell配置"
-sync_dir "$HOME/.config/alacritty" "./.config/alacritty" "Alacritty终端配置"
-sync_dir "$HOME/.config/aerospace" "./.config/aerospace" "Aerospace窗口管理器配置"
-sync_dir "$HOME/.config/sketchybar" "./.config/sketchybar" "SketchyBar配置"
 sync_dir "$HOME/.config/ghostty" "./.config/ghostty" "Ghostty终端配置"
 sync_dir "$HOME/.config/zellij" "./.config/zellij" "Zellij终端复用器配置"
 
