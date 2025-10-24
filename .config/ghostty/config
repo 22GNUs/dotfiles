@@ -1,4 +1,5 @@
-command = /opt/homebrew/bin/fish -l -c "tmux attach || tmux"
+command = /opt/homebrew/bin/fish -l
+# command = /opt/homebrew/bin/fish -l -c "tmux attach || tmux"
 # command = /opt/homebrew/bin/fish -l -c "zellij"
 
 # theme
