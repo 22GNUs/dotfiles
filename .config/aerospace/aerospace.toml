@@ -194,6 +194,10 @@ automatically-unhide-macos-hidden-apps = false
   run = 'move-node-to-workspace D'
 
 [[on-window-detected]]
+  if.app-name-regex-substring = 'Antigravity'
+  run = 'move-node-to-workspace D'
+
+[[on-window-detected]]
   if.app-name-regex-substring = 'idea'
   run = 'move-node-to-workspace D'
 
