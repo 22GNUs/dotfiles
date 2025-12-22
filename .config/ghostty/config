@@ -10,7 +10,7 @@ font-family = Sarasa Term SC Nerd
 font-thicken
 
 background-opacity = 0.92
-background-blur-radius = 25
+background-blur = 25
 
 window-padding-x = 6
 window-padding-y = 2,4
@@ -28,3 +28,22 @@ keybind = shift+enter=text:\n
 
 custom-shader = shaders/bloom_custom.glsl
 custom-shader = shaders/cursor_warp.glsl
+
+# 光标
+cursor-style = bar
+cursor-style-blink = true
+mouse-hide-while-typing = true
+
+# Shell 集成
+shell-integration-features = cursor, sudo, title
+
+# 窗口
+window-padding-balance = true
+
+# macOS 优化
+macos-window-shadow = true
+macos-auto-secure-input = true
+
+# 快速终端
+quick-terminal-position = top
+quick-terminal-animation-duration = 0.15
