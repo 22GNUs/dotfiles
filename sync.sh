@@ -39,7 +39,6 @@ SYNC_FILES=(
     "$HOME/.config/starship.toml|./.config/starship.toml|🚀 Starship配置"
     "$HOME/.ideavimrc|./.ideavimrc|⌨️  IDEA Vim配置"
     "$HOME/.tmux.conf|./.tmux.conf|🖥️  Tmux配置"
-    "$HOME/.gitconfig|./.gitconfig|🔧 Git配置"
 )
 
 echo -e "${BOLD}=========================================="

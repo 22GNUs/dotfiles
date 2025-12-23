@@ -4,3 +4,4 @@
 *.swo
 *.bak
 .intellimacs/.git
+.gitconfig
