@@ -1,31 +1,24 @@
 # Suppress greeting
 set fish_greeting
 
-# Add HomeBrew's bin directory to path so you can use HomeBrew's binaries like `starship`
-# Fish uses `fish_add_path` instead of `export PATH` modify $PATH.
-# fish_add_path /opt/homebrew/bin/
-if not contains /opt/homebrew/bin $PATH
-    set PATH $PATH /opt/homebrew/bin/
-end
+# Add HomeBrew's bin directory to path
+fish_add_path /opt/homebrew/bin
+fish_add_path $HOME/.local/bin
 
 # Enable Starship prompt
 starship init fish | source
 
+# Aliases
 alias gvim="neovide --frame transparent"
+alias oc=opencode
 
-if status is-interactive
-    # Commands to run in interactive sessions can go here
-end
+# pnpm
+set -gx PNPM_HOME /Users/xinhua/Library/pnpm
+fish_add_path $PNPM_HOME
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-if test -f /opt/homebrew/Caskroom/miniconda/base/bin/conda
-    eval /opt/homebrew/Caskroom/miniconda/base/bin/conda "shell.fish" hook $argv | source
-else
-    if test -f "/opt/homebrew/Caskroom/miniconda/base/etc/fish/conf.d/conda.fish"
-        . "/opt/homebrew/Caskroom/miniconda/base/etc/fish/conf.d/conda.fish"
-    else
-        set -x PATH /opt/homebrew/Caskroom/miniconda/base/bin $PATH
-    end
+# SDKMAN initialization
+if test -d ~/.sdkman/candidates/java/current
+    set -gx SDKMAN_DIR ~/.sdkman
+    set -gx JAVA_HOME ~/.sdkman/candidates/java/current
+    fish_add_path $JAVA_HOME/bin
 end
-# <<< conda initialize <<<
