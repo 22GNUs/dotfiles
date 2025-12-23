@@ -1,8 +1,6 @@
 [user]
-	name = 22GNUs
-	email = stormaroon@gmail.com
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+	name = wxh257150
+	email = wxh257150@alibaba-inc.com
+[core]
+	autocrlf = input
+	symlinks = false
