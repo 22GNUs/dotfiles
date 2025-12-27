@@ -4,9 +4,9 @@ command = /opt/homebrew/bin/fish -l
 
 # theme
 theme = tokyonight
-font-size = 17
+font-size = 16
 font-family = FantasqueSansM Nerd Font
-font-family = Sarasa Term SC Nerd
+font-family = Maple Mono
 font-thicken
 
 background-opacity = 0.92
