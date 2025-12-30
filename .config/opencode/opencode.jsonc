@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "theme": "system",
+  "autoupdate": false,
   "small_model": "opencode/grok-code",
   "plugin": ["opencode-antigravity-auth@1.2.6"],
   // models.dev: https://models.dev/
@@ -154,7 +154,7 @@
   },
   "agent": {
     "semantic-git-committer": {
-      "model": "google/gemini-3-flash",
+      "model": "opencode/grok-code",
     },
     "typescript-developer": {
       "model": "minimax/MiniMax-M2.1",
