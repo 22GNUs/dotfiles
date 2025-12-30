@@ -27,6 +27,8 @@ SYNC_DIRS=(
     ".config/ghostty|$HOME/.config/ghostty|👻 Ghostty配置"
     ".config/zellij|$HOME/.config/zellij|🗄️ Zellij配置"
     ".config/aerospace|$HOME/.config/aerospace|🚀 AeroSpace配置"
+    ".config/nvim|$HOME/.config/nvim|📝 Neovim配置"
+    ".config/opencode|$HOME/.config/opencode|🤖 OpenCode配置"
 )
 
 # 定义同步文件

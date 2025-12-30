@@ -6,23 +6,24 @@
 
 ```
 .
-├── .config/           # 主配置目录
-│   ├── fish/         # Fish Shell 配置
-│   ├── ghostty/      # Ghostty 终端配置
-│   ├── zellij/       # Zellij 终端复用器配置
-│   ├── aerospace/    # AeroSpace 窗口管理器配置
-│   └── starship.toml # Starship 提示符配置
-├── archive/          # 归档的旧配置
-│   ├── editors/      # 编辑器配置 (Vim, IntelliJ)
-│   ├── macos/        # macOS 工具配置 (Sketchybar)
-│   ├── scripts/      # 实用脚本
-│   ├── shells/       # 旧 Shell 配置 (Zsh)
-│   └── terminals/    # 旧终端配置 (Alacritty, WezTerm)
-├── fonts/            # Nerd Fonts 字体文件
-├── install.sh        # 安装脚本（从仓库到系统）
-├── sync.sh           # 同步脚本（从系统到仓库）
-├── .tmux.conf        # Tmux 配置
-└── .ideavimrc        # IntelliJ IDEA Vim 插件配置
+├── .config/               # 主配置目录
+│   ├── fish/             # Fish Shell 配置
+│   ├── ghostty/          # Ghostty 终端配置
+│   ├── zellij/           # Zellij 终端复用器配置
+│   ├── aerospace/        # AeroSpace 窗口管理器配置
+│   ├── nvim/             # Neovim (LazyVim) 配置
+│   ├── opencode/         # OpenCode AI 助手配置
+│   └── starship.toml     # Starship 提示符配置
+├── archive/              # 归档的旧配置
+│   ├── editors/          # 编辑器配置 (Vim, IntelliJ)
+│   ├── macos/            # macOS 工具配置 (Sketchybar)
+│   ├── scripts/          # 实用脚本
+│   ├── shells/           # 旧 Shell 配置 (Zsh)
+│   └── terminals/        # 旧终端配置 (Alacritty, WezTerm)
+├── fonts/                # Nerd Fonts 字体文件
+├── install.sh            # 安装脚本（从仓库到系统）
+├── .tmux.conf            # Tmux 配置
+└── .ideavimrc            # IntelliJ IDEA Vim 插件配置
 ```
 
 ## 注意事项
