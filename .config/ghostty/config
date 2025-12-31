@@ -9,6 +9,7 @@ font-family = FantasqueSansM Nerd Font
 font-family = Maple Mono
 font-thicken
 
+background = #0a0a0d
 background-opacity = 0.92
 background-blur = 25
 
