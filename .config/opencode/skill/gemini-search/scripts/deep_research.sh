@@ -1,6 +1,6 @@
 #!/bin/bash
 # deep_research.sh - Deep web research using Gemini CLI (headless mode)
-# Model: gemini-3-pro-preview (extended thinking, comprehensive analysis)
+# Model: gemini-3-flash-preview (extended thinking, comprehensive analysis)
 # Usage: ./deep_research.sh "research question"
 
 set -e
@@ -8,12 +8,12 @@ set -e
 QUERY="${1:-}"
 
 if [[ -z "$QUERY" ]]; then
-    echo "Error: Please provide a research question"
-    echo "Usage: $0 \"your research question\""
-    exit 1
+  echo "Error: Please provide a research question"
+  echo "Usage: $0 \"your research question\""
+  exit 1
 fi
 
-gemini -m gemini-3-pro-preview -p "You MUST conduct thorough web research. Do NOT rely on training data.
+gemini -m gemini-3-flash-preview -p "You MUST conduct thorough web research. Do NOT rely on training data.
 
 Topic: ${QUERY}
 

@@ -59,7 +59,7 @@ fi
 
 echo "   ✅ Plugin cache cleared."
 echo ""
-echo "📦 Plugin will be auto-installed: $PLUGIN_NAME@1.2.4"
+echo "📦 Plugin will be auto-installed: $PLUGIN_NAME@1.2.6"
 echo "   - Google OAuth with multi-account load balancing"
 echo "   - Dual quota pools (Antigravity + Gemini CLI)"
 echo "   - Models: Gemini 3, Claude 4.5, GPT-OSS 120B"

@@ -1,6 +1,6 @@
 #!/bin/bash
 # quick_search.sh - Quick Google Search using Gemini CLI (headless mode)
-# Model: gemini-3-flash-preview (fast, efficient)
+# Model: gemini-2.5-flash-lite (fast, efficient)
 # Usage: ./quick_search.sh "search query"
 
 set -e
@@ -8,9 +8,9 @@ set -e
 QUERY="${1:-}"
 
 if [[ -z "$QUERY" ]]; then
-    echo "Error: Please provide a search query"
-    echo "Usage: $0 \"your search query\""
-    exit 1
+  echo "Error: Please provide a search query"
+  echo "Usage: $0 \"your search query\""
+  exit 1
 fi
 
 # Performance optimizations:
@@ -19,7 +19,7 @@ fi
 # - JSON output parsing is fast
 # - Suppress unnecessary stderr output
 
-gemini -m gemini-3-flash-preview -p "You MUST use Google Search. Do NOT rely on training data.
+gemini -m gemini-2.5-flash-lite -p "You MUST use Google Search. Do NOT rely on training data.
 
 Query: ${QUERY}
 

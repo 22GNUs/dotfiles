@@ -11,8 +11,8 @@ Leverage Gemini CLI to perform Google Search with optimized modes for different 
 
 ## Capabilities
 
-1. **Quick Search** - Uses `gemini-3-flash-preview` for fast Google Search queries
-2. **Deep Research** - Uses `gemini-3-pro-preview` for comprehensive analysis with extended thinking
+1. **Quick Search** - Uses `gemini-2.5-flash-lite` for fast Google Search queries
+2. **Deep Research** - Uses `gemini-3-flash-preview` for comprehensive analysis with extended thinking
 
 Both scripts support **parallel execution** for multiple concurrent searches.
 
@@ -115,7 +115,7 @@ SOURCES:
 
 **Performance optimizations:**
 
-- Uses `gemini-3-flash-preview` for quick searches (fastest model)
+- Uses `gemini-2.5-flash-lite` for quick searches (fastest model)
 - Headless mode with JSON output for minimal overhead
 - Compact prompts to reduce token usage
 - Suppressed debug logs for clean output
