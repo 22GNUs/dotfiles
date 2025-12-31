@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# 将仓库中的配置文件安装到用户目录的脚本
-# 使用方法: ./install.sh
+# Install dotfiles from repository to user directory
+# Usage: ./install.sh [options]
 
 set -e
 
-# 颜色和样式定义
+# Color definitions
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
@@ -20,38 +20,90 @@ log_step() { echo -e "${BLUE}🚀 [STEP]${NC} ${BOLD}$1${NC}"; }
 log_warn() { echo -e "${YELLOW}⚠️  [WARN]${NC} $1"; }
 log_error() { echo -e "${RED}❌ [ERROR]${NC} $1"; }
 
-# 定义同步目录 (与 sync.sh 相反)
-# 格式: "源路径(仓库)|目标路径(用户)|描述"
+# Show usage
+show_usage() {
+    echo -e "${BOLD}Usage:${NC}"
+    echo -e "    ./install.sh [options]"
+    echo -e ""
+    echo -e "${BOLD}Description:${NC}"
+    echo -e "    Install dotfiles from repository to user directory via symlinks"
+    echo -e ""
+    echo -e "${BOLD}Options:${NC}"
+    echo -e "    -d, --install-deps    Check and install system dependencies (fonts, tmux theme deps, etc.)"
+    echo -e "    -h, --help            Show this help message"
+    echo -e ""
+    echo -e "${BOLD}Examples:${NC}"
+    echo -e "    ./install.sh                # Create symlinks only"
+    echo -e "    ./install.sh -d             # Create symlinks and install dependencies"
+    echo -e "    ./install.sh --install-deps # Same as above"
+    echo -e ""
+    echo -e "${BOLD}Dependencies:${NC}"
+    echo -e "    Fonts:"
+    echo -e "      - font-fantasque-sans-mono-nerd-font"
+    echo -e "      - font-monaspace-nerd-font"
+    echo -e "      - font-noto-sans-symbols-2"
+    echo -e ""
+    echo -e "    Tmux Tokyo-Night Theme:"
+    echo -e "      - bash, bc, coreutils, gawk"
+    echo -e "      - gh, glab, gsed, jq"
+    echo -e "      - nowplaying-cli (macOS)"
+    echo -e ""
+}
+
+# Parse command line arguments
+INSTALL_DEPS=false
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -d|--install-deps)
+            INSTALL_DEPS=true
+            shift
+            ;;
+        -h|--help)
+            show_usage
+            exit 0
+            ;;
+        *)
+            log_error "Unknown parameter: $1"
+            echo ""
+            show_usage
+            exit 1
+            ;;
+    esac
+done
+
+# Define sync directories
+# Format: "source_path(repo)|dest_path(user)|description"
 SYNC_DIRS=(
-    ".config/fish|$HOME/.config/fish|🐟 Fish配置"
-    ".config/ghostty|$HOME/.config/ghostty|👻 Ghostty配置"
-    ".config/zellij|$HOME/.config/zellij|🗄️ Zellij配置"
-    ".config/aerospace|$HOME/.config/aerospace|🚀 AeroSpace配置"
-    ".config/nvim|$HOME/.config/nvim|📝 Neovim配置"
-    ".config/opencode|$HOME/.config/opencode|🤖 OpenCode配置"
+    ".config/fish|$HOME/.config/fish|🐟 Fish config"
+    ".config/ghostty|$HOME/.config/ghostty|👻 Ghostty config"
+    ".config/zellij|$HOME/.config/zellij|🗄️ Zellij config"
+    ".config/aerospace|$HOME/.config/aerospace|🚀 AeroSpace config"
+    ".config/nvim|$HOME/.config/nvim|📝 Neovim config"
+    ".config/opencode|$HOME/.config/opencode|🤖 OpenCode config"
 )
 
-# 定义同步文件
-# 格式: "源路径(仓库)|目标路径(用户)|描述"
+# Define sync files
+# Format: "source_path(repo)|dest_path(user)|description"
 SYNC_FILES=(
-    ".config/starship.toml|$HOME/.config/starship.toml|🚀 Starship配置"
-    ".gemini/GEMINI.md|$HOME/.gemini/GEMINI.md|🤖 Gemini配置"
-    ".ideavimrc|$HOME/.ideavimrc|⌨️  IDEA Vim配置"
-    ".tmux.conf|$HOME/.tmux.conf|🖥️  Tmux配置"
+    ".config/starship.toml|$HOME/.config/starship.toml|🚀 Starship config"
+    ".gemini/GEMINI.md|$HOME/.gemini/GEMINI.md|🤖 Gemini config"
+    ".ideavimrc|$HOME/.ideavimrc|⌨️  IDEA Vim config"
+    ".tmux.conf|$HOME/.tmux.conf|🖥️  Tmux config"
 )
 
 echo -e "${BOLD}=========================================="
-echo -e "      🔗 Dotfiles 软链接工具 (Repo -> Home)"
+echo -e "      🔗 Dotfiles Installer (Repo -> Home)"
 echo -e "==========================================${NC}"
 
-# 获取仓库根目录的绝对路径
+# Get repository root absolute path
 DOTFILES_ROOT=$(pwd)
 
-# 创建备份目录
+# Create backup directory
 mkdir -p "$BACKUP_DIR"
-log_info "冲突文件将备份至: $BACKUP_DIR"
+log_info "Conflicts will be backed up to: $BACKUP_DIR"
 
-# 处理软链接的通用函数
+# Common function to create symlinks
 create_symlink() {
     local src_rel=$1
     local dest=$2
@@ -59,7 +111,7 @@ create_symlink() {
     local src="$DOTFILES_ROOT/$src_rel"
 
     if [[ ! -e "$src" ]]; then
-        log_error "错误: 仓库中找不到源 $src"
+        log_error "Error: Source not found in repo: $src"
         return
     fi
 
@@ -67,55 +119,132 @@ create_symlink() {
         local current_link
         current_link=$(readlink "$dest")
         if [[ "$current_link" == "$src" ]]; then
-            log_info "已连接: $desc"
+            log_info "Already linked: $desc"
             return
         fi
-        # 如果是软链接但指向不对，先删除
+        # Remove symlink if pointing to wrong location
         rm "$dest"
     elif [[ -e "$dest" ]]; then
-        # 如果是普通文件或目录，备份它
+        # Backup regular file or directory
         mkdir -p "$(dirname "$BACKUP_DIR/${dest#$HOME/}")"
         mv "$dest" "$BACKUP_DIR/${dest#$HOME/}"
-        log_warn "已备份存量配置: $desc"
+        log_warn "Backed up existing config: $desc"
     fi
 
-    # 创建目标父目录
+    # Create parent directory
     mkdir -p "$(dirname "$dest")"
-    # 创建软链接
+    # Create symlink
     ln -s "$src" "$dest"
-    log_info "链接成功: $desc"
+    log_info "Linked successfully: $desc"
 }
 
-# 1. 处理目录
-log_step "开始建立目录链接..."
+# 1. Process directories
+log_step "Creating directory symlinks..."
 for item in "${SYNC_DIRS[@]}"; do
     IFS="|" read -r src dest desc <<< "$item"
     create_symlink "$src" "$dest" "$desc"
 done
 
-# 2. 处理文件
+# 2. Process files
 echo ""
-log_step "开始建立文件链接..."
+log_step "Creating file symlinks..."
 for item in "${SYNC_FILES[@]}"; do
     IFS="|" read -r src dest desc <<< "$item"
     create_symlink "$src" "$dest" "$desc"
 done
 
 echo -e "\n${BOLD}=========================================="
-echo -e "      🎉 软链接建立完成!"
+echo -e "      🎉 Symlinks created successfully!"
 echo -e "==========================================${NC}"
 
-# 3. 初始化 Fish 主题
-log_step "初始化 Fish 主题..."
+# 3. Check and install dependencies (only when -d flag is specified)
+if [ "$INSTALL_DEPS" = true ]; then
+    # 3.1 Check and install font dependencies
+    log_step "Checking font dependencies..."
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        if ! command -v brew &> /dev/null; then
+            log_warn "Homebrew not detected, skipping font installation"
+        else
+            # Ensure cask-fonts tap is added
+            if ! brew tap | grep -q "homebrew/cask-fonts"; then
+                log_info "Adding homebrew/cask-fonts tap..."
+                brew tap homebrew/cask-fonts
+            fi
+            
+            FONT_DEPS=("font-fantasque-sans-mono-nerd-font" "font-monaspace-nerd-font" "font-noto-sans-symbols-2")
+            MISSING_FONTS=()
+            
+            for font in "${FONT_DEPS[@]}"; do
+                if ! brew list --cask "$font" &> /dev/null; then
+                    MISSING_FONTS+=("$font")
+                fi
+            done
+            
+            if [ ${#MISSING_FONTS[@]} -eq 0 ]; then
+                log_info "All font dependencies installed ✅"
+            else
+                log_warn "Missing fonts: ${MISSING_FONTS[*]}"
+                read -p "Install now? (y/N): " -n 1 -r
+                echo
+                if [[ $REPLY =~ ^[Yy]$ ]]; then
+                    log_info "Installing: ${MISSING_FONTS[*]}"
+                    brew install --cask "${MISSING_FONTS[@]}" && \
+                        log_info "Fonts installed successfully ✅" || \
+                        log_error "Some fonts failed to install"
+                fi
+            fi
+        fi
+    else
+        log_warn "Non-macOS system, please install Nerd Fonts manually"
+    fi
+
+    # 3.2 Check and install Tmux Tokyo-Night theme dependencies
+    log_step "Checking Tmux Tokyo-Night theme dependencies..."
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        if ! command -v brew &> /dev/null; then
+            log_warn "Homebrew not detected, skipping dependency installation"
+        else
+            TMUX_DEPS=("bash" "bc" "coreutils" "gawk" "gh" "glab" "gsed" "jq" "nowplaying-cli")
+            MISSING_DEPS=()
+            
+            for dep in "${TMUX_DEPS[@]}"; do
+                if ! brew list "$dep" &> /dev/null; then
+                    MISSING_DEPS+=("$dep")
+                fi
+            done
+            
+            if [ ${#MISSING_DEPS[@]} -eq 0 ]; then
+                log_info "All Tmux dependencies installed ✅"
+            else
+                log_warn "Missing dependencies: ${MISSING_DEPS[*]}"
+                read -p "Install now? (y/N): " -n 1 -r
+                echo
+                if [[ $REPLY =~ ^[Yy]$ ]]; then
+                    log_info "Installing: ${MISSING_DEPS[*]}"
+                    brew install "${MISSING_DEPS[@]}" && \
+                        log_info "Dependencies installed successfully ✅" || \
+                        log_error "Some dependencies failed to install"
+                fi
+            fi
+        fi
+    else
+        log_warn "Non-macOS system, please install Tmux theme dependencies manually"
+    fi
+else
+    log_info "Skipping dependency check (use -d flag to enable)"
+fi
+
+# 4. Initialize Fish theme
+log_step "Initializing Fish theme..."
 FISH_THEME="TokyoNight Moon"
 if command -v fish &> /dev/null; then
     fish -c "yes | fish_config theme save '$FISH_THEME'" 2>/dev/null && \
-        log_info "已设置主题: 🎨 $FISH_THEME" || \
-        log_warn "主题设置失败，请手动运行: fish_config theme save '$FISH_THEME'"
+        log_info "Theme set: 🎨 $FISH_THEME" || \
+        log_warn "Failed to set theme, run manually: fish_config theme save '$FISH_THEME'"
 else
-    log_warn "未检测到 Fish，跳过主题初始化"
+    log_warn "Fish not detected, skipping theme initialization"
 fi
 
 echo -e "\n${BOLD}==========================================
-      ✅ 安装完成! 请重启终端生效
+      ✅ Installation complete! Restart your terminal
 ==========================================${NC}"
