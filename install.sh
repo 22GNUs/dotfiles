@@ -35,6 +35,7 @@ SYNC_DIRS=(
 # 格式: "源路径(仓库)|目标路径(用户)|描述"
 SYNC_FILES=(
     ".config/starship.toml|$HOME/.config/starship.toml|🚀 Starship配置"
+    ".gemini/GEMINI.md|$HOME/.gemini/GEMINI.md|🤖 Gemini配置"
     ".ideavimrc|$HOME/.ideavimrc|⌨️  IDEA Vim配置"
     ".tmux.conf|$HOME/.tmux.conf|🖥️  Tmux配置"
 )
