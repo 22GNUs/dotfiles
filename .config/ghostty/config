@@ -10,7 +10,7 @@ font-family = Maple Mono
 font-thicken
 
 background = #0a0a0d
-background-opacity = 0.92
+background-opacity = 0.85
 background-blur = 25
 
 window-padding-x = 6
