@@ -26,14 +26,14 @@
             "output": ["text"],
           },
           "cost": {
-            "input": 5,
-            "output": 25,
-            "cache_read": 0.5,
-            "cache_write": 6.25,
+            "input": 0.073,
+            "output": 0.15,
+            "cache_read": 0.003,
+            "cache_write": 0.0372,
           },
           "limit": {
-            "context": 200000,
-            "output": 64000,
+            "context": 150000,
+            "output": 48000,
           },
         },
       },
@@ -190,14 +190,11 @@
     "java-developer": {
       "model": "minimax/MiniMax-M2.1",
     },
-    "plan": {
-      "model": "google/claude-opus-4-5-thinking-high",
-    },
     "general": {
       "model": "google/gemini-3-pro-high",
     },
     "explore": {
-      "model": "google/gemini-3-pro-high",
+      "model": "google/gemini-3-flash",
     },
   },
   "command": {
