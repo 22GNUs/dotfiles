@@ -246,10 +246,10 @@
       "model": "minimax/MiniMax-M2.1",
     },
     "general": {
-      "model": "google/gemini-3-pro-high",
+      "model": "google/antigravity-gemini-3-pro-high",
     },
     "explore": {
-      "model": "google/gemini-3-flash",
+      "model": "google/antigravity-gemini-3-flash",
     },
   },
   "command": {
