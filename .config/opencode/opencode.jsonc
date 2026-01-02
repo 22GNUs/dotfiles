@@ -36,30 +36,6 @@
             "output": 48000,
           },
         },
-        "claude-opus-4-5-thinking": {
-          "id": "claude-opus-4-5-thinking",
-          "name": "Claude Opus 4.5 Thinking",
-          "family": "claude-opus",
-          "attachment": true,
-          "reasoning": true,
-          "tool_call": true,
-          "temperature": true,
-          "release_date": "2025-11-24",
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"],
-          },
-          "cost": {
-            "input": 0.073,
-            "output": 0.15,
-            "cache_read": 0.003,
-            "cache_write": 0.0372,
-          },
-          "limit": {
-            "context": 150000,
-            "output": 48000,
-          },
-        },
       },
     },
     "openai": {
@@ -261,7 +237,7 @@
   },
   "agent": {
     "semantic-git-committer": {
-      "model": "antigravity-gemini-3-flash",
+      "model": "google/antigravity-gemini-3-flash",
     },
     "typescript-developer": {
       "model": "minimax/MiniMax-M2.1",
@@ -273,7 +249,7 @@
       "model": "google/antigravity-gemini-3-pro-high",
     },
     "explore": {
-      "model": "antigravity-gemini-3-flash",
+      "model": "google/antigravity-gemini-3-flash",
     },
   },
   "command": {
