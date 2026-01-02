@@ -261,7 +261,7 @@
   },
   "agent": {
     "semantic-git-committer": {
-      "model": "opencode/grok-code",
+      "model": "antigravity-gemini-3-flash",
     },
     "typescript-developer": {
       "model": "minimax/MiniMax-M2.1",
@@ -273,7 +273,7 @@
       "model": "google/antigravity-gemini-3-pro-high",
     },
     "explore": {
-      "model": "google/gemini-3-flash",
+      "model": "antigravity-gemini-3-flash",
     },
   },
   "command": {
