@@ -236,9 +236,6 @@
     },
   },
   "agent": {
-    "semantic-git-committer": {
-      "model": "google/antigravity-gemini-3-flash",
-    },
     "typescript-developer": {
       "model": "minimax/MiniMax-M2.1",
     },
@@ -252,13 +249,7 @@
       "model": "google/antigravity-gemini-3-flash",
     },
   },
-  "command": {
-    "commit": {
-      "template": "Please commit the changes.",
-      "description": "Commit changes using semantic-git-committer",
-      "agent": "semantic-git-committer",
-    },
-  },
+  "command": {},
   "mcp": {
     "context7": {
       "type": "remote",
