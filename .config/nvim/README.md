@@ -31,8 +31,20 @@ brew install node
 brew install lazygit
 ```
 
-### Glow(Optional)
 
-```sh
-brew install glow
-```
+## Plugins
+
+### Git Conflict (git-conflict.nvim)
+
+用于可视化和解决 Git 冲突的插件。当检测到冲突时，会自动在当前 buffer 启用以下快捷键：
+
+- **`co`** (Choose Ours): 选择当前分支的更改。
+- **`ct`** (Choose Theirs): 选择传入分支的更改。
+- **`cb`** (Choose Both): 保留双方更改。
+- **`c0`** (Choose None): 都不保留。
+- **`[x`** : 跳转到上一个冲突点。
+- **`]x`** : 跳转到下一个冲突点。
+
+**常用命令：**
+
+- `:GitConflictListQf`: 在 Quickfix 窗口中列出项目中的所有冲突。
