@@ -2,7 +2,6 @@
   "$schema": "https://opencode.ai/config.json",
   "autoupdate": false,
   "small_model": "opencode/grok-code",
-  "plugin": ["opencode-antigravity-auth@1.2.8"],
   // models.dev: https://models.dev/
   "provider": {
     "foxcode": {
@@ -38,103 +37,228 @@
         },
       },
     },
-    "openai": {
-      "options": {
-        "baseURL": "https://code.newcli.com/codex/v1",
-      },
-    },
-    "google": {
+    "quotio": {
       "models": {
-        "antigravity-gemini-3-pro": {
-          "name": "Gemini 3 Pro (Antigravity)",
-          "limit": { "context": 1048576, "output": 65535 },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"],
+        "gemini-2.5-computer-use-preview-10-2025": {
+          "limit": {
+            "context": 1048576,
+            "output": 65536,
           },
-          "variants": {
-            "low": { "thinkingLevel": "low" },
-            "high": { "thinkingLevel": "high" },
-          },
-        },
-        "antigravity-gemini-3-flash": {
-          "name": "Gemini 3 Flash (Antigravity)",
-          "limit": { "context": 1048576, "output": 65536 },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"],
-          },
-          "variants": {
-            "minimal": { "thinkingLevel": "minimal" },
-            "low": { "thinkingLevel": "low" },
-            "medium": { "thinkingLevel": "medium" },
-            "high": { "thinkingLevel": "high" },
-          },
-        },
-        "antigravity-claude-sonnet-4-5": {
-          "name": "Claude Sonnet 4.5 (no thinking) (Antigravity)",
-          "limit": { "context": 200000, "output": 64000 },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"],
-          },
-        },
-        "antigravity-claude-sonnet-4-5-thinking": {
-          "name": "Claude Sonnet 4.5 Thinking (Antigravity)",
-          "limit": { "context": 200000, "output": 64000 },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"],
-          },
-          "variants": {
-            "low": { "thinkingConfig": { "thinkingBudget": 8192 } },
-            "max": { "thinkingConfig": { "thinkingBudget": 32768 } },
-          },
-        },
-        "antigravity-claude-opus-4-5-thinking": {
-          "name": "Claude Opus 4.5 Thinking (Antigravity)",
-          "limit": { "context": 200000, "output": 64000 },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"],
-          },
-          "variants": {
-            "low": { "thinkingConfig": { "thinkingBudget": 8192 } },
-            "max": { "thinkingConfig": { "thinkingBudget": 32768 } },
-          },
+          "name": "Gemini 2.5 Computer Use Preview 10 2025",
         },
         "gemini-2.5-flash": {
-          "name": "Gemini 2.5 Flash (Gemini CLI)",
-          "limit": { "context": 1048576, "output": 65536 },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"],
+          "limit": {
+            "context": 1048576,
+            "output": 65536,
           },
+          "name": "Gemini 2.5 Flash",
+        },
+        "gemini-2.5-flash-lite": {
+          "limit": {
+            "context": 1048576,
+            "output": 65536,
+          },
+          "name": "Gemini 2.5 Flash Lite",
         },
         "gemini-2.5-pro": {
-          "name": "Gemini 2.5 Pro (Gemini CLI)",
-          "limit": { "context": 1048576, "output": 65536 },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"],
+          "limit": {
+            "context": 1048576,
+            "output": 65536,
           },
+          "name": "Gemini 2.5 Pro",
         },
         "gemini-3-flash-preview": {
-          "name": "Gemini 3 Flash Preview (Gemini CLI)",
-          "limit": { "context": 1048576, "output": 65536 },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"],
+          "limit": {
+            "context": 1048576,
+            "output": 65536,
           },
+          "name": "Gemini 3 Flash Preview",
+        },
+        "gemini-3-pro-image-preview": {
+          "limit": {
+            "context": 1048576,
+            "output": 65536,
+          },
+          "name": "Gemini 3 Pro Image Preview",
         },
         "gemini-3-pro-preview": {
-          "name": "Gemini 3 Pro Preview (Gemini CLI)",
-          "limit": { "context": 1048576, "output": 65535 },
-          "modalities": {
-            "input": ["text", "image", "pdf"],
-            "output": ["text"],
+          "limit": {
+            "context": 1048576,
+            "output": 65536,
           },
+          "name": "Gemini 3 Pro Preview",
         },
+        "gemini-claude-opus-4-5-thinking": {
+          "limit": {
+            "context": 200000,
+            "output": 64000,
+          },
+          "name": "Gemini Claude Opus 4 5 Thinking",
+          "options": {
+            "thinking": {
+              "budgetTokens": 10000,
+              "type": "enabled",
+            },
+          },
+          "reasoning": true,
+        },
+        "gemini-claude-sonnet-4-5": {
+          "limit": {
+            "context": 200000,
+            "output": 64000,
+          },
+          "name": "Gemini Claude Sonnet 4 5",
+        },
+        "gemini-claude-sonnet-4-5-thinking": {
+          "limit": {
+            "context": 200000,
+            "output": 64000,
+          },
+          "name": "Gemini Claude Sonnet 4 5 Thinking",
+          "options": {
+            "thinking": {
+              "budgetTokens": 10000,
+              "type": "enabled",
+            },
+          },
+          "reasoning": true,
+        },
+        "gpt-5": {
+          "limit": {
+            "context": 400000,
+            "output": 32768,
+          },
+          "name": "Gpt 5",
+          "options": {
+            "reasoning": {
+              "effort": "medium",
+            },
+          },
+          "reasoning": true,
+        },
+        "gpt-5-codex": {
+          "limit": {
+            "context": 400000,
+            "output": 32768,
+          },
+          "name": "Gpt 5 Codex",
+          "options": {
+            "reasoning": {
+              "effort": "medium",
+            },
+          },
+          "reasoning": true,
+        },
+        "gpt-5-codex-mini": {
+          "limit": {
+            "context": 400000,
+            "output": 32768,
+          },
+          "name": "Gpt 5 Codex Mini",
+          "options": {
+            "reasoning": {
+              "effort": "low",
+            },
+          },
+          "reasoning": true,
+        },
+        "gpt-5.1": {
+          "limit": {
+            "context": 400000,
+            "output": 32768,
+          },
+          "name": "Gpt 5.1",
+          "options": {
+            "reasoning": {
+              "effort": "medium",
+            },
+          },
+          "reasoning": true,
+        },
+        "gpt-5.1-codex": {
+          "limit": {
+            "context": 400000,
+            "output": 32768,
+          },
+          "name": "Gpt 5.1 Codex",
+          "options": {
+            "reasoning": {
+              "effort": "medium",
+            },
+          },
+          "reasoning": true,
+        },
+        "gpt-5.1-codex-max": {
+          "limit": {
+            "context": 400000,
+            "output": 32768,
+          },
+          "name": "Gpt 5.1 Codex Max",
+          "options": {
+            "reasoning": {
+              "effort": "high",
+            },
+          },
+          "reasoning": true,
+        },
+        "gpt-5.1-codex-mini": {
+          "limit": {
+            "context": 400000,
+            "output": 32768,
+          },
+          "name": "Gpt 5.1 Codex Mini",
+          "options": {
+            "reasoning": {
+              "effort": "low",
+            },
+          },
+          "reasoning": true,
+        },
+        "gpt-5.2": {
+          "limit": {
+            "context": 400000,
+            "output": 32768,
+          },
+          "name": "Gpt 5.2",
+          "options": {
+            "reasoning": {
+              "effort": "medium",
+            },
+          },
+          "reasoning": true,
+        },
+        "gpt-5.2-codex": {
+          "limit": {
+            "context": 400000,
+            "output": 32768,
+          },
+          "name": "Gpt 5.2 Codex",
+          "options": {
+            "reasoning": {
+              "effort": "medium",
+            },
+          },
+          "reasoning": true,
+        },
+        "gpt-oss-120b-medium": {
+          "limit": {
+            "context": 400000,
+            "output": 32768,
+          },
+          "name": "Gpt Oss 120B Medium",
+        },
+        "tab_flash_lite_preview": {
+          "limit": {
+            "context": 128000,
+            "output": 16384,
+          },
+          "name": "Tab_Flash_Lite_Preview",
+        },
+      },
+      "name": "Quotio",
+      "npm": "@ai-sdk/anthropic",
+      "options": {
+        "baseURL": "http://127.0.0.1:8317/v1",
       },
     },
   },
@@ -145,11 +269,8 @@
     "java-developer": {
       "model": "minimax/MiniMax-M2.1",
     },
-    "general": {
-      "model": "google/antigravity-gemini-3-pro-high",
-    },
     "explore": {
-      "model": "google/antigravity-gemini-3-flash",
+      "model": "quotio/gemini-3-flash-preview",
     },
   },
   "command": {},
