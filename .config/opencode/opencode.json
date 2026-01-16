@@ -1,0 +1,230 @@
+{
+  "$schema" : "https://opencode.ai/config.json",
+  "provider" : {
+    "quotio" : {
+      "models" : {
+        "gemini-2.5-computer-use-preview-10-2025" : {
+          "limit" : {
+            "context" : 1048576,
+            "output" : 65536
+          },
+          "name" : "Gemini 2.5 Computer Use Preview 10 2025"
+        },
+        "gemini-2.5-flash" : {
+          "limit" : {
+            "context" : 1048576,
+            "output" : 65536
+          },
+          "name" : "Gemini 2.5 Flash"
+        },
+        "gemini-2.5-flash-lite" : {
+          "limit" : {
+            "context" : 1048576,
+            "output" : 65536
+          },
+          "name" : "Gemini 2.5 Flash Lite"
+        },
+        "gemini-2.5-pro" : {
+          "limit" : {
+            "context" : 1048576,
+            "output" : 65536
+          },
+          "name" : "Gemini 2.5 Pro"
+        },
+        "gemini-3-flash-preview" : {
+          "limit" : {
+            "context" : 1048576,
+            "output" : 65536
+          },
+          "name" : "Gemini 3 Flash Preview"
+        },
+        "gemini-3-pro-image-preview" : {
+          "limit" : {
+            "context" : 1048576,
+            "output" : 65536
+          },
+          "name" : "Gemini 3 Pro Image Preview"
+        },
+        "gemini-3-pro-preview" : {
+          "limit" : {
+            "context" : 1048576,
+            "output" : 65536
+          },
+          "name" : "Gemini 3 Pro Preview"
+        },
+        "gemini-claude-opus-4-5-thinking" : {
+          "limit" : {
+            "context" : 200000,
+            "output" : 64000
+          },
+          "name" : "Gemini Claude Opus 4 5 Thinking",
+          "options" : {
+            "thinking" : {
+              "budgetTokens" : 10000,
+              "type" : "enabled"
+            }
+          },
+          "reasoning" : true
+        },
+        "gemini-claude-sonnet-4-5" : {
+          "limit" : {
+            "context" : 200000,
+            "output" : 64000
+          },
+          "name" : "Gemini Claude Sonnet 4 5"
+        },
+        "gemini-claude-sonnet-4-5-thinking" : {
+          "limit" : {
+            "context" : 200000,
+            "output" : 64000
+          },
+          "name" : "Gemini Claude Sonnet 4 5 Thinking",
+          "options" : {
+            "thinking" : {
+              "budgetTokens" : 10000,
+              "type" : "enabled"
+            }
+          },
+          "reasoning" : true
+        },
+        "gpt-5" : {
+          "limit" : {
+            "context" : 400000,
+            "output" : 32768
+          },
+          "name" : "Gpt 5",
+          "options" : {
+            "reasoning" : {
+              "effort" : "medium"
+            }
+          },
+          "reasoning" : true
+        },
+        "gpt-5-codex" : {
+          "limit" : {
+            "context" : 400000,
+            "output" : 32768
+          },
+          "name" : "Gpt 5 Codex",
+          "options" : {
+            "reasoning" : {
+              "effort" : "medium"
+            }
+          },
+          "reasoning" : true
+        },
+        "gpt-5-codex-mini" : {
+          "limit" : {
+            "context" : 400000,
+            "output" : 32768
+          },
+          "name" : "Gpt 5 Codex Mini",
+          "options" : {
+            "reasoning" : {
+              "effort" : "low"
+            }
+          },
+          "reasoning" : true
+        },
+        "gpt-5.1" : {
+          "limit" : {
+            "context" : 400000,
+            "output" : 32768
+          },
+          "name" : "Gpt 5.1",
+          "options" : {
+            "reasoning" : {
+              "effort" : "medium"
+            }
+          },
+          "reasoning" : true
+        },
+        "gpt-5.1-codex" : {
+          "limit" : {
+            "context" : 400000,
+            "output" : 32768
+          },
+          "name" : "Gpt 5.1 Codex",
+          "options" : {
+            "reasoning" : {
+              "effort" : "medium"
+            }
+          },
+          "reasoning" : true
+        },
+        "gpt-5.1-codex-max" : {
+          "limit" : {
+            "context" : 400000,
+            "output" : 32768
+          },
+          "name" : "Gpt 5.1 Codex Max",
+          "options" : {
+            "reasoning" : {
+              "effort" : "high"
+            }
+          },
+          "reasoning" : true
+        },
+        "gpt-5.1-codex-mini" : {
+          "limit" : {
+            "context" : 400000,
+            "output" : 32768
+          },
+          "name" : "Gpt 5.1 Codex Mini",
+          "options" : {
+            "reasoning" : {
+              "effort" : "low"
+            }
+          },
+          "reasoning" : true
+        },
+        "gpt-5.2" : {
+          "limit" : {
+            "context" : 400000,
+            "output" : 32768
+          },
+          "name" : "Gpt 5.2",
+          "options" : {
+            "reasoning" : {
+              "effort" : "medium"
+            }
+          },
+          "reasoning" : true
+        },
+        "gpt-5.2-codex" : {
+          "limit" : {
+            "context" : 400000,
+            "output" : 32768
+          },
+          "name" : "Gpt 5.2 Codex",
+          "options" : {
+            "reasoning" : {
+              "effort" : "medium"
+            }
+          },
+          "reasoning" : true
+        },
+        "gpt-oss-120b-medium" : {
+          "limit" : {
+            "context" : 400000,
+            "output" : 32768
+          },
+          "name" : "Gpt Oss 120B Medium"
+        },
+        "tab_flash_lite_preview" : {
+          "limit" : {
+            "context" : 128000,
+            "output" : 16384
+          },
+          "name" : "Tab_Flash_Lite_Preview"
+        }
+      },
+      "name" : "Quotio",
+      "npm" : "@ai-sdk/anthropic",
+      "options" : {
+        "apiKey" : "sk-oOlzHZvOM73x27ckxL81rBre2wEcmIFh",
+        "baseURL" : "http://127.0.0.1:8317/v1"
+      }
+    }
+  }
+}
