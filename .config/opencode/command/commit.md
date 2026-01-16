@@ -3,7 +3,7 @@ description: >-
   Analyze `git diff`, split changes into logical/atomic units based on business
   semantics, and generate standardized commit messages (Conventional Commits)
   with emojis.
-model: quotio/gemini-3-flash-preview
+model: modelscope/Qwen/Qwen3-Coder-30B-A3B-Instruct
 subtask: true
 ---
 
