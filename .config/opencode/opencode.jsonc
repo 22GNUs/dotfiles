@@ -303,6 +303,20 @@
           },
           "name": "Kiro Claude Sonnet 4 Agentic",
         },
+        "qwen3-coder-flash": {
+          "limit": {
+            "context": 128000,
+            "output": 16384,
+          },
+          "name": "Qwen3 Coder Flash",
+        },
+        "qwen3-coder-plus": {
+          "limit": {
+            "context": 128000,
+            "output": 16384,
+          },
+          "name": "Qwen3 Coder Plus",
+        },
         "tab_flash_lite_preview": {
           "limit": {
             "context": 128000,
@@ -324,9 +338,6 @@
     },
     "java-developer": {
       "model": "minimax/MiniMax-M2.1",
-    },
-    "explore": {
-      "model": "quotio/gemini-3-flash-preview",
     },
   },
   "command": {},
