@@ -45,6 +45,14 @@
             "output": 65536,
           },
           "name": "Gemini 3 Flash Preview",
+          "attachment": true,
+          "reasoning": true,
+          "tool_call": true,
+          "temperature": true,
+          "modalities": {
+            "input": ["text", "image", "pdf"],
+            "output": ["text"],
+          },
         },
         "gemini-3-pro-preview": {
           "limit": {
@@ -52,41 +60,44 @@
             "output": 65536,
           },
           "name": "Gemini 3 Pro Preview",
+          "attachment": true,
+          "reasoning": true,
+          "tool_call": true,
+          "temperature": true,
+          "modalities": {
+            "input": ["text", "image", "pdf"],
+            "output": ["text"],
+          },
         },
         "gemini-claude-opus-4-5-thinking": {
           "limit": {
             "context": 200000,
             "output": 64000,
           },
-          "name": "Gemini Claude Opus 4 5 Thinking",
-          "options": {
-            "thinking": {
-              "budgetTokens": 10000,
-              "type": "enabled",
-            },
-          },
+          "attachment": true,
           "reasoning": true,
-        },
-        "gemini-claude-sonnet-4-5": {
-          "limit": {
-            "context": 200000,
-            "output": 64000,
+          "tool_call": true,
+          "temperature": true,
+          "modalities": {
+            "input": ["text", "image", "pdf"],
+            "output": ["text"],
           },
-          "name": "Gemini Claude Sonnet 4 5",
+          "name": "Gemini Claude Opus 4 5 Thinking",
         },
         "gemini-claude-sonnet-4-5-thinking": {
           "limit": {
             "context": 200000,
             "output": 64000,
           },
-          "name": "Gemini Claude Sonnet 4 5 Thinking",
-          "options": {
-            "thinking": {
-              "budgetTokens": 10000,
-              "type": "enabled",
-            },
-          },
+          "attachment": true,
           "reasoning": true,
+          "tool_call": true,
+          "temperature": true,
+          "modalities": {
+            "input": ["text", "image", "pdf"],
+            "output": ["text"],
+          },
+          "name": "Gemini Claude Sonnet 4 5 Thining",
         },
         "kiro-claude-haiku-4-5": {
           "limit": {
