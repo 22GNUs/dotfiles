@@ -241,6 +241,10 @@ automatically-unhide-macos-hidden-apps = false
   if.app-id = 'com.kangfenmao.CherryStudio'
   run = 'layout floating'
 
+# Default workspace for new windows
+[[on-window-detected]]
+  run = 'move-node-to-workspace 1'
+
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
