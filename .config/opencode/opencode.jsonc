@@ -104,56 +104,36 @@
             "context": 200000,
             "output": 64000,
           },
-          "name": "Kiro Claude Haiku 4 5",
-        },
-        "kiro-claude-haiku-4-5-agentic": {
-          "limit": {
-            "context": 200000,
-            "output": 64000,
+          "attachment": true,
+          "modalities": {
+            "input": ["text", "image", "pdf"],
+            "output": ["text"],
           },
-          "name": "Kiro Claude Haiku 4 5 Agentic",
+          "name": "Kiro Claude Haiku 4 5",
         },
         "kiro-claude-opus-4-5": {
           "limit": {
             "context": 200000,
             "output": 64000,
           },
+          "attachment": true,
+          "modalities": {
+            "input": ["text", "image", "pdf"],
+            "output": ["text"],
+          },
           "name": "Kiro Claude Opus 4 5",
-        },
-        "kiro-claude-opus-4-5-agentic": {
-          "limit": {
-            "context": 200000,
-            "output": 64000,
-          },
-          "name": "Kiro Claude Opus 4 5 Agentic",
-        },
-        "kiro-claude-sonnet-4": {
-          "limit": {
-            "context": 200000,
-            "output": 64000,
-          },
-          "name": "Kiro Claude Sonnet 4",
         },
         "kiro-claude-sonnet-4-5": {
           "limit": {
             "context": 200000,
             "output": 64000,
           },
+          "attachment": true,
+          "modalities": {
+            "input": ["text", "image", "pdf"],
+            "output": ["text"],
+          },
           "name": "Kiro Claude Sonnet 4 5",
-        },
-        "kiro-claude-sonnet-4-5-agentic": {
-          "limit": {
-            "context": 200000,
-            "output": 64000,
-          },
-          "name": "Kiro Claude Sonnet 4 5 Agentic",
-        },
-        "kiro-claude-sonnet-4-agentic": {
-          "limit": {
-            "context": 200000,
-            "output": 64000,
-          },
-          "name": "Kiro Claude Sonnet 4 Agentic",
         },
         "qwen3-coder-flash": {
           "limit": {
