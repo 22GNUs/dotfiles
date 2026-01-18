@@ -16,15 +16,39 @@
       "npm": "@ai-sdk/anthropic",
       "name": "Foxcode",
       "options": {
-        "baseURL": "https://code.newcli.com/claude/aws/v1",
+        "baseURL": "https://code.newcli.com/claude/droid/v1",
       },
       "models": {
         "claude-opus-4-5": {
-          "id": "claude-opus-4-5-20251101",
+          "id": "claude-opus-4-5",
           "name": "Claude Opus 4.5 (latest)",
           "family": "claude-opus",
           "attachment": true,
-          "reasoning": false,
+          "reasoning": true,
+          "tool_call": true,
+          "temperature": true,
+          "release_date": "2025-11-24",
+          "modalities": {
+            "input": ["text", "image", "pdf"],
+            "output": ["text"],
+          },
+          "cost": {
+            "input": 0.073,
+            "output": 0.15,
+            "cache_read": 0.003,
+            "cache_write": 0.0372,
+          },
+          "limit": {
+            "context": 150000,
+            "output": 48000,
+          },
+        },
+        "claude-sonnet-4-5": {
+          "id": "claude-sonnet-4-5",
+          "name": "Claude Sonnet 4.5 (latest)",
+          "family": "claude-sonnet",
+          "attachment": true,
+          "reasoning": true,
           "tool_call": true,
           "temperature": true,
           "release_date": "2025-11-24",
