@@ -39,6 +39,28 @@
     },
     "quotio": {
       "models": {
+        "deepseek-v3.2": {
+          "limit": {
+            "context": 128000,
+            "output": 16384,
+          },
+          "attachment": false,
+          "temperature": true,
+          "reasoning": true,
+          "tool_call": true,
+          "name": "Deepseek V3.2",
+        },
+        "minimax-m2.1": {
+          "limit": {
+            "context": 128000,
+            "output": 16384,
+          },
+          "attachment": false,
+          "temperature": true,
+          "reasoning": true,
+          "tool_call": true,
+          "name": "Minimax M2.1",
+        },
         "gemini-3-flash-preview": {
           "limit": {
             "context": 1048576,
@@ -159,10 +181,13 @@
   },
   "agent": {
     "typescript-developer": {
-      "model": "minimax/MiniMax-M2.1",
+      "model": "quotio/minimax-m2.1",
     },
     "java-developer": {
-      "model": "minimax/MiniMax-M2.1",
+      "model": "quotio/minimax-m2.1",
+    },
+    "explore": {
+      "model": "quotio/minimax-m2.1",
     },
   },
   "command": {},
