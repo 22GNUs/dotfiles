@@ -2,6 +2,10 @@
   "$schema": "https://opencode.ai/config.json",
   "autoupdate": false,
   "small_model": "quotio/qwen3-coder-plus",
+  "compaction": {
+    "auto": true,
+    "prune": true,
+  },
   // models.dev: https://models.dev/
   "provider": {
     "foxcode": {
