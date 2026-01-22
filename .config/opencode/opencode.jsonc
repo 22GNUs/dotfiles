@@ -6,6 +6,10 @@
     "auto": true,
     "prune": true,
   },
+  "plugin": [
+    // https://github.com/backnotprop/plannotator
+    "@plannotator/opencode@latest",
+  ],
   // models.dev: https://models.dev/
   "provider": {
     "alibaba-cn": {
