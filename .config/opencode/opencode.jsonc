@@ -207,8 +207,8 @@
         },
         "kiro-claude-haiku-4-5": {
           "limit": {
-            "context": 200000,
-            "output": 64000,
+            "context": 150000,
+            "output": 48000,
           },
           "attachment": true,
           "modalities": {
@@ -219,8 +219,8 @@
         },
         "kiro-claude-opus-4-5": {
           "limit": {
-            "context": 200000,
-            "output": 64000,
+            "context": 150000,
+            "output": 48000,
           },
           "attachment": true,
           "modalities": {
@@ -231,8 +231,8 @@
         },
         "kiro-claude-sonnet-4-5": {
           "limit": {
-            "context": 200000,
-            "output": 64000,
+            "context": 150000,
+            "output": 48000,
           },
           "attachment": true,
           "modalities": {
