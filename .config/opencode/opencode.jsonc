@@ -1,7 +1,7 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "autoupdate": false,
-  "small_model": "nvidia/qwen/qwen3-next-80b-a3b-instruct",
+  "small_model": "synthetic/hf:Qwen/Qwen3-Coder-480B-A35B-Instruct",
   "compaction": {
     "auto": true,
     "prune": true,
@@ -12,13 +12,6 @@
   ],
   // models.dev: https://models.dev/
   "provider": {
-    "nvidia": {
-      "models": {
-        "z-ai/glm4.7": {
-          "name": "GLM-4.7-free",
-        },
-      },
-    },
     "foxcode": {
       "npm": "@ai-sdk/anthropic",
       "name": "Foxcode",
@@ -55,19 +48,19 @@
   },
   "agent": {
     "typescript-developer": {
-      "model": "nvidia/z-ai/glm4.7",
+      "model": "synthetic/hf:zai-org/GLM-4.7",
     },
     "java-developer": {
-      "model": "nvidia/z-ai/glm4.7",
+      "model": "synthetic/hf:zai-org/GLM-4.7",
     },
     "explore": {
-      "model": "nvidia/minimaxai/minimax-m2.1",
+      "model": "synthetic/hf:MiniMaxAI/MiniMax-M2.1",
     },
     "general": {
-      "model": "nvidia/minimaxai/minimax-m2.1",
+      "model": "synthetic/hf:MiniMaxAI/MiniMax-M2.1",
     },
     "compaction": {
-      "model": "nvidia/z-ai/glm4.7",
+      "model": "synthetic/hf:zai-org/GLM-4.7",
     },
   },
   "command": {},
