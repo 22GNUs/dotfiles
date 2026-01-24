@@ -12,6 +12,13 @@
   ],
   // models.dev: https://models.dev/
   "provider": {
+    "nvidia": {
+      "models": {
+        "z-ai/glm4.7": {
+          "name": "GLM-4.7-free",
+        },
+      },
+    },
     "alibaba-cn": {
       "models": {
         "deepseek-v3.2": {
@@ -207,8 +214,8 @@
         },
         "kiro-claude-haiku-4-5": {
           "limit": {
-            "context": 150000,
-            "output": 48000,
+            "context": 200000,
+            "output": 64000,
           },
           "attachment": true,
           "modalities": {
@@ -219,8 +226,8 @@
         },
         "kiro-claude-opus-4-5": {
           "limit": {
-            "context": 150000,
-            "output": 48000,
+            "context": 200000,
+            "output": 64000,
           },
           "attachment": true,
           "modalities": {
@@ -231,8 +238,8 @@
         },
         "kiro-claude-sonnet-4-5": {
           "limit": {
-            "context": 150000,
-            "output": 48000,
+            "context": 200000,
+            "output": 64000,
           },
           "attachment": true,
           "modalities": {
