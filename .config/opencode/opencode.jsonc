@@ -272,13 +272,19 @@
   },
   "agent": {
     "typescript-developer": {
-      "model": "quotio/minimax-m2.1",
+      "model": "nvidia/z-ai/glm4.7",
     },
     "java-developer": {
-      "model": "quotio/minimax-m2.1",
+      "model": "nvidia/z-ai/glm4.7",
     },
     "explore": {
-      "model": "quotio/minimax-m2.1",
+      "model": "nvidia/minimaxai/minimax-m2.1",
+    },
+    "general": {
+      "model": "nvidia/minimaxai/minimax-m2.1",
+    },
+    "compaction": {
+      "model": "nvidia/z-ai/glm4.7",
     },
   },
   "command": {},
