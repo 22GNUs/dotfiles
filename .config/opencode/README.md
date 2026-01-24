@@ -31,21 +31,12 @@
 
 ## 插件说明
 
-本配置使用 **`opencode-antigravity-auth@1.2.4`** 插件，提供：
+本配置使用 **`@plannotator/opencode`** 插件，提供智能代码注释生成功能。
 
-- **Google OAuth 认证**：通过 `opencode auth login` 支持多账户管理
-- **双配额池**：Antigravity 和 Gemini CLI 配额自动切换，有效翻倍 Gemini 配额
-- **多模型支持**：包括 Gemini 3 系列和 Claude 4.5 系列（含 thinking 模型）
-- **自动负载均衡**：多账户自动轮换，最大化速率限制
-
-### 插件清理/重装
-
-如果遇到插件问题需要清理缓存重装，请运行：
+如需清理插件缓存，请运行：
 
 ```bash
-cd ~ && sed -i.bak '/opencode-antigravity-auth/d' .cache/opencode/package.json && \
-rm -rf .cache/opencode/node_modules/opencode-antigravity-auth && \
-echo "Plugin cache cleared. Restart OpenCode to reinstall."
+rm -rf ~/.cache/opencode/node_modules/@plannotator/opencode
 ```
 
 ## 环境变量配置
@@ -66,6 +57,20 @@ export CONTEXT7_API_KEY="your_key_here"
 set -gx CONTEXT7_API_KEY "your_key_here"
 ```
 
+### Web Search (可选)
+
+- **`OPENCODE_ENABLE_EXA`**: 设为 `true` 开启 Exa web search 功能。
+
+**Bash / Zsh** (编辑 `~/.zshrc` 或 `~/.bashrc`):
+```bash
+export OPENCODE_ENABLE_EXA="true"
+```
+
+**Fish** (编辑 `~/.config/fish/config.fish`):
+```fish
+set -Ux OPENCODE_ENABLE_EXA true
+```
+
 ### 模型服务配置 (可选/根据实际情况)
 
 - **Anthropic / Claude**:
@@ -82,28 +87,6 @@ set -gx CONTEXT7_API_KEY "your_key_here"
   export OPENAI_API_KEY="sk-..."
   # Fish
   set -gx OPENAI_API_KEY "sk-..."
-  ```
-
-- **Google Gemini & Antigravity**:
-  ```bash
-  opencode auth login
-  # 选择 Google → OAuth with Google (Antigravity)
-  # Project ID 提示时按 Enter 跳过
-  # 在浏览器中完成 Google 登录
-  ```
-  
-  **可用模型**：
-  - `google/gemini-3-pro-high` - Gemini 3 Pro High
-  - `google/gemini-3-pro-low` - Gemini 3 Pro Low
-  - `google/gemini-3-flash` - Gemini 3 Flash
-  - `google/claude-sonnet-4-5` - Claude Sonnet 4.5
-  - `google/claude-sonnet-4-5-thinking` - Claude Sonnet 4.5 (带思考)
-  - `google/claude-opus-4-5-thinking` - Claude Opus 4.5 (带思考)
-  - `google/gpt-oss-120b-medium` - GPT-OSS 120B Medium
-  
-  **多账户支持**：添加 2-10 个 Google 账户以最大化速率限制：
-  ```bash
-  opencode auth login  # 重复运行添加更多账户
   ```
 
 ## MCP 服务配置
