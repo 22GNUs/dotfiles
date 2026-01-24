@@ -38,19 +38,13 @@ if [ $? -ne 0 ]; then
 fi
 
 # ------------------------------------------------------------------
-# 2. Plugin Cleanup (opencode-antigravity-auth)
+# 2. Plugin Cleanup (@plannotator/opencode)
 # ------------------------------------------------------------------
 echo ""
 echo "🧹 Cleaning plugin cache..."
 
-PLUGIN_NAME="opencode-antigravity-auth"
+PLUGIN_NAME="@plannotator/opencode"
 PLUGIN_DIR="$HOME/.cache/opencode/node_modules/$PLUGIN_NAME"
-
-if [ -f "$CACHE_PKG_JSON" ]; then
-    echo "   - Removing '$PLUGIN_NAME' from package.json..."
-    # Using -i.bak to be compatible with macOS sed
-    sed -i.bak "/$PLUGIN_NAME/d" "$CACHE_PKG_JSON"
-fi
 
 if [ -d "$PLUGIN_DIR" ]; then
     echo "   - Removing cached plugin directory..."
@@ -59,10 +53,8 @@ fi
 
 echo "   ✅ Plugin cache cleared."
 echo ""
-echo "📦 Plugin will be auto-installed: $PLUGIN_NAME@1.2.6"
-echo "   - Google OAuth with multi-account load balancing"
-echo "   - Dual quota pools (Antigravity + Gemini CLI)"
-echo "   - Models: Gemini 3, Claude 4.5, GPT-OSS 120B"
+echo "📦 Plugin will be auto-installed: $PLUGIN_NAME@latest"
+echo "   - Intelligent code annotation generation"
 
 # ------------------------------------------------------------------
 # 3. JDTLS + Lombok Setup (Download)
@@ -154,13 +146,7 @@ fi
 
 echo ""
 echo "📝 Next steps:"
-echo "   1. Authenticate with Google for Antigravity models:"
-echo "      opencode auth login"
-echo "      → Select: Google → OAuth with Google (Antigravity)"
-echo "      → Press Enter to skip Project ID"
-echo "      → Complete sign-in in browser"
+echo "   1. Test your setup:"
+echo "      opencode run \"Hello\""
 echo ""
-echo "   2. Test your setup:"
-echo "      opencode run \"Hello\" --model=google/gemini-3-pro-high"
-echo ""
-echo "   3. Restart OpenCode to apply all changes."
+echo "   2. Restart OpenCode to apply all changes."
