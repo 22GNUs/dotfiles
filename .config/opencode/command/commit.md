@@ -3,7 +3,7 @@ description: >-
   Analyze `git diff`, split changes into logical/atomic units based on business
   semantics, and generate standardized commit messages (Conventional Commits)
   with emojis.
-"model": "synthetic/hf:MiniMaxAI/MiniMax-M2.1"
+"model": "synthetic-anth/hf:MiniMaxAI/MiniMax-M2.1"
 subtask: true
 ---
 
