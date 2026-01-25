@@ -1,7 +1,7 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "autoupdate": false,
-  "small_model": "synthetic/hf:Qwen/Qwen3-Coder-480B-A35B-Instruct",
+  "small_model": "synthetic-anth/hf:Qwen/Qwen3-235B-A22B-Instruct-2507",
   "compaction": {
     "auto": true,
     "prune": true,
@@ -12,6 +12,134 @@
   ],
   // models.dev: https://models.dev/
   "provider": {
+    "synthetic-anth": {
+      "npm": "@ai-sdk/anthropic",
+      "name": "Synthetic Anth",
+      "options": {
+        "baseURL": "https://api.synthetic.new/anthropic/v1",
+      },
+      "models": {
+        "hf:Qwen/Qwen3-235B-A22B-Instruct-2507": {
+          "id": "hf:Qwen/Qwen3-235B-A22B-Instruct-2507",
+          "name": "Qwen 3 235B Instruct",
+          "family": "qwen",
+          "attachment": false,
+          "reasoning": false,
+          "tool_call": true,
+          "temperature": true,
+          "release_date": "2025-04-28",
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"],
+          },
+          "cost": {
+            "input": 0.2,
+            "output": 0.6,
+          },
+          "limit": {
+            "context": 256000,
+            "output": 32000,
+          },
+        },
+        "hf:MiniMaxAI/MiniMax-M2.1": {
+          "id": "hf:MiniMaxAI/MiniMax-M2.1",
+          "name": "MiniMax-M2.1",
+          "family": "minimax",
+          "attachment": false,
+          "reasoning": true,
+          "tool_call": true,
+          "interleaved": {
+            "field": "reasoning_content",
+          },
+          "temperature": true,
+          "release_date": "2025-12-23",
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"],
+          },
+          "cost": {
+            "input": 0.55,
+            "output": 2.19,
+          },
+          "limit": {
+            "context": 204800,
+            "output": 131072,
+          },
+        },
+        "hf:moonshotai/Kimi-K2-Thinking": {
+          "id": "hf:moonshotai/Kimi-K2-Thinking",
+          "name": "Kimi K2 Thinking",
+          "family": "kimi-thinking",
+          "attachment": false,
+          "reasoning": true,
+          "tool_call": true,
+          "temperature": true,
+          "release_date": "2025-11-07",
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"],
+          },
+          "cost": {
+            "input": 0.55,
+            "output": 2.19,
+          },
+          "limit": {
+            "context": 262144,
+            "output": 262144,
+          },
+        },
+        "hf:zai-org/GLM-4.7": {
+          "id": "hf:zai-org/GLM-4.7",
+          "name": "GLM 4.7",
+          "family": "glm",
+          "attachment": false,
+          "reasoning": true,
+          "tool_call": true,
+          "interleaved": {
+            "field": "reasoning_content",
+          },
+          "temperature": true,
+          "release_date": "2025-12-22",
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"],
+          },
+          "cost": {
+            "input": 0.55,
+            "output": 2.19,
+          },
+          "limit": {
+            "context": 200000,
+            "output": 64000,
+          },
+        },
+        "hf:deepseek-ai/DeepSeek-V3.2": {
+          "id": "hf:deepseek-ai/DeepSeek-V3.2",
+          "name": "DeepSeek V3.2",
+          "family": "deepseek",
+          "attachment": false,
+          "reasoning": true,
+          "tool_call": true,
+          "temperature": true,
+          "release_date": "2025-12-01",
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"],
+          },
+          "cost": {
+            "input": 0.27,
+            "output": 0.4,
+            "cache_read": 0.27,
+            "cache_write": 0,
+          },
+          "limit": {
+            "context": 162816,
+            "input": 162816,
+            "output": 8000,
+          },
+        },
+      },
+    },
     "foxcode": {
       "npm": "@ai-sdk/anthropic",
       "name": "Foxcode",
@@ -72,19 +200,22 @@
   },
   "agent": {
     "typescript-developer": {
-      "model": "synthetic/hf:zai-org/GLM-4.7",
+      "model": "synthetic-anth/hf:zai-org/GLM-4.7",
     },
     "java-developer": {
-      "model": "synthetic/hf:zai-org/GLM-4.7",
+      "model": "synthetic-anth/hf:zai-org/GLM-4.7",
     },
     "explore": {
-      "model": "synthetic/hf:MiniMaxAI/MiniMax-M2.1",
+      "model": "synthetic-anth/hf:MiniMaxAI/MiniMax-M2.1",
     },
     "general": {
-      "model": "synthetic/hf:MiniMaxAI/MiniMax-M2.1",
+      "model": "synthetic-anth/hf:MiniMaxAI/MiniMax-M2.1",
     },
     "compaction": {
-      "model": "synthetic/hf:zai-org/GLM-4.7",
+      "model": "synthetic-anth/hf:zai-org/GLM-4.7",
+    },
+    "plan": {
+      "model": "foxcode/claude-opus-4-5",
     },
   },
   "command": {},
