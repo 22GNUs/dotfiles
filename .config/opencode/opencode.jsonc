@@ -1,7 +1,8 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "autoupdate": false,
-  "small_model": "synthetic-anth/hf:Qwen/Qwen3-235B-A22B-Instruct-2507",
+  "small_model": "cloudflare-synthetic/hf:Qwen/Qwen3-235B-A22B-Instruct-2507",
+  "disabled_providers": ["cloudflare-ai-gateway"],
   "compaction": {
     "auto": true,
     "prune": true,
@@ -12,11 +13,14 @@
   ],
   // models.dev: https://models.dev/
   "provider": {
-    "synthetic-anth": {
+    "cloudflare-synthetic": {
       "npm": "@ai-sdk/anthropic",
-      "name": "Synthetic Anth",
+      "name": "Cloudflare Synthetic",
       "options": {
-        "baseURL": "https://api.synthetic.new/anthropic/v1",
+        "baseURL": "https://gateway.ai.cloudflare.com/v1/7959b92cc1f7773c8f5f1af23ff3d75d/dev-gateway/custom-synthetic/v1",
+        "headers": {
+          "cf-aig-authorization": "Bearer {env:CLOUDFLARE_API_TOKEN}",
+        },
       },
       "models": {
         "hf:Qwen/Qwen3-235B-A22B-Instruct-2507": {
@@ -140,11 +144,14 @@
         },
       },
     },
-    "foxcode": {
+    "cloudflare-foxcode": {
       "npm": "@ai-sdk/anthropic",
-      "name": "Foxcode",
+      "name": "Cloudflare Foxcode",
       "options": {
-        "baseURL": "https://code.newcli.com/claude/droid/v1",
+        "baseURL": "https://gateway.ai.cloudflare.com/v1/7959b92cc1f7773c8f5f1af23ff3d75d/dev-gateway/custom-foxcode/v1",
+        "headers": {
+          "cf-aig-authorization": "Bearer {env:CLOUDFLARE_API_TOKEN}",
+        },
       },
       "models": {
         "claude-opus-4-5": {
@@ -152,7 +159,7 @@
           "name": "Claude Opus 4.5 (latest)",
           "family": "claude-opus",
           "attachment": true,
-          "reasoning": true,
+          "reasoning": false,
           "tool_call": true,
           "temperature": true,
           "release_date": "2025-11-24",
@@ -176,7 +183,7 @@
           "name": "Claude Sonnet 4.5 (latest)",
           "family": "claude-sonnet",
           "attachment": true,
-          "reasoning": true,
+          "reasoning": false,
           "tool_call": true,
           "temperature": true,
           "release_date": "2025-11-24",
@@ -200,22 +207,22 @@
   },
   "agent": {
     "typescript-developer": {
-      "model": "synthetic-anth/hf:zai-org/GLM-4.7",
+      "model": "cloudflare-synthetic/hf:zai-org/GLM-4.7",
     },
     "java-developer": {
-      "model": "synthetic-anth/hf:zai-org/GLM-4.7",
+      "model": "cloudflare-synthetic/hf:zai-org/GLM-4.7",
     },
     "explore": {
-      "model": "synthetic-anth/hf:MiniMaxAI/MiniMax-M2.1",
+      "model": "cloudflare-synthetic/hf:MiniMaxAI/MiniMax-M2.1",
     },
     "general": {
-      "model": "synthetic-anth/hf:MiniMaxAI/MiniMax-M2.1",
+      "model": "cloudflare-synthetic/hf:MiniMaxAI/MiniMax-M2.1",
     },
     "compaction": {
-      "model": "synthetic-anth/hf:zai-org/GLM-4.7",
+      "model": "cloudflare-synthetic/hf:zai-org/GLM-4.7",
     },
     "plan": {
-      "model": "foxcode/claude-opus-4-5",
+      "model": "cloudflare-foxcode/claude-opus-4-5",
     },
   },
   "command": {},
