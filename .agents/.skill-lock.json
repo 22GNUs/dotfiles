@@ -1,0 +1,14 @@
+{
+  "version": 3,
+  "skills": {
+    "infographic-creator": {
+      "source": "antvis/Infographic",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/antvis/Infographic.git",
+      "skillPath": ".skills/infographic-creator/SKILL.md",
+      "skillFolderHash": "b5bd4269851fe72af60428c28015363713a7b062",
+      "installedAt": "2026-01-25T02:22:51.983Z",
+      "updatedAt": "2026-01-25T02:22:51.983Z"
+    }
+  }
+}
