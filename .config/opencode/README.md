@@ -17,6 +17,7 @@
 **使用方法：**
 
 1. 下载脚本（或者如果你已经有了脚本）：
+
    ```bash
    chmod +x setup.sh
    ./setup.sh
@@ -46,13 +47,16 @@ rm -rf ~/.cache/opencode/node_modules/@plannotator/opencode
 ### 必须配置
 
 - **`CONTEXT7_API_KEY`**: 用于连接 Context7 MCP 服务器 (文档/知识库检索)。
+- **`CLOUDFLARE_API_TOKEN`**: Cloudflare API Token，用于配置文件 `opencode.jsonc` 中的 Cloudflare Synthetic 和 Foxcode 模型认证。
 
 **Bash / Zsh** (编辑 `~/.zshrc` 或 `~/.bashrc`):
+
 ```bash
 export CONTEXT7_API_KEY="your_key_here"
 ```
 
 **Fish** (编辑 `~/.config/fish/config.fish`):
+
 ```fish
 set -gx CONTEXT7_API_KEY "your_key_here"
 ```
@@ -62,11 +66,13 @@ set -gx CONTEXT7_API_KEY "your_key_here"
 - **`OPENCODE_ENABLE_EXA`**: 设为 `true` 开启 Exa web search 功能。
 
 **Bash / Zsh** (编辑 `~/.zshrc` 或 `~/.bashrc`):
+
 ```bash
 export OPENCODE_ENABLE_EXA="true"
 ```
 
 **Fish** (编辑 `~/.config/fish/config.fish`):
+
 ```fish
 set -Ux OPENCODE_ENABLE_EXA true
 ```
@@ -74,6 +80,7 @@ set -Ux OPENCODE_ENABLE_EXA true
 ### 模型服务配置 (可选/根据实际情况)
 
 - **Anthropic / Claude**:
+
   ```bash
   # Bash/Zsh
   export ANTHROPIC_API_KEY="sk-ant-..."
@@ -108,3 +115,17 @@ set -Ux OPENCODE_ENABLE_EXA true
     }
   }
 ```
+
+## 推荐Skills
+
+### 信息图绘制
+
+使用 [antvis/Infographic](https://github.com/antvis/Infographic) skill 来绘制精美信息图。
+
+**安装命令：**
+
+```bash
+npx skills i git@github.com:antvis/Infographic.git
+```
+
+安装完成后，你可以在 OpenCode 中使用该 skill 来创建各种类型的信息图。
