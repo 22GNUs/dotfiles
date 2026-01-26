@@ -221,8 +221,8 @@
     "compaction": {
       "model": "cloudflare-synthetic/hf:zai-org/GLM-4.7",
     },
-    "plan": {
-      "model": "cloudflare-foxcode/claude-opus-4-5",
+    "build": {
+      "model": "cloudflare-synthetic/hf:zai-org/GLM-4.7",
     },
   },
   "command": {},
