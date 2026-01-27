@@ -36,10 +36,8 @@
             "context": 256000,
             "output": 32000,
           },
-          "options": {
-            "headers": {
-              "cf-aig-custom-cost": "{\"per_token_in\":0.00000022,\"per_token_out\":0.00000088}",
-            },
+          "headers": {
+            "cf-aig-custom-cost": "{\"per_token_in\":0.00000022,\"per_token_out\":0.00000088}",
           },
         },
         "Synthetic/MiniMax-M2.1": {
@@ -66,10 +64,8 @@
             "context": 204800,
             "output": 131072,
           },
-          "options": {
-            "headers": {
-              "cf-aig-custom-cost": "{\"per_token_in\":0.00000055,\"per_token_out\":0.00000219}",
-            },
+          "headers": {
+            "cf-aig-custom-cost": "{\"per_token_in\":0.00000055,\"per_token_out\":0.00000219}",
           },
         },
         "Synthetic/Kimi-K2-Thinking": {
@@ -93,10 +89,8 @@
             "context": 262144,
             "output": 262144,
           },
-          "options": {
-            "headers": {
-              "cf-aig-custom-cost": "{\"per_token_in\":0.00000055,\"per_token_out\":0.00000219}",
-            },
+          "headers": {
+            "cf-aig-custom-cost": "{\"per_token_in\":0.00000055,\"per_token_out\":0.00000219}",
           },
         },
         "Synthetic/GLM-4.7": {
@@ -123,10 +117,8 @@
             "context": 200000,
             "output": 64000,
           },
-          "options": {
-            "headers": {
-              "cf-aig-custom-cost": "{\"per_token_in\":0.00000055,\"per_token_out\":0.00000219}",
-            },
+          "headers": {
+            "cf-aig-custom-cost": "{\"per_token_in\":0.00000055,\"per_token_out\":0.00000219}",
           },
         },
         "Synthetic/DeepSeek-V3.2": {
@@ -153,10 +145,8 @@
             "input": 162816,
             "output": 8000,
           },
-          "options": {
-            "headers": {
-              "cf-aig-custom-cost": "{\"per_token_in\":0.00000027,\"per_token_out\":0.0000004}",
-            },
+          "headers": {
+            "cf-aig-custom-cost": "{\"per_token_in\":0.00000027,\"per_token_out\":0.0000004}",
           },
         },
       },
