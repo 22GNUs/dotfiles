@@ -231,6 +231,9 @@
     "build": {
       "model": "cloudflare-ai-gateway/Synthetic/GLM-4.7",
     },
+    "plan": {
+      "temperature": 0.1,
+    },
   },
   "command": {},
   "mcp": {
