@@ -119,6 +119,30 @@ else
     MISSING_ITEMS+=("CONTEXT7_API_KEY")
 fi
 
+# Check CLOUDFLARE_API_TOKEN
+if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+    echo "   ✅ CLOUDFLARE_API_TOKEN"
+else
+    echo "   ❌ CLOUDFLARE_API_TOKEN"
+    MISSING_ITEMS+=("CLOUDFLARE_API_TOKEN")
+fi
+
+# Check CLOUDFLARE_GATEWAY_ID
+if [ -n "$CLOUDFLARE_GATEWAY_ID" ]; then
+    echo "   ✅ CLOUDFLARE_GATEWAY_ID"
+else
+    echo "   ❌ CLOUDFLARE_GATEWAY_ID"
+    MISSING_ITEMS+=("CLOUDFLARE_GATEWAY_ID")
+fi
+
+# Check CLOUDFLARE_ACCOUNT_ID
+if [ -n "$CLOUDFLARE_ACCOUNT_ID" ]; then
+    echo "   ✅ CLOUDFLARE_ACCOUNT_ID"
+else
+    echo "   ❌ CLOUDFLARE_ACCOUNT_ID"
+    MISSING_ITEMS+=("CLOUDFLARE_ACCOUNT_ID")
+fi
+
 # ------------------------------------------------------------------
 # 5. Summary
 # ------------------------------------------------------------------
@@ -138,10 +162,16 @@ if [ ${#MISSING_ITEMS[@]} -gt 0 ]; then
     echo "  Fish:"
     echo "    set -Ux JAVA_TOOL_OPTIONS \"-javaagent:\$HOME/.config/opencode/lib/lombok.jar\""
     echo "    set -Ux CONTEXT7_API_KEY \"your_key_here\""
+    echo "    set -Ux CLOUDFLARE_API_TOKEN \"your_token_here\""
+    echo "    set -Ux CLOUDFLARE_GATEWAY_ID \"your_gateway_id_here\""
+    echo "    set -Ux CLOUDFLARE_ACCOUNT_ID \"your_account_id_here\""
     echo ""
     echo "  Bash/Zsh:"
     echo "    export JAVA_TOOL_OPTIONS=\"-javaagent:\$HOME/.config/opencode/lib/lombok.jar\""
     echo "    export CONTEXT7_API_KEY=\"your_key_here\""
+    echo "    export CLOUDFLARE_API_TOKEN=\"your_token_here\""
+    echo "    export CLOUDFLARE_GATEWAY_ID=\"your_gateway_id_here\""
+    echo "    export CLOUDFLARE_ACCOUNT_ID=\"your_account_id_here\""
 fi
 
 echo ""

@@ -48,17 +48,25 @@ rm -rf ~/.cache/opencode/node_modules/@plannotator/opencode
 
 - **`CONTEXT7_API_KEY`**: 用于连接 Context7 MCP 服务器 (文档/知识库检索)。
 - **`CLOUDFLARE_API_TOKEN`**: Cloudflare API Token，用于配置文件 `opencode.jsonc` 中的 Cloudflare Synthetic 和 Foxcode 模型认证。
+- **`CLOUDFLARE_GATEWAY_ID`**: Cloudflare Gateway ID，用于配置和访问您的 Cloudflare Gateway 实例。
+- **`CLOUDFLARE_ACCOUNT_ID`**: Cloudflare Account ID，用于标识您的 Cloudflare 账户。
 
 **Bash / Zsh** (编辑 `~/.zshrc` 或 `~/.bashrc`):
 
 ```bash
 export CONTEXT7_API_KEY="your_key_here"
+export CLOUDFLARE_API_TOKEN="your_token_here"
+export CLOUDFLARE_GATEWAY_ID="your_gateway_id_here"
+export CLOUDFLARE_ACCOUNT_ID="your_account_id_here"
 ```
 
 **Fish** (编辑 `~/.config/fish/config.fish`):
 
 ```fish
 set -gx CONTEXT7_API_KEY "your_key_here"
+set -gx CLOUDFLARE_API_TOKEN "your_token_here"
+set -gx CLOUDFLARE_GATEWAY_ID "your_gateway_id_here"
+set -gx CLOUDFLARE_ACCOUNT_ID "your_account_id_here"
 ```
 
 ### Web Search (可选)
