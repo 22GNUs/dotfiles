@@ -1,8 +1,8 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "autoupdate": false,
-  "small_model": "cloudflare-synthetic/hf:Qwen/Qwen3-235B-A22B-Instruct-2507",
-  "disabled_providers": ["cloudflare-ai-gateway"],
+  "small_model": "cloudflare-ai-gateway/Synthetic/Qwen3-235B-A22B-Instruct-2507",
+  // "disabled_providers": [""],
   "compaction": {
     "auto": true,
     "prune": true,
@@ -13,18 +13,10 @@
   ],
   // models.dev: https://models.dev/
   "provider": {
-    "cloudflare-synthetic": {
-      "npm": "@ai-sdk/anthropic",
-      "name": "Cloudflare Synthetic",
-      "options": {
-        "baseURL": "https://gateway.ai.cloudflare.com/v1/7959b92cc1f7773c8f5f1af23ff3d75d/dev-gateway/custom-synthetic/v1",
-        "headers": {
-          "cf-aig-authorization": "Bearer {env:CLOUDFLARE_API_TOKEN}",
-        },
-      },
+    "cloudflare-ai-gateway": {
       "models": {
-        "hf:Qwen/Qwen3-235B-A22B-Instruct-2507": {
-          "id": "hf:Qwen/Qwen3-235B-A22B-Instruct-2507",
+        "Synthetic/Qwen3-235B-A22B-Instruct-2507": {
+          "id": "custom-synthetic/hf:Qwen/Qwen3-235B-A22B-Instruct-2507",
           "name": "Qwen 3 235B Instruct",
           "family": "qwen",
           "attachment": false,
@@ -45,8 +37,8 @@
             "output": 32000,
           },
         },
-        "hf:MiniMaxAI/MiniMax-M2.1": {
-          "id": "hf:MiniMaxAI/MiniMax-M2.1",
+        "Synthetic/MiniMax-M2.1": {
+          "id": "custom-synthetic/hf:MiniMaxAI/MiniMax-M2.1",
           "name": "MiniMax-M2.1",
           "family": "minimax",
           "attachment": false,
@@ -70,8 +62,8 @@
             "output": 131072,
           },
         },
-        "hf:moonshotai/Kimi-K2-Thinking": {
-          "id": "hf:moonshotai/Kimi-K2-Thinking",
+        "Synthetic/Kimi-K2-Thinking": {
+          "id": "custom-synthetic/hf:moonshotai/Kimi-K2-Thinking",
           "name": "Kimi K2 Thinking",
           "family": "kimi-thinking",
           "attachment": false,
@@ -92,8 +84,8 @@
             "output": 262144,
           },
         },
-        "hf:zai-org/GLM-4.7": {
-          "id": "hf:zai-org/GLM-4.7",
+        "Synthetic/GLM-4.7": {
+          "id": "custom-synthetic/hf:zai-org/GLM-4.7",
           "name": "GLM 4.7",
           "family": "glm",
           "attachment": false,
@@ -117,8 +109,8 @@
             "output": 64000,
           },
         },
-        "hf:deepseek-ai/DeepSeek-V3.2": {
-          "id": "hf:deepseek-ai/DeepSeek-V3.2",
+        "Synthetic/DeepSeek-V3.2": {
+          "id": "custom-synthetic/hf:deepseek-ai/DeepSeek-V3.2",
           "name": "DeepSeek V3.2",
           "family": "deepseek",
           "attachment": false,
@@ -207,22 +199,22 @@
   },
   "agent": {
     "typescript-developer": {
-      "model": "cloudflare-synthetic/hf:zai-org/GLM-4.7",
+      "model": "cloudflare-ai-gateway/Synthetic/GLM-4.7",
     },
     "java-developer": {
-      "model": "cloudflare-synthetic/hf:zai-org/GLM-4.7",
+      "model": "cloudflare-ai-gateway/Synthetic/GLM-4.7",
     },
     "explore": {
-      "model": "cloudflare-synthetic/hf:MiniMaxAI/MiniMax-M2.1",
+      "model": "cloudflare-ai-gateway/Synthetic/MiniMax-M2.1",
     },
     "general": {
-      "model": "cloudflare-synthetic/hf:MiniMaxAI/MiniMax-M2.1",
+      "model": "cloudflare-ai-gateway/Synthetic/MiniMax-M2.1",
     },
     "compaction": {
-      "model": "cloudflare-synthetic/hf:zai-org/GLM-4.7",
+      "model": "cloudflare-ai-gateway/Synthetic/GLM-4.7",
     },
     "build": {
-      "model": "cloudflare-synthetic/hf:zai-org/GLM-4.7",
+      "model": "cloudflare-ai-gateway/Synthetic/GLM-4.7",
     },
   },
   "command": {},
