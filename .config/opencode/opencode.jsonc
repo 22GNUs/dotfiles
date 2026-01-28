@@ -16,18 +16,28 @@
     "cloudflare-ai-gateway": {
       "models": {
         "Synthetic/Kimi-K2.5": {
-          "name": "Kimi K2.5",
           "id": "custom-synthetic/hf:moonshotai/Kimi-K2.5",
-          "family": "kimi-thinking",
-          "attachment": true,
+          "name": "Kimi K2.5",
           "reasoning": true,
           "tool_call": true,
+          "interleaved": {
+            "field": "reasoning_content",
+          },
+          // https://huggingface.co/moonshotai/Kimi-K2.5#6-model-usage
+          "options": {
+            "temperature": 1.0,
+            "top_p": 0.95,
+          },
           "temperature": true,
-          "release_date": "2026-01-27",
           "modalities": {
-            "input": ["text", "image", "pdf"],
+            "input": [
+              "text",
+              "image",
+              //"video"
+            ],
             "output": ["text"],
           },
+
           "cost": {
             "input": 0.55,
             "output": 2.19,
@@ -251,9 +261,6 @@
       "model": "cloudflare-ai-gateway/Synthetic/MiniMax-M2.1",
     },
     "compaction": {
-      "model": "cloudflare-ai-gateway/Synthetic/GLM-4.7",
-    },
-    "build": {
       "model": "cloudflare-ai-gateway/Synthetic/GLM-4.7",
     },
     "plan": {
