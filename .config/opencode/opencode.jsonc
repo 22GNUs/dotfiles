@@ -15,6 +15,31 @@
   "provider": {
     "cloudflare-ai-gateway": {
       "models": {
+        "Synthetic/Kimi-K2.5": {
+          "name": "Kimi K2.5",
+          "id": "custom-synthetic/hf:moonshotai/Kimi-K2.5",
+          "family": "kimi-thinking",
+          "attachment": true,
+          "reasoning": true,
+          "tool_call": true,
+          "temperature": true,
+          "release_date": "2026-01-27",
+          "modalities": {
+            "input": ["text", "image", "pdf"],
+            "output": ["text"],
+          },
+          "cost": {
+            "input": 0.55,
+            "output": 2.19,
+          },
+          "limit": {
+            "context": 262144,
+            "output": 262144,
+          },
+          "headers": {
+            "cf-aig-custom-cost": "{\"per_token_in\":0.00000055,\"per_token_out\":0.00000219}",
+          },
+        },
         "Synthetic/Qwen3-235B-A22B-Instruct-2507": {
           "id": "custom-synthetic/hf:Qwen/Qwen3-235B-A22B-Instruct-2507",
           "name": "Qwen 3 235B Instruct",
