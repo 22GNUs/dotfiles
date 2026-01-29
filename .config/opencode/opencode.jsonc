@@ -18,26 +18,19 @@
         "Synthetic/Kimi-K2.5": {
           "id": "custom-synthetic/hf:moonshotai/Kimi-K2.5",
           "name": "Kimi K2.5",
+          "family": "kimi",
+          "attachment": true,
           "reasoning": true,
           "tool_call": true,
           "interleaved": {
             "field": "reasoning_content",
           },
-          // https://huggingface.co/moonshotai/Kimi-K2.5#6-model-usage
-          "options": {
-            "temperature": 1.0,
-            "top_p": 0.95,
-          },
           "temperature": true,
+          "release_date": "2026-01",
           "modalities": {
-            "input": [
-              "text",
-              "image",
-              //"video"
-            ],
+            "input": ["text", "image"],
             "output": ["text"],
           },
-
           "cost": {
             "input": 0.55,
             "output": 2.19,
@@ -265,6 +258,7 @@
     },
     "plan": {
       "temperature": 0.1,
+      "model": "github-copilot/claude-sonnet-4.5",
     },
   },
   "command": {},
