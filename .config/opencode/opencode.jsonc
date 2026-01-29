@@ -258,7 +258,9 @@
     },
     "plan": {
       "temperature": 0.1,
-      "model": "github-copilot/claude-sonnet-4.5",
+    },
+    "build": {
+      "model": "cloudflare-ai-gateway/Synthetic/GLM-4.7",
     },
   },
   "command": {},
