@@ -96,31 +96,6 @@
             "cf-aig-custom-cost": "{\"per_token_in\":0.00000055,\"per_token_out\":0.00000219}",
           },
         },
-        "Synthetic/Kimi-K2-Thinking": {
-          "id": "custom-synthetic/hf:moonshotai/Kimi-K2-Thinking",
-          "name": "Kimi K2 Thinking",
-          "family": "kimi-thinking",
-          "attachment": false,
-          "reasoning": true,
-          "tool_call": true,
-          "temperature": true,
-          "release_date": "2025-11-07",
-          "modalities": {
-            "input": ["text"],
-            "output": ["text"],
-          },
-          "cost": {
-            "input": 0.55,
-            "output": 2.19,
-          },
-          "limit": {
-            "context": 262144,
-            "output": 262144,
-          },
-          "headers": {
-            "cf-aig-custom-cost": "{\"per_token_in\":0.00000055,\"per_token_out\":0.00000219}",
-          },
-        },
         "Synthetic/GLM-4.7": {
           "id": "custom-synthetic/hf:zai-org/GLM-4.7",
           "name": "GLM 4.7",
