@@ -212,10 +212,6 @@ automatically-unhide-macos-hidden-apps = false
   if.app-name-regex-substring = 'GitClient'
   run = 'move-node-to-workspace G'
 
-[[on-window-detected]]
-  if.app-name-regex-substring = '钉'
-  run = 'move-node-to-workspace 1'
-
 # Floating
 [[on-window-detected]]
   if.app-name-regex-substring = 'logseq'
