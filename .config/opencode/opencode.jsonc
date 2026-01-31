@@ -159,9 +159,6 @@
       "name": "Cloudflare Foxcode",
       "options": {
         "baseURL": "https://gateway.ai.cloudflare.com/v1/{env:CLOUDFLARE_ACCOUNT_ID}/{env:CLOUDFLARE_GATEWAY_ID}/custom-foxcode/v1",
-        "headers": {
-          "cf-aig-authorization": "Bearer {env:CLOUDFLARE_API_TOKEN}",
-        },
       },
       "models": {
         "claude-opus-4-5": {
@@ -243,10 +240,12 @@
       "headers": {
         "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}",
       },
+      "enabled": false,
     },
     "gh_grep": {
       "type": "remote",
       "url": "https://mcp.grep.app",
+      "enabled": false,
     },
   },
 }
