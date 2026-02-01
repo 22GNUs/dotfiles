@@ -1,7 +1,8 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "autoupdate": false,
-  "small_model": "cloudflare-ai-gateway/workers-ai/@cf/openai/gpt-oss-20b",
+  "model": "cloudflare-ai-gateway/Synthetic/GLM-4.7",
+  "small_model": "cloudflare-ai-gateway/Modelscope/GLM-4.7-Flash",
   // "disabled_providers": [""],
   "compaction": {
     "auto": true,
@@ -15,6 +16,30 @@
   "provider": {
     "cloudflare-ai-gateway": {
       "models": {
+        "Modelscope/GLM-4.7-Flash": {
+          "id": "custom-modelscope/ZhipuAI/GLM-4.7-Flash",
+          "name": "GLM-4.7-Flash",
+          "family": "glm-flash",
+          "attachment": false,
+          "reasoning": true,
+          "tool_call": true,
+          "temperature": true,
+          "release_date": "2026-01-19",
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"],
+          },
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cache_read": 0,
+            "cache_write": 0,
+          },
+          "limit": {
+            "context": 200000,
+            "output": 131072,
+          },
+        },
         "Synthetic/Kimi-K2.5": {
           "id": "custom-synthetic/hf:moonshotai/Kimi-K2.5",
           "name": "Kimi K2.5",
@@ -22,6 +47,10 @@
           "attachment": true,
           "reasoning": true,
           "tool_call": true,
+          "options": {
+            "temperature": 1.0,
+            "top_p": 0.95,
+          },
           "interleaved": {
             "field": "reasoning_content",
           },
