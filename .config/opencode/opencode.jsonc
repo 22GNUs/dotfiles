@@ -14,10 +14,10 @@
   // models.dev: https://models.dev/
   "provider": {
     "cloudflare-synthetic": {
-      "npm": "@ai-sdk/anthropic",
+      "npm": "@ai-sdk/openai-compatible",
       "name": "Cloudflare Synthetic",
       "options": {
-        "baseURL": "https://gateway.ai.cloudflare.com/v1/{env:CLOUDFLARE_ACCOUNT_ID}/{env:CLOUDFLARE_GATEWAY_ID}/custom-synthetic-anth/v1",
+        "baseURL": "https://gateway.ai.cloudflare.com/v1/{env:CLOUDFLARE_ACCOUNT_ID}/{env:CLOUDFLARE_GATEWAY_ID}/custom-synthetic/v1",
       },
       "models": {
         "Kimi-K2.5": {
