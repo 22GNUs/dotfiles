@@ -332,12 +332,6 @@
     },
   },
   "agent": {
-    "typescript-developer": {
-      "model": "cloudflare-synthetic/GLM-4.7",
-    },
-    "java-developer": {
-      "model": "cloudflare-synthetic/GLM-4.7",
-    },
     "explore": {
       "model": "cloudflare-synthetic/MiniMax-M2.1",
     },
@@ -346,6 +340,9 @@
     },
     "compaction": {
       "model": "cloudflare-synthetic/GLM-4.7",
+    },
+    "build": {
+      "model": "cloudflare-synthetic/Kimi-K2.5",
     },
     "plan": {
       "temperature": 0.1,
