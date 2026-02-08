@@ -1,0 +1,1 @@
+/Users/xinhua/.config/opencode/superpowers/commands/execute-plan.md

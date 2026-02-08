@@ -22,6 +22,7 @@
 .config/opencode/bun.lock
 .config/opencode/package.json
 .config/opencode/antigravity-accounts.json
+.config/opencode/superpowers/
 
 # Common
 *.log
