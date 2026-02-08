@@ -189,6 +189,56 @@ setup_superpowers() {
   log_info "Superpowers setup complete"
 }
 
+uninstall_superpowers() {
+  log_step "Uninstalling Superpowers..."
+
+  local superpowers_dir="$CONFIG_DIR/superpowers"
+  local plugin_dest="$CONFIG_DIR/plugins/superpowers.js"
+  local skills_dest="$CONFIG_DIR/skills/superpowers"
+  local commands_src="$superpowers_dir/commands"
+
+  # Remove plugin symlink
+  if [ -L "$plugin_dest" ]; then
+    rm "$plugin_dest"
+    log_info "Plugin symlink removed"
+  else
+    log_warn "Plugin symlink not found"
+  fi
+
+  # Remove skills symlink
+  if [ -L "$skills_dest" ]; then
+    rm "$skills_dest"
+    log_info "Skills symlink removed"
+  else
+    log_warn "Skills symlink not found"
+  fi
+
+  # Remove command symlinks
+  local removed_count=0
+  for cmd_file in "$commands_src"/*.md; do
+    if [ -f "$cmd_file" ]; then
+      local cmd_name
+      cmd_name=$(basename "$cmd_file")
+      local cmd_dest="$CONFIG_DIR/command/$cmd_name"
+      if [ -L "$cmd_dest" ]; then
+        rm "$cmd_dest"
+        ((removed_count++))
+      fi
+    fi
+  done
+  log_info "Command symlinks removed ($removed_count commands)"
+
+  # Remove superpowers directory
+  if [ -d "$superpowers_dir" ]; then
+    rm -rf "$superpowers_dir"
+    log_info "Superpowers directory removed"
+  else
+    log_warn "Superpowers directory not found"
+  fi
+
+  log_info "Superpowers uninstall complete"
+}
+
 # ============================================================================
 # Validation Mode
 # ============================================================================
@@ -311,11 +361,13 @@ show_help() {
   echo ""
   echo -e "${BOLD}Options:${NC}"
   echo "  -v, --validate    Run validation checks only (no setup)"
+  echo "  -u, --uninstall   Uninstall superpowers (remove repo and symlinks)"
   echo "  -h, --help        Show this help message"
   echo ""
   echo -e "${BOLD}Examples:${NC}"
   echo "  ./setup.sh              # Run full setup"
   echo "  ./setup.sh --validate   # Check configuration status"
+  echo "  ./setup.sh --uninstall  # Remove superpowers"
   echo ""
 }
 
@@ -325,12 +377,17 @@ show_help() {
 
 main() {
   local validate_only=false
+  local uninstall_mode=false
 
   # Parse arguments
   while [[ $# -gt 0 ]]; do
     case $1 in
       -v|--validate)
         validate_only=true
+        shift
+        ;;
+      -u|--uninstall)
+        uninstall_mode=true
         shift
         ;;
       -h|--help)
@@ -348,6 +405,11 @@ main() {
   if [ "$validate_only" = true ]; then
     run_validation
     exit $?
+  fi
+
+  if [ "$uninstall_mode" = true ]; then
+    uninstall_superpowers
+    exit 0
   fi
 
   # Full setup mode
