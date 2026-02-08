@@ -1,9 +1,8 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "autoupdate": false,
-  "model": "cloudflare-ai-gateway/Synthetic/GLM-4.7",
-  "small_model": "github-copilot/gpt-5-mini",
-  // "disabled_providers": [""],
+  "small_model": "cloudflare-synthetic/Qwen3-235B-A22B-Instruct-2507",
+  "disabled_providers": ["cloudflare-ai-gateway", "cloudflare-workers-ai"],
   "compaction": {
     "auto": true,
     "prune": true,
@@ -14,34 +13,15 @@
   ],
   // models.dev: https://models.dev/
   "provider": {
-    "cloudflare-ai-gateway": {
+    "cloudflare-synthetic": {
+      "npm": "@ai-sdk/anthropic",
+      "name": "Cloudflare Synthetic",
+      "options": {
+        "baseURL": "https://gateway.ai.cloudflare.com/v1/{env:CLOUDFLARE_ACCOUNT_ID}/{env:CLOUDFLARE_GATEWAY_ID}/custom-synthetic-anth/v1",
+      },
       "models": {
-        "Modelscope/GLM-4.7-Flash": {
-          "id": "custom-modelscope/ZhipuAI/GLM-4.7-Flash",
-          "name": "GLM-4.7-Flash",
-          "family": "glm-flash",
-          "attachment": false,
-          "reasoning": true,
-          "tool_call": true,
-          "temperature": true,
-          "release_date": "2026-01-19",
-          "modalities": {
-            "input": ["text"],
-            "output": ["text"],
-          },
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cache_read": 0,
-            "cache_write": 0,
-          },
-          "limit": {
-            "context": 200000,
-            "output": 131072,
-          },
-        },
-        "Synthetic/Kimi-K2.5": {
-          "id": "custom-synthetic/hf:moonshotai/Kimi-K2.5",
+        "Kimi-K2.5": {
+          "id": "hf:moonshotai/Kimi-K2.5",
           "name": "Kimi K2.5",
           "family": "kimi",
           "attachment": true,
@@ -72,8 +52,8 @@
             "cf-aig-custom-cost": "{\"per_token_in\":0.00000055,\"per_token_out\":0.00000219}",
           },
         },
-        "Synthetic/Qwen3-235B-A22B-Instruct-2507": {
-          "id": "custom-synthetic/hf:Qwen/Qwen3-235B-A22B-Instruct-2507",
+        "Qwen3-235B-A22B-Instruct-2507": {
+          "id": "hf:Qwen/Qwen3-235B-A22B-Instruct-2507",
           "name": "Qwen 3 235B Instruct",
           "family": "qwen",
           "attachment": false,
@@ -97,8 +77,8 @@
             "cf-aig-custom-cost": "{\"per_token_in\":0.00000022,\"per_token_out\":0.00000088}",
           },
         },
-        "Synthetic/MiniMax-M2.1": {
-          "id": "custom-synthetic/hf:MiniMaxAI/MiniMax-M2.1",
+        "MiniMax-M2.1": {
+          "id": "hf:MiniMaxAI/MiniMax-M2.1",
           "name": "MiniMax-M2.1",
           "family": "minimax",
           "attachment": false,
@@ -125,8 +105,8 @@
             "cf-aig-custom-cost": "{\"per_token_in\":0.00000055,\"per_token_out\":0.00000219}",
           },
         },
-        "Synthetic/GLM-4.7": {
-          "id": "custom-synthetic/hf:zai-org/GLM-4.7",
+        "GLM-4.7": {
+          "id": "hf:zai-org/GLM-4.7",
           "name": "GLM 4.7",
           "family": "glm",
           "attachment": false,
@@ -153,8 +133,8 @@
             "cf-aig-custom-cost": "{\"per_token_in\":0.00000055,\"per_token_out\":0.00000219}",
           },
         },
-        "Synthetic/DeepSeek-V3.2": {
-          "id": "custom-synthetic/hf:deepseek-ai/DeepSeek-V3.2",
+        "DeepSeek-V3.2": {
+          "id": "hf:deepseek-ai/DeepSeek-V3.2",
           "name": "DeepSeek V3.2",
           "family": "deepseek",
           "attachment": false,
@@ -179,6 +159,67 @@
           },
           "headers": {
             "cf-aig-custom-cost": "{\"per_token_in\":0.00000027,\"per_token_out\":0.0000004}",
+          },
+        },
+      },
+    },
+    "cloudflare-zenmux": {
+      "npm": "@ai-sdk/anthropic",
+      "name": "Cloudflare Zenmux",
+      "options": {
+        "baseURL": "https://gateway.ai.cloudflare.com/v1/{env:CLOUDFLARE_ACCOUNT_ID}/{env:CLOUDFLARE_GATEWAY_ID}/custom-zenmux-anth/v1",
+      },
+      "models": {
+        "Claude-Sonnet-4.5": {
+          "id": "anthropic/claude-sonnet-4.5",
+          "name": "Claude Sonnet 4.5",
+          "attachment": true,
+          "reasoning": true,
+          "tool_call": true,
+          "temperature": true,
+          "release_date": "2025-09-29",
+          "modalities": {
+            "input": ["text", "image", "pdf"],
+            "output": ["text"],
+          },
+          "cost": {
+            "input": 3,
+            "output": 15,
+            "cache_read": 0.3,
+            "cache_write": 3.75,
+          },
+          "limit": {
+            "context": 1000000,
+            "output": 64000,
+          },
+          "headers": {
+            "cf-aig-custom-cost": "{\"per_token_in\":0.00003,\"per_token_out\":0.000015}",
+          },
+        },
+        "Claude-Opus-4.6": {
+          "id": "anthropic/claude-opus-4.6",
+          "name": "Claude Opus 4.6",
+          "attachment": true,
+          "reasoning": true,
+          "tool_call": true,
+          "temperature": true,
+          "release_date": "2026-02-06",
+          "modalities": {
+            "input": ["image", "text"],
+            "output": ["text"],
+          },
+          "cost": {
+            "input": 5,
+            "output": 25,
+            "cache_read": 0.5,
+            "cache_write": 6.25,
+          },
+          "limit": {
+            "context": 1000000,
+            "output": 128000,
+          },
+          "headers": {
+            "cf-aig-custom-cost": "{\"per_token_in\":0.00005,\"per_token_out\":0.000025}",
           },
         },
       },
@@ -243,19 +284,19 @@
   },
   "agent": {
     "typescript-developer": {
-      "model": "cloudflare-ai-gateway/Synthetic/GLM-4.7",
+      "model": "cloudflare-synthetic/GLM-4.7",
     },
     "java-developer": {
-      "model": "cloudflare-ai-gateway/Synthetic/GLM-4.7",
+      "model": "cloudflare-synthetic/GLM-4.7",
     },
     "explore": {
-      "model": "cloudflare-ai-gateway/Synthetic/MiniMax-M2.1",
+      "model": "cloudflare-synthetic/MiniMax-M2.1",
     },
     "general": {
-      "model": "cloudflare-ai-gateway/Synthetic/MiniMax-M2.1",
+      "model": "cloudflare-synthetic/MiniMax-M2.1",
     },
     "compaction": {
-      "model": "cloudflare-ai-gateway/Synthetic/GLM-4.7",
+      "model": "cloudflare-synthetic/GLM-4.7",
     },
     "plan": {
       "temperature": 0.1,

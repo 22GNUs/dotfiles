@@ -3,7 +3,7 @@ description: >-
   Analyze `git diff`, split changes into logical/atomic units based on business
   semantics, and generate standardized commit messages (Conventional Commits)
   with emojis.
-"model": "cloudflare-ai-gateway/Modelscope/GLM-4.7-Flash"
+"model": "cloudflare-synthetic/MiniMax-M2.1"
 subtask: true
 ---
 
