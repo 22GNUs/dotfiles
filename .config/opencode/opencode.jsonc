@@ -28,10 +28,6 @@
           "attachment": true,
           "reasoning": true,
           "tool_call": true,
-          "options": {
-            "temperature": 1.0,
-            "top_p": 0.95,
-          },
           "interleaved": {
             "field": "reasoning_content",
           },
