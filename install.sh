@@ -94,6 +94,7 @@ SYNC_DIRS=(
   ".config/aerospace|$HOME/.config/aerospace|🚀 AeroSpace config"
   ".config/nvim|$HOME/.config/nvim|📝 Neovim config"
   ".config/opencode|$HOME/.config/opencode|🤖 OpenCode config"
+  ".agents|$HOME/.agents|🤖 AI agents config"
 )
 
 # Define sync files
