@@ -7,8 +7,14 @@
     "auto": true,
     "prune": true,
   },
+  "tui": {
+    "scroll_acceleration": {
+      "enabled": true,
+    },
+  },
   "plugin": [
     // https://github.com/backnotprop/plannotator
+    // install or update: curl -fsSL https://plannotator.ai/install.sh | bash
     "@plannotator/opencode@latest",
   ],
   // models.dev: https://models.dev/
@@ -329,9 +335,6 @@
   },
   "agent": {
     "explore": {
-      "model": "cloudflare-synthetic/MiniMax-M2.1",
-    },
-    "general": {
       "model": "cloudflare-synthetic/MiniMax-M2.1",
     },
     "compaction": {
