@@ -30,15 +30,11 @@ show_usage() {
   echo -e ""
   echo -e "${BOLD}Options:${NC}"
   echo -e "    -d, --install-deps    Check and install system dependencies (fonts, tmux theme deps, etc.)"
-  echo -e "    -o, --setup-opencode  Run OpenCode-specific setup (superpowers, lombok, env checks)"
-  echo -e "    -a, --all             Install deps and setup OpenCode (equivalent to -d -o)"
   echo -e "    -h, --help            Show this help message"
   echo -e ""
   echo -e "${BOLD}Examples:${NC}"
   echo -e "    ./install.sh                # Create symlinks only"
   echo -e "    ./install.sh -d             # Create symlinks and install dependencies"
-  echo -e "    ./install.sh -o             # Create symlinks and setup OpenCode"
-  echo -e "    ./install.sh -a             # Full setup (symlinks + deps + OpenCode)"
   echo -e ""
   echo -e "${BOLD}Dependencies:${NC}"
   echo -e "    Fonts:"
@@ -55,21 +51,11 @@ show_usage() {
 
 # Parse command line arguments
 INSTALL_DEPS=false
-SETUP_OPENCODE=false
 
 while [[ $# -gt 0 ]]; do
   case $1 in
   -d | --install-deps)
     INSTALL_DEPS=true
-    shift
-    ;;
-  -o | --setup-opencode)
-    SETUP_OPENCODE=true
-    shift
-    ;;
-  -a | --all)
-    INSTALL_DEPS=true
-    SETUP_OPENCODE=true
     shift
     ;;
   -h | --help)
@@ -257,18 +243,6 @@ if command -v fish &>/dev/null; then
     log_warn "Failed to set theme, run manually: fish_config theme save '$FISH_THEME'"
 else
   log_warn "Fish not detected, skipping theme initialization"
-fi
-
-# 5. OpenCode Setup (if requested)
-if [ "$SETUP_OPENCODE" = true ]; then
-  echo ""
-  log_step "Running OpenCode setup..."
-  SETUP_SCRIPT="$DOTFILES_ROOT/.config/opencode/setup.sh"
-  if [ -f "$SETUP_SCRIPT" ]; then
-    bash "$SETUP_SCRIPT"
-  else
-    log_error "OpenCode setup script not found: $SETUP_SCRIPT"
-  fi
 fi
 
 echo -e "\n${BOLD}==========================================
