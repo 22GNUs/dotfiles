@@ -6,7 +6,6 @@
 set -e
 
 REPO_URL="https://github.com/22GNUs/opencode_config.git"
-SUPERPOWERS_REPO="https://github.com/obra/superpowers.git"
 CONFIG_DIR="$HOME/.config/opencode"
 BACKUP_DIR="$HOME/.config/opencode_backup_$(date +%Y%m%d_%H%M%S)"
 CACHE_PKG_JSON="$HOME/.cache/opencode/package.json"
@@ -142,74 +141,6 @@ setup_lombok() {
   fi
 }
 
-setup_superpowers() {
-  log_step "Setting up Superpowers..."
-
-  local superpowers_dir="$CONFIG_DIR/superpowers"
-  local plugin_src="$superpowers_dir/.opencode/plugins/superpowers.js"
-  local plugin_dest="$CONFIG_DIR/plugins/superpowers.js"
-  local skills_src="$superpowers_dir/skills"
-  local skills_dest="$CONFIG_DIR/skills/superpowers"
-
-  # Clone or update superpowers repository
-  if [ -d "$superpowers_dir/.git" ]; then
-    log_info "Superpowers repository found, updating..."
-    (cd "$superpowers_dir" && git pull --quiet)
-  else
-    log_info "Cloning Superpowers repository..."
-    rm -rf "$superpowers_dir"
-    git clone --quiet "$SUPERPOWERS_REPO" "$superpowers_dir"
-  fi
-
-  # Create plugin symlink
-  mkdir -p "$CONFIG_DIR/plugins"
-  [ -L "$plugin_dest" ] && rm "$plugin_dest"
-  ln -sf "$plugin_src" "$plugin_dest"
-  log_info "Plugin symlink created"
-
-  # Create skills symlink
-  mkdir -p "$CONFIG_DIR/skills"
-  [ -L "$skills_dest" ] && rm "$skills_dest"
-  ln -sf "$skills_src" "$skills_dest"
-  log_info "Skills symlink created"
-
-  log_info "Superpowers setup complete"
-}
-
-uninstall_superpowers() {
-  log_step "Uninstalling Superpowers..."
-
-  local superpowers_dir="$CONFIG_DIR/superpowers"
-  local plugin_dest="$CONFIG_DIR/plugins/superpowers.js"
-  local skills_dest="$CONFIG_DIR/skills/superpowers"
-
-  # Remove plugin symlink
-  if [ -L "$plugin_dest" ]; then
-    rm "$plugin_dest"
-    log_info "Plugin symlink removed"
-  else
-    log_warn "Plugin symlink not found"
-  fi
-
-  # Remove skills symlink
-  if [ -L "$skills_dest" ]; then
-    rm "$skills_dest"
-    log_info "Skills symlink removed"
-  else
-    log_warn "Skills symlink not found"
-  fi
-
-  # Remove superpowers directory
-  if [ -d "$superpowers_dir" ]; then
-    rm -rf "$superpowers_dir"
-    log_info "Superpowers directory removed"
-  else
-    log_warn "Superpowers directory not found"
-  fi
-
-  log_info "Superpowers uninstall complete"
-}
-
 # ============================================================================
 # Validation Mode
 # ============================================================================
@@ -222,28 +153,7 @@ run_validation() {
   local missing_items=()
   local warnings=()
 
-  # 1. Check Superpowers
-  echo -e "${BOLD}Superpowers:${NC}"
-  local sp_dir="$CONFIG_DIR/superpowers"
-
-  local sp_repo_status
-  sp_repo_status=$(validate_git_repo "$sp_dir")
-  log_check "$sp_repo_status" "Repository cloned"
-  [ "$sp_repo_status" -ne 0 ] && missing_items+=("superpowers repository")
-
-  local sp_plugin_status
-  sp_plugin_status=$(validate_symlink "$CONFIG_DIR/plugins/superpowers.js")
-  log_check "$sp_plugin_status" "Plugin symlink"
-  [ "$sp_plugin_status" -ne 0 ] && missing_items+=("superpowers plugin symlink")
-
-  local sp_skills_status
-  sp_skills_status=$(validate_symlink "$CONFIG_DIR/skills/superpowers")
-  log_check "$sp_skills_status" "Skills symlink"
-  [ "$sp_skills_status" -ne 0 ] && missing_items+=("superpowers skills symlink")
-
-  echo ""
-
-  # 2. Check Java
+  # 1. Check Java
   echo -e "${BOLD}Java:${NC}"
   local java_status
   java_status=$(validate_java)
@@ -258,7 +168,7 @@ run_validation() {
 
   echo ""
 
-  # 3. Check Lombok
+  # 2. Check Lombok
   echo -e "${BOLD}Lombok:${NC}"
   local lombok_status
   lombok_status=$(validate_file "$CONFIG_DIR/lib/lombok.jar")
@@ -267,7 +177,7 @@ run_validation() {
 
   echo ""
 
-  # 4. Check Environment Variables
+  # 3. Check Environment Variables
   echo -e "${BOLD}Environment Variables:${NC}"
 
   local java_opts_status
@@ -321,13 +231,11 @@ show_help() {
   echo ""
   echo -e "${BOLD}Options:${NC}"
   echo "  -v, --validate    Run validation checks only (no setup)"
-  echo "  -u, --uninstall   Uninstall superpowers (remove repo and symlinks)"
   echo "  -h, --help        Show this help message"
   echo ""
   echo -e "${BOLD}Examples:${NC}"
   echo "  ./setup.sh              # Run full setup"
   echo "  ./setup.sh --validate   # Check configuration status"
-  echo "  ./setup.sh --uninstall  # Remove superpowers"
   echo ""
 }
 
@@ -337,17 +245,12 @@ show_help() {
 
 main() {
   local validate_only=false
-  local uninstall_mode=false
 
   # Parse arguments
   while [[ $# -gt 0 ]]; do
     case $1 in
       -v|--validate)
         validate_only=true
-        shift
-        ;;
-      -u|--uninstall)
-        uninstall_mode=true
         shift
         ;;
       -h|--help)
@@ -367,11 +270,6 @@ main() {
     exit $?
   fi
 
-  if [ "$uninstall_mode" = true ]; then
-    uninstall_superpowers
-    exit 0
-  fi
-
   # Full setup mode
   echo "🚀 Starting OpenCode configuration setup..."
   echo ""
@@ -382,10 +280,7 @@ main() {
   # 2. Lombok
   setup_lombok
 
-  # 3. Superpowers
-  setup_superpowers
-
-  # 4. Run validation at the end
+  # 3. Run validation at the end
   echo ""
   if run_validation; then
     echo ""
