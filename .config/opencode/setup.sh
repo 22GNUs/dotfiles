@@ -150,7 +150,6 @@ setup_superpowers() {
   local plugin_dest="$CONFIG_DIR/plugins/superpowers.js"
   local skills_src="$superpowers_dir/skills"
   local skills_dest="$CONFIG_DIR/skills/superpowers"
-  local commands_src="$superpowers_dir/commands"
 
   # Clone or update superpowers repository
   if [ -d "$superpowers_dir/.git" ]; then
@@ -174,18 +173,6 @@ setup_superpowers() {
   ln -sf "$skills_src" "$skills_dest"
   log_info "Skills symlink created"
 
-  # Create command symlinks
-  mkdir -p "$CONFIG_DIR/command"
-  for cmd_file in "$commands_src"/*.md; do
-    if [ -f "$cmd_file" ]; then
-      local cmd_name
-      cmd_name=$(basename "$cmd_file")
-      local cmd_dest="$CONFIG_DIR/command/$cmd_name"
-      [ -L "$cmd_dest" ] && rm "$cmd_dest"
-      ln -sf "$cmd_file" "$cmd_dest"
-    fi
-  done
-  log_info "Command symlinks created"
   log_info "Superpowers setup complete"
 }
 
@@ -195,7 +182,6 @@ uninstall_superpowers() {
   local superpowers_dir="$CONFIG_DIR/superpowers"
   local plugin_dest="$CONFIG_DIR/plugins/superpowers.js"
   local skills_dest="$CONFIG_DIR/skills/superpowers"
-  local commands_src="$superpowers_dir/commands"
 
   # Remove plugin symlink
   if [ -L "$plugin_dest" ]; then
@@ -212,21 +198,6 @@ uninstall_superpowers() {
   else
     log_warn "Skills symlink not found"
   fi
-
-  # Remove command symlinks
-  local removed_count=0
-  for cmd_file in "$commands_src"/*.md; do
-    if [ -f "$cmd_file" ]; then
-      local cmd_name
-      cmd_name=$(basename "$cmd_file")
-      local cmd_dest="$CONFIG_DIR/command/$cmd_name"
-      if [ -L "$cmd_dest" ]; then
-        rm "$cmd_dest"
-        ((removed_count++))
-      fi
-    fi
-  done
-  log_info "Command symlinks removed ($removed_count commands)"
 
   # Remove superpowers directory
   if [ -d "$superpowers_dir" ]; then
@@ -269,17 +240,6 @@ run_validation() {
   sp_skills_status=$(validate_symlink "$CONFIG_DIR/skills/superpowers")
   log_check "$sp_skills_status" "Skills symlink"
   [ "$sp_skills_status" -ne 0 ] && missing_items+=("superpowers skills symlink")
-
-  local cmd_count=0
-  [ -d "$sp_dir/commands" ] && cmd_count=$(find "$sp_dir/commands" -name "*.md" 2>/dev/null | wc -l)
-  local cmd_symlink_count=0
-  [ -d "$CONFIG_DIR/command" ] && cmd_symlink_count=$(find "$CONFIG_DIR/command" -name "*.md" -type l 2>/dev/null | wc -l)
-  if [ "$cmd_count" -eq "$cmd_symlink_count" ] && [ "$cmd_count" -gt 0 ]; then
-    log_check 0 "Command symlinks" "($cmd_count commands)"
-  else
-    log_check 1 "Command symlinks" "($cmd_symlink_count/$cmd_count linked)"
-    missing_items+=("superpowers command symlinks")
-  fi
 
   echo ""
 

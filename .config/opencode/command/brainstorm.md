@@ -1,1 +1,0 @@
-/Users/xinhua/.config/opencode/superpowers/commands/brainstorm.md
