@@ -26,3 +26,4 @@
 # Common
 *.log
 .config/opencode/plugin/confirmo-plugin.ts
+.config/opencode/kiro.*
