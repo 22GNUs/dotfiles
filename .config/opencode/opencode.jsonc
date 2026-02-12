@@ -28,7 +28,7 @@
       },
       "models": {
         "Kimi-K2.5": {
-          "id": "hf:moonshotai/Kimi-K2.5",
+          "id": "hf:nvidia/Kimi-K2.5-NVFP4",
           "name": "Kimi K2.5",
           "family": "kimi",
           "attachment": true,
