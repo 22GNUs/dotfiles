@@ -1,0 +1,15 @@
+{
+  "lastChangelogVersion": "0.52.12",
+  "defaultProvider": "cf-compat",
+  "defaultModel": "custom-synthetic/hf:nvidia/Kimi-K2.5-NVFP4",
+  "defaultThinkingLevel": "high",
+  "hideThinkingBlock": true,
+  "packages": [
+    {
+      "source": "npm:checkpoint-pi",
+      "extensions": [
+        "+checkpoint.ts"
+      ]
+    }
+  ]
+}

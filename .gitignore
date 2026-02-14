@@ -27,3 +27,9 @@
 *.log
 .config/opencode/plugin/confirmo-plugin.ts
 .config/opencode/kiro.*
+
+# Pi agent runtime files
+.pi/agent/sessions/
+.pi/agent/bin/
+.pi/agent/auth.json
+.pi/agent/extensions/exa-mcp.json
