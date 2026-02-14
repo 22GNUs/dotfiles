@@ -81,7 +81,7 @@ SYNC_DIRS=(
   ".config/nvim|$HOME/.config/nvim|📝 Neovim config"
   ".config/opencode|$HOME/.config/opencode|🤖 OpenCode config"
   ".agents|$HOME/.agents|🤖 AI agents config"
-  ".pi/agent|$HOME/.pi/agent|🤖 Pi agent config"
+  ".pi|$HOME/.pi|🤖 Pi agent config"
 )
 
 # Define sync files

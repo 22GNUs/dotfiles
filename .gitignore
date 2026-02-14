@@ -28,9 +28,13 @@
 .config/opencode/plugin/confirmo-plugin.ts
 .config/opencode/kiro.*
 
-# Pi agent runtime files
+# Pi agent
+.pi/.DS_Store
 .pi/agent/sessions/
 .pi/agent/bin/
 .pi/agent/auth.json
 .pi/agent/extensions/exa-mcp.json
 .pi/agent/extensions/node_modules
+
+# External repos for soft-linking
+external/

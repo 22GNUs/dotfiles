@@ -21,6 +21,7 @@
 │   ├── shells/           # 旧 Shell 配置 (Zsh)
 │   └── terminals/        # 旧终端配置 (Alacritty, WezTerm)
 ├── fonts/                # Nerd Fonts 字体文件
+├── external/             # 外部仓库引用（通过软链接使用）
 ├── install.sh            # 安装脚本（从仓库到系统）
 ├── .tmux.conf            # Tmux 配置
 └── .ideavimrc            # IntelliJ IDEA Vim 插件配置
@@ -104,6 +105,22 @@ export CONTEXT7_API_KEY="your_key_here"
 export ANTHROPIC_API_KEY="sk-ant-..."
 export OPENAI_API_KEY="sk-..."
 ```
+
+---
+
+## Pi Agent
+
+AI 助手 Pi 的配置目录。
+
+```bash
+# 安装/更新
+./.pi/setup.sh
+
+# 验证
+./.pi/setup.sh --validate
+```
+
+详见 `.pi/agent/README.md`。
 
 ---
 

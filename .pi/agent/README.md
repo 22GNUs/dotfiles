@@ -36,3 +36,16 @@ pi --exa-mcp-api-key=your-key
 pi /reload          # 重新加载扩展
 pi -e ./xxx.ts      # 临时加载扩展测试
 ```
+
+---
+
+## 扩展开发
+
+在 `~/.pi/agent/extensions/` 目录运行以下命令安装依赖，即可获得 VSCode 类型提示：
+
+```bash
+cd ~/.pi/agent/extensions
+npm install
+```
+
+**关键依赖：** `@mariozechner/pi-coding-agent`（扩展 API）、`@sinclair/typebox`（工具参数 Schema）
