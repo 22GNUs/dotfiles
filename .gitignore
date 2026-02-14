@@ -38,3 +38,7 @@
 
 # External repos for soft-linking
 external/
+
+# PI plans
+*plans
+*todos
