@@ -33,3 +33,4 @@
 .pi/agent/bin/
 .pi/agent/auth.json
 .pi/agent/extensions/exa-mcp.json
+.pi/agent/extensions/node_modules
