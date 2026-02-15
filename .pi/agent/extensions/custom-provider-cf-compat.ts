@@ -1,17 +1,17 @@
 /**
  * Cloudflare AI Gateway (compat) Provider for pi
- * 
+ *
  * 环境变量: CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_GATEWAY_ID, CLOUDFLARE_API_TOKEN
- * 
+ *
  * Cloudflare AI Gateway compat 端点格式:
  * https://gateway.ai.cloudflare.com/v1/{account_id}/{gateway_id}/compat
- * 
+ *
  * 模型通过请求体中的 model 字段路由，例如:
  * { "model": "custom-synthetic/hf:nvidia/Kimi-K2.5-NVFP4" }
- * 
+ *
  * cf-aig-custom-cost Header 格式 (JSON):
  * { "per_token_in": 0.00000055, "per_token_out": 0.00000219 }
- * 
+ *
  * 注意: 价格为 per-token (非 per-million)
  */
 
@@ -64,7 +64,7 @@ export default function (pi: ExtensionAPI) {
         input: ["text"],
         contextWindow: 204800,
         maxTokens: 131072,
-        compat: { maxTokensField: "max_tokens", thinkingFormat: "zai" },
+        compat: { maxTokensField: "max_tokens", thinkingFormat: "openai" },
         ...cost(0.58, 3),
       },
       {
