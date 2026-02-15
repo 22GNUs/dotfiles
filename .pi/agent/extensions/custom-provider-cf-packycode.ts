@@ -43,7 +43,7 @@ export default function (pi: ExtensionAPI) {
   if (!accountId || !gatewayId || !apiKey) return;
 
   pi.registerProvider("cf-packycode", {
-    baseUrl: `https://gateway.ai.cloudflare.com/v1/${accountId}/${gatewayId}/packycode/v1`,
+    baseUrl: `https://gateway.ai.cloudflare.com/v1/${accountId}/${gatewayId}/custom-packycode`,
     apiKey: "CLOUDFLARE_API_TOKEN",
     api: "openai-responses",
     models: [
