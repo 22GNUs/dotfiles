@@ -1,9 +1,10 @@
 {
   "lastChangelogVersion": "0.52.12",
-  "defaultProvider": "cf-packycode",
-  "defaultModel": "gpt-5.3-codex-spark",
+  "defaultProvider": "cf-compat",
+  "defaultModel": "custom-synthetic/hf:nvidia/Kimi-K2.5-NVFP4",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
+  "theme": "tokyo-night",
   "packages": [
     {
       "source": "npm:checkpoint-pi",
