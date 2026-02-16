@@ -1,9 +1,13 @@
-import type { ExtensionAPI, Theme } from "@mariozechner/pi-coding-agent";
+import type {
+  ExtensionAPI,
+  Theme,
+  ThemeColor,
+} from "@mariozechner/pi-coding-agent";
 import { truncateToWidth, visibleWidth } from "@mariozechner/pi-tui";
 
 const ICONS = {
   model: "🐱",
-  context: "",
+  context: "",
 };
 
 const RAINBOW = [
@@ -14,6 +18,13 @@ const RAINBOW = [
   "#89d281",
   "#00afaf",
   "#178fb9",
+];
+
+const CONTEXT_PERCENT_COLORS: readonly { max: number; color: ThemeColor }[] = [
+  { max: 55, color: "success" },
+  { max: 75, color: "accent" },
+  { max: 90, color: "warning" },
+  { max: Number.POSITIVE_INFINITY, color: "error" },
 ];
 
 function toAnsiHex(hex: string): string {
@@ -82,18 +93,44 @@ function thinkingText(theme: Theme, level: string): string {
   }
 }
 
-function progressBar(theme: Theme, percent: number, width = 10): string {
+function colorForContextPercent(percent: number): ThemeColor {
+  for (const step of CONTEXT_PERCENT_COLORS) {
+    if (percent <= step.max) return step.color;
+  }
+  return "error";
+}
+
+function formatContextPercent(percent: number): string {
+  if (!Number.isFinite(percent)) return "0.00";
+
+  const abs = Math.abs(percent);
+  if (abs < 10) return percent.toFixed(2);
+  if (abs < 100) return percent.toFixed(1);
+  return percent.toFixed(0);
+}
+
+function progressBar(theme: Theme, percent: number, width = 12): string {
   const clamped = Math.max(0, Math.min(100, percent));
-  const filled = Math.round((clamped / 100) * width);
-  const color = clamped >= 90 ? "error" : clamped >= 70 ? "warning" : "success";
+  const color = colorForContextPercent(clamped);
+
+  // Use 1/8 block steps to make progress changes smoother.
+  const totalUnits = width * 8;
+  const filledUnits = Math.round((clamped / 100) * totalUnits);
+  const fullBlocks = Math.floor(filledUnits / 8);
+  const partialIndex = filledUnits % 8;
+  const partials = ["", "▏", "▎", "▍", "▌", "▋", "▊", "▉"];
+
+  const partial = partials[partialIndex] ?? "";
+  const occupiedCells = fullBlocks + (partial ? 1 : 0);
+  const emptyCells = Math.max(0, width - occupiedCells);
 
   const left = theme.fg("dim", "[");
-  const filledPart = filled > 0 ? theme.fg(color, "█".repeat(filled)) : "";
-  const emptyPart =
-    filled < width ? theme.fg("dim", "░".repeat(width - filled)) : "";
+  const full = fullBlocks > 0 ? theme.fg(color, "█".repeat(fullBlocks)) : "";
+  const part = partial ? theme.fg(color, partial) : "";
+  const empty = emptyCells > 0 ? theme.fg("dim", "░".repeat(emptyCells)) : "";
   const right = theme.fg("dim", "]");
 
-  return `${left}${filledPart}${emptyPart}${right}`;
+  return `${left}${full}${part}${empty}${right}`;
 }
 
 function contextText(
@@ -101,19 +138,23 @@ function contextText(
   usedTokens: number,
   contextWindow: number,
 ): string {
+  const icon = theme.fg("accent", ICONS.context);
+
   if (contextWindow <= 0) {
-    return theme.fg("dim", `${ICONS.context} ${formatTokens(usedTokens)}`);
+    return `${icon} ${theme.fg("dim", formatTokens(usedTokens))}`;
   }
 
   const percent = (usedTokens / contextWindow) * 100;
+  const percentColor = colorForContextPercent(percent);
   const bar = progressBar(theme, percent);
   const usage = theme.fg(
     "dim",
     `${formatTokens(usedTokens)}/${formatTokens(contextWindow)}`,
   );
-  const icon = theme.fg("dim", `${ICONS.context}`);
+  const percentNumber = theme.fg(percentColor, formatContextPercent(percent));
+  const percentSign = theme.fg("dim", "%");
 
-  return `${icon} ${bar} ${usage}`;
+  return `${icon} ${bar} ${percentNumber}${percentSign} ${usage}`;
 }
 
 function renderLine(
