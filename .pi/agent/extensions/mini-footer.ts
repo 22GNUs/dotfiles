@@ -1,8 +1,12 @@
 import type {
   ExtensionAPI,
+  ExtensionContext,
+  ContextUsage,
+  ReadonlyFooterDataProvider,
   Theme,
   ThemeColor,
 } from "@mariozechner/pi-coding-agent";
+import type { TUI } from "@mariozechner/pi-tui";
 import { truncateToWidth, visibleWidth } from "@mariozechner/pi-tui";
 
 const ICONS = {
@@ -26,6 +30,15 @@ const CONTEXT_PERCENT_COLORS: readonly { max: number; color: ThemeColor }[] = [
   { max: 90, color: "warning" },
   { max: Number.POSITIVE_INFINITY, color: "error" },
 ];
+
+const KNOWN_THINKING_LEVELS = new Set([
+  "off",
+  "minimal",
+  "low",
+  "medium",
+  "high",
+  "xhigh",
+]);
 
 function toAnsiHex(hex: string): string {
   const value = hex.slice(1);
@@ -58,8 +71,7 @@ function formatTokens(value: number): string {
 }
 
 function normalizeThinkingLevel(level: string): string {
-  const known = new Set(["off", "minimal", "low", "medium", "high", "xhigh"]);
-  return known.has(level) ? level : "off";
+  return KNOWN_THINKING_LEVELS.has(level) ? level : "off";
 }
 
 function formatModelLabel(
@@ -157,10 +169,32 @@ function contextText(
   return `${icon} ${bar} ${percentNumber}${percentSign} ${usage}`;
 }
 
+/** Cache key components to avoid re-rendering when nothing changed. */
+interface CacheKey {
+  width: number;
+  modelId: string | undefined;
+  modelName: string | undefined;
+  thinkingLevel: string;
+  usedTokens: number;
+  contextWindow: number;
+}
+
+function cacheKeyEquals(a: CacheKey | undefined, b: CacheKey): boolean {
+  if (!a) return false;
+  return (
+    a.width === b.width &&
+    a.modelId === b.modelId &&
+    a.modelName === b.modelName &&
+    a.thinkingLevel === b.thinkingLevel &&
+    a.usedTokens === b.usedTokens &&
+    a.contextWindow === b.contextWindow
+  );
+}
+
 function renderLine(
   width: number,
   theme: Theme,
-  ctx: any,
+  ctx: ExtensionContext,
   getThinkingLevel: () => string,
 ): string {
   const model = theme.fg(
@@ -169,9 +203,9 @@ function renderLine(
   );
   const thinking = thinkingText(theme, getThinkingLevel());
 
-  const usage = ctx.getContextUsage?.();
+  const usage: ContextUsage | undefined = ctx.getContextUsage?.();
   const usedTokens = usage?.tokens ?? 0;
-  const contextWindow = ctx.model?.contextWindow ?? 0;
+  const contextWindow = usage?.contextWindow ?? ctx.model?.contextWindow ?? 0;
   const context = contextText(theme, usedTokens, contextWindow);
 
   const sep = theme.fg("dim", " · ");
@@ -192,13 +226,47 @@ function renderLine(
   return truncateToWidth(`${model} ${context}`, width);
 }
 
-function attachFooter(ctx: any, getThinkingLevel: () => string): void {
-  ctx.ui.setFooter((_tui: any, theme: Theme) => ({
-    invalidate() {},
-    render(width: number): string[] {
-      return [renderLine(width, theme, ctx, getThinkingLevel)];
+function attachFooter(
+  ctx: ExtensionContext,
+  getThinkingLevel: () => string,
+): void {
+  ctx.ui.setFooter(
+    (_tui: TUI, theme: Theme, _footerData: ReadonlyFooterDataProvider) => {
+      let cachedKey: CacheKey | undefined;
+      let cachedLines: string[] | undefined;
+
+      return {
+        invalidate() {
+          cachedKey = undefined;
+          cachedLines = undefined;
+        },
+        render(width: number): string[] {
+          const thinkingLevel = getThinkingLevel();
+          const usage: ContextUsage | undefined = ctx.getContextUsage?.();
+          const usedTokens = usage?.tokens ?? 0;
+          const contextWindow =
+            usage?.contextWindow ?? ctx.model?.contextWindow ?? 0;
+
+          const key: CacheKey = {
+            width,
+            modelId: ctx.model?.id,
+            modelName: ctx.model?.name,
+            thinkingLevel,
+            usedTokens,
+            contextWindow,
+          };
+
+          if (cachedLines && cacheKeyEquals(cachedKey, key)) {
+            return cachedLines;
+          }
+
+          cachedLines = [renderLine(width, theme, ctx, getThinkingLevel)];
+          cachedKey = key;
+          return cachedLines;
+        },
+      };
     },
-  }));
+  );
 }
 
 export default function miniFooter(pi: ExtensionAPI) {
