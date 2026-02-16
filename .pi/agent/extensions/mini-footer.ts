@@ -2,12 +2,19 @@ import type { ExtensionAPI, Theme } from "@mariozechner/pi-coding-agent";
 import { truncateToWidth, visibleWidth } from "@mariozechner/pi-tui";
 
 const ICONS = {
-  model: "🤖",
-  thinking: "🧠",
-  context: "🪟",
+  model: "🐱",
+  context: "",
 };
 
-const RAINBOW = ["#b281d6", "#d787af", "#febc38", "#e4c00f", "#89d281", "#00afaf", "#178fb9"];
+const RAINBOW = [
+  "#b281d6",
+  "#d787af",
+  "#febc38",
+  "#e4c00f",
+  "#89d281",
+  "#00afaf",
+  "#178fb9",
+];
 
 function toAnsiHex(hex: string): string {
   const value = hex.slice(1);
@@ -39,19 +46,14 @@ function formatTokens(value: number): string {
   return `${Math.round(value / 1_000_000)}M`;
 }
 
-function shortThinkingLevel(level: string): string {
-  const map: Record<string, string> = {
-    off: "off",
-    minimal: "min",
-    low: "low",
-    medium: "med",
-    high: "high",
-    xhigh: "xhigh",
-  };
-  return map[level] ?? level;
+function normalizeThinkingLevel(level: string): string {
+  const known = new Set(["off", "minimal", "low", "medium", "high", "xhigh"]);
+  return known.has(level) ? level : "off";
 }
 
-function formatModelLabel(model: { name?: string; id: string } | undefined): string {
+function formatModelLabel(
+  model: { name?: string; id: string } | undefined,
+): string {
   if (!model) return "no-model";
   const name = model.name?.trim();
   if (name && name.length > 0) return name.replace(/^Claude\s+/i, "");
@@ -60,26 +62,70 @@ function formatModelLabel(model: { name?: string; id: string } | undefined): str
 }
 
 function thinkingText(theme: Theme, level: string): string {
-  const label = `think:${shortThinkingLevel(level)}`;
-  if (level === "high" || level === "xhigh") {
-    return `${theme.fg("muted", `${ICONS.thinking} `)}${rainbow(label)}`;
+  const normalized = normalizeThinkingLevel(level);
+
+  if (normalized === "high" || normalized === "xhigh") {
+    return rainbow(normalized);
   }
-  return theme.fg("muted", `${ICONS.thinking} ${label}`);
+
+  switch (normalized) {
+    case "off":
+      return theme.fg("dim", normalized);
+    case "minimal":
+      return theme.fg("muted", normalized);
+    case "low":
+      return theme.fg("accent", normalized);
+    case "medium":
+      return theme.fg("success", normalized);
+    default:
+      return theme.fg("muted", normalized);
+  }
 }
 
-function contextText(theme: Theme, usedTokens: number, contextWindow: number): string {
-  const percent = contextWindow > 0 ? (usedTokens / contextWindow) * 100 : 0;
-  const core =
-    contextWindow > 0
-      ? `${formatTokens(usedTokens)}/${formatTokens(contextWindow)} ${percent.toFixed(1)}%`
-      : `${formatTokens(usedTokens)}`;
+function progressBar(theme: Theme, percent: number, width = 10): string {
+  const clamped = Math.max(0, Math.min(100, percent));
+  const filled = Math.round((clamped / 100) * width);
+  const color = clamped >= 90 ? "error" : clamped >= 70 ? "warning" : "success";
 
-  const color = percent >= 90 ? "error" : percent >= 70 ? "warning" : "dim";
-  return theme.fg(color, `${ICONS.context} ${core}`);
+  const left = theme.fg("dim", "[");
+  const filledPart = filled > 0 ? theme.fg(color, "█".repeat(filled)) : "";
+  const emptyPart =
+    filled < width ? theme.fg("dim", "░".repeat(width - filled)) : "";
+  const right = theme.fg("dim", "]");
+
+  return `${left}${filledPart}${emptyPart}${right}`;
 }
 
-function renderLine(width: number, theme: Theme, ctx: any, getThinkingLevel: () => string): string {
-  const model = theme.fg("accent", `${ICONS.model} ${formatModelLabel(ctx.model)}`);
+function contextText(
+  theme: Theme,
+  usedTokens: number,
+  contextWindow: number,
+): string {
+  if (contextWindow <= 0) {
+    return theme.fg("dim", `${ICONS.context} ${formatTokens(usedTokens)}`);
+  }
+
+  const percent = (usedTokens / contextWindow) * 100;
+  const bar = progressBar(theme, percent);
+  const usage = theme.fg(
+    "dim",
+    `${formatTokens(usedTokens)}/${formatTokens(contextWindow)}`,
+  );
+  const icon = theme.fg("dim", `${ICONS.context}`);
+
+  return `${icon} ${bar} ${usage}`;
+}
+
+function renderLine(
+  width: number,
+  theme: Theme,
+  ctx: any,
+  getThinkingLevel: () => string,
+): string {
+  const model = theme.fg(
+    "accent",
+    `${ICONS.model} ${formatModelLabel(ctx.model)}`,
+  );
   const thinking = thinkingText(theme, getThinkingLevel());
 
   const usage = ctx.getContextUsage?.();
@@ -91,7 +137,9 @@ function renderLine(width: number, theme: Theme, ctx: any, getThinkingLevel: () 
   const left = `${model}${sep}${thinking}`;
 
   if (visibleWidth(left) + 1 + visibleWidth(context) <= width) {
-    const pad = " ".repeat(Math.max(1, width - visibleWidth(left) - visibleWidth(context)));
+    const pad = " ".repeat(
+      Math.max(1, width - visibleWidth(left) - visibleWidth(context)),
+    );
     return truncateToWidth(left + pad + context, width);
   }
 
