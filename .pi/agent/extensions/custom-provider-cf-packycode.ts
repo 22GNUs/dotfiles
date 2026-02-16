@@ -9,7 +9,7 @@
  * 使用 OpenAI Responses API 格式
  *
  * cf-aig-custom-cost Header 格式 (JSON):
- * { "per_token_in": 0.000000438, "per_token_out": 0.0000035 }
+ * { "per_token_in": 0.00000175, "per_token_out": 0.000014 }
  *
  * 注意: 价格为 per-token (非 per-million)
  */
@@ -52,9 +52,9 @@ export default function (pi: ExtensionAPI) {
         name: "GPT-5.3 Codex",
         reasoning: true,
         input: ["text", "image"],
-        contextWindow: 272000,
+        contextWindow: 400000,
         maxTokens: 128000,
-        ...cost(0.438, 3.5),
+        ...cost(1.75, 14, 0.175),
       },
     ],
   });
