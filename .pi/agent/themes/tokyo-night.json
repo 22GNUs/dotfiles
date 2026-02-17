@@ -7,7 +7,7 @@
     "bgSelection": "#283457",
     "fg": "#c0caf5",
     "fgMuted": "#a9b1d6",
-    "fgDim": "#414868",
+    "fgDim": "#565f89",
     "red": "#f7768e",
     "green": "#9ece6a",
     "yellow": "#e0af68",
@@ -21,7 +21,10 @@
     "magentaBright": "#c7a9ff",
     "cyanBright": "#a4daff",
     "cyberGreen": "#73daca",
-    "cyberGreenBg": "#11211d"
+    "cyberGreenBg": "#183028",
+    "customBg": "#30254a",
+    "pendingBg": "#1b1c30",
+    "errorBg": "#331a24"
   },
   "colors": {
     "accent": "cyan",
@@ -39,12 +42,12 @@
     "selectedBg": "bgSelection",
     "userMessageBg": "bgAlt",
     "userMessageText": "fg",
-    "customMessageBg": "#17172a",
+    "customMessageBg": "customBg",
     "customMessageText": "fg",
     "customMessageLabel": "magentaBright",
-    "toolPendingBg": "bgAlt",
+    "toolPendingBg": "pendingBg",
     "toolSuccessBg": "cyberGreenBg",
-    "toolErrorBg": "#24161b",
+    "toolErrorBg": "errorBg",
     "toolTitle": "fg",
     "toolOutput": "fgMuted",
 
@@ -74,7 +77,7 @@
     "syntaxPunctuation": "fgMuted",
 
     "thinkingOff": "fgDim",
-    "thinkingMinimal": "#565f89",
+    "thinkingMinimal": "#6470a5",
     "thinkingLow": "blue",
     "thinkingMedium": "cyan",
     "thinkingHigh": "magenta",
