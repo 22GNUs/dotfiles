@@ -1,12 +1,11 @@
 import type {
+  ContextUsage,
   ExtensionAPI,
   ExtensionContext,
-  ContextUsage,
   ReadonlyFooterDataProvider,
   Theme,
   ThemeColor,
 } from "@mariozechner/pi-coding-agent";
-import type { TUI } from "@mariozechner/pi-tui";
 import { truncateToWidth, visibleWidth } from "@mariozechner/pi-tui";
 
 const ICONS = {
@@ -14,14 +13,12 @@ const ICONS = {
   context: "",
 };
 
-const RAINBOW = [
-  "#b281d6",
-  "#d787af",
-  "#febc38",
-  "#e4c00f",
-  "#89d281",
-  "#00afaf",
-  "#178fb9",
+const THINKING_HIGH_COLORS: readonly ThemeColor[] = [
+  "accent",
+  "success",
+  "warning",
+  "error",
+  "muted",
 ];
 
 const CONTEXT_PERCENT_COLORS: readonly { max: number; color: ThemeColor }[] = [
@@ -40,26 +37,23 @@ const KNOWN_THINKING_LEVELS = new Set([
   "xhigh",
 ]);
 
-function toAnsiHex(hex: string): string {
-  const value = hex.slice(1);
-  const r = Number.parseInt(value.slice(0, 2), 16);
-  const g = Number.parseInt(value.slice(2, 4), 16);
-  const b = Number.parseInt(value.slice(4, 6), 16);
-  return `\u001b[38;2;${r};${g};${b}m`;
-}
-
-function rainbow(text: string): string {
+function rainbow(theme: Theme, text: string): string {
   let out = "";
   let i = 0;
+
   for (const ch of text) {
     if (ch.trim().length === 0 || ch === ":") {
       out += ch;
       continue;
     }
-    out += `${toAnsiHex(RAINBOW[i % RAINBOW.length] ?? "#ffffff")}${ch}`;
+
+    const color =
+      THINKING_HIGH_COLORS[i % THINKING_HIGH_COLORS.length] ?? "accent";
+    out += theme.fg(color, ch);
     i += 1;
   }
-  return `${out}\u001b[0m`;
+
+  return out;
 }
 
 function formatTokens(value: number): string {
@@ -88,7 +82,7 @@ function thinkingText(theme: Theme, level: string): string {
   const normalized = normalizeThinkingLevel(level);
 
   if (normalized === "high" || normalized === "xhigh") {
-    return rainbow(normalized);
+    return rainbow(theme, normalized);
   }
 
   switch (normalized) {
@@ -169,6 +163,35 @@ function contextText(
   return `${icon} ${bar} ${percentNumber}${percentSign} ${usage}`;
 }
 
+function getStatusInfo(
+  theme: Theme,
+  footerData: ReadonlyFooterDataProvider,
+): { text: string; signature: string } {
+  const entries = Array.from(footerData.getExtensionStatuses().entries())
+    .filter(([, value]) => value.trim().length > 0)
+    .sort(([a], [b]) => a.localeCompare(b));
+
+  const signature = entries
+    .map(([key, value]) => `${key}\u0000${value}`)
+    .join("\u0001");
+  if (entries.length === 0) {
+    return { text: "", signature };
+  }
+
+  const first = entries[0]?.[1] ?? "";
+  if (entries.length === 1) {
+    return {
+      text: theme.fg("muted", first),
+      signature,
+    };
+  }
+
+  return {
+    text: `${theme.fg("muted", first)}${theme.fg("dim", ` +${entries.length - 1}`)}`,
+    signature,
+  };
+}
+
 /** Cache key components to avoid re-rendering when nothing changed. */
 interface CacheKey {
   width: number;
@@ -177,6 +200,7 @@ interface CacheKey {
   thinkingLevel: string;
   usedTokens: number;
   contextWindow: number;
+  statusSignature: string;
 }
 
 function cacheKeyEquals(a: CacheKey | undefined, b: CacheKey): boolean {
@@ -187,7 +211,8 @@ function cacheKeyEquals(a: CacheKey | undefined, b: CacheKey): boolean {
     a.modelName === b.modelName &&
     a.thinkingLevel === b.thinkingLevel &&
     a.usedTokens === b.usedTokens &&
-    a.contextWindow === b.contextWindow
+    a.contextWindow === b.contextWindow &&
+    a.statusSignature === b.statusSignature
   );
 }
 
@@ -195,13 +220,14 @@ function renderLine(
   width: number,
   theme: Theme,
   ctx: ExtensionContext,
-  getThinkingLevel: () => string,
+  thinkingLevel: string,
+  statusText: string,
 ): string {
   const model = theme.fg(
     "accent",
     `${ICONS.model} ${formatModelLabel(ctx.model)}`,
   );
-  const thinking = thinkingText(theme, getThinkingLevel());
+  const thinking = thinkingText(theme, thinkingLevel);
 
   const usage: ContextUsage | undefined = ctx.getContextUsage?.();
   const usedTokens = usage?.tokens ?? 0;
@@ -209,7 +235,9 @@ function renderLine(
   const context = contextText(theme, usedTokens, contextWindow);
 
   const sep = theme.fg("dim", " · ");
-  const left = `${model}${sep}${thinking}`;
+  const left = statusText
+    ? `${model}${sep}${thinking}${sep}${statusText}`
+    : `${model}${sep}${thinking}`;
 
   if (visibleWidth(left) + 1 + visibleWidth(context) <= width) {
     const pad = " ".repeat(
@@ -231,7 +259,7 @@ function attachFooter(
   getThinkingLevel: () => string,
 ): void {
   ctx.ui.setFooter(
-    (_tui: TUI, theme: Theme, _footerData: ReadonlyFooterDataProvider) => {
+    (_tui, theme: Theme, footerData: ReadonlyFooterDataProvider) => {
       let cachedKey: CacheKey | undefined;
       let cachedLines: string[] | undefined;
 
@@ -246,6 +274,7 @@ function attachFooter(
           const usedTokens = usage?.tokens ?? 0;
           const contextWindow =
             usage?.contextWindow ?? ctx.model?.contextWindow ?? 0;
+          const statusInfo = getStatusInfo(theme, footerData);
 
           const key: CacheKey = {
             width,
@@ -254,13 +283,16 @@ function attachFooter(
             thinkingLevel,
             usedTokens,
             contextWindow,
+            statusSignature: statusInfo.signature,
           };
 
           if (cachedLines && cacheKeyEquals(cachedKey, key)) {
             return cachedLines;
           }
 
-          cachedLines = [renderLine(width, theme, ctx, getThinkingLevel)];
+          cachedLines = [
+            renderLine(width, theme, ctx, thinkingLevel, statusInfo.text),
+          ];
           cachedKey = key;
           return cachedLines;
         },
