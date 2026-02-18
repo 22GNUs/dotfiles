@@ -29,12 +29,14 @@ show_usage() {
   echo -e "    Install dotfiles from repository to user directory via symlinks"
   echo -e ""
   echo -e "${BOLD}Options:${NC}"
-  echo -e "    -d, --install-deps    Check and install system dependencies (fonts, tmux theme deps, etc.)"
+  echo -e "    -d, --install-deps    Check and install system dependencies (fonts, tmux, git/lazygit deps, etc.)"
+  echo -e "    -c, --clean-backup    Delete backup directory created by this run after install"
   echo -e "    -h, --help            Show this help message"
   echo -e ""
   echo -e "${BOLD}Examples:${NC}"
   echo -e "    ./install.sh                # Create symlinks only"
   echo -e "    ./install.sh -d             # Create symlinks and install dependencies"
+  echo -e "    ./install.sh -d -c          # Install and clean backup from this run"
   echo -e ""
   echo -e "${BOLD}Dependencies:${NC}"
   echo -e "    Fonts:"
@@ -47,15 +49,26 @@ show_usage() {
   echo -e "      - gh, glab, gsed, jq"
   echo -e "      - nowplaying-cli (macOS)"
   echo -e ""
+  echo -e "    Git / Lazygit:"
+  echo -e "      - neovim"
+  echo -e "      - lazygit"
+  echo -e "      - git-delta"
+  echo -e "      - difftastic"
+  echo -e ""
 }
 
 # Parse command line arguments
 INSTALL_DEPS=false
+CLEAN_BACKUP=false
 
 while [[ $# -gt 0 ]]; do
   case $1 in
   -d | --install-deps)
     INSTALL_DEPS=true
+    shift
+    ;;
+  -c | --clean-backup)
+    CLEAN_BACKUP=true
     shift
     ;;
   -h | --help)
@@ -88,6 +101,9 @@ SYNC_DIRS=(
 # Format: "source_path(repo)|dest_path(user)|description"
 SYNC_FILES=(
   ".config/starship.toml|$HOME/.config/starship.toml|🚀 Starship config"
+  ".config/git/config|$HOME/.gitconfig|🔧 Git global config"
+  ".config/lazygit/config.yml|$HOME/.config/lazygit/config.yml|🐙 Lazygit config (XDG)"
+  ".config/lazygit/config.yml|$HOME/Library/Application Support/lazygit/config.yml|🐙 Lazygit config (macOS default)"
   ".gemini/GEMINI.md|$HOME/.gemini/GEMINI.md|🤖 Gemini config"
   ".ideavimrc|$HOME/.ideavimrc|⌨️  IDEA Vim config"
   ".tmux.conf|$HOME/.tmux.conf|🖥️  Tmux config"
@@ -244,6 +260,39 @@ if [ "$INSTALL_DEPS" = true ]; then
   else
     log_warn "Non-macOS system, please install Tmux theme dependencies manually"
   fi
+
+  # 3.3 Check and install Git/Lazygit dependencies
+  log_step "Checking Git/Lazygit dependencies..."
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    if ! command -v brew &>/dev/null; then
+      log_warn "Homebrew not detected, skipping Git/Lazygit dependency installation"
+    else
+      GIT_DEPS=("neovim" "lazygit" "git-delta" "difftastic")
+      MISSING_GIT_DEPS=()
+
+      for dep in "${GIT_DEPS[@]}"; do
+        if ! brew list "$dep" &>/dev/null; then
+          MISSING_GIT_DEPS+=("$dep")
+        fi
+      done
+
+      if [ ${#MISSING_GIT_DEPS[@]} -eq 0 ]; then
+        log_info "All Git/Lazygit dependencies installed ✅"
+      else
+        log_warn "Missing dependencies: ${MISSING_GIT_DEPS[*]}"
+        read -p "Install now? (y/N): " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+          log_info "Installing: ${MISSING_GIT_DEPS[*]}"
+          brew install "${MISSING_GIT_DEPS[@]}" &&
+            log_info "Git/Lazygit dependencies installed successfully ✅" ||
+            log_error "Some dependencies failed to install"
+        fi
+      fi
+    fi
+  else
+    log_warn "Non-macOS system, please install Git/Lazygit dependencies manually"
+  fi
 else
   log_info "Skipping dependency check (use -d flag to enable)"
 fi
@@ -257,6 +306,16 @@ if command -v fish &>/dev/null; then
     log_warn "Failed to set theme, run manually: fish_config theme save '$FISH_THEME'"
 else
   log_warn "Fish not detected, skipping theme initialization"
+fi
+
+# 5. Clean backup directory from this run
+if [ "$CLEAN_BACKUP" = true ]; then
+  if [[ -d "$BACKUP_DIR" && "$BACKUP_DIR" == "$HOME/.dotfiles_backup/"* ]]; then
+    rm -rf "$BACKUP_DIR"
+    log_info "Cleaned backup directory: $BACKUP_DIR"
+  else
+    log_warn "Skip backup cleanup due to unexpected path: $BACKUP_DIR"
+  fi
 fi
 
 echo -e "\n${BOLD}==========================================

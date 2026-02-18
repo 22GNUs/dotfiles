@@ -13,6 +13,7 @@
 │   ├── aerospace/        # AeroSpace 窗口管理器配置
 │   ├── nvim/             # Neovim (LazyVim) 配置
 │   ├── opencode/         # OpenCode AI 助手配置
+│   ├── lazygit/          # Lazygit 配置
 │   └── starship.toml     # Starship 提示符配置
 ├── archive/              # 归档的旧配置
 │   ├── editors/          # 编辑器配置 (Vim, IntelliJ)
@@ -133,6 +134,11 @@ AI 助手 Pi 的配置目录。
 ```
 
 该脚本会将仓库中的配置文件通过软链接安装到用户目录。冲突文件会备份到 `~/.dotfiles_backup/`。
+
+其中 Lazygit 配置会同时链接到以下两个位置，避免 macOS/XDG 路径差异导致配置不生效：
+
+- `~/.config/lazygit/config.yml`
+- `~/Library/Application Support/lazygit/config.yml`
 
 ### 注意事项
 
