@@ -8,6 +8,8 @@
  *
  * 使用 OpenAI Responses API 格式
  *
+ * 后续 packycode 下的新端点/模型统一放在本文件维护。
+ *
  * cf-aig-custom-cost Header 格式 (JSON):
  * { "per_token_in": 0.00000175, "per_token_out": 0.000014 }
  *
@@ -46,6 +48,7 @@ export default function (pi: ExtensionAPI) {
     baseUrl: `https://gateway.ai.cloudflare.com/v1/${accountId}/${gatewayId}/custom-packycode`,
     apiKey: "CLOUDFLARE_API_TOKEN",
     api: "openai-responses",
+    // Packycode provider models/endpoints are maintained in this file.
     models: [
       {
         id: "gpt-5.3-codex",

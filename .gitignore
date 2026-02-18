@@ -33,7 +33,7 @@
 .pi/agent/sessions/
 .pi/agent/bin/
 .pi/agent/auth.json
-.pi/agent/extensions/exa-mcp.json
+.pi/agent/settings.json
 .pi/agent/extensions/node_modules
 
 # External repos for soft-linking
