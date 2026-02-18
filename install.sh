@@ -173,7 +173,7 @@ done
 # 3. Setup pi agent
 echo ""
 log_step "Setting up Pi agent..."
-PI_SETUP="$HOME/.pi/setup.sh"
+PI_SETUP="$DOTFILES_ROOT/.pi/setup.sh"
 if [[ -x "$PI_SETUP" ]]; then
   log_info "Running Pi setup script..."
   "$PI_SETUP" --validate &&
