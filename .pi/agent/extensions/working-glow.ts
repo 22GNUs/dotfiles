@@ -2,8 +2,8 @@
  * Working Glow — Premium AI working animation
  *
  * A sci-fi inspired metallic shimmer effect with ice-blue accents,
- * ping-pong sweep, ambient glow, cross-fade message transitions,
- * and rare sparkle particles. Designed for vibe coding aesthetics.
+ * ping-pong sweep, ambient glow, and cross-fade message transitions.
+ * Designed for vibe coding aesthetics.
  */
 import type {
   ExtensionAPI,
