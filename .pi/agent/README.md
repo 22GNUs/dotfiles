@@ -33,9 +33,21 @@ pi --exa-mcp-api-key=your-key
 ## 常用命令
 
 ```bash
-pi /reload          # 重新加载扩展
-pi -e ./xxx.ts      # 临时加载扩展测试
+pi /reload                          # 重新加载扩展
+pi -e ./xxx.ts                      # 临时加载扩展测试
+pi -e ~/.pi/agent/extensions/pi-ui-toolkit  # 临时加载 UI 插件包
 ```
+
+---
+
+## UI 插件包
+
+已将自定义 UI 扩展整合为 `pi-ui-toolkit`：
+
+- `extensions/pi-ui-toolkit/mini-footer.ts`
+- `extensions/pi-ui-toolkit/working-glow.ts`
+- `extensions/pi-ui-toolkit/index.ts`（统一入口）
+- `extensions/pi-ui-toolkit/package.json`（`pi.extensions` 清单）
 
 ---
 
