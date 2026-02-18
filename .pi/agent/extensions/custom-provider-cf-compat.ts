@@ -68,8 +68,8 @@ export default function (pi: ExtensionAPI) {
         ...cost(0.58, 3),
       },
       {
-        id: "custom-zenmux/anthropic/claude-sonnet-4.5",
-        name: "Claude Sonnet 4.5",
+        id: "custom-zenmux/anthropic/claude-sonnet-4.6",
+        name: "Claude Sonnet 4.6",
         reasoning: true,
         input: ["text", "image"],
         contextWindow: 1000000,
