@@ -48,6 +48,16 @@ export default function (pi: ExtensionAPI) {
     api: "openai-completions",
     models: [
       {
+        id: "openrouter/stepfun/step-3.5-flash:free",
+        name: "step-3.5-flash(free)",
+        reasoning: true,
+        input: ["text"],
+        contextWindow: 256000,
+        maxTokens: 256000,
+        compat: { maxTokensField: "max_tokens", thinkingFormat: "openai" },
+        ...cost(0, 0),
+      },
+      {
         id: "custom-synthetic/hf:nvidia/Kimi-K2.5-NVFP4",
         name: "Kimi 2.5",
         reasoning: true,
