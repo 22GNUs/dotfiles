@@ -1,0 +1,11 @@
+{
+  "lastChangelogVersion": "0.53.0",
+  "theme": "tokyo-night",
+  "packages": [
+    "npm:checkpoint-pi"
+  ],
+  "defaultProvider": "cf-packycode",
+  "defaultModel": "gpt-5.3-codex",
+  "defaultThinkingLevel": "high",
+  "hideThinkingBlock": true
+}

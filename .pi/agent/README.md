@@ -2,7 +2,7 @@
 
 ## 安装步骤
 
-> `.pi/agent/settings.json` 不纳入 Git；请在本机完成以下安装步骤。
+> `.pi/agent/settings.json` 已纳入 Git；请勿写入敏感信息，以下步骤可在拉取仓库后直接执行。
 
 1. 安装第三方扩展
 
