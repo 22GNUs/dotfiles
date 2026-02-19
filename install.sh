@@ -170,19 +170,6 @@ for item in "${SYNC_FILES[@]}"; do
   create_symlink "$src" "$dest" "$desc"
 done
 
-# 3. Setup pi agent
-echo ""
-log_step "Setting up Pi agent..."
-PI_SETUP="$DOTFILES_ROOT/.pi/setup.sh"
-if [[ -x "$PI_SETUP" ]]; then
-  log_info "Running Pi setup script..."
-  "$PI_SETUP" --validate &&
-    log_info "Pi agent setup complete ✅" ||
-    log_warn "Pi setup script reported issues"
-else
-  log_warn "Pi setup script not found or not executable: $PI_SETUP"
-fi
-
 echo -e "\n${BOLD}=========================================="
 echo -e "      🎉 Symlinks created successfully!"
 echo -e "==========================================${NC}"

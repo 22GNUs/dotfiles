@@ -2,7 +2,20 @@
   "lastChangelogVersion": "0.53.0",
   "theme": "tokyo-night",
   "packages": [
-    "npm:checkpoint-pi"
+    "npm:checkpoint-pi",
+    {
+      "source": "npm:mitsupi",
+      "extensions": [
+        "pi-extensions/answer.ts",
+        "pi-extensions/todos.ts"
+      ],
+      "skills": [
+        "skills/commit"
+      ],
+      "prompts": [],
+      "themes": []
+    },
+    "https://github.com/22GNUs/visual-explainer.git"
   ],
   "defaultProvider": "cf-packycode",
   "defaultModel": "gpt-5.3-codex",

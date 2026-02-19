@@ -10,44 +10,45 @@
 pi install npm:checkpoint-pi
 ```
 
-2. 安装本仓库扩展依赖（用于本地扩展开发与类型提示）
+2. 安装上游资源包（通过 `packages + filter` 方式）
+
+```bash
+pi install npm:mitsupi
+```
+
+> 本仓库已在 `.pi/agent/settings.json` 中配置筛选，只启用：
+>
+> - `pi-extensions/answer.ts`
+> - `pi-extensions/todos.ts`
+> - `skills/commit`
+
+3. 安装本仓库扩展依赖（用于本地扩展开发与类型提示）
 
 ```bash
 cd .pi/agent/extensions
 npm install
 ```
 
-3. 重新加载扩展
+4. 重新加载扩展/技能
 
 ```bash
 pi /reload
 ```
 
-4. 校验安装结果
+5. 查看已安装包
 
 ```bash
-pi packages list
-```
-
-5. 可选：验证仓库内 Pi 配置状态
-
-```bash
-./.pi/setup.sh --validate
+pi list
 ```
 
 ---
 
-## 外部扩展同步（可选）
+## 上游同步（packages 方式）
 
-仓库提供 `./.pi/setup.sh`，用于同步 `external/agent-stuff` 并链接以下扩展到 `.pi/agent/extensions/`：
-
-- `answer.ts`
-- `todos.ts`
-
-执行完整同步：
+更新 `mitsupi` 到最新版本：
 
 ```bash
-./.pi/setup.sh
+pi update npm:mitsupi
 ```
 
 ---
@@ -57,6 +58,7 @@ pi packages list
 | 扩展 | 安装源 | 作用 | 入口 |
 | --- | --- | --- | --- |
 | `checkpoint-pi` | `npm:checkpoint-pi` | 提供对话/任务检查点能力，便于保存与恢复上下文状态。 | `+checkpoint.ts` |
+| `mitsupi`（已筛选） | `npm:mitsupi` | 上游扩展/技能包；当前仅启用 `answer.ts`、`todos.ts`、`commit`。 | `answer.ts` / `todos.ts` / `/skill:commit` |
 
 ---
 
@@ -90,7 +92,8 @@ export CLOUDFLARE_API_TOKEN="your-api-token"
 
 ```bash
 pi /reload                                            # 重新加载扩展
-pi packages list                                      # 查看已安装扩展
+pi list                                               # 查看已安装包
+pi update npm:mitsupi                                 # 同步上游包
 pi -e ./.pi/agent/extensions/pi-ui-toolkit            # 临时加载 UI 扩展包
 pi -e ./.pi/agent/extensions/pi-custom-providers      # 临时加载 Provider 扩展包
 ```

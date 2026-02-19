@@ -113,12 +113,11 @@ export OPENAI_API_KEY="sk-..."
 
 AI 助手 Pi 的配置目录。
 
-```bash
-# 安装/更新
-./.pi/setup.sh
+初始化后可执行：
 
-# 验证
-./.pi/setup.sh --validate
+```bash
+pi /reload
+pi list
 ```
 
 详见 `.pi/agent/README.md`。

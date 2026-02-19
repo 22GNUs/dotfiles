@@ -31,10 +31,6 @@
 
 配置目录：`.pi/agent/`
 
-```bash
-./.pi/setup.sh --validate
-```
-
 详见 `.pi/agent/AGENTS.md`。
 
 ---
