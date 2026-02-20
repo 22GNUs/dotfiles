@@ -1,21 +1,21 @@
 {
-  "lastChangelogVersion": "0.53.0",
+  "lastChangelogVersion": "0.54.0",
   "theme": "tokyo-night",
   "packages": [
     "npm:checkpoint-pi",
     {
-      "source": "npm:mitsupi",
+      "source": "git:github.com/22GNUs/agent-stuff.git",
       "extensions": [
         "pi-extensions/answer.ts",
-        "pi-extensions/todos.ts"
+        "pi-extensions/todos.ts",
+        "pi-extensions/context.ts"
       ],
       "skills": [
         "skills/commit"
       ],
       "prompts": [],
       "themes": []
-    },
-    "https://github.com/22GNUs/visual-explainer.git"
+    }
   ],
   "defaultProvider": "cf-packycode",
   "defaultModel": "gpt-5.3-codex",
