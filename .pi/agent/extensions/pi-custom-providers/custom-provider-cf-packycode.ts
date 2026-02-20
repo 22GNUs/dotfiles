@@ -57,7 +57,7 @@ export default function (pi: ExtensionAPI) {
         input: ["text", "image"],
         contextWindow: 400000,
         maxTokens: 128000,
-        ...cost(1.75, 14, 0.175),
+        ...cost(0, 0),
       },
     ],
   });
