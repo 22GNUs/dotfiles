@@ -1,63 +1,55 @@
 ---
 name: exa-contents
-description: Fetch web page content using Exa AI API. Extract full text content from specified URLs.
+description: Fetch full text content from URLs using Exa API. Use for web scraping when you have specific URLs. When searching + reading, prefer exa-search --highlights to save tokens.
 ---
 
 # Exa Contents
 
-Exa Contents API 用于抓取指定网页的完整内容。
+Fetch text from known URLs. **Default: compact verbosity** (filters navigation/footer noise).
+
+> **Token tip:** The `/contents` endpoint only supports full text. For token-efficient highlights or summary, use `exa-search --highlights` or `exa-search --summary` instead.
 
 ## Setup
 
-1. 从 [Exa Dashboard](https://dashboard.exa.ai/) 获取 API key
-2. 设置环境变量: `export EXA_API_KEY=your_api_key`
+Set `EXA_API_KEY` environment variable. Get key from [Exa Dashboard](https://dashboard.exa.ai/).
 
-或者在第一次使用时 skill 会提示你输入 API key。
+## Verbosity Comparison
+
+| Mode | Tokens | Description |
+|------|--------|-------------|
+| `--compact` (default) | least | Main content only, filters noise |
+| `--standard` | more | More detail |
+| `--full` | most | Complete content, all sections |
+
+> **Note:** `--verbosity` and `--exclude-sections` only take effect when Exa performs a live crawl. For cached pages (most common), these options are silently ignored and full text is returned regardless.
 
 ## Usage
 
-### Basic Content Fetch
-
 ```bash
-./contents.sh "https://example.com/page1"
+# Default: compact verbosity
+./contents.sh "https://example.com"
+./contents.sh "https://url1.com" "https://url2.com"
+
+# Control verbosity
+./contents.sh --standard "https://example.com"
+./contents.sh --full "https://example.com"
+
+# Exclude noisy sections (auto-enables livecrawl)
+./contents.sh --exclude-sections "navigation,footer,sidebar" "https://example.com"
+
+# Force live crawl
+./contents.sh --livecrawl "https://example.com"
 ```
 
-### Fetch Multiple Pages
+## Options
 
-```bash
-./contents.sh "https://url1.com" "https://url2.com" "https://url3.com"
-```
+| Flag | Description |
+|------|-------------|
+| `--compact` | Compact verbosity (default) |
+| `--standard` | Standard verbosity |
+| `--full` | Full verbosity |
+| `--verbosity LEVEL` | `compact`/`standard`/`full` |
+| `--exclude-sections S` | Comma-separated: `navigation,footer,sidebar,banner,header,metadata` |
+| `--livecrawl` | Force live crawl instead of cache |
 
-## API Endpoint
-
-- **Contents**: `POST https://api.exa.ai/contents`
-
-## Response Format
-
-返回结果包含:
-- `url`: 页面 URL
-- `title`: 页面标题
-- `text`: 页面完整文本内容
-- `extract`: 页面摘要
-
-## Examples
-
-```bash
-# 抓取单个页面
-./contents.sh "https://docs.python.org/3/tutorial/"
-
-# 抓取多个页面
-./contents.sh "https://react.dev/learn" "https://react.dev/learn/state"
-
-# 抓取技术文档
-./contents.sh "https://docs.github.com/en/rest"
-```
-
-## Error Handling
-
-- HTTP 401: API key 无效或缺失
-- HTTP 429: 超出速率限制
-- HTTP 422: 请求参数无效
-- HTTP 404: 页面无法访问
-
-更多详情查看 [Exa Documentation](https://docs.exa.ai/)
+For more details, see [Exa Docs](https://docs.exa.ai/reference/contents-retrieval).

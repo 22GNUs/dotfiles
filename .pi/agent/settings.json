@@ -17,8 +17,8 @@
       "themes": []
     }
   ],
-  "defaultProvider": "cf-packycode",
-  "defaultModel": "gpt-5.3-codex",
+  "defaultProvider": "cf-compat",
+  "defaultModel": "custom-synthetic/hf:nvidia/Kimi-K2.5-NVFP4",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true
 }

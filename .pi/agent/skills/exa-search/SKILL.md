@@ -1,87 +1,69 @@
 ---
 name: exa-search
-description: Search the web using Exa AI API. Provides neural search capabilities to find relevant web pages, articles, and content. Use when you need to search for information, documentation, research, or any web content.
+description: Search the web using Exa AI API. Default to --highlights for token-efficient results. Use --summary for conclusions, --text sparingly, plain search only when URLs are needed elsewhere.
 ---
 
 # Exa Search
 
-Exa is an AI-powered search API that uses embeddings to find semantically relevant web content.
+Neural search via Exa API. **Default: use `--highlights`** to get search results with key excerpts in a single request.
 
 ## Setup
 
-1. Get an API key from [Exa Dashboard](https://dashboard.exa.ai/)
-2. Set the environment variable: `export EXA_API_KEY=your_api_key`
+Set `EXA_API_KEY` environment variable. Get key from [Exa Dashboard](https://dashboard.exa.ai/).
 
-Or the skill will prompt you for the API key on first use.
+## Content Strategy
+
+| Need | Approach |
+|------|----------|
+| Search + quick overview | `--highlights` — **default choice**, one request, least tokens |
+| Search + conclusion only | `--summary` |
+| Links only (no content) | plain search — only when URLs are needed for other tools |
+| Search + full content | `--text` — expensive, use sparingly |
 
 ## Usage
 
-### Basic Search
-
 ```bash
-./search.sh "your search query"
-```
-
-### Advanced Search Options
-
-```bash
-# Search with specific number of results
+# Basic search
+./search.sh "your query"
 ./search.sh "query" --num-results 10
 
-# Search within specific date range
+# With inline highlights (recommended — saves a separate contents call)
+./search.sh "React hooks best practices" --highlights
+./search.sh "Python asyncio" --highlights --max-chars 1500
+
+# With inline summary
+./search.sh "Rust ownership" --summary
+./search.sh "Docker networking" --summary --summary-query "how to configure container communication"
+
+# With full text (use sparingly)
+./search.sh "query" --text
+./search.sh "query" --text --verbosity standard
+
+# Filters
 ./search.sh "query" --start-date 2024-01-01 --end-date 2024-12-31
-
-# Search specific domains
 ./search.sh "query" --include-domains "github.com,stackoverflow.com"
-
-# Exclude specific domains
 ./search.sh "query" --exclude-domains "pinterest.com"
-
-# Search for specific type
 ./search.sh "query" --type news
-```
 
-### Find Similar Pages
-
-```bash
+# Find similar pages
 ./similar.sh "https://example.com/article"
 ```
 
-## API Endpoints
+## Options
 
-- **Search**: `POST https://api.exa.ai/search`
-- **Find Similar**: `POST https://api.exa.ai/findSimilar`
+| Flag | Description |
+|------|-------------|
+| `--num-results N` | Number of results (default: 5) |
+| `--type TYPE` | `news`, `blog`, etc. |
+| `--start-date DATE` | Filter by date (YYYY-MM-DD) |
+| `--end-date DATE` | Filter by date (YYYY-MM-DD) |
+| `--include-domains` | Comma-separated domains to include |
+| `--exclude-domains` | Comma-separated domains to exclude |
+| `--highlights` | Inline key excerpts per result |
+| `--max-chars N` | Max chars per highlight (default: 2000) |
+| `--summary` | Inline AI summary per result |
+| `--summary-query STR` | Custom query for summary |
+| `--text` | Inline full text, compact verbosity |
+| `--verbosity LEVEL` | `compact`/`standard`/`full` (with `--text`) |
 
-## Response Format
-
-Search returns results with:
-- `title`: Page title
-- `url`: Page URL
-- `score`: Relevance score (0-1)
-- `publishedDate`: Publication date (if available)
-- `author`: Author (if available)
-
-## Examples
-
-```bash
-# Search for React best practices
-./search.sh "React best practices 2024"
-
-# Search recent AI news
-./search.sh "artificial intelligence" --type news --num-results 5
-
-# Find similar pages to a documentation site
-./similar.sh "https://docs.python.org/3/"
-```
-
-## Related Skills
-
-- **exa-contents**: Fetch full content from specific URLs
-
-## Error Handling
-
-- HTTP 401: Invalid or missing API key
-- HTTP 429: Rate limit exceeded
-- HTTP 422: Invalid request parameters
-
-For more details, see [Exa Documentation](https://docs.exa.ai/)
+For more details, see [Exa Docs](https://docs.exa.ai/).

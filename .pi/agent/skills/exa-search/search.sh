@@ -15,22 +15,23 @@ fi
 # Parse arguments
 QUERY=""
 NUM_RESULTS=5
-CONTENTS=false
 START_DATE=""
 END_DATE=""
 INCLUDE_DOMAINS=""
 EXCLUDE_DOMAINS=""
 SEARCH_TYPE=""
 
+# Inline content options (default: none, use exa-contents skill separately)
+CONTENT_MODE=""         # highlights | summary | text
+MAX_CHARS=2000          # for highlights
+SUMMARY_QUERY=""        # for summary
+VERBOSITY="compact"     # for text
+
 while [[ $# -gt 0 ]]; do
     case $1 in
         --num-results)
             NUM_RESULTS="$2"
             shift 2
-            ;;
-        --contents)
-            CONTENTS=true
-            shift
             ;;
         --start-date)
             START_DATE="$2"
@@ -52,6 +53,38 @@ while [[ $# -gt 0 ]]; do
             SEARCH_TYPE="$2"
             shift 2
             ;;
+        # Inline content flags (token-efficient alternatives to --contents)
+        --highlights)
+            CONTENT_MODE="highlights"
+            shift
+            ;;
+        --max-chars)
+            MAX_CHARS="$2"
+            shift 2
+            ;;
+        --summary)
+            CONTENT_MODE="summary"
+            shift
+            ;;
+        --summary-query)
+            SUMMARY_QUERY="$2"
+            shift 2
+            ;;
+        --text)
+            CONTENT_MODE="text"
+            shift
+            ;;
+        --verbosity)
+            VERBOSITY="$2"
+            shift 2
+            ;;
+        # Deprecated: kept for compatibility but discouraged
+        --contents)
+            echo "Warning: --contents returns full text and is token-expensive." >&2
+            echo "Consider using --highlights or --summary instead." >&2
+            CONTENT_MODE="text"
+            shift
+            ;;
         -*)
             echo "Unknown option: $1"
             exit 1
@@ -70,14 +103,21 @@ done
 if [ -z "$QUERY" ]; then
     echo "Usage: ./search.sh \"search query\" [options]"
     echo ""
-    echo "Options:"
+    echo "Basic options:"
     echo "  --num-results N        Number of results (default: 5)"
-    echo "  --contents             Include full content"
     echo "  --start-date DATE      Start date (YYYY-MM-DD)"
     echo "  --end-date DATE        End date (YYYY-MM-DD)"
-    echo "  --include-domains      Comma-separated list of domains to include"
-    echo "  --exclude-domains      Comma-separated list of domains to exclude"
+    echo "  --include-domains      Comma-separated domains to include"
+    echo "  --exclude-domains      Comma-separated domains to exclude"
     echo "  --type TYPE            Search type (news, blog, etc.)"
+    echo ""
+    echo "Inline content (token-efficient, fetched in one request):"
+    echo "  --highlights           Include key excerpts per result [recommended]"
+    echo "  --max-chars N          Max characters per highlight (default: 2000)"
+    echo "  --summary              Include AI-generated summary per result"
+    echo "  --summary-query STR    Custom query for summary generation"
+    echo "  --text                 Include full text, compact verbosity [expensive]"
+    echo "  --verbosity LEVEL      compact|standard|full (with --text)"
     exit 1
 fi
 
@@ -89,11 +129,7 @@ JSON_PAYLOAD=$(cat <<EOF
 EOF
 )
 
-# Add optional parameters
-if [ "$CONTENTS" = true ]; then
-    JSON_PAYLOAD+=', "contents": { "text": true }'
-fi
-
+# Add optional search parameters
 if [ -n "$START_DATE" ]; then
     JSON_PAYLOAD+=", \"startPublishedDate\": \"$START_DATE\""
 fi
@@ -103,7 +139,6 @@ if [ -n "$END_DATE" ]; then
 fi
 
 if [ -n "$INCLUDE_DOMAINS" ]; then
-    # Convert comma-separated to JSON array
     DOMAINS=$(echo "$INCLUDE_DOMAINS" | tr ',' '\n' | sed 's/^/"/' | sed 's/$/"/' | paste -sd ',' -)
     JSON_PAYLOAD+=", \"includeDomains\": [$DOMAINS]"
 fi
@@ -115,6 +150,25 @@ fi
 
 if [ -n "$SEARCH_TYPE" ]; then
     JSON_PAYLOAD+=", \"type\": \"$SEARCH_TYPE\""
+fi
+
+# Add inline contents if requested
+if [ -n "$CONTENT_MODE" ]; then
+    case "$CONTENT_MODE" in
+        highlights)
+            JSON_PAYLOAD+=", \"contents\": { \"highlights\": { \"maxCharacters\": $MAX_CHARS } }"
+            ;;
+        summary)
+            if [ -n "$SUMMARY_QUERY" ]; then
+                JSON_PAYLOAD+=", \"contents\": { \"summary\": { \"query\": \"$SUMMARY_QUERY\" } }"
+            else
+                JSON_PAYLOAD+=", \"contents\": { \"summary\": true }"
+            fi
+            ;;
+        text)
+            JSON_PAYLOAD+=", \"contents\": { \"text\": { \"verbosity\": \"$VERBOSITY\" } }"
+            ;;
+    esac
 fi
 
 JSON_PAYLOAD+="}"
@@ -134,5 +188,4 @@ if [ "$HTTP_CODE" != "200" ]; then
     exit 1
 fi
 
-# Pretty print results
 echo "$BODY" | python3 -m json.tool 2>/dev/null || echo "$BODY"
