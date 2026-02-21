@@ -1,6 +1,6 @@
 ---
 name: exa-contents
-description: Fetch full text content from URLs using Exa API. Use for web scraping when you have specific URLs. When searching + reading, prefer exa-search --highlights to save tokens.
+description: Fetch text content from URLs. Use when you have specific URLs and need their full page content.
 ---
 
 # Exa Contents

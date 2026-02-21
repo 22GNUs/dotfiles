@@ -1,6 +1,6 @@
 ---
 name: exa-search
-description: Search the web using Exa AI API. Default to --highlights for token-efficient results. Use --summary for conclusions, --text sparingly, plain search only when URLs are needed elsewhere.
+description: Search the web. Use when you need to find information, documentation, or research content online.
 ---
 
 # Exa Search
