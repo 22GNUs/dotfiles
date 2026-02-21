@@ -10,15 +10,15 @@
         "pi-extensions/todos.ts",
         "pi-extensions/context.ts"
       ],
-      "skills": [
-        "skills/commit"
-      ],
+      "skills": ["skills/commit"],
       "prompts": [],
       "themes": []
-    }
+    },
+    "git:github.com/22GNUs/pi-qwencode-auth.git"
   ],
-  "defaultProvider": "cf-compat",
-  "defaultModel": "custom-synthetic/hf:nvidia/Kimi-K2.5-NVFP4",
+  "defaultProvider": "qwen-cli",
+  "defaultModel": "coder-model",
   "defaultThinkingLevel": "high",
-  "hideThinkingBlock": true
+  "hideThinkingBlock": true,
+  "answerModel": "cf-compat/openrouter/stepfun/step-3.5-flash:free"
 }
