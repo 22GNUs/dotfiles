@@ -11,16 +11,17 @@
         "pi-extensions/context.ts",
         "pi-extensions/loop.ts"
       ],
-      "skills": ["skills/commit"],
+      "skills": [
+        "skills/commit"
+      ],
       "prompts": [],
       "themes": []
     },
     "git:github.com/22GNUs/pi-qwencode-auth.git"
   ],
-  "defaultProvider": "cf-packycode",
+  "defaultProvider": "cf-packycode (sub)",
   "defaultModel": "gpt-5.3-codex",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "answerModel": "cf-compat/openrouter/stepfun/step-3.5-flash:free"
 }
-

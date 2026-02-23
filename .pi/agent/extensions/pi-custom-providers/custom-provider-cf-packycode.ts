@@ -3,10 +3,9 @@
  *
  * 环境变量: CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_GATEWAY_ID, CLOUDFLARE_API_TOKEN
  *
- * Cloudflare AI Gateway OpenAI Native 端点:
- * https://gateway.ai.cloudflare.com/v1/{account_id}/{gateway_id}/packycode
- *
- * 使用 OpenAI Responses API 格式
+ * Cloudflare AI Gateway 端点:
+ * - OpenAI Responses: https://gateway.ai.cloudflare.com/v1/{account_id}/{gateway_id}/custom-packycodex
+ * - OpenAI Chat Completions: https://gateway.ai.cloudflare.com/v1/{account_id}/{gateway_id}/custom-packycode-aws
  *
  * 后续 packycode 下的新端点/模型统一放在本文件维护。
  *
@@ -44,8 +43,8 @@ export default function (pi: ExtensionAPI) {
   const apiKey = process.env.CLOUDFLARE_API_TOKEN;
   if (!accountId || !gatewayId || !apiKey) return;
 
-  pi.registerProvider("cf-packycode", {
-    baseUrl: `https://gateway.ai.cloudflare.com/v1/${accountId}/${gatewayId}/custom-packycode`,
+  pi.registerProvider("cf-packycode (sub)", {
+    baseUrl: `https://gateway.ai.cloudflare.com/v1/${accountId}/${gatewayId}/custom-packycodex`,
     apiKey: "CLOUDFLARE_API_TOKEN",
     api: "openai-responses",
     // Packycode provider models/endpoints are maintained in this file.
@@ -58,6 +57,24 @@ export default function (pi: ExtensionAPI) {
         contextWindow: 400000,
         maxTokens: 128000,
         ...cost(0, 0),
+      },
+    ],
+  });
+
+  pi.registerProvider("cf-packycode (aws)", {
+    baseUrl: `https://gateway.ai.cloudflare.com/v1/${accountId}/${gatewayId}/custom-packycode-aws`,
+    apiKey: "CLOUDFLARE_API_TOKEN",
+    api: "anthropic-messages",
+    // Packycode provider models/endpoints are maintained in this file.
+    models: [
+      {
+        id: "claude-sonnet-4-6",
+        name: "Claude Sonnet 4.6",
+        reasoning: true,
+        input: ["text", "image"],
+        contextWindow: 1000000,
+        maxTokens: 128000,
+        ...cost(0.13, 0.64),
       },
     ],
   });
