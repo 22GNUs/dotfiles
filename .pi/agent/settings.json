@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.54.0",
+  "lastChangelogVersion": "0.54.2",
   "theme": "tokyo-night",
   "packages": [
     "npm:checkpoint-pi",
@@ -8,19 +8,19 @@
       "extensions": [
         "pi-extensions/answer.ts",
         "pi-extensions/todos.ts",
-        "pi-extensions/context.ts"
+        "pi-extensions/context.ts",
+        "pi-extensions/loop.ts"
       ],
-      "skills": [
-        "skills/commit"
-      ],
+      "skills": ["skills/commit"],
       "prompts": [],
       "themes": []
     },
     "git:github.com/22GNUs/pi-qwencode-auth.git"
   ],
-  "defaultProvider": "google-antigravity",
-  "defaultModel": "gemini-3-flash",
-  "defaultThinkingLevel": "medium",
+  "defaultProvider": "cf-packycode",
+  "defaultModel": "gpt-5.3-codex",
+  "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "answerModel": "cf-compat/openrouter/stepfun/step-3.5-flash:free"
 }
+
