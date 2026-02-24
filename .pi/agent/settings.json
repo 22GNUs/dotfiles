@@ -21,7 +21,7 @@
   ],
   "defaultProvider": "cf-packycode (sub)",
   "defaultModel": "gpt-5.3-codex",
-  "defaultThinkingLevel": "high",
-  "hideThinkingBlock": true,
+  "defaultThinkingLevel": "medium",
+  "hideThinkingBlock": false,
   "answerModel": "cf-compat/openrouter/stepfun/step-3.5-flash:free"
 }
