@@ -11,10 +11,7 @@
         "pi-extensions/context.ts",
         "pi-extensions/loop.ts"
       ],
-      "skills": [
-        "skills/commit"
-      ],
-      "prompts": [],
+      "skills": ["skills/commit"],
       "themes": []
     },
     "git:github.com/22GNUs/pi-qwencode-auth.git"
