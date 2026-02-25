@@ -8,17 +8,18 @@
       "extensions": [
         "pi-extensions/answer.ts",
         "pi-extensions/todos.ts",
-        "pi-extensions/context.ts",
-        "pi-extensions/loop.ts"
+        "pi-extensions/context.ts"
       ],
-      "skills": ["skills/commit"],
+      "skills": [
+        "skills/commit"
+      ],
       "themes": []
     },
     "git:github.com/22GNUs/pi-qwencode-auth.git"
   ],
-  "defaultProvider": "cf-packycode (sub)",
-  "defaultModel": "gpt-5.3-codex",
-  "defaultThinkingLevel": "medium",
+  "defaultProvider": "localhost",
+  "defaultModel": "gemini-3-flash-preview",
+  "defaultThinkingLevel": "off",
   "hideThinkingBlock": false,
   "terminal": {
     "showImages": true
