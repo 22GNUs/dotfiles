@@ -10,5 +10,17 @@
       "installedAt": "2026-01-25T02:22:51.983Z",
       "updatedAt": "2026-01-25T02:22:51.983Z"
     }
+  },
+  "lastSelectedAgents": [
+    "amp",
+    "codex",
+    "cursor",
+    "gemini-cli",
+    "github-copilot",
+    "kimi-cli",
+    "opencode"
+  ],
+  "dismissed": {
+    "findSkillsPrompt": true
   }
 }

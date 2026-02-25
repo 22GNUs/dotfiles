@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.54.2",
+  "lastChangelogVersion": "0.55.0",
   "theme": "tokyo-night",
   "packages": [
     "npm:checkpoint-pi",
@@ -23,5 +23,13 @@
   "defaultModel": "gpt-5.3-codex",
   "defaultThinkingLevel": "medium",
   "hideThinkingBlock": false,
-  "answerModel": "cf-compat/openrouter/stepfun/step-3.5-flash:free"
+  "terminal": {
+    "showImages": true
+  },
+  "images": {
+    "blockImages": false
+  },
+  "showHardwareCursor": false,
+  "editorPaddingX": 0,
+  "quietStartup": false
 }
