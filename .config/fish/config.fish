@@ -27,6 +27,6 @@ function unset_proxy
 end
 
 # Set proxy on startup
-if status is-interactive
-    set_proxy
-end
+# if status is-interactive
+#     set_proxy
+# end
