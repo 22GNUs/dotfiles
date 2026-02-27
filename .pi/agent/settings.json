@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.55.0",
+  "lastChangelogVersion": "0.55.1",
   "theme": "tokyo-night",
   "packages": [
     "npm:checkpoint-pi",
@@ -16,9 +16,9 @@
       "themes": []
     }
   ],
-  "defaultProvider": "github-copilot",
-  "defaultModel": "claude-sonnet-4.6",
-  "defaultThinkingLevel": "high",
+  "defaultProvider": "kiro-gateway",
+  "defaultModel": "claude-sonnet-4-6",
+  "defaultThinkingLevel": "minimal",
   "hideThinkingBlock": false,
   "terminal": {
     "showImages": true
