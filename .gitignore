@@ -41,3 +41,4 @@ external/
 # PI plans
 *plans
 *todos
+.pi/agent/mcp-cache.json

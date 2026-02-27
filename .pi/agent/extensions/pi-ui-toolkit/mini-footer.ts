@@ -235,18 +235,18 @@ function renderLine(
   const context = contextText(theme, usedTokens, contextWindow);
 
   const sep = theme.fg("dim", " · ");
-  const left = statusText
-    ? `${model}${sep}${thinking}${sep}${statusText}`
-    : `${model}${sep}${thinking}`;
+  const left = `${model}${sep}${thinking}`;
+  const right = statusText ? `${statusText}${sep}${context}` : context;
 
-  if (visibleWidth(left) + 1 + visibleWidth(context) <= width) {
+  if (visibleWidth(left) + 1 + visibleWidth(right) <= width) {
     const pad = " ".repeat(
-      Math.max(1, width - visibleWidth(left) - visibleWidth(context)),
+      Math.max(1, width - visibleWidth(left) - visibleWidth(right)),
     );
-    return truncateToWidth(left + pad + context, width);
+    return truncateToWidth(left + pad + right, width);
   }
 
-  const compact = `${model}${sep}${context}`;
+  // 宽度不够时降级：去掉 status，只保留 model + context
+  const compact = `${left}${sep}${context}`;
   if (visibleWidth(compact) <= width) {
     return compact;
   }
