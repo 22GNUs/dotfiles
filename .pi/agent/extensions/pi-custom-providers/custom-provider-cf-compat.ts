@@ -58,6 +58,16 @@ export default function (pi: ExtensionAPI) {
         ...cost(0, 0),
       },
       {
+        id: "openrouter/deepseek/deepseek-v3.2",
+        name: "deepseek-v3.2",
+        reasoning: true,
+        input: ["text"],
+        contextWindow: 164000,
+        maxTokens: 64000,
+        compat: { maxTokensField: "max_tokens", thinkingFormat: "openai" },
+        ...cost(0.27, 0.4, 0.135),
+      },
+      {
         id: "custom-synthetic/hf:nvidia/Kimi-K2.5-NVFP4",
         name: "Kimi 2.5",
         reasoning: true,
