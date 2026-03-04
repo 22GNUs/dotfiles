@@ -1,8 +1,8 @@
 {
   "providers": {
     "kiro-gateway": {
-      "baseUrl": "http://127.0.0.1:8000",
-      "api": "anthropic-messages",
+      "baseUrl": "http://127.0.0.1:8000/v1",
+      "api": "openai-completions",
       "apiKey": "pwd",
       "headers": {
         "anthropic-version": "2023-06-01"
@@ -11,7 +11,7 @@
         {
           "id": "claude-sonnet-4-6",
           "name": "Claude Sonnet 4.6 (Kiro Gateway)",
-          "reasoning": true,
+          "reasoning": false,
           "input": ["text", "image"],
           "contextWindow": 200000,
           "maxTokens": 64000,
@@ -25,7 +25,7 @@
         {
           "id": "claude-opus-4-6",
           "name": "Claude Opus 4.6 (Kiro Gateway)",
-          "reasoning": true,
+          "reasoning": false,
           "input": ["text", "image"],
           "contextWindow": 200000,
           "maxTokens": 64000,

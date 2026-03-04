@@ -9,7 +9,7 @@ fish_add_path $HOME/.local/bin
 starship init fish | source
 
 # Aliases
-alias oc=opencode
+alias commit='pi -p "/skill:commit commit code" --model github-copilot/gpt-5.1:low --no-session'
 
 # proxy
 function set_proxy
