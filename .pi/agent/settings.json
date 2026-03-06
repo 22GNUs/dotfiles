@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.55.3",
+  "lastChangelogVersion": "0.56.2",
   "theme": "tokyo-night",
   "packages": [
     "npm:checkpoint-pi",
@@ -10,13 +10,16 @@
         "pi-extensions/todos.ts",
         "pi-extensions/context.ts"
       ],
-      "skills": ["skills/commit"],
+      "skills": [
+        "skills/commit"
+      ],
       "themes": []
-    }
+    },
+    "git:github.com/22GNUs/pi-qwencode-auth.git"
   ],
-  "defaultProvider": "cf-compat",
-  "defaultModel": "openrouter/deepseek/deepseek-v3.2",
-  "defaultThinkingLevel": "minimal",
+  "defaultProvider": "cf-packycode (sub)",
+  "defaultModel": "gpt-5.4",
+  "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
   "terminal": {
     "showImages": true

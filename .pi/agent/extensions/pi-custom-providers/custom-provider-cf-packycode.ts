@@ -58,6 +58,15 @@ export default function (pi: ExtensionAPI) {
         maxTokens: 128000,
         ...cost(0, 0),
       },
+      {
+        id: "gpt-5.4",
+        name: "GPT-5.4",
+        reasoning: true,
+        input: ["text", "image"],
+        contextWindow: 256000,
+        maxTokens: 128000,
+        ...cost(0, 0),
+      },
     ],
   });
 
