@@ -8,17 +8,20 @@
       "extensions": [
         "pi-extensions/answer.ts",
         "pi-extensions/todos.ts",
-        "pi-extensions/context.ts"
+        "pi-extensions/context.ts",
+        "-pi-extensions/prompt-editor.ts"
       ],
       "skills": [
-        "skills/commit"
+        "skills/commit",
+        "+skills/librarian/SKILL.md",
+        "+skills/mermaid/SKILL.md"
       ],
       "themes": []
     },
     "git:github.com/22GNUs/pi-qwencode-auth.git"
   ],
-  "defaultProvider": "google-antigravity",
-  "defaultModel": "gemini-3-flash",
+  "defaultProvider": "cf-packycode-sub",
+  "defaultModel": "gpt-5.4-fast",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
   "terminal": {

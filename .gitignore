@@ -42,3 +42,4 @@ external/
 *plans
 *todos
 .pi/agent/mcp-cache.json
+/.agents/.skill-lock.json
