@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.58.1",
+  "lastChangelogVersion": "0.58.3",
   "theme": "tokyo-night",
   "packages": [
     "npm:checkpoint-pi",
@@ -7,22 +7,26 @@
       "source": "git:github.com/22GNUs/agent-stuff.git",
       "extensions": [
         "pi-extensions/answer.ts",
-        "pi-extensions/todos.ts",
         "pi-extensions/context.ts",
-        "-pi-extensions/prompt-editor.ts"
+        "-pi-extensions/prompt-editor.ts",
+        "-pi-extensions/todos.ts"
       ],
       "skills": [
         "skills/commit",
         "+skills/librarian/SKILL.md",
         "+skills/mermaid/SKILL.md"
       ],
-      "themes": []
+      "themes": [],
+      "prompts": [
+        "-commands/execute-plan.md",
+        "-commands/plan.md"
+      ]
     },
     "git:github.com/22GNUs/pi-qwencode-auth.git"
   ],
-  "defaultProvider": "cf-compat",
-  "defaultModel": "custom-chutes/MiniMaxAI/MiniMax-M2.5-TEE",
-  "defaultThinkingLevel": "low",
+  "defaultProvider": "cf-packycode-sub",
+  "defaultModel": "gpt-5.4-fast",
+  "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
   "terminal": {
     "showImages": true
