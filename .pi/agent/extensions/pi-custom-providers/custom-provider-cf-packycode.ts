@@ -64,7 +64,7 @@ export default function (pi: ExtensionAPI) {
         name: "GPT-5.4 Fast",
         reasoning: true,
         input: ["text", "image"],
-        contextWindow: 272000,
+        contextWindow: 400000,
         maxTokens: 128000,
         ...pricing(2.5, 15, 0.25),
       },
