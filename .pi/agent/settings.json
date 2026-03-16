@@ -24,8 +24,8 @@
     },
     "git:github.com/22GNUs/pi-qwencode-auth.git"
   ],
-  "defaultProvider": "cf-packycode-sub",
-  "defaultModel": "gpt-5.4-fast",
+  "defaultProvider": "github-copilot",
+  "defaultModel": "gpt-5.1",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
   "terminal": {
@@ -39,5 +39,10 @@
   "quietStartup": false,
   "compaction": {
     "enabled": false
-  }
+  },
+  "enabledModels": [
+    "github-copilot/claude-sonnet-4.6",
+    "cf-packycode-sub/gpt-5.4-fast",
+    "cf-compat/custom-chutes/zai-org/GLM-5-Turbo"
+  ]
 }
