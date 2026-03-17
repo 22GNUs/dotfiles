@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/src/modes/interactive/theme/theme-schema.json",
-  "name": "tokyo-night",
+  "name": "tokyo-night-dark",
   "vars": {
     "bg":            "#1f2335",
     "bgAlt":         "#24283b",
@@ -22,17 +22,17 @@
     "purple":        "#bb9af7",
     "purpleDark":    "#9d7cd8",
     "pink":          "#ff007c",
-    "toolSuccessBg": "#1e2a3a",
-    "toolPendingBg": "#1e2030",
-    "toolErrorBg":   "#2d1b2e",
+    "toolSuccessBg": "#0c0f1a",
+    "toolPendingBg": "#0c0e16",
+    "toolErrorBg":   "#1a0e12",
     "customBg":      "#2a2040"
   },
   "colors": {
     "accent":           "cyan",
-    "border":           "blue",
-    "borderAccent":     "cyanBright",
-    "borderMuted":      "fgDim",
-    "success":          "teal",
+    "border":           "fgDim",
+    "borderAccent":     "cyan",
+    "borderMuted":      "blueDark",
+    "success":          "cyan",
     "error":            "red",
     "warning":          "orange",
     "muted":            "fgMuted",
@@ -63,7 +63,7 @@
     "mdHr":             "fgDim",
     "mdListBullet":     "cyan",
 
-    "toolDiffAdded":    "teal",
+    "toolDiffAdded":    "cyan",
     "toolDiffRemoved":  "red",
     "toolDiffContext":  "fgMuted",
 
