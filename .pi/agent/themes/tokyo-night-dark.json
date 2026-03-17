@@ -49,7 +49,7 @@
     "toolPendingBg":    "toolPendingBg",
     "toolSuccessBg":    "toolSuccessBg",
     "toolErrorBg":      "toolErrorBg",
-    "toolTitle":        "pink",
+    "toolTitle":        "blue",
     "toolOutput":       "fgMuted",
 
     "mdHeading":        "cyan",
