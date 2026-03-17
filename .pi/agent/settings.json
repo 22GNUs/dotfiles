@@ -1,6 +1,6 @@
 {
   "lastChangelogVersion": "0.58.4",
-  "theme": "tokyo-night",
+  "theme": "tokyo-night-dark",
   "packages": [
     "npm:checkpoint-pi",
     {
@@ -17,10 +17,7 @@
         "+skills/mermaid/SKILL.md"
       ],
       "themes": [],
-      "prompts": [
-        "-commands/execute-plan.md",
-        "-commands/plan.md"
-      ]
+      "prompts": ["-commands/execute-plan.md", "-commands/plan.md"]
     },
     "git:github.com/22GNUs/pi-qwencode-auth.git"
   ],
@@ -46,3 +43,4 @@
     "cf-compat/custom-chutes/zai-org/GLM-5-Turbo"
   ]
 }
+

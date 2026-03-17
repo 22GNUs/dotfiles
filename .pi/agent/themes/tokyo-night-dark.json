@@ -21,7 +21,7 @@
     "cyanBright":    "#b4f9f8",
     "purple":        "#bb9af7",
     "purpleDark":    "#9d7cd8",
-    "pink":          "#ff007c",
+    "pink":          "#f7768e",
     "toolSuccessBg": "#0c0f1a",
     "toolPendingBg": "#0c0e16",
     "toolErrorBg":   "#1a0e12",
@@ -49,7 +49,7 @@
     "toolPendingBg":    "toolPendingBg",
     "toolSuccessBg":    "toolSuccessBg",
     "toolErrorBg":      "toolErrorBg",
-    "toolTitle":        "blue",
+    "toolTitle":        "pink",
     "toolOutput":       "fgMuted",
 
     "mdHeading":        "cyan",
