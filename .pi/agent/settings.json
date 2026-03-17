@@ -17,13 +17,16 @@
         "+skills/mermaid/SKILL.md"
       ],
       "themes": [],
-      "prompts": ["-commands/execute-plan.md", "-commands/plan.md"]
+      "prompts": [
+        "-commands/execute-plan.md",
+        "-commands/plan.md"
+      ]
     },
     "git:github.com/22GNUs/pi-qwencode-auth.git"
   ],
   "defaultProvider": "kiro-provider",
   "defaultModel": "claude-sonnet-4.6",
-  "defaultThinkingLevel": "off",
+  "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
   "terminal": {
     "showImages": true
@@ -43,4 +46,3 @@
     "cf-compat/custom-chutes/zai-org/GLM-5-Turbo"
   ]
 }
-

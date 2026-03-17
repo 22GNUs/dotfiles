@@ -63,7 +63,7 @@
     "mdHr":             "fgDim",
     "mdListBullet":     "cyan",
 
-    "toolDiffAdded":    "cyan",
+    "toolDiffAdded":    "teal",
     "toolDiffRemoved":  "red",
     "toolDiffContext":  "fgMuted",
 
