@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.58.3",
+  "lastChangelogVersion": "0.58.4",
   "theme": "tokyo-night",
   "packages": [
     "npm:checkpoint-pi",
@@ -24,9 +24,9 @@
     },
     "git:github.com/22GNUs/pi-qwencode-auth.git"
   ],
-  "defaultProvider": "cf-packycode-sub",
-  "defaultModel": "gpt-5.4-fast",
-  "defaultThinkingLevel": "high",
+  "defaultProvider": "kiro-provider",
+  "defaultModel": "claude-sonnet-4.6",
+  "defaultThinkingLevel": "off",
   "hideThinkingBlock": false,
   "terminal": {
     "showImages": true
