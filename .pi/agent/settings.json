@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.58.4",
+  "lastChangelogVersion": "0.60.0",
   "theme": "tokyo-night-dark",
   "packages": [
     "npm:checkpoint-pi",
@@ -17,17 +17,15 @@
         "+skills/mermaid/SKILL.md"
       ],
       "themes": [],
-      "prompts": [
-        "-commands/execute-plan.md",
-        "-commands/plan.md"
-      ]
+      "prompts": ["-commands/execute-plan.md", "-commands/plan.md"]
     },
-    "git:github.com/22GNUs/pi-qwencode-auth.git"
+    "git:github.com/22GNUs/pi-qwencode-auth.git",
+    "npm:pi-peon-ping"
   ],
-  "defaultProvider": "cf-compat",
-  "defaultModel": "custom-chutes/zai-org/GLM-5-Turbo",
+  "defaultProvider": "cf-packycode-sub",
+  "defaultModel": "gpt-5.4-fast",
   "defaultThinkingLevel": "high",
-  "hideThinkingBlock": false,
+  "hideThinkingBlock": true,
   "terminal": {
     "showImages": true
   },
@@ -40,9 +38,6 @@
   "compaction": {
     "enabled": false
   },
-  "enabledModels": [
-    "github-copilot/claude-sonnet-4.6",
-    "cf-packycode-sub/gpt-5.4-fast",
-    "cf-compat/custom-chutes/zai-org/GLM-5-Turbo"
-  ]
+  "enabledModels": []
 }
+
