@@ -25,8 +25,8 @@
     "git:github.com/22GNUs/pi-qwencode-auth.git",
     "npm:pi-peon-ping"
   ],
-  "defaultProvider": "cf-packycode",
-  "defaultModel": "gpt-5.4-fast",
+  "defaultProvider": "cf-compat",
+  "defaultModel": "custom-chutes/zai-org/GLM-5-Turbo",
   "defaultThinkingLevel": "off",
   "hideThinkingBlock": false,
   "terminal": {
