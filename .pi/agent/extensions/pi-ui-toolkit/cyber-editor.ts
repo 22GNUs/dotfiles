@@ -11,7 +11,7 @@ import {
 } from "@mariozechner/pi-coding-agent";
 import type { AssistantMessage } from "@mariozechner/pi-ai";
 import type { EditorTheme, TUI } from "@mariozechner/pi-tui";
-import { truncateToWidth } from "@mariozechner/pi-tui";
+import { truncateToWidth, visibleWidth } from "@mariozechner/pi-tui";
 import type { KeybindingsManager } from "@mariozechner/pi-coding-agent";
 
 // ── palette ───────────────────────────────────────────────────
@@ -72,7 +72,8 @@ const BREATH_MS = 2800;
 const BREATH_FPS = 50;
 const ANIM_MS = 60;
 const SEP = " ∷ ";
-const TURN_ICON = "";
+const PATH_ICON = "󰉋";
+const TURN_ICON = "󰄉";
 
 // ── editor component ──────────────────────────────────────────
 class CyberEditor extends CustomEditor {
@@ -150,6 +151,80 @@ function fmt(n: number): string {
 
 function tpsColor(v: number): "success" | "accent" | "warning" | "error" {
   return v > 300 ? "success" : v > 150 ? "accent" : v > 50 ? "warning" : "error";
+}
+
+function shortenPath(raw: string, maxWidth: number): string {
+  if (maxWidth <= 0) return "";
+  if (raw.length <= maxWidth) return raw;
+
+  let prefix = "";
+  let parts: string[];
+  if (raw === "~") return raw;
+  if (raw.startsWith("~/")) {
+    parts = ["~", ...raw.slice(2).split("/").filter(Boolean)];
+  } else if (raw.startsWith("/")) {
+    prefix = "/";
+    parts = raw.slice(1).split("/").filter(Boolean);
+  } else {
+    parts = raw.split("/").filter(Boolean);
+  }
+
+  const join = (segments: string[]): string => {
+    if (segments.length === 0) return prefix || raw;
+    const body = segments.join("/");
+    return prefix ? prefix + body : body;
+  };
+
+  const full = join(parts);
+  if (full.length <= maxWidth) return full;
+
+  if (parts.length > 2) {
+    const initialed = parts.map((part, index) => {
+      if (index === 0 || index >= parts.length - 2) return part;
+      return part[0] ?? part;
+    });
+    const candidate = join(initialed);
+    if (candidate.length <= maxWidth) return candidate;
+  }
+
+  if (parts.length >= 2) {
+    const tail2 = join([parts[0]!, "…", ...parts.slice(-2)]);
+    if (tail2.length <= maxWidth) return tail2;
+
+    const tail1 = join([parts[0]!, "…", parts[parts.length - 1]!]);
+    if (tail1.length <= maxWidth) return tail1;
+  }
+
+  if (maxWidth === 1) return "…";
+  return `…${raw.slice(-(maxWidth - 1))}`;
+}
+
+function stylePath(theme: any, raw: string): string {
+  const icon = theme.fg("accent", PATH_ICON);
+  if (raw.length === 0) return icon;
+
+  let prefix = "";
+  let parts: string[];
+  if (raw.startsWith("~/")) {
+    parts = ["~", ...raw.slice(2).split("/").filter(Boolean)];
+  } else if (raw === "~") {
+    parts = ["~"];
+  } else if (raw.startsWith("/")) {
+    prefix = theme.fg("dim", "/");
+    parts = raw.slice(1).split("/").filter(Boolean);
+  } else {
+    parts = raw.split("/").filter(Boolean);
+  }
+
+  const styled = parts.map((part, index) => {
+    if (part === "…") return theme.fg("dim", part);
+    const isLast = index === parts.length - 1;
+    if (isLast) return theme.fg("accent", part);
+    if (part === "~") return theme.fg("muted", part);
+    return theme.fg("dim", part);
+  }).join(theme.fg("dim", "/"));
+
+  return `${icon} ${prefix}${styled}`;
 }
 
 function estTokens(delta: string): number {
@@ -260,18 +335,12 @@ function attachHUD(ctx: ExtensionContext): void {
       render(w: number): string[] {
         const home = process.env.HOME ?? "";
         const cwd = ctx.cwd ?? "";
-        const short = home && cwd.startsWith(home) ? "~" + cwd.slice(home.length) : cwd;
-        const path = theme.fg("dim", short);
+        const rawPath = home && cwd.startsWith(home) ? "~" + cwd.slice(home.length) : cwd;
 
         const dOut = exactOut() ?? estDisplayOut() ?? snapOut;
         const dOutEst = exactOut() === undefined && (estDisplayOut() !== undefined || snapOutEst);
         const dTps = tps ?? estTps ?? snapTps;
         const dTpsEst = tps === undefined && (estTps !== undefined || snapTpsEst);
-
-        // idle + nothing to show → clean path only
-        if (!promptActive && dOut === undefined && dTps === undefined) {
-          return [truncateToWidth(path, w)];
-        }
 
         const s = theme.fg("dim", SEP);
 
@@ -309,9 +378,18 @@ function attachHUD(ctx: ExtensionContext): void {
             : theme.fg(tpsColor(dTps), lbl);
         }
 
-        // assemble — skip empty segments
-        const parts = [path, turn, [inS, outS].filter(Boolean).join(" "), tpsS].filter(Boolean);
-        return [truncateToWidth(parts.join(s), w)];
+        const stats = [turn, [inS, outS].filter(Boolean).join(" "), tpsS].filter(Boolean);
+        const statsText = stats.join(s);
+
+        if (!promptActive && stats.length === 0) {
+          return [truncateToWidth(stylePath(theme, shortenPath(rawPath, Math.max(8, w - 2))), w)];
+        }
+
+        const reserved = statsText ? visibleWidth(statsText) + visibleWidth(s) : 0;
+        const pathBudget = Math.max(10, w - reserved - 1);
+        const path = stylePath(theme, shortenPath(rawPath, Math.max(6, pathBudget - 2)));
+        const line = statsText ? `${path}${s}${statsText}` : path;
+        return [truncateToWidth(line, w)];
       },
     }),
     { placement: "aboveEditor" },
