@@ -19,9 +19,12 @@ type RGB = [number, number, number];
 const PINK: RGB = [247, 118, 142];
 const CYAN: RGB = [125, 207, 255];
 const PURPLE: RGB = [187, 154, 247];
+const TILDE_PINK: RGB = [255, 130, 184];
 const DIM: RGB = [86, 95, 137];
 const WHITE: RGB = [255, 200, 210];
 const RESET = "\x1b[39m";
+const BOLD = "\x1b[1m";
+const UNBOLD = "\x1b[22m";
 
 function rgb(c: RGB): string {
   return `\x1b[38;2;${c[0]};${c[1]};${c[2]}m`;
@@ -32,6 +35,10 @@ function mixRgb(a: RGB, b: RGB, t: number): RGB {
     Math.round(a[1] + (b[1] - a[1]) * t),
     Math.round(a[2] + (b[2] - a[2]) * t),
   ];
+}
+
+function hotPink(text: string): string {
+  return `${BOLD}${rgb(TILDE_PINK)}${text}${UNBOLD}${RESET}`;
 }
 
 // ── state ─────────────────────────────────────────────────────
@@ -72,7 +79,6 @@ const BREATH_MS = 2800;
 const BREATH_FPS = 50;
 const ANIM_MS = 60;
 const SEP = " ∷ ";
-const PATH_ICON = "󰉋";
 const TURN_ICON = "󰄉";
 
 // ── editor component ──────────────────────────────────────────
@@ -200,8 +206,7 @@ function shortenPath(raw: string, maxWidth: number): string {
 }
 
 function stylePath(theme: any, raw: string): string {
-  const icon = theme.fg("accent", PATH_ICON);
-  if (raw.length === 0) return icon;
+  if (raw.length === 0) return "";
 
   let prefix = "";
   let parts: string[];
@@ -219,12 +224,12 @@ function stylePath(theme: any, raw: string): string {
   const styled = parts.map((part, index) => {
     if (part === "…") return theme.fg("dim", part);
     const isLast = index === parts.length - 1;
+    if (part === "~") return hotPink(part);
     if (isLast) return theme.fg("accent", part);
-    if (part === "~") return theme.fg("muted", part);
     return theme.fg("dim", part);
   }).join(theme.fg("dim", "/"));
 
-  return `${icon} ${prefix}${styled}`;
+  return `${prefix}${styled}`;
 }
 
 function estTokens(delta: string): number {
