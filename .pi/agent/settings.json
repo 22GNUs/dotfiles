@@ -9,7 +9,7 @@
         "pi-extensions/answer.ts",
         "pi-extensions/context.ts",
         "-pi-extensions/prompt-editor.ts",
-        "-pi-extensions/todos.ts"
+        "+pi-extensions/todos.ts"
       ],
       "skills": [
         "skills/commit",
@@ -18,15 +18,15 @@
       ],
       "themes": [],
       "prompts": [
-        "-commands/execute-plan.md",
-        "-commands/plan.md"
+        "+commands/execute-plan.md",
+        "+commands/plan.md"
       ]
     },
     "git:github.com/22GNUs/pi-qwencode-auth.git",
     "npm:pi-peon-ping"
   ],
-  "defaultProvider": "kiro-provider",
-  "defaultModel": "claude-sonnet-4.6",
+  "defaultProvider": "cf-packycode",
+  "defaultModel": "gpt-5.4-fast",
   "defaultThinkingLevel": "off",
   "hideThinkingBlock": false,
   "terminal": {
