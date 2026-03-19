@@ -1,8 +1,8 @@
 /**
- * Cyber Editor
- * - ❯ glyph: idle breathes pink, running=cyan, thinking=cyan↔purple
- * - aboveEditor HUD: cwd · per-prompt tokens · accurate usage when available,
- *   estimated output while streaming otherwise
+ * Cyber Editor — cyberpunk HUD + ❯ glyph
+ *
+ * ❯  idle=pink breath · running=cyan · thinking=cyan↔purple
+ * HUD  cwd ∷ turn ∷ ↑in ↓out ∷ Nt/s
  */
 import {
   CustomEditor,
@@ -14,6 +14,7 @@ import type { EditorTheme, TUI } from "@mariozechner/pi-tui";
 import { truncateToWidth } from "@mariozechner/pi-tui";
 import type { KeybindingsManager } from "@mariozechner/pi-coding-agent";
 
+// ── palette ───────────────────────────────────────────────────
 type RGB = [number, number, number];
 const PINK: RGB = [247, 118, 142];
 const CYAN: RGB = [125, 207, 255];
@@ -25,7 +26,6 @@ const RESET = "\x1b[39m";
 function rgb(c: RGB): string {
   return `\x1b[38;2;${c[0]};${c[1]};${c[2]}m`;
 }
-
 function mixRgb(a: RGB, b: RGB, t: number): RGB {
   return [
     Math.round(a[0] + (b[0] - a[0]) * t),
@@ -34,466 +34,374 @@ function mixRgb(a: RGB, b: RGB, t: number): RGB {
   ];
 }
 
+// ── state ─────────────────────────────────────────────────────
 type AgentState = "idle" | "running" | "thinking";
 let agentState: AgentState = "idle";
 
-let promptInputTokensTotal = 0;
-let promptOutputTokensTotal = 0;
-let promptTurnCount = 0;
+// prompt-level accumulators (reset on agent_start)
+let promptIn = 0;
+let promptOut = 0;
+let promptTurns = 0;
 let promptActive = false;
 
-let currentMessageActive = false;
-let currentMessageStartMs = 0;
-let currentInputTokens: number | undefined;
-let currentOutputTokens: number | undefined;
-let estimatedCurrentOutputTokens: number | undefined;
-let currentMessageHasAccurateOutput = false;
+// current assistant message
+let msgActive = false;
+let msgStartMs = 0;
+let msgIn: number | undefined;
+let msgOut: number | undefined;
+let estOut: number | undefined;
+let msgHasAccurateOut = false;
 
-let firstOutputMs = 0;
-let pausedAtMs = 0;
-let pausedTotalMs = 0;
-let activeToolCalls = 0;
+// timing
+let firstOutMs = 0;
+let pausedAt = 0;
+let pausedTotal = 0;
+let toolDepth = 0;
 
+// display cache
 let tps: number | undefined;
-let estimatedTps: number | undefined;
-let lastKnownOutputTokens: number | undefined;
-let lastKnownOutputIsEstimate = false;
-let lastKnownTps: number | undefined;
-let lastKnownTpsIsEstimate = false;
+let estTps: number | undefined;
+let snapOut: number | undefined;
+let snapOutEst = false;
+let snapTps: number | undefined;
+let snapTpsEst = false;
 
-const GLYPH_WIDTH = 2;
-const BREATH_PERIOD = 2800;
-const BREATH_FPS_MS = 50;
+// ── constants ─────────────────────────────────────────────────
+const GLYPH_W = 2;
+const BREATH_MS = 2800;
+const BREATH_FPS = 50;
 const ANIM_MS = 60;
+const SEP = " ∷ ";
+const TURN_ICON = "";
 
-class CyberEditorComponent extends CustomEditor {
-  private breathTimer?: ReturnType<typeof setInterval>;
-  private animTimer?: ReturnType<typeof setInterval>;
-  private breathStart = Date.now();
-  private animFrame = 0;
-  private wasTyping = false;
+// ── editor component ──────────────────────────────────────────
+class CyberEditor extends CustomEditor {
+  private breath?: ReturnType<typeof setInterval>;
+  private anim?: ReturnType<typeof setInterval>;
+  private breathT0 = Date.now();
+  private frame = 0;
+  private typed = false;
 
-  constructor(tui: TUI, theme: EditorTheme, keybindings: KeybindingsManager) {
-    super(tui, theme, keybindings);
-    this.setPaddingX(this.getPaddingX() + GLYPH_WIDTH);
-    this.startBreath();
+  constructor(tui: TUI, theme: EditorTheme, kb: KeybindingsManager) {
+    super(tui, theme, kb);
+    this.setPaddingX(this.getPaddingX() + GLYPH_W);
+    this.breathT0 = Date.now();
+    this.breath = setInterval(() => this.tui.requestRender(), BREATH_FPS);
   }
 
-  private startBreath(): void {
-    this.breathStart = Date.now();
-    this.breathTimer = setInterval(() => {
-      this.tui.requestRender();
-    }, BREATH_FPS_MS);
-  }
-
-  private breathAlpha(): number {
-    const t = ((Date.now() - this.breathStart) % BREATH_PERIOD) / BREATH_PERIOD;
-    const raw = (1 - Math.cos(2 * Math.PI * t)) / 2;
-    return raw * raw * (3 - 2 * raw);
-  }
-
-  private startAnim(): void {
-    if (this.animTimer) return;
-    this.animFrame = 0;
-    this.animTimer = setInterval(() => {
-      this.animFrame++;
-      this.tui.requestRender();
-      if (this.animFrame > 10) this.stopAnim();
-    }, ANIM_MS);
-  }
-
-  private stopAnim(): void {
-    if (this.animTimer) {
-      clearInterval(this.animTimer);
-      this.animTimer = undefined;
-    }
+  private alpha(): number {
+    const t = ((Date.now() - this.breathT0) % BREATH_MS) / BREATH_MS;
+    const r = (1 - Math.cos(2 * Math.PI * t)) / 2;
+    return r * r * (3 - 2 * r);
   }
 
   override handleInput(data: string): void {
     super.handleInput(data);
-    const typing = this.getText().length > 0;
-    if (typing && !this.wasTyping) this.startAnim();
-    this.wasTyping = typing;
+    const t = this.getText().length > 0;
+    if (t && !this.typed) this.startAnim();
+    this.typed = t;
   }
 
-  private glyphColor(): RGB {
+  private startAnim(): void {
+    if (this.anim) return;
+    this.frame = 0;
+    this.anim = setInterval(() => {
+      this.frame++;
+      this.tui.requestRender();
+      if (this.frame > 10) this.stopAnim();
+    }, ANIM_MS);
+  }
+  private stopAnim(): void {
+    if (this.anim) { clearInterval(this.anim); this.anim = undefined; }
+  }
+
+  private color(): RGB {
     if (agentState === "running") return CYAN;
-    if (agentState === "thinking") return mixRgb(CYAN, PURPLE, this.breathAlpha());
-    if (this.animTimer) {
-      const t = Math.max(0, 1 - this.animFrame / 10);
-      return mixRgb(PINK, WHITE, t);
-    }
-    return mixRgb(DIM, PINK, this.breathAlpha());
+    if (agentState === "thinking") return mixRgb(CYAN, PURPLE, this.alpha());
+    if (this.anim) return mixRgb(PINK, WHITE, Math.max(0, 1 - this.frame / 10));
+    return mixRgb(DIM, PINK, this.alpha());
   }
 
-  override render(width: number): string[] {
-    const lines = super.render(width);
+  override render(w: number): string[] {
+    const lines = super.render(w);
     if (lines.length <= 2) return lines;
-
-    const glyph = `${rgb(this.glyphColor())}❯${RESET} `;
+    const g = `${rgb(this.color())}❯${RESET} `;
     for (let i = 1; i < lines.length - 1; i++) {
-      const line = lines[i]!;
       lines[i] = i === 1
-        ? glyph + truncateToWidth(line, width - GLYPH_WIDTH, "")
-        : "  " + truncateToWidth(line, width - GLYPH_WIDTH, "");
+        ? g + truncateToWidth(lines[i]!, w - GLYPH_W, "")
+        : "  " + truncateToWidth(lines[i]!, w - GLYPH_W, "");
     }
     return lines;
   }
 
   destroy(): void {
-    if (this.breathTimer) clearInterval(this.breathTimer);
+    if (this.breath) clearInterval(this.breath);
     this.stopAnim();
   }
 }
 
-function formatTokens(n: number): string {
+// ── helpers ───────────────────────────────────────────────────
+function fmt(n: number): string {
   if (n < 1_000) return `${n}`;
   if (n < 10_000) return `${(n / 1_000).toFixed(1)}k`;
   if (n < 1_000_000) return `${Math.round(n / 1_000)}k`;
   return `${(n / 1_000_000).toFixed(1)}M`;
 }
 
-function resetCurrentMessageStats(): void {
-  currentMessageActive = false;
-  currentMessageStartMs = 0;
-  currentInputTokens = undefined;
-  currentOutputTokens = undefined;
-  estimatedCurrentOutputTokens = undefined;
-  currentMessageHasAccurateOutput = false;
+function tpsColor(v: number): "success" | "accent" | "warning" | "error" {
+  return v > 300 ? "success" : v > 150 ? "accent" : v > 50 ? "warning" : "error";
 }
 
-function resetPromptStats(): void {
-  promptInputTokensTotal = 0;
-  promptOutputTokensTotal = 0;
-  promptTurnCount = 0;
-  promptActive = false;
-  firstOutputMs = 0;
-  pausedAtMs = 0;
-  pausedTotalMs = 0;
-  activeToolCalls = 0;
-  tps = undefined;
-  estimatedTps = undefined;
-  lastKnownOutputTokens = undefined;
-  lastKnownOutputIsEstimate = false;
-  lastKnownTps = undefined;
-  lastKnownTpsIsEstimate = false;
-  resetCurrentMessageStats();
-}
-
-function noteOutputStarted(): void {
-  if (!firstOutputMs) firstOutputMs = Date.now();
-}
-
-function estimateDeltaTokens(delta: string): number {
-  let ascii = 0;
-  let cjk = 0;
-  let other = 0;
-
+function estTokens(delta: string): number {
+  let a = 0, c = 0, o = 0;
   for (const ch of delta) {
-    const code = ch.codePointAt(0) ?? 0;
-    if (
-      (code >= 0x3400 && code <= 0x9fff) ||
-      (code >= 0xf900 && code <= 0xfaff) ||
-      (code >= 0x3040 && code <= 0x30ff) ||
-      (code >= 0xac00 && code <= 0xd7af)
-    ) {
-      cjk++;
-    } else if (code <= 0x7f) {
-      ascii++;
-    } else {
-      other++;
-    }
+    const p = ch.codePointAt(0) ?? 0;
+    if ((p >= 0x3400 && p <= 0x9fff) || (p >= 0xf900 && p <= 0xfaff) ||
+        (p >= 0x3040 && p <= 0x30ff) || (p >= 0xac00 && p <= 0xd7af)) c++;
+    else if (p <= 0x7f) a++;
+    else o++;
   }
-
-  return cjk + Math.ceil(ascii / 4) + Math.ceil(other / 2);
+  return c + Math.ceil(a / 4) + Math.ceil(o / 2);
 }
 
-function addEstimatedOutput(delta: string): void {
-  const next = estimateDeltaTokens(delta);
-  if (next <= 0) return;
-  estimatedCurrentOutputTokens = (estimatedCurrentOutputTokens ?? 0) + next;
-  recomputeEstimatedTps();
+// ── stat management ───────────────────────────────────────────
+function resetMsg(): void {
+  msgActive = false; msgStartMs = 0;
+  msgIn = undefined; msgOut = undefined;
+  estOut = undefined; msgHasAccurateOut = false;
 }
 
-function getEffectiveElapsedMs(now = Date.now()): number {
-  if (!firstOutputMs) return 0;
-  const activePause = pausedAtMs ? now - pausedAtMs : 0;
-  return Math.max(0, now - firstOutputMs - pausedTotalMs - activePause);
+function resetAll(): void {
+  promptIn = promptOut = promptTurns = 0;
+  promptActive = false;
+  firstOutMs = pausedAt = pausedTotal = toolDepth = 0;
+  tps = estTps = snapOut = snapTps = undefined;
+  snapOutEst = snapTpsEst = false;
+  resetMsg();
 }
 
-function pauseTps(): void {
-  if (!firstOutputMs || pausedAtMs) return;
-  pausedAtMs = Date.now();
+function elapsed(): number {
+  if (!firstOutMs) return 0;
+  const ap = pausedAt ? Date.now() - pausedAt : 0;
+  return Math.max(0, Date.now() - firstOutMs - pausedTotal - ap);
 }
 
-function resumeTps(): void {
-  if (!pausedAtMs) return;
-  pausedTotalMs += Date.now() - pausedAtMs;
-  pausedAtMs = 0;
-}
-
-function getExactDisplayOutputTokens(): number | undefined {
-  if (currentMessageActive) {
-    if (!currentMessageHasAccurateOutput || currentOutputTokens === undefined) return undefined;
-    return promptOutputTokensTotal + currentOutputTokens;
+function exactOut(): number | undefined {
+  if (msgActive) {
+    if (!msgHasAccurateOut || msgOut === undefined) return undefined;
+    return promptOut + msgOut;
   }
-  return promptOutputTokensTotal > 0 ? promptOutputTokensTotal : undefined;
+  return promptOut > 0 ? promptOut : undefined;
 }
 
-function getEstimatedDisplayOutputTokens(): number | undefined {
-  if (!currentMessageActive) return undefined;
-  if (estimatedCurrentOutputTokens === undefined) return undefined;
-  return promptOutputTokensTotal + estimatedCurrentOutputTokens;
+function estDisplayOut(): number | undefined {
+  if (!msgActive || estOut === undefined) return undefined;
+  return promptOut + estOut;
 }
 
-function getExactDisplayInputTokens(): number | undefined {
-  if (currentMessageActive) {
-    if (currentInputTokens === undefined) return promptInputTokensTotal > 0 ? promptInputTokensTotal : undefined;
-    return promptInputTokensTotal + currentInputTokens;
+function exactIn(): number | undefined {
+  if (msgActive) {
+    if (msgIn === undefined) return promptIn > 0 ? promptIn : undefined;
+    return promptIn + msgIn;
   }
-  return promptInputTokensTotal > 0 ? promptInputTokensTotal : undefined;
+  return promptIn > 0 ? promptIn : undefined;
 }
 
-function getInputPlaceholder(): string {
-  if (!promptActive || !currentMessageActive) return "↑…";
-  if (promptInputTokensTotal > 0) return `↑${formatTokens(promptInputTokensTotal)}+…`;
-  return "↑…";
+function refreshTps(): void {
+  const o = exactOut();
+  if (o !== undefined && o > 0) { snapOut = o; snapOutEst = false; }
+  if (o === undefined || o <= 0 || !firstOutMs) return;
+  const s = elapsed() / 1000;
+  if (s > 0) { tps = o / s; snapTps = tps; snapTpsEst = false; }
 }
 
-function recomputeTps(): void {
-  const output = getExactDisplayOutputTokens();
-  if (output !== undefined && output > 0) {
-    lastKnownOutputTokens = output;
-    lastKnownOutputIsEstimate = false;
-  }
-  if (output === undefined || output <= 0 || !firstOutputMs) return;
-  const elapsed = getEffectiveElapsedMs() / 1000;
-  if (elapsed > 0) {
-    tps = output / elapsed;
-    lastKnownTps = tps;
-    lastKnownTpsIsEstimate = false;
+function refreshEstTps(): void {
+  const o = estDisplayOut();
+  if (o !== undefined && o > 0 && snapOut === undefined) { snapOut = o; snapOutEst = true; }
+  if (o === undefined || o <= 0 || !firstOutMs) return;
+  const s = elapsed() / 1000;
+  if (s > 0) {
+    estTps = o / s;
+    if (snapTps === undefined) { snapTps = estTps; snapTpsEst = true; }
   }
 }
 
-function recomputeEstimatedTps(): void {
-  const output = getEstimatedDisplayOutputTokens();
-  if (output !== undefined && output > 0 && lastKnownOutputTokens === undefined) {
-    lastKnownOutputTokens = output;
-    lastKnownOutputIsEstimate = true;
-  }
-  if (output === undefined || output <= 0 || !firstOutputMs) return;
-  const elapsed = getEffectiveElapsedMs() / 1000;
-  if (elapsed > 0) {
-    estimatedTps = output / elapsed;
-    if (lastKnownTps === undefined) {
-      lastKnownTps = estimatedTps;
-      lastKnownTpsIsEstimate = true;
-    }
-  }
+function addEst(delta: string): void {
+  const n = estTokens(delta);
+  if (n <= 0) return;
+  estOut = (estOut ?? 0) + n;
+  refreshEstTps();
 }
 
-function getTpsColor(tpsValue: number): "success" | "accent" | "warning" | "error" {
-  return tpsValue > 300 ? "success" :
-    tpsValue > 150 ? "accent" :
-    tpsValue > 50 ? "warning" :
-    "error";
-}
-
-function syncUsage(message: AssistantMessage, isFinal = false): void {
-  const usage = message.usage;
-
-  if (isFinal || usage.input > 0) {
-    currentInputTokens = usage.input;
-  }
-
-  if (isFinal || usage.output > 0 || currentOutputTokens !== undefined) {
-    currentOutputTokens = usage.output;
-    if (isFinal || usage.output > 0) {
-      currentMessageHasAccurateOutput = true;
-    }
-    recomputeTps();
+function sync(m: AssistantMessage, final = false): void {
+  const u = m.usage;
+  if (final || u.input > 0) msgIn = u.input;
+  if (final || u.output > 0 || msgOut !== undefined) {
+    msgOut = u.output;
+    if (final || u.output > 0) msgHasAccurateOut = true;
+    refreshTps();
   }
 }
 
-function commitCurrentMessage(): void {
-  promptInputTokensTotal += currentInputTokens ?? 0;
-  promptOutputTokensTotal += currentOutputTokens ?? 0;
-  estimatedTps = undefined;
-  resetCurrentMessageStats();
-  recomputeTps();
+function commit(): void {
+  promptIn += msgIn ?? 0;
+  promptOut += msgOut ?? 0;
+  estTps = undefined;
+  resetMsg();
+  refreshTps();
 }
 
+// ── HUD ───────────────────────────────────────────────────────
 function attachHUD(ctx: ExtensionContext): void {
   ctx.ui.setWidget(
     "cyber-hud",
     (_tui, theme) => ({
       invalidate(): void {},
-      render(width: number): string[] {
+      render(w: number): string[] {
         const home = process.env.HOME ?? "";
         const cwd = ctx.cwd ?? "";
-        const shortCwd = home && cwd.startsWith(home) ? "~" + cwd.slice(home.length) : cwd;
+        const short = home && cwd.startsWith(home) ? "~" + cwd.slice(home.length) : cwd;
+        const path = theme.fg("dim", short);
 
-        const pathStr = theme.fg("dim", shortCwd);
-        const inputTokens = getExactDisplayInputTokens();
-        const exactOutputTokens = getExactDisplayOutputTokens();
-        const estimatedOutputTokens = getEstimatedDisplayOutputTokens();
-        const displayOutputTokens = exactOutputTokens ?? estimatedOutputTokens ?? lastKnownOutputTokens;
-        const displayOutputIsEstimate = exactOutputTokens === undefined &&
-          (estimatedOutputTokens !== undefined || lastKnownOutputIsEstimate);
-        const displayTps = tps ?? estimatedTps ?? lastKnownTps;
-        const displayTpsIsEstimate = tps === undefined && (estimatedTps !== undefined || lastKnownTpsIsEstimate);
+        const dOut = exactOut() ?? estDisplayOut() ?? snapOut;
+        const dOutEst = exactOut() === undefined && (estDisplayOut() !== undefined || snapOutEst);
+        const dTps = tps ?? estTps ?? snapTps;
+        const dTpsEst = tps === undefined && (estTps !== undefined || snapTpsEst);
 
-        if (
-          !promptActive &&
-          inputTokens === undefined &&
-          displayOutputTokens === undefined &&
-          displayTps === undefined
-        ) {
-          return [truncateToWidth(pathStr, width)];
+        // idle + nothing to show → clean path only
+        if (!promptActive && dOut === undefined && dTps === undefined) {
+          return [truncateToWidth(path, w)];
         }
 
-        const sep = theme.fg("dim", " ∷ ");
-        const turnStr = theme.fg("dim", `↻${Math.max(1, promptTurnCount)}`);
-        const inStr = inputTokens === undefined
-          ? theme.fg("dim", getInputPlaceholder())
-          : theme.fg("muted", `↑${formatTokens(inputTokens)}`);
+        const s = theme.fg("dim", SEP);
 
-        let outStr = theme.fg("dim", "↓-");
-        if (displayOutputTokens !== undefined) {
-          const label = `${displayOutputIsEstimate ? "~" : ""}↓${formatTokens(displayOutputTokens)}`;
-          outStr = displayOutputIsEstimate
-            ? theme.fg(activeToolCalls > 0 ? "dim" : "muted", label)
-            : theme.fg(activeToolCalls > 0 ? "dim" : "accent", label);
+        const turn = promptActive
+          ? theme.fg("dim", `${TURN_ICON}${Math.max(1, promptTurns)}`)
+          : "";
+
+        // ↑ input tokens
+        const inTk = exactIn();
+        let inS: string;
+        if (inTk !== undefined) {
+          inS = theme.fg("muted", `↑${fmt(inTk)}`);
+        } else if (promptActive && promptIn > 0) {
+          inS = theme.fg("dim", `↑${fmt(promptIn)}+…`);
+        } else if (promptActive) {
+          inS = theme.fg("dim", "↑…");
+        } else {
+          inS = "";
         }
 
-        let tpsStr = theme.fg("dim", "-t/s");
-        if (displayTps !== undefined && Number.isFinite(displayTps) && displayTps > 0) {
-          const label = `${displayTpsIsEstimate ? "~" : ""}${displayTps.toFixed(0)}t/s`;
-          const tpsColor = getTpsColor(displayTps);
-          tpsStr = agentState === "thinking" || agentState === "idle"
-            ? theme.fg("dim", label)
-            : theme.fg(tpsColor, label);
+        // ↓ output tokens
+        let outS = "";
+        if (dOut !== undefined) {
+          const lbl = `${dOutEst ? "~" : ""}↓${fmt(dOut)}`;
+          const frozen = toolDepth > 0;
+          outS = frozen ? theme.fg("dim", lbl) : dOutEst ? theme.fg("muted", lbl) : theme.fg("accent", lbl);
         }
 
-        const line = `${pathStr}${sep}${turnStr}${sep}${inStr} ${outStr}${sep}${tpsStr}`;
-        return [truncateToWidth(line, width)];
+        // t/s
+        let tpsS = "";
+        if (dTps !== undefined && Number.isFinite(dTps) && dTps > 0) {
+          const lbl = `${dTpsEst ? "~" : ""}${dTps.toFixed(0)}t/s`;
+          tpsS = agentState === "thinking" || agentState === "idle"
+            ? theme.fg("dim", lbl)
+            : theme.fg(tpsColor(dTps), lbl);
+        }
+
+        // assemble — skip empty segments
+        const parts = [path, turn, [inS, outS].filter(Boolean).join(" "), tpsS].filter(Boolean);
+        return [truncateToWidth(parts.join(s), w)];
       },
     }),
     { placement: "aboveEditor" },
   );
 }
 
+// ── attach ────────────────────────────────────────────────────
 function attach(ctx: ExtensionContext): void {
   if (!ctx.hasUI) return;
-  ctx.ui.setEditorComponent((tui, theme, kb) => new CyberEditorComponent(tui, theme, kb));
+  ctx.ui.setEditorComponent((tui, th, kb) => new CyberEditor(tui, th, kb));
   attachHUD(ctx);
 }
 
+// ── extension entry ───────────────────────────────────────────
 export default function cyberEditor(pi: ExtensionAPI) {
-  pi.on("session_start", async (_event, ctx) => {
-    resetPromptStats();
-    attach(ctx);
-  });
-
-  pi.on("session_switch", async (_event, ctx) => {
-    resetPromptStats();
-    attach(ctx);
-  });
+  pi.on("session_start", async (_e, ctx) => { resetAll(); attach(ctx); });
+  pi.on("session_switch", async (_e, ctx) => { resetAll(); attach(ctx); });
 
   pi.on("agent_start", async () => {
-    resetPromptStats();
+    resetAll();
     promptActive = true;
     agentState = "running";
   });
 
   pi.on("turn_start", async () => {
-    promptTurnCount++;
+    promptTurns++;
     agentState = "running";
   });
 
   pi.on("agent_end", async () => {
-    resumeTps();
+    if (pausedAt) { pausedTotal += Date.now() - pausedAt; pausedAt = 0; }
     promptActive = false;
     agentState = "idle";
-    recomputeTps();
-    recomputeEstimatedTps();
+    refreshTps(); refreshEstTps();
   });
 
   pi.on("tool_call", async () => {
-    activeToolCalls++;
-    pauseTps();
+    toolDepth++;
+    if (firstOutMs && !pausedAt) pausedAt = Date.now();
     agentState = "thinking";
   });
 
   pi.on("tool_result", async () => {
-    activeToolCalls = Math.max(0, activeToolCalls - 1);
-    if (activeToolCalls === 0) {
-      resumeTps();
-      recomputeTps();
-      recomputeEstimatedTps();
+    toolDepth = Math.max(0, toolDepth - 1);
+    if (toolDepth === 0) {
+      if (pausedAt) { pausedTotal += Date.now() - pausedAt; pausedAt = 0; }
+      refreshTps(); refreshEstTps();
       agentState = "running";
     }
   });
 
   pi.on("message_start", async (event) => {
     if (event.message.role !== "assistant") return;
-
-    resetCurrentMessageStats();
-    currentMessageActive = true;
-    currentMessageStartMs = Date.now();
-    syncUsage(event.message);
+    resetMsg();
+    msgActive = true;
+    msgStartMs = Date.now();
+    sync(event.message);
   });
 
   pi.on("message_update", async (event) => {
     const e = event.assistantMessageEvent;
-
     if (e.type === "text_delta" || e.type === "thinking_delta" || e.type === "toolcall_delta") {
-      noteOutputStarted();
-      addEstimatedOutput(e.delta);
-      syncUsage(e.partial);
+      if (!firstOutMs) firstOutMs = Date.now();
+      addEst(e.delta);
+      sync(e.partial);
       return;
     }
-
-    if (
-      e.type === "start" ||
-      e.type === "text_start" ||
-      e.type === "text_end" ||
-      e.type === "thinking_start" ||
-      e.type === "thinking_end" ||
-      e.type === "toolcall_start" ||
-      e.type === "toolcall_end"
-    ) {
-      syncUsage(e.partial);
+    if (e.type === "start" || e.type === "text_start" || e.type === "text_end" ||
+        e.type === "thinking_start" || e.type === "thinking_end" ||
+        e.type === "toolcall_start" || e.type === "toolcall_end") {
+      sync(e.partial);
       return;
     }
-
     if (e.type === "done") {
-      if (!firstOutputMs && e.message.usage.output > 0) {
-        firstOutputMs = currentMessageStartMs || Date.now();
-      }
-      syncUsage(e.message, true);
-      recomputeTps();
+      if (!firstOutMs && e.message.usage.output > 0) firstOutMs = msgStartMs || Date.now();
+      sync(e.message, true); refreshTps();
       return;
     }
-
     if (e.type === "error") {
-      if (!firstOutputMs && e.error.usage.output > 0) {
-        firstOutputMs = currentMessageStartMs || Date.now();
-      }
-      syncUsage(e.error, true);
-      recomputeTps();
+      if (!firstOutMs && e.error.usage.output > 0) firstOutMs = msgStartMs || Date.now();
+      sync(e.error, true); refreshTps();
     }
   });
 
   pi.on("turn_end", async (event) => {
     if (event.message.role !== "assistant") return;
-
-    resumeTps();
-    if (!firstOutputMs && event.message.usage.output > 0) {
-      firstOutputMs = currentMessageStartMs || Date.now();
-    }
-    syncUsage(event.message, true);
-    commitCurrentMessage();
-    recomputeTps();
+    if (pausedAt) { pausedTotal += Date.now() - pausedAt; pausedAt = 0; }
+    if (!firstOutMs && event.message.usage.output > 0) firstOutMs = msgStartMs || Date.now();
+    sync(event.message, true);
+    commit();
+    refreshTps();
   });
 }

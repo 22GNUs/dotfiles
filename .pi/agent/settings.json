@@ -25,8 +25,8 @@
     "git:github.com/22GNUs/pi-qwencode-auth.git",
     "npm:pi-peon-ping"
   ],
-  "defaultProvider": "kiro-provider",
-  "defaultModel": "claude-opus-4.5",
+  "defaultProvider": "cf-packycode",
+  "defaultModel": "gpt-5.4-fast",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
   "terminal": {
