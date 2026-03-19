@@ -17,14 +17,17 @@
         "+skills/mermaid/SKILL.md"
       ],
       "themes": [],
-      "prompts": ["-commands/execute-plan.md", "-commands/plan.md"]
+      "prompts": [
+        "-commands/execute-plan.md",
+        "-commands/plan.md"
+      ]
     },
     "git:github.com/22GNUs/pi-qwencode-auth.git",
     "npm:pi-peon-ping"
   ],
-  "defaultProvider": "cf-packycode-sub",
-  "defaultModel": "gpt-5.4-fast",
-  "defaultThinkingLevel": "high",
+  "defaultProvider": "github-copilot",
+  "defaultModel": "gpt-5.4-mini",
+  "defaultThinkingLevel": "off",
   "hideThinkingBlock": true,
   "terminal": {
     "showImages": true
@@ -40,4 +43,3 @@
   },
   "enabledModels": []
 }
-

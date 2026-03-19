@@ -23,8 +23,8 @@
     "purpleDark":    "#9d7cd8",
     "pink":          "#f7768e",
     "toolSuccessBg": "#0c0f1a",
-    "toolPendingBg": "#0c0e16",
-    "toolErrorBg":   "#1a0e12",
+    "toolPendingBg": "#0b1018",
+    "toolErrorBg":   "#130a0d",
     "customBg":      "#2a2040"
   },
   "colors": {
