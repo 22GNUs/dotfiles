@@ -36,7 +36,7 @@ export default function (pi: ExtensionAPI) {
   const apiKey = process.env.CLOUDFLARE_API_TOKEN;
   if (!accountId || !gatewayId || !apiKey) return;
 
-  pi.registerProvider("cf-packycode-sub", {
+  pi.registerProvider("cf-packycode", {
     baseUrl: `https://gateway.ai.cloudflare.com/v1/${accountId}/${gatewayId}/custom-packycodex`,
     apiKey: "CLOUDFLARE_API_TOKEN",
     api: "openai-responses",
@@ -48,7 +48,7 @@ export default function (pi: ExtensionAPI) {
         input: ["text", "image"],
         contextWindow: 400000,
         maxTokens: 128000,
-        ...pricing(1.75, 14, 0.175),
+        ...pricing(0, 0),
       },
       {
         id: "gpt-5.4",
@@ -57,7 +57,7 @@ export default function (pi: ExtensionAPI) {
         input: ["text", "image"],
         contextWindow: 400000,
         maxTokens: 128000,
-        ...pricing(2.5, 15, 0.25),
+        ...pricing(0, 0),
       },
       {
         id: "gpt-5.4-fast",
@@ -66,7 +66,16 @@ export default function (pi: ExtensionAPI) {
         input: ["text", "image"],
         contextWindow: 400000,
         maxTokens: 128000,
-        ...pricing(2.5, 15, 0.25),
+        ...pricing(0, 0),
+      },
+      {
+        id: "gpt-5.4-mini",
+        name: "GPT-5.4 Mini",
+        reasoning: true,
+        input: ["text", "image"],
+        contextWindow: 400000,
+        maxTokens: 128000,
+        ...pricing(0, 0),
       },
     ],
   });

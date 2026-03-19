@@ -1,8 +1,8 @@
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
 
-import miniFooter from "./mini-footer";
-import workingGlow from "./working-glow";
-import cyberEditor from "./cyber-editor";
+import miniFooter from "./mini-footer.js";
+import workingGlow from "./working-glow.js";
+import cyberEditor from "./cyber-editor.js";
 
 export default function uiToolkit(pi: ExtensionAPI) {
   miniFooter(pi);

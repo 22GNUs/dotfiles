@@ -2,8 +2,8 @@
  * Cyber Editor — adds a ❯ prompt glyph before input content
  * Uses tokyo-night magenta (#bb9af7) for the glyph color.
  */
-import { CustomEditor, type ExtensionAPI, type ExtensionContext } from "@mariozechner/pi-coding-agent";
-import type { Keybindings, TUI, Theme } from "@mariozechner/pi-tui";
+import { CustomEditor, type ExtensionAPI, type ExtensionContext, type KeybindingsManager } from "@mariozechner/pi-coding-agent";
+import type { TUI, EditorTheme } from "@mariozechner/pi-tui";
 import { visibleWidth, truncateToWidth } from "@mariozechner/pi-tui";
 
 // tokyo-night red/pink (#f7768e)
@@ -13,7 +13,7 @@ const GLYPH = `${MAGENTA}❯${RESET} `;
 const GLYPH_WIDTH = 2; // "❯ " = 2 visible chars
 
 class CyberEditorComponent extends CustomEditor {
-  constructor(tui: TUI, theme: Theme, keybindings: Keybindings) {
+  constructor(tui: TUI, theme: EditorTheme, keybindings: KeybindingsManager) {
     super(tui, theme, keybindings);
     // Add left padding to make room for the glyph
     this.setPaddingX(this.getPaddingX() + GLYPH_WIDTH);

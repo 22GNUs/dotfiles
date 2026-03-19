@@ -25,10 +25,10 @@
     "git:github.com/22GNUs/pi-qwencode-auth.git",
     "npm:pi-peon-ping"
   ],
-  "defaultProvider": "github-copilot",
-  "defaultModel": "gpt-5.4-mini",
+  "defaultProvider": "kiro-provider",
+  "defaultModel": "claude-sonnet-4.6",
   "defaultThinkingLevel": "off",
-  "hideThinkingBlock": true,
+  "hideThinkingBlock": false,
   "terminal": {
     "showImages": true
   },

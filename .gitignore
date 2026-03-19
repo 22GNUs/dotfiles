@@ -34,6 +34,7 @@
 .pi/agent/bin/
 .pi/agent/auth.json
 .pi/agent/extensions/node_modules
+.pi/agent/extensions/*/node_modules
 
 # External repos for soft-linking
 external/

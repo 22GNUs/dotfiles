@@ -4,11 +4,18 @@
   "private": true,
   "type": "module",
   "keywords": ["pi-package"],
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
   "pi": {
     "extensions": ["./index.ts"]
   },
   "peerDependencies": {
     "@mariozechner/pi-coding-agent": "*",
     "@mariozechner/pi-tui": "*"
+  },
+  "devDependencies": {
+    "@mariozechner/pi-coding-agent": "file:/opt/homebrew/lib/node_modules/@mariozechner/pi-coding-agent",
+    "@mariozechner/pi-tui": "file:/opt/homebrew/lib/node_modules/@mariozechner/pi-coding-agent/node_modules/@mariozechner/pi-tui"
   }
 }

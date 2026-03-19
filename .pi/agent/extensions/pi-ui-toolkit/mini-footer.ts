@@ -166,7 +166,7 @@ function contextText(
 function getStatusInfo(
   theme: Theme,
   footerData: ReadonlyFooterDataProvider,
-): { text: string; signature: string } {
+): { texts: string[]; signature: string } {
   const entries = Array.from(footerData.getExtensionStatuses().entries())
     .filter(([, value]) => value.trim().length > 0)
     .sort(([a], [b]) => a.localeCompare(b));
@@ -174,22 +174,55 @@ function getStatusInfo(
   const signature = entries
     .map(([key, value]) => `${key}\u0000${value}`)
     .join("\u0001");
-  if (entries.length === 0) {
-    return { text: "", signature };
-  }
-
-  const first = entries[0]?.[1] ?? "";
-  if (entries.length === 1) {
-    return {
-      text: theme.fg("muted", first),
-      signature,
-    };
-  }
 
   return {
-    text: `${theme.fg("muted", first)}${theme.fg("dim", ` +${entries.length - 1}`)}`,
+    texts: entries.map(([, value]) => theme.fg("muted", value)),
     signature,
   };
+}
+
+/**
+ * 根据可用宽度，尽量展示更多状态，放不下时折叠为 +N。
+ */
+function fitStatusText(
+  theme: Theme,
+  texts: string[],
+  availableWidth: number,
+): string {
+  if (texts.length === 0) return "";
+
+  const sep = theme.fg("dim", " · ");
+  const sepWidth = visibleWidth(sep);
+
+  let result = "";
+  let shown = 0;
+
+  for (let i = 0; i < texts.length; i++) {
+    const candidate = texts[i]!;
+    const remaining = texts.length - i - 1;
+    const suffix =
+      remaining > 0 ? theme.fg("dim", ` +${remaining}`) : "";
+    const suffixWidth = remaining > 0 ? visibleWidth(suffix) : 0;
+
+    const needed =
+      (shown > 0 ? sepWidth : 0) +
+      visibleWidth(candidate) +
+      suffixWidth;
+
+    if (visibleWidth(result) + needed <= availableWidth) {
+      result += (shown > 0 ? sep : "") + candidate;
+      shown++;
+    } else {
+      // 放不下当前项，折叠剩余
+      const collapse = texts.length - shown;
+      if (collapse > 0) {
+        result += theme.fg("dim", ` +${collapse}`);
+      }
+      return result;
+    }
+  }
+
+  return result;
 }
 
 /** Cache key components to avoid re-rendering when nothing changed. */
@@ -201,6 +234,7 @@ interface CacheKey {
   usedTokens: number;
   contextWindow: number;
   statusSignature: string;
+  statusCount: number;
 }
 
 function cacheKeyEquals(a: CacheKey | undefined, b: CacheKey): boolean {
@@ -212,7 +246,8 @@ function cacheKeyEquals(a: CacheKey | undefined, b: CacheKey): boolean {
     a.thinkingLevel === b.thinkingLevel &&
     a.usedTokens === b.usedTokens &&
     a.contextWindow === b.contextWindow &&
-    a.statusSignature === b.statusSignature
+    a.statusSignature === b.statusSignature &&
+    a.statusCount === b.statusCount
   );
 }
 
@@ -221,7 +256,7 @@ function renderLine(
   theme: Theme,
   ctx: ExtensionContext,
   thinkingLevel: string,
-  statusText: string,
+  statusTexts: string[],
 ): string {
   const model = theme.fg(
     "accent",
@@ -236,16 +271,36 @@ function renderLine(
 
   const sep = theme.fg("dim", " · ");
   const left = `${model}${sep}${thinking}`;
-  const right = statusText ? `${statusText}${sep}${context}` : context;
+  const leftWidth = visibleWidth(left);
+  const contextWidth = visibleWidth(context);
+  const sepWidth = visibleWidth(sep);
 
-  if (visibleWidth(left) + 1 + visibleWidth(right) <= width) {
-    const pad = " ".repeat(
-      Math.max(1, width - visibleWidth(left) - visibleWidth(right)),
-    );
+  if (statusTexts.length > 0) {
+    // 计算 status 可用宽度：总宽 - left - sep - sep - context - 至少1个空格
+    const availableForStatus =
+      width - leftWidth - sepWidth - sepWidth - contextWidth - 1;
+    const statusText =
+      availableForStatus > 0
+        ? fitStatusText(theme, statusTexts, availableForStatus)
+        : "";
+
+    if (statusText) {
+      const right = `${statusText}${sep}${context}`;
+      const pad = " ".repeat(
+        Math.max(1, width - leftWidth - visibleWidth(right)),
+      );
+      return truncateToWidth(left + pad + right, width);
+    }
+  }
+
+  // 没有 status 或放不下：只保留 model + thinking + context
+  const right = context;
+  if (leftWidth + 1 + contextWidth <= width) {
+    const pad = " ".repeat(Math.max(1, width - leftWidth - contextWidth));
     return truncateToWidth(left + pad + right, width);
   }
 
-  // 宽度不够时降级：去掉 status，只保留 model + context
+  // 再降级：去掉 thinking
   const compact = `${left}${sep}${context}`;
   if (visibleWidth(compact) <= width) {
     return compact;
@@ -284,6 +339,7 @@ function attachFooter(
             usedTokens,
             contextWindow,
             statusSignature: statusInfo.signature,
+            statusCount: statusInfo.texts.length,
           };
 
           if (cachedLines && cacheKeyEquals(cachedKey, key)) {
@@ -291,7 +347,7 @@ function attachFooter(
           }
 
           cachedLines = [
-            renderLine(width, theme, ctx, thinkingLevel, statusInfo.text),
+            renderLine(width, theme, ctx, thinkingLevel, statusInfo.texts),
           ];
           cachedKey = key;
           return cachedLines;
