@@ -47,7 +47,6 @@ let isStreaming       = false;
 const GLYPH_WIDTH = 2;
 const BLINK_MS    = 530;
 const ANIM_MS     = 60;
-const PULSE_MS    = 350;    // faster pulse period
 
 // ─── Editor ───────────────────────────────────────────────────
 class CyberEditorComponent extends CustomEditor {
@@ -92,12 +91,7 @@ class CyberEditorComponent extends CustomEditor {
   }
 
   private glyphColor(): RGB {
-    if (agentState === "thinking") {
-      // Strong pulse: full swing between cyan and purple
-      const t = (Math.sin(Date.now() / PULSE_MS) + 1) / 2;
-      return mixRgb(CYAN, PURPLE, t);
-    }
-    if (agentState === "running") return CYAN;
+    if (agentState === "running" || agentState === "thinking") return CYAN;
     // idle blink
     if (!this.blinkOn) return DIM;
     // typing burst
@@ -208,13 +202,13 @@ export default function cyberEditor(pi: ExtensionAPI) {
   pi.on("agent_start", async (_e, ctx) => {
     agentState = "running";
     isStreaming = true;
-    // capture input tokens immediately from context usage
-    const usage = ctx.getContextUsage?.();
-    turnInputTokens  = usage?.tokens ?? 0;
-    turnOutputTokens = 0;
     outputDeltaCount = 0;
     tps = 0;
     turnStartMs = Date.now();
+    // estimate input tokens from current context size (accurate enough, updates at turn_end)
+    const usage = ctx.getContextUsage?.();
+    turnInputTokens = usage?.tokens ?? 0;
+    turnOutputTokens = 0;
   });
 
   pi.on("agent_end", async () => {
