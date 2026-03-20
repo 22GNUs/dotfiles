@@ -1,7 +1,7 @@
 /**
  * Cyber Editor — cyberpunk HUD + ❯ glyph
  *
- * ❯  idle=pink breath · running=cyan · thinking=cyan↔purple
+ * ❯  idle=silver breath · running=steel silver · thinking=steel pulse
  * HUD  cwd ∷ turn ∷ ↑in ↓out ∷ Nt/s
  */
 import {
@@ -20,8 +20,13 @@ const PINK: RGB = [247, 118, 142];
 const CYAN: RGB = [125, 207, 255];
 const PURPLE: RGB = [187, 154, 247];
 const TILDE_PINK: RGB = [255, 130, 184];
+const SILVER: RGB = [170, 184, 202];
+const STEEL: RGB = [92, 104, 124];
+const RUNNING_SILVER: RGB = [126, 142, 164];
+const THINKING_LOW: RGB = [108, 118, 142];
+const THINKING_HIGH: RGB = [148, 160, 184];
 const DIM: RGB = [86, 95, 137];
-const WHITE: RGB = [255, 200, 210];
+const WHITE: RGB = [214, 224, 236];
 const RESET = "\x1b[39m";
 const BOLD = "\x1b[1m";
 const UNBOLD = "\x1b[22m";
@@ -75,7 +80,7 @@ let snapTpsEst = false;
 
 // ── constants ─────────────────────────────────────────────────
 const GLYPH_W = 2;
-const BREATH_MS = 2800;
+const BREATH_MS = 3200;
 const BREATH_FPS = 50;
 const ANIM_MS = 60;
 const SEP = " ∷ ";
@@ -98,8 +103,7 @@ class CyberEditor extends CustomEditor {
 
   private alpha(): number {
     const t = ((Date.now() - this.breathT0) % BREATH_MS) / BREATH_MS;
-    const r = (1 - Math.cos(2 * Math.PI * t)) / 2;
-    return r * r * (3 - 2 * r);
+    return (1 - Math.cos(2 * Math.PI * t)) / 2;
   }
 
   override handleInput(data: string): void {
@@ -123,10 +127,10 @@ class CyberEditor extends CustomEditor {
   }
 
   private color(): RGB {
-    if (agentState === "running") return CYAN;
-    if (agentState === "thinking") return mixRgb(CYAN, PURPLE, this.alpha());
-    if (this.anim) return mixRgb(PINK, WHITE, Math.max(0, 1 - this.frame / 10));
-    return mixRgb(DIM, PINK, this.alpha());
+    if (agentState === "running") return RUNNING_SILVER;
+    if (agentState === "thinking") return mixRgb(THINKING_LOW, THINKING_HIGH, this.alpha());
+    if (this.anim) return mixRgb(SILVER, WHITE, Math.max(0, 1 - this.frame / 10));
+    return mixRgb(STEEL, SILVER, this.alpha());
   }
 
   override render(w: number): string[] {
