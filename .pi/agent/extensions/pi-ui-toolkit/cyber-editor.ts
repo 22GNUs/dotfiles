@@ -133,18 +133,21 @@ class CyberEditor extends CustomEditor {
   override handleInput(data: string): void {
     if (matchesKey(data, "escape")) {
       if (this.mode === "insert") {
+        const hasText = this.getText().trim().length > 0;
+        if (hasText) {
+          this.clearPendingNormal();
+          this.mode = "normal";
+          this.tui.requestRender();
+          return;
+        }
+
         const now = Date.now();
         const isDoubleEscape = this.pendingNormalAt > 0 && now - this.pendingNormalAt <= DOUBLE_ESCAPE_MS;
 
         if (isDoubleEscape) {
           this.clearPendingNormal();
-          if (this.getText().trim().length === 0) {
-            super.handleInput(data);
-            super.handleInput(data);
-            return;
-          }
-          this.mode = "normal";
-          this.tui.requestRender();
+          super.handleInput(data);
+          super.handleInput(data);
           return;
         }
 
