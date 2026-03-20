@@ -11,7 +11,7 @@ import {
 } from "@mariozechner/pi-coding-agent";
 import type { AssistantMessage } from "@mariozechner/pi-ai";
 import type { EditorTheme, TUI } from "@mariozechner/pi-tui";
-import { truncateToWidth, visibleWidth } from "@mariozechner/pi-tui";
+import { matchesKey, truncateToWidth, visibleWidth } from "@mariozechner/pi-tui";
 import type { KeybindingsManager } from "@mariozechner/pi-coding-agent";
 
 // ── palette ───────────────────────────────────────────────────
@@ -86,9 +86,13 @@ const ANIM_MS = 60;
 const SEP = " ∷ ";
 const TURN_ICON = "󰄉";
 const PATH_MAX_DEPTH = 3;
+const DOUBLE_ESCAPE_MS = 500;
 
 // ── editor component ──────────────────────────────────────────
 class CyberEditor extends CustomEditor {
+  private mode: "normal" | "insert" = "insert";
+  private pendingNormal?: ReturnType<typeof setTimeout>;
+  private pendingNormalAt = 0;
   private breath?: ReturnType<typeof setInterval>;
   private anim?: ReturnType<typeof setInterval>;
   private breathT0 = Date.now();
@@ -107,7 +111,82 @@ class CyberEditor extends CustomEditor {
     return (1 - Math.cos(2 * Math.PI * t)) / 2;
   }
 
+  private clearPendingNormal(): void {
+    if (this.pendingNormal) {
+      clearTimeout(this.pendingNormal);
+      this.pendingNormal = undefined;
+    }
+    this.pendingNormalAt = 0;
+  }
+
+  private scheduleNormalMode(): void {
+    this.clearPendingNormal();
+    this.pendingNormalAt = Date.now();
+    this.pendingNormal = setTimeout(() => {
+      if (!this.pendingNormalAt) return;
+      this.mode = "normal";
+      this.clearPendingNormal();
+      this.tui.requestRender();
+    }, DOUBLE_ESCAPE_MS);
+  }
+
   override handleInput(data: string): void {
+    if (matchesKey(data, "escape")) {
+      if (this.mode === "insert") {
+        const now = Date.now();
+        const isDoubleEscape = this.pendingNormalAt > 0 && now - this.pendingNormalAt <= DOUBLE_ESCAPE_MS;
+
+        if (isDoubleEscape) {
+          this.clearPendingNormal();
+          if (this.getText().trim().length === 0) {
+            super.handleInput(data);
+            super.handleInput(data);
+            return;
+          }
+          this.mode = "normal";
+          this.tui.requestRender();
+          return;
+        }
+
+        this.scheduleNormalMode();
+        return;
+      }
+
+      super.handleInput(data);
+      return;
+    }
+
+    if (this.pendingNormalAt > 0) {
+      this.clearPendingNormal();
+    }
+
+    if (this.mode === "normal") {
+      switch (data) {
+        case "i":
+          this.mode = "insert";
+          this.tui.requestRender();
+          return;
+        case "a":
+          this.mode = "insert";
+          this.tui.requestRender();
+          super.handleInput("\x1b[C");
+          return;
+        case "h": super.handleInput("\x1b[D"); return;
+        case "j": super.handleInput("\x1b[B"); return;
+        case "k": super.handleInput("\x1b[A"); return;
+        case "l": super.handleInput("\x1b[C"); return;
+        case "w": super.handleInput("\x1bf"); return;
+        case "b": super.handleInput("\x1bb"); return;
+        case "0": super.handleInput("\x01"); return;
+        case "$": super.handleInput("\x05"); return;
+        case "x": super.handleInput("\x1b[3~"); return;
+      }
+
+      if (data.length === 1 && data.charCodeAt(0) >= 32) return;
+      super.handleInput(data);
+      return;
+    }
+
     super.handleInput(data);
     const t = this.getText().length > 0;
     if (t && !this.typed) this.startAnim();
@@ -134,20 +213,34 @@ class CyberEditor extends CustomEditor {
     return mixRgb(STEEL, SILVER, this.alpha());
   }
 
+  private modeLabel(): string {
+    const label = this.mode === "normal" ? "󰘳 NORMAL" : "󰘳 INSERT";
+    return this.mode === "normal"
+      ? `${BOLD}${rgb(TILDE_PINK)}${label}${UNBOLD}${RESET}`
+      : `${BOLD}${rgb(SILVER)}${label}${UNBOLD}${RESET}`;
+  }
+
   override render(w: number): string[] {
     const lines = super.render(w);
-    if (lines.length <= 2) return lines;
+    if (lines.length <= 0) return lines;
     const g = `${rgb(this.color())}❯${RESET} `;
     for (let i = 1; i < lines.length - 1; i++) {
       lines[i] = i === 1
         ? g + truncateToWidth(lines[i]!, w - GLYPH_W, "")
         : "  " + truncateToWidth(lines[i]!, w - GLYPH_W, "");
     }
+
+    const label = ` ${this.modeLabel()} `;
+    const last = lines.length - 1;
+    if (visibleWidth(lines[last]!) >= visibleWidth(label)) {
+      lines[last] = truncateToWidth(lines[last]!, Math.max(0, w - visibleWidth(label)), "") + label;
+    }
     return lines;
   }
 
   destroy(): void {
     if (this.breath) clearInterval(this.breath);
+    this.clearPendingNormal();
     this.stopAnim();
   }
 }
