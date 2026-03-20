@@ -5,7 +5,11 @@
   "type": "module",
   "keywords": ["pi-package"],
   "pi": {
-    "extensions": ["./index.ts"]
+    "extensions": [
+      "./custom-provider-cf-compat.ts",
+      "./custom-provider-cf-packycode.ts",
+      "./custom-provider-cf-packycode-aws.ts"
+    ]
   },
   "peerDependencies": {
     "@mariozechner/pi-coding-agent": "*"

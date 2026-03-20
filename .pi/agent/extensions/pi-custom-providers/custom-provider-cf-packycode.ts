@@ -1,34 +1,15 @@
 /**
- * Cloudflare AI Gateway (Packycode) Provider for pi
+ * Cloudflare AI Gateway (Packycode) Provider for pi.
  *
  * Environment variables: CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_GATEWAY_ID, CLOUDFLARE_API_TOKEN
  *
- * Cloudflare AI Gateway endpoints:
- * - OpenAI Responses: https://gateway.ai.cloudflare.com/v1/{account_id}/{gateway_id}/custom-packycodex
- * - Anthropic Messages: https://gateway.ai.cloudflare.com/v1/{account_id}/{gateway_id}/custom-packycode-aws
- *
- * Packycode endpoints/models are maintained in this file.
- *
- * cf-aig-custom-cost header format (JSON):
- * { "per_token_in": 0.00000175, "per_token_out": 0.000014 }
- *
- * Note: header pricing is per-token, not per-million.
+ * This extension only registers the `cf-packycode` provider.
+ * The AWS variant lives in `custom-provider-cf-packycode-aws.ts`.
  */
 
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
 
-function pricing(input: number, output: number, cacheRead = 0, cacheWrite = 0) {
-  const perToken = (v: number) => v / 1_000_000;
-  return {
-    cost: { input, output, cacheRead, cacheWrite },
-    headers: {
-      "cf-aig-custom-cost": JSON.stringify({
-        per_token_in: perToken(input),
-        per_token_out: perToken(output),
-      }),
-    },
-  };
-}
+import { createCloudflareAIGatewayPricing } from "./custom-provider-shared";
 
 export default function (pi: ExtensionAPI) {
   const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
@@ -48,7 +29,7 @@ export default function (pi: ExtensionAPI) {
         input: ["text", "image"],
         contextWindow: 400000,
         maxTokens: 128000,
-        ...pricing(0, 0),
+        ...createCloudflareAIGatewayPricing(0, 0),
       },
       {
         id: "gpt-5.4",
@@ -57,7 +38,7 @@ export default function (pi: ExtensionAPI) {
         input: ["text", "image"],
         contextWindow: 400000,
         maxTokens: 128000,
-        ...pricing(0, 0),
+        ...createCloudflareAIGatewayPricing(0, 0),
       },
       {
         id: "gpt-5.4-fast",
@@ -66,7 +47,7 @@ export default function (pi: ExtensionAPI) {
         input: ["text", "image"],
         contextWindow: 400000,
         maxTokens: 128000,
-        ...pricing(0, 0),
+        ...createCloudflareAIGatewayPricing(0, 0),
       },
       {
         id: "gpt-5.4-mini",
@@ -75,24 +56,7 @@ export default function (pi: ExtensionAPI) {
         input: ["text", "image"],
         contextWindow: 400000,
         maxTokens: 128000,
-        ...pricing(0, 0),
-      },
-    ],
-  });
-
-  pi.registerProvider("cf-packycode (aws)", {
-    baseUrl: `https://gateway.ai.cloudflare.com/v1/${accountId}/${gatewayId}/custom-packycode-aws`,
-    apiKey: "CLOUDFLARE_API_TOKEN",
-    api: "anthropic-messages",
-    models: [
-      {
-        id: "claude-sonnet-4-6",
-        name: "Claude Sonnet 4.6",
-        reasoning: true,
-        input: ["text", "image"],
-        contextWindow: 256000,
-        maxTokens: 128000,
-        ...pricing(0.13, 0.64),
+        ...createCloudflareAIGatewayPricing(0, 0),
       },
     ],
   });

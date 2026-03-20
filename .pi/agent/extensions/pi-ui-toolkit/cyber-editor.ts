@@ -46,6 +46,22 @@ function hotPink(text: string): string {
   return `${BOLD}${rgb(TILDE_PINK)}${text}${UNBOLD}${RESET}`;
 }
 
+function stripAnsi(text: string): string {
+  return text.replace(/\x1b\[[0-9;]*m/g, "");
+}
+
+function isBorderLine(line: string): boolean {
+  const plain = stripAnsi(line);
+  return plain.includes("─") && !/[^\s─↑↓0-9more]/i.test(plain);
+}
+
+function findBorderLineIndex(lines: string[]): number {
+  for (let i = lines.length - 1; i >= 0; i--) {
+    if (isBorderLine(lines[i]!)) return i;
+  }
+  return Math.max(0, lines.length - 1);
+}
+
 // ── state ─────────────────────────────────────────────────────
 type AgentState = "idle" | "running" | "thinking";
 let agentState: AgentState = "idle";
@@ -233,10 +249,19 @@ class CyberEditor extends CustomEditor {
         : "  " + truncateToWidth(lines[i]!, w - GLYPH_W, "");
     }
 
+    const borderIndex = findBorderLineIndex(lines);
+    const borderLine = lines[borderIndex]!;
     const label = ` ${this.modeLabel()} `;
-    const last = lines.length - 1;
-    if (visibleWidth(lines[last]!) >= visibleWidth(label)) {
-      lines[last] = truncateToWidth(lines[last]!, Math.max(0, w - visibleWidth(label)), "") + label;
+    const labelWidth = visibleWidth(label);
+    const borderColor = (this as unknown as { borderColor: (s: string) => string }).borderColor;
+
+    if (w > labelWidth + 1) {
+      const prefixWidth = Math.max(0, w - labelWidth - 1);
+      const prefix = truncateToWidth(borderLine, prefixWidth, "");
+      const suffixWidth = Math.max(1, w - visibleWidth(prefix) - labelWidth);
+      lines[borderIndex] = prefix + label + borderColor("─".repeat(suffixWidth));
+    } else {
+      lines[borderIndex] = truncateToWidth(label, w, "");
     }
     return lines;
   }

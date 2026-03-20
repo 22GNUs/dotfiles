@@ -27,7 +27,7 @@
   ],
   "defaultProvider": "github-copilot",
   "defaultModel": "gpt-5.4-mini",
-  "defaultThinkingLevel": "high",
+  "defaultThinkingLevel": "xhigh",
   "hideThinkingBlock": false,
   "terminal": {
     "showImages": true
@@ -45,5 +45,8 @@
     "github-copilot/gpt-5.4",
     "github-copilot/gpt-5.4-mini",
     "github-copilot/claude-sonnet-4.6"
+  ],
+  "extensions": [
+    "-extensions/pi-custom-providers/custom-provider-cf-packycode.ts"
   ]
 }
