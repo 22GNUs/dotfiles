@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.60.0",
+  "lastChangelogVersion": "0.61.0",
   "theme": "tokyo-night-dark",
   "packages": [
     "npm:checkpoint-pi",

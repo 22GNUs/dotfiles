@@ -85,6 +85,7 @@ const BREATH_FPS = 50;
 const ANIM_MS = 60;
 const SEP = " ∷ ";
 const TURN_ICON = "󰄉";
+const PATH_MAX_DEPTH = 3;
 
 // ── editor component ──────────────────────────────────────────
 class CyberEditor extends CustomEditor {
@@ -165,7 +166,6 @@ function tpsColor(v: number): "success" | "accent" | "warning" | "error" {
 
 function shortenPath(raw: string, maxWidth: number): string {
   if (maxWidth <= 0) return "";
-  if (raw.length <= maxWidth) return raw;
 
   let prefix = "";
   let parts: string[];
@@ -185,28 +185,38 @@ function shortenPath(raw: string, maxWidth: number): string {
     return prefix ? prefix + body : body;
   };
 
-  const full = join(parts);
+  const foldByDepth = (segments: string[]): string[] => {
+    const hasRootMarker = segments[0] === "~";
+    const offset = hasRootMarker ? 1 : 0;
+    const logicalDepth = Math.max(0, segments.length - offset);
+    if (logicalDepth <= PATH_MAX_DEPTH) return segments;
+    return [segments[0]!, "…", ...segments.slice(-2)];
+  };
+
+  const depthFolded = foldByDepth(parts);
+  const full = join(depthFolded);
   if (full.length <= maxWidth) return full;
 
-  if (parts.length > 2) {
-    const initialed = parts.map((part, index) => {
-      if (index === 0 || index >= parts.length - 2) return part;
+  if (depthFolded.length > 2) {
+    const initialed = depthFolded.map((part, index) => {
+      if (part === "…") return part;
+      if (index === 0 || index >= depthFolded.length - 2) return part;
       return part[0] ?? part;
     });
     const candidate = join(initialed);
     if (candidate.length <= maxWidth) return candidate;
   }
 
-  if (parts.length >= 2) {
-    const tail2 = join([parts[0]!, "…", ...parts.slice(-2)]);
+  if (depthFolded.length >= 2) {
+    const tail2 = join([depthFolded[0]!, "…", ...depthFolded.slice(-2)]);
     if (tail2.length <= maxWidth) return tail2;
 
-    const tail1 = join([parts[0]!, "…", parts[parts.length - 1]!]);
+    const tail1 = join([depthFolded[0]!, "…", depthFolded[depthFolded.length - 1]!]);
     if (tail1.length <= maxWidth) return tail1;
   }
 
   if (maxWidth === 1) return "…";
-  return `…${raw.slice(-(maxWidth - 1))}`;
+  return `…${full.slice(-(maxWidth - 1))}`;
 }
 
 function stylePath(theme: any, raw: string): string {
