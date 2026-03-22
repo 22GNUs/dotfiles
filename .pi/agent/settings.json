@@ -1,6 +1,6 @@
 {
-  "lastChangelogVersion": "0.61.0",
-  "theme": "tokyo-night-dark",
+  "lastChangelogVersion": "0.61.1",
+  "theme": "cyber-ui-dark",
   "packages": [
     "npm:checkpoint-pi",
     {
@@ -17,18 +17,16 @@
         "+skills/mermaid/SKILL.md"
       ],
       "themes": [],
-      "prompts": [
-        "+commands/execute-plan.md",
-        "+commands/plan.md"
-      ]
+      "prompts": ["+commands/execute-plan.md", "+commands/plan.md"]
     },
     "git:github.com/22GNUs/pi-qwencode-auth.git",
-    "npm:pi-peon-ping"
+    "npm:pi-peon-ping",
+    "git:github.com/22GNUs/pi-cyber-ui.git"
   ],
   "defaultProvider": "github-copilot",
   "defaultModel": "gpt-5.4-mini",
-  "defaultThinkingLevel": "xhigh",
-  "hideThinkingBlock": false,
+  "defaultThinkingLevel": "high",
+  "hideThinkingBlock": true,
   "terminal": {
     "showImages": true
   },
@@ -50,3 +48,4 @@
     "-extensions/pi-custom-providers/custom-provider-cf-packycode.ts"
   ]
 }
+

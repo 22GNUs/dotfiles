@@ -66,8 +66,13 @@ pi update npm:mitsupi
 
 | 扩展包 | 路径 | 作用 |
 | --- | --- | --- |
-| `pi-ui-toolkit` | `extensions/pi-ui-toolkit` | UI 增强：`mini-footer`、`working-glow`。 |
 | `pi-custom-providers` | `extensions/pi-custom-providers` | 自定义 Provider：`cf-compat`、`cf-packycode`。 |
+
+## 外部 Pi 包
+
+| 扩展包 | 安装源 | 作用 |
+| --- | --- | --- |
+| `pi-cyber-ui` | `git:github.com/22GNUs/pi-cyber-ui.git` | 独立的 Pi UI 包：主题 `cyber-ui-dark` + `editor` / `footer` / `working`。 |
 
 ---
 
@@ -94,6 +99,6 @@ export CLOUDFLARE_API_TOKEN="your-api-token"
 pi /reload                                            # 重新加载扩展
 pi list                                               # 查看已安装包
 pi update npm:mitsupi                                 # 同步上游包
-pi -e ./.pi/agent/extensions/pi-ui-toolkit            # 临时加载 UI 扩展包
+pi install git:github.com/22GNUs/pi-cyber-ui.git  # 安装独立的 UI 包
 pi -e ./.pi/agent/extensions/pi-custom-providers      # 临时加载 Provider 扩展包
 ```
