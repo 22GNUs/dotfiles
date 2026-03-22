@@ -33,6 +33,15 @@ export default function (pi: ExtensionAPI) {
         ...createCloudflareAIGatewayPricing(0.27, 0.4, 0.135),
       },
       {
+        id: "stepfun/step-3.5-flash:free",
+        name: "step-3.5-flash(free)",
+        reasoning: true,
+        input: ["text"],
+        contextWindow: 256000,
+        maxTokens: 64000,
+        ...createCloudflareAIGatewayPricing(0, 0),
+      },
+      {
         id: "custom-chutes/zai-org/GLM-5-Turbo",
         name: "GLM 5 Turbo",
         reasoning: true,
