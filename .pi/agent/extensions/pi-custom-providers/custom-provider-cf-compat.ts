@@ -33,7 +33,7 @@ export default function (pi: ExtensionAPI) {
         ...createCloudflareAIGatewayPricing(0.27, 0.4, 0.135),
       },
       {
-        id: "stepfun/step-3.5-flash:free",
+        id: "openrouter/stepfun/step-3.5-flash:free",
         name: "step-3.5-flash(free)",
         reasoning: true,
         input: ["text"],

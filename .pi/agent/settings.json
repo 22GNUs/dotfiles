@@ -17,14 +17,17 @@
         "+skills/mermaid/SKILL.md"
       ],
       "themes": [],
-      "prompts": ["+commands/execute-plan.md", "+commands/plan.md"]
+      "prompts": [
+        "+commands/execute-plan.md",
+        "+commands/plan.md"
+      ]
     },
     "git:github.com/22GNUs/pi-qwencode-auth.git",
     "npm:pi-peon-ping",
     "git:github.com/22GNUs/pi-cyber-ui.git"
   ],
   "defaultProvider": "cf-compat",
-  "defaultModel": "custom-chutes/zai-org/GLM-5-Turbo",
+  "defaultModel": "openrouter/stepfun/step-3.5-flash:free",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
@@ -46,5 +49,6 @@
   ],
   "extensions": [
     "-extensions/pi-custom-providers/custom-provider-cf-packycode.ts"
-  ]
+  ],
+  "answerModel": "cf-compat/openrouter/stepfun/step-3.5-flash:free"
 }
