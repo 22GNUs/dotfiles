@@ -27,8 +27,8 @@
     "/Users/xinhua/Developer/pi-cyber-ui",
     "npm:@plannotator/pi-extension"
   ],
-  "defaultProvider": "github-copilot",
-  "defaultModel": "gpt-5.4-mini",
+  "defaultProvider": "cf-compat",
+  "defaultModel": "custom-chutes/MiniMaxAI/MiniMax-M2.5-TEE",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
