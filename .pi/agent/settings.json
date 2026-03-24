@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.61.1",
+  "lastChangelogVersion": "0.62.0",
   "theme": "cyber-ui-dark",
   "packages": [
     "npm:checkpoint-pi",
@@ -9,7 +9,7 @@
         "pi-extensions/answer.ts",
         "pi-extensions/context.ts",
         "-pi-extensions/prompt-editor.ts",
-        "+pi-extensions/todos.ts"
+        "-pi-extensions/todos.ts"
       ],
       "skills": [
         "skills/commit",
@@ -18,16 +18,17 @@
       ],
       "themes": [],
       "prompts": [
-        "+commands/execute-plan.md",
-        "+commands/plan.md"
+        "-commands/execute-plan.md",
+        "-commands/plan.md"
       ]
     },
     "git:github.com/22GNUs/pi-qwencode-auth.git",
     "npm:pi-peon-ping",
-    "git:github.com/22GNUs/pi-cyber-ui.git"
+    "/Users/xinhua/Developer/pi-cyber-ui",
+    "npm:@plannotator/pi-extension"
   ],
-  "defaultProvider": "cf-compat",
-  "defaultModel": "openrouter/stepfun/step-3.5-flash:free",
+  "defaultProvider": "github-copilot",
+  "defaultModel": "gpt-5.4-mini",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
@@ -43,9 +44,10 @@
     "enabled": false
   },
   "enabledModels": [
-    "github-copilot/gpt-5.4",
     "github-copilot/gpt-5.4-mini",
-    "github-copilot/claude-sonnet-4.6"
+    "github-copilot/gpt-5.4",
+    "github-copilot/claude-sonnet-4.6",
+    "kimi-coding/k2p5"
   ],
   "extensions": [
     "-extensions/pi-custom-providers/custom-provider-cf-packycode.ts"
