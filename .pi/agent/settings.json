@@ -17,18 +17,15 @@
         "+skills/mermaid/SKILL.md"
       ],
       "themes": [],
-      "prompts": [
-        "-commands/execute-plan.md",
-        "-commands/plan.md"
-      ]
+      "prompts": ["-commands/execute-plan.md", "-commands/plan.md"]
     },
     "git:github.com/22GNUs/pi-qwencode-auth.git",
     "npm:pi-peon-ping",
     "/Users/xinhua/Developer/pi-cyber-ui",
-    "npm:@plannotator/pi-extension"
+    "npm:@plannotator/pi-extension@0.15.0"
   ],
   "defaultProvider": "cf-compat",
-  "defaultModel": "custom-chutes/MiniMaxAI/MiniMax-M2.5-TEE",
+  "defaultModel": "openrouter/stepfun/step-3.5-flash:free",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
@@ -41,7 +38,7 @@
   "editorPaddingX": 0,
   "quietStartup": false,
   "compaction": {
-    "enabled": false
+    "enabled": true
   },
   "enabledModels": [
     "github-copilot/gpt-5.4-mini",
@@ -54,3 +51,4 @@
   ],
   "answerModel": "cf-compat/openrouter/stepfun/step-3.5-flash:free"
 }
+
