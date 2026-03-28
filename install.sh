@@ -100,6 +100,8 @@ SYNC_DIRS=(
 # Define sync files
 # Format: "source_path(repo)|dest_path(user)|description"
 SYNC_FILES=(
+  ".bashrc|$HOME/.bashrc|🐚 Bash config"
+  ".bash_profile|$HOME/.bash_profile|🐚 Bash login config"
   ".config/starship.toml|$HOME/.config/starship.toml|🚀 Starship config"
   ".config/git/config|$HOME/.gitconfig|🔧 Git global config"
   ".config/lazygit/config.yml|$HOME/.config/lazygit/config.yml|🐙 Lazygit config (XDG)"

@@ -24,9 +24,5 @@ if status is-interactive
         end
     end
 
-    set -l __git_branch_prompt_file "$__fish_config_dir/functions/__git_branch_update_prompt.fish"
-    if test -f "$__git_branch_prompt_file"
-        source "$__git_branch_prompt_file"
-        __git_branch_update_prompt
-    end
+    __git_branch_update_prompt
 end
