@@ -42,3 +42,4 @@
 3. **软链接优先**：使用 `install.sh` 创建软链接，而非复制
 4. **平台特定**：本配置针对 macOS，使用 `/opt/homebrew` 路径
 5. **External 目录**：`external/` 包含其他仓库的引用，通过软链接使用，已加入 `.gitignore`
+6. **官方配置目录优先**：涉及 fish / starship / tmux 等配置时，优先改写仓库内对应的官方配置路径（例如 `.config/fish/`、`.config/starship.toml`、`.tmux.conf`），不要在脚本或配置里硬编码绝对路径、临时路径或环境变量的固定值；如需懒加载/缓存，请统一放在官方配置目录或其约定缓存目录中实现。

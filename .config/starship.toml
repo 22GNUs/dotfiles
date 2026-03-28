@@ -2,71 +2,13 @@
 '$schema' = 'https://starship.rs/config-schema.json'
 
 ### MAIN SHELL
-# directory | username@hostname | cmd duration | sudo | VCS | language versions | kubernetes
-# > input after line break
+# speed-first prompt: keep only the essentials
 format = """
 $username\
 $hostname\
 $directory\
-$container\
-$sudo\
-$shlvl\
-$vcsh\
-$git_branch\
-$git_commit\
-$git_state\
-$git_metrics\
-$git_status\
-$hg_branch\
-$cmd_duration\
-$status\
-$package\
-$buf\
-$c\
-$cmake\
-$cobol\
-$conda\
-$crystal\
-$dart\
-$deno\
-$dotnet\
-$elixir\
-$elm\
-$erlang\
-$golang\
-$haskell\
-$helm\
-$java\
-$julia\
-$kotlin\
-$lua\
-$nim\
-$nix_shell\
-$nodejs\
-$ocaml\
-$perl\
-$php\
-$pulumi\
-$purescript\
-$python\
-$red\
-$rlang\
-$ruby\
-$rust\
-$scala\
-$spack\
-$swift\
-$vlang\
-$vagrant\
-$zig\
-$aws\
-$azure\
-$gcloud\
-$openstack\
-$docker_context\
-$terraform\
+$env_var\
 $line_break\
-$shell\
 $character"""
 add_newline = true
 
@@ -84,7 +26,7 @@ error_symbol = '[](bold red)'
 style = 'fg:blue'
 read_only = ' '
 use_os_path_sep = false   # fuck windows :verynice:
-truncate_to_repo = true
+truncate_to_repo = false
 truncation_length = 3
 truncation_symbol = "../"
 
@@ -111,18 +53,23 @@ format = "[$hostname]($style) "
 style = "fg:red bold"
 
 [sudo]
-disabled = false
+disabled = true
 format = '\[[$symbol]($style)\] '
 style = 'fg:red'
 symbol = ''
 
 [git_branch]
-symbol = ' '
-format = '\[[$symbol$branch]($style)\]'
-style = 'fg:bright-purple'
+disabled = true
 
 [git_status]
-format = ' (\[[$all_status$ahead_behind]($style)\])'
+disabled = true
+format = ' (\[[$all_status]($style)\])'
+style = 'fg:bright-purple'
+
+[env_var.GIT_BRANCH_PROMPT]
+variable = 'GIT_BRANCH_PROMPT'
+default = ''
+format = '[$env_value]($style)'
 style = 'fg:bright-purple'
 
 [hg_branch]

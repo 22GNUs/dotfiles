@@ -28,7 +28,7 @@
     "npm:@plannotator/pi-extension@0.15.0"
   ],
   "defaultProvider": "github-copilot",
-  "defaultModel": "gpt-5.4-mini",
+  "defaultModel": "gpt-5.4",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {

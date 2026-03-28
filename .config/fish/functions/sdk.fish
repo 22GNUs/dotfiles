@@ -30,6 +30,9 @@ function sdk -d "Manage SDKs"
             echo "Please open a new terminal/shell to load SDKMAN!"
         end
     else
+        __fish_sdkman_lazy_init
+        or return 1
+
         # Declare the _actual_ sdk command for fish
         __fish_sdkman_run_in_bash "source \"$__fish_sdkman_noexport_init\" && sdk $argv"
     end

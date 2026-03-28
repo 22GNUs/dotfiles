@@ -5,28 +5,28 @@ set fish_greeting
 fish_add_path /opt/homebrew/bin
 fish_add_path $HOME/.local/bin
 
-# Enable Starship prompt
-starship init fish | source
+# Enable Starship prompt via a cached generated init script.
+if status is-interactive
+    set -l __starship_cache_dir "$HOME/.cache/fish"
+    set -l __starship_init_cache "$__starship_cache_dir/starship-init.fish"
+    set -l __starship_bin (command -s starship)
+    set -l __starship_config "$HOME/.config/starship.toml"
 
-# Aliases
-alias commit='pi -p "/skill:commit commit code" --model github-copilot/gpt-5.1:low --no-session'
+    if test -n "$__starship_bin"
+        if not test -f "$__starship_init_cache"; or test "$__starship_bin" -nt "$__starship_init_cache"; or test "$__starship_config" -nt "$__starship_init_cache"
+            mkdir -p "$__starship_cache_dir"
+            set -l __starship_tmp (mktemp "$__starship_init_cache.XXXXXX")
+            "$__starship_bin" init fish --print-full-init > "$__starship_tmp"; and mv "$__starship_tmp" "$__starship_init_cache"; or rm -f "$__starship_tmp"
+        end
 
-# proxy
-function set_proxy
-    set -gx all_proxy http://my.proxy:7890
-    set -gx http_proxy http://my.proxy:7890
-    set -gx https_proxy http://my.proxy:7890
-    set -gx NO_PROXY localhost,127.0.0.1
+        if test -f "$__starship_init_cache"
+            source "$__starship_init_cache"
+        end
+    end
+
+    set -l __git_branch_prompt_file "$__fish_config_dir/functions/__git_branch_update_prompt.fish"
+    if test -f "$__git_branch_prompt_file"
+        source "$__git_branch_prompt_file"
+        __git_branch_update_prompt
+    end
 end
-
-function unset_proxy
-    set -e all_proxy
-    set -e http_proxy http://my.proxy:7890
-    set -e https_proxy http://my.proxy:7890
-    set -e NO_PROXY
-end
-
-# Set proxy on startup
-# if status is-interactive
-#     set_proxy
-# end
