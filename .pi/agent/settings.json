@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.62.0",
+  "lastChangelogVersion": "0.63.1",
   "theme": "cyber-ui-dark",
   "packages": [
     "npm:checkpoint-pi",
@@ -17,15 +17,18 @@
         "+skills/mermaid/SKILL.md"
       ],
       "themes": [],
-      "prompts": ["-commands/execute-plan.md", "-commands/plan.md"]
+      "prompts": [
+        "-commands/execute-plan.md",
+        "-commands/plan.md"
+      ]
     },
     "git:github.com/22GNUs/pi-qwencode-auth.git",
     "npm:pi-peon-ping",
     "/Users/xinhua/Developer/pi-cyber-ui",
     "npm:@plannotator/pi-extension@0.15.0"
   ],
-  "defaultProvider": "cf-compat",
-  "defaultModel": "openrouter/stepfun/step-3.5-flash:free",
+  "defaultProvider": "github-copilot",
+  "defaultModel": "gpt-5.4-mini",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
@@ -51,4 +54,3 @@
   ],
   "answerModel": "cf-compat/openrouter/stepfun/step-3.5-flash:free"
 }
-
