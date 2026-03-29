@@ -1,1 +1,0 @@
-# kiro-cli integration disabled

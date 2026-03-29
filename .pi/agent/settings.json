@@ -22,13 +22,12 @@
         "-commands/plan.md"
       ]
     },
-    "git:github.com/22GNUs/pi-qwencode-auth.git",
     "npm:pi-peon-ping",
     "/Users/xinhua/Developer/pi-cyber-ui",
     "npm:@plannotator/pi-extension@0.15.0"
   ],
-  "defaultProvider": "cf-compat",
-  "defaultModel": "custom-fireworks/accounts/fireworks/routers/kimi-k2p5-turbo",
+  "defaultProvider": "github-copilot",
+  "defaultModel": "gpt-5.4",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
@@ -44,14 +43,15 @@
     "enabled": true
   },
   "enabledModels": [
+    "cf-compat/custom-fireworks/accounts/fireworks/routers/kimi-k2p5-turbo",
     "github-copilot/gpt-5.4-mini",
     "github-copilot/gpt-5.4",
     "github-copilot/claude-sonnet-4.6",
-    "kimi-coding/k2p5",
-    "cf-compat/custom-fireworks/accounts/fireworks/routers/kimi-k2p5-turbo"
+    "kimi-coding/k2p5"
   ],
   "extensions": [
-    "-extensions/pi-custom-providers/custom-provider-cf-packycode.ts"
+    "-extensions/pi-custom-providers/custom-provider-cf-packycode.ts",
+    "-extensions/pi-custom-providers/custom-provider-cf-packycode-aws.ts"
   ],
   "answerModel": "cf-compat/openrouter/stepfun/step-3.5-flash:free"
 }
