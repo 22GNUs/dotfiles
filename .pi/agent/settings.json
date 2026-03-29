@@ -1,33 +1,11 @@
 {
-  "lastChangelogVersion": "0.63.1",
+  "lastChangelogVersion": "0.63.2",
   "theme": "cyber-ui-dark",
   "packages": [
-    {
-      "source": "git:github.com/22GNUs/agent-stuff.git",
-      "extensions": [
-        "pi-extensions/answer.ts",
-        "pi-extensions/context.ts",
-        "-pi-extensions/prompt-editor.ts",
-        "-pi-extensions/todos.ts"
-      ],
-      "skills": [
-        "skills/commit",
-        "+skills/librarian/SKILL.md",
-        "+skills/mermaid/SKILL.md"
-      ],
-      "themes": [],
-      "prompts": [
-        "-commands/execute-plan.md",
-        "-commands/plan.md"
-      ]
-    },
-    "npm:pi-peon-ping",
-    "/Users/xinhua/Developer/pi-cyber-ui",
-    "npm:@plannotator/pi-extension@0.15.0",
-    "npm:pi-rewind"
+    "git:github.com/22GNUs/pi-cyber-ui.git"
   ],
-  "defaultProvider": "github-copilot",
-  "defaultModel": "gpt-5.4-mini",
+  "defaultProvider": "cf-compat",
+  "defaultModel": "custom-fireworks/accounts/fireworks/routers/kimi-k2p5-turbo",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
@@ -46,8 +24,7 @@
     "cf-compat/custom-fireworks/accounts/fireworks/routers/kimi-k2p5-turbo",
     "github-copilot/gpt-5.4-mini",
     "github-copilot/gpt-5.4",
-    "github-copilot/claude-sonnet-4.6",
-    "kimi-coding/k2p5"
+    "github-copilot/claude-sonnet-4.6"
   ],
   "extensions": [
     "-extensions/pi-custom-providers/custom-provider-cf-packycode.ts",
