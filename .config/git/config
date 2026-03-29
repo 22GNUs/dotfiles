@@ -4,6 +4,7 @@
 [core]
   editor = nvim
   pager = delta
+	untrackedCache = true
 
 [interactive]
   diffFilter = delta --color-only
@@ -14,3 +15,5 @@
 
 [merge]
   conflictStyle = zdiff3
+[feature]
+	manyFiles = true
