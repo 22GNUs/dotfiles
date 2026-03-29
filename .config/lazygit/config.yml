@@ -1,4 +1,6 @@
 git:
+  log:
+    order: default
   pagers:
     - pager: 'delta --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"'
     - externalDiffCommand: difft --color=always

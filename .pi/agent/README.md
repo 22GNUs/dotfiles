@@ -4,13 +4,7 @@
 
 > `.pi/agent/settings.json` 已纳入 Git；请勿写入敏感信息，以下步骤可在拉取仓库后直接执行。
 
-1. 安装第三方扩展
-
-```bash
-pi install npm:checkpoint-pi
-```
-
-2. 安装上游资源包（通过 `packages + filter` 方式）
+1. 安装上游资源包（通过 `packages + filter` 方式）
 
 ```bash
 pi install npm:mitsupi
@@ -22,20 +16,20 @@ pi install npm:mitsupi
 > - `pi-extensions/todos.ts`
 > - `skills/commit`
 
-3. 安装本仓库扩展依赖（用于本地扩展开发与类型提示）
+2. 安装本仓库扩展依赖（用于本地扩展开发与类型提示）
 
 ```bash
 cd .pi/agent/extensions
 npm install
 ```
 
-4. 重新加载扩展/技能
+3. 重新加载扩展/技能
 
 ```bash
 pi /reload
 ```
 
-5. 查看已安装包
+4. 查看已安装包
 
 ```bash
 pi list
@@ -57,7 +51,6 @@ pi update npm:mitsupi
 
 | 扩展 | 安装源 | 作用 | 入口 |
 | --- | --- | --- | --- |
-| `checkpoint-pi` | `npm:checkpoint-pi` | 提供对话/任务检查点能力，便于保存与恢复上下文状态。 | `+checkpoint.ts` |
 | `mitsupi`（已筛选） | `npm:mitsupi` | 上游扩展/技能包；当前仅启用 `answer.ts`、`todos.ts`、`commit`。 | `answer.ts` / `todos.ts` / `/skill:commit` |
 
 ---
@@ -99,6 +92,8 @@ export CLOUDFLARE_API_TOKEN="your-api-token"
 pi /reload                                            # 重新加载扩展
 pi list                                               # 查看已安装包
 pi update npm:mitsupi                                 # 同步上游包
-pi install git:github.com/22GNUs/pi-cyber-ui.git  # 安装独立的 UI 包
+pi install git:github.com/22GNUs/pi-cyber-ui.git      # 安装独立的 UI 包
 pi -e ./.pi/agent/extensions/pi-custom-providers      # 临时加载 Provider 扩展包
 ```
+
+> 说明：`checkpoint-pi` 已从默认配置中移除。它会在仓库中持续堆积 `refs/pi-checkpoints/*`，明显拖慢 `git` / `lazygit` 的分支、日志与装饰信息查询；如需使用，建议只在少量临时仓库按需启用。

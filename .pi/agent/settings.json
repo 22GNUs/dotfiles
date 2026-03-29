@@ -2,7 +2,6 @@
   "lastChangelogVersion": "0.63.1",
   "theme": "cyber-ui-dark",
   "packages": [
-    "npm:checkpoint-pi",
     {
       "source": "git:github.com/22GNUs/agent-stuff.git",
       "extensions": [
@@ -24,10 +23,11 @@
     },
     "npm:pi-peon-ping",
     "/Users/xinhua/Developer/pi-cyber-ui",
-    "npm:@plannotator/pi-extension@0.15.0"
+    "npm:@plannotator/pi-extension@0.15.0",
+    "npm:pi-rewind"
   ],
   "defaultProvider": "github-copilot",
-  "defaultModel": "gpt-5.4",
+  "defaultModel": "gpt-5.4-mini",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {

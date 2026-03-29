@@ -50,6 +50,7 @@ show_usage() {
   echo -e "      - nowplaying-cli (macOS)"
   echo -e ""
   echo -e "    Git / Lazygit:"
+  echo -e "      - git"
   echo -e "      - neovim"
   echo -e "      - lazygit"
   echo -e "      - git-delta"
@@ -256,7 +257,7 @@ if [ "$INSTALL_DEPS" = true ]; then
     if ! command -v brew &>/dev/null; then
       log_warn "Homebrew not detected, skipping Git/Lazygit dependency installation"
     else
-      GIT_DEPS=("neovim" "lazygit" "git-delta" "difftastic")
+      GIT_DEPS=("git" "neovim" "lazygit" "git-delta" "difftastic")
       MISSING_GIT_DEPS=()
 
       for dep in "${GIT_DEPS[@]}"; do
@@ -282,6 +283,7 @@ if [ "$INSTALL_DEPS" = true ]; then
   else
     log_warn "Non-macOS system, please install Git/Lazygit dependencies manually"
   fi
+
 else
   log_info "Skipping dependency check (use -d flag to enable)"
 fi

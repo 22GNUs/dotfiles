@@ -1,14 +1,17 @@
-# Bash configuration for SDKMAN.
+# Bash configuration for Homebrew tools.
 # Keep this lightweight and shell-specific; it does not affect fish.
 
-case ":$PATH:" in
-  *":$HOME/.local/bin:"*) ;;
-  *) PATH="$HOME/.local/bin:$PATH" ;;
-esac
+path_prepend() {
+  local dir="$1"
+  PATH=":$PATH:"
+  PATH="${PATH//:$dir:/:}"
+  PATH="${PATH#:}"
+  PATH="${PATH%:}"
+  PATH="$dir${PATH:+:$PATH}"
+}
+
+path_prepend /opt/homebrew/bin
+path_prepend "$HOME/.local/bin"
+
 export PATH
 export BASH_ENV="$HOME/.bashrc"
-
-if [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]]; then
-  # shellcheck disable=SC1090
-  source "$HOME/.sdkman/bin/sdkman-init.sh" >/dev/null 2>&1 || true
-fi

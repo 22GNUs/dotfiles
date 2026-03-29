@@ -1,6 +1,6 @@
 # Dotfiles 配置文件集合
 
-个人配置文件仓库，包含终端、编辑器、窗口管理器等工具的配置。
+个人配置文件仓库,包含终端、编辑器、窗口管理器等工具的配置。
 
 ## 仓库结构
 
@@ -18,12 +18,13 @@
 ├── archive/              # 归档的旧配置
 │   ├── editors/          # 编辑器配置 (Vim, IntelliJ)
 │   ├── macos/            # macOS 工具配置 (Sketchybar)
-│   ├── scripts/          # 实用脚本
+│   ├── scripts/          # 旧实用脚本
 │   ├── shells/           # 旧 Shell 配置 (Zsh)
 │   └── terminals/        # 旧终端配置 (Alacritty, WezTerm)
+├── scripts/              # 维护脚本
 ├── fonts/                # Nerd Fonts 字体文件
-├── external/             # 外部仓库引用（通过软链接使用）
-├── install.sh            # 安装脚本（从仓库到系统）
+├── external/             # 外部仓库引用(通过软链接使用)
+├── install.sh            # 安装脚本(从仓库到系统)
 ├── .tmux.conf            # Tmux 配置
 └── .ideavimrc            # IntelliJ IDEA Vim 插件配置
 ```
@@ -41,7 +42,7 @@ brew install node
 # Lazygit (可选)
 brew install lazygit
 
-# Glow (可选，用于 Markdown 预览)
+# Glow (可选,用于 Markdown 预览)
 brew install glow
 ```
 
@@ -57,7 +58,7 @@ brew tap homebrew/cask-fonts && brew install --cask font-fantasque-sans-mono-ner
 ~/.config/nvim/clean.sh
 ```
 
-该脚本会备份并清理：
+该脚本会备份并清理:
 
 - `~/.local/share/nvim`
 - `~/.local/state/nvim`
@@ -65,13 +66,13 @@ brew tap homebrew/cask-fonts && brew install --cask font-fantasque-sans-mono-ner
 
 ### Claude Code 集成
 
-配置了 `<leader>a` 前缀的 AI 辅助快捷键，支持与 Claude Code 集成。
+配置了 `<leader>a` 前缀的 AI 辅助快捷键,支持与 Claude Code 集成。
 
 ---
 
 ## OpenCode
 
-OpenCode AI 助手的核心配置，包含自定义 Agent 和技能设置。
+OpenCode AI 助手的核心配置,包含自定义 Agent 和技能设置。
 
 ### 快速安装
 
@@ -80,7 +81,7 @@ chmod +x .config/opencode/setup.sh
 ./setup.sh
 ```
 
-脚本会自动：
+脚本会自动:
 
 1. 检查 `~/.config/opencode` 目录
 2. 从本仓库克隆/更新配置
@@ -88,15 +89,15 @@ chmod +x .config/opencode/setup.sh
 
 ### 插件
 
-本配置使用 **`opencode-antigravity-auth@1.2.6`** 插件，提供：
+本配置使用 **`opencode-antigravity-auth@1.2.6`** 插件,提供:
 
-- **Google OAuth 认证**：支持多账户管理
-- **双配额池**：Antigravity 和 Gemini CLI 配额自动切换
-- **多模型支持**：包括 Gemini 3 系列和 Claude 4.5 系列
+- **Google OAuth 认证**:支持多账户管理
+- **双配额池**:Antigravity 和 Gemini CLI 配额自动切换
+- **多模型支持**:包括 Gemini 3 系列和 Claude 4.5 系列
 
 ### 环境变量
 
-在 Shell 配置文件中设置：
+在 Shell 配置文件中设置:
 
 ```bash
 # 必须配置
@@ -113,7 +114,7 @@ export OPENAI_API_KEY="sk-..."
 
 AI 助手 Pi 的配置目录。
 
-初始化后可执行：
+初始化后可执行:
 
 ```bash
 pi /reload
@@ -126,7 +127,7 @@ pi list
 
 ## 安装与同步
 
-### 安装（仓库 → 系统）
+### 安装(仓库 → 系统)
 
 ```bash
 ./install.sh
@@ -134,14 +135,32 @@ pi list
 
 该脚本会将仓库中的配置文件通过软链接安装到用户目录。冲突文件会备份到 `~/.dotfiles_backup/`。
 
-其中 Lazygit 配置会同时链接到以下两个位置，避免 macOS/XDG 路径差异导致配置不生效：
+其中 Lazygit 配置会同时链接到以下两个位置,避免 macOS/XDG 路径差异导致配置不生效:
 
 - `~/.config/lazygit/config.yml`
 - `~/Library/Application Support/lazygit/config.yml`
 
+### SDKMAN / 旧 Java 配置清理
+
+如果你需要在旧电脑上同步卸载 SDKMAN，并清掉我们以前放进 dotfiles 的 Java / Maven 相关配置，可以直接运行：
+
+```bash
+./scripts/uninstall-sdkman.sh
+```
+
+脚本会清理：
+
+- `~/.sdkman`
+- `~/.config/fisher/github.com/reitzig/sdkman-for-fish`
+- `~/.config/fish/conf.d/java.fish`
+- `~/.m2/toolchains.xml`
+- `fish_user_paths` 里的 SDKMAN 路径残留
+- `~/.bashrc` / `~/.bash_profile` 中残留的 SDKMAN 片段
+- `~/.config/fish` 里的 SDKMAN 相关函数、补全和配置
+
 ### 注意事项
 
-1. **不要提交敏感信息**：`.gitignore` 已配置排除 `.gitconfig` 等
-2. **Fish 变量**：`fish_variables` 是本地状态文件，已被排除
-3. **软链接优先**：使用 `install.sh` 创建软链接，而非复制
-4. **平台特定**：本配置针对 macOS，使用 `/opt/homebrew` 路径
+1. **不要提交敏感信息**:`.gitignore` 已配置排除 `.gitconfig` 等
+2. **Fish 变量**:`fish_variables` 是本地状态文件,已被排除
+3. **软链接优先**:使用 `install.sh` 创建软链接,而非复制
+4. **平台特定**:本配置针对 macOS,使用 `/opt/homebrew` 路径

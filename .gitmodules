@@ -1,6 +1,8 @@
 [submodule ".intellimacs"]
 	path = archive/editors/.intellimacs
 	url = git@github.com:22GNUs/intellimacs.git
+	ignore = dirty
 [submodule ".config/ghostty/ghostty-shaders"]
 	path = .config/ghostty/ghostty-shaders
 	url = git@github.com:22GNUs/ghostty-shaders.git
+	ignore = dirty
