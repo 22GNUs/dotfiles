@@ -2,7 +2,8 @@
   "lastChangelogVersion": "0.63.2",
   "theme": "cyber-ui-dark",
   "packages": [
-    "npm:pi-cyber-ui"
+    "npm:pi-cyber-ui",
+    "npm:@plannotator/pi-extension"
   ],
   "defaultProvider": "cf-compat",
   "defaultModel": "custom-fireworks/accounts/fireworks/routers/kimi-k2p5-turbo",
