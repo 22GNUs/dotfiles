@@ -1,9 +1,10 @@
 {
-  "lastChangelogVersion": "0.63.2",
+  "lastChangelogVersion": "0.64.0",
   "theme": "cyber-ui-dark",
   "packages": [
     "npm:pi-cyber-ui",
-    "npm:@plannotator/pi-extension"
+    "npm:@plannotator/pi-extension",
+    "npm:pi-peon-ping"
   ],
   "defaultProvider": "cf-compat",
   "defaultModel": "custom-fireworks/accounts/fireworks/routers/kimi-k2p5-turbo",
@@ -22,7 +23,6 @@
     "enabled": true
   },
   "enabledModels": [
-    "cf-compat/custom-fireworks/accounts/fireworks/routers/kimi-k2p5-turbo",
     "github-copilot/gpt-5.4-mini",
     "github-copilot/gpt-5.4",
     "github-copilot/claude-sonnet-4.6"
