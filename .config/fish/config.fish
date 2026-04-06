@@ -26,3 +26,10 @@ if status is-interactive
 
     __git_branch_update_prompt
 end
+
+# pnpm
+set -gx PNPM_HOME "/Users/xinhua/Library/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
