@@ -6,8 +6,8 @@
     "npm:@plannotator/pi-extension",
     "npm:pi-peon-ping"
   ],
-  "defaultProvider": "github-copilot",
-  "defaultModel": "gpt-5.4-mini",
+  "defaultProvider": "cf-compat",
+  "defaultModel": "custom-fireworks/accounts/fireworks/models/gpt-oss-20b",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
@@ -26,7 +26,8 @@
     "github-copilot/gpt-5.4-mini",
     "github-copilot/gpt-5.4",
     "github-copilot/claude-sonnet-4.6",
-    "kimi-coding/k2p5"
+    "kimi-coding/k2p5",
+    "github-copilot/claude-opus-4.6"
   ],
   "extensions": [
     "-extensions/pi-custom-providers/custom-provider-cf-packycode.ts",

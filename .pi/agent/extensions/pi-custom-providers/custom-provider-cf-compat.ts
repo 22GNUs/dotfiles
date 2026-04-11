@@ -50,6 +50,15 @@ export default function (pi: ExtensionAPI) {
         maxTokens: 256000,
         ...createCloudflareAIGatewayPricing(0, 0),
       },
+      {
+        id: "custom-fireworks/accounts/fireworks/models/gpt-oss-20b",
+        name: "GPT OSS 20B",
+        reasoning: true,
+        input: ["text"],
+        contextWindow: 131072,
+        maxTokens: 32768,
+        ...createCloudflareAIGatewayPricing(0.05, 0.2),
+      },
     ],
   });
 }
