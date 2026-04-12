@@ -1,0 +1,25 @@
+{
+  "providers": {
+    "kimi-coding": {
+      "baseUrl": "https://api.kimi.com/coding",
+      "api": "anthropic-messages",
+      "apiKey": "KIMI_API_KEY",
+      "models": [
+        {
+          "id": "kimi-for-coding",
+          "name": "kfc",
+          "reasoning": true,
+          "input": ["text", "image"],
+          "contextWindow": 262144,
+          "maxTokens": 32768,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        }
+      ]
+    }
+  }
+}

@@ -3,11 +3,11 @@
   "theme": "cyber-ui-dark",
   "packages": [
     "npm:pi-cyber-ui",
-    "npm:@plannotator/pi-extension",
+    "/Users/xinhua/Developer/plannotator/apps/pi-extension",
     "npm:pi-peon-ping"
   ],
-  "defaultProvider": "cf-compat",
-  "defaultModel": "custom-fireworks/accounts/fireworks/models/gpt-oss-20b",
+  "defaultProvider": "kimi-coding",
+  "defaultModel": "kimi-for-coding",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
@@ -23,11 +23,10 @@
     "enabled": true
   },
   "enabledModels": [
-    "github-copilot/gpt-5.4-mini",
     "github-copilot/gpt-5.4",
     "github-copilot/claude-sonnet-4.6",
-    "kimi-coding/k2p5",
-    "github-copilot/claude-opus-4.6"
+    "github-copilot/claude-opus-4.6",
+    "kimi-coding/kimi-for-coding"
   ],
   "extensions": [
     "-extensions/pi-custom-providers/custom-provider-cf-packycode.ts",
