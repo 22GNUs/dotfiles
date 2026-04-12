@@ -4,10 +4,12 @@
   "packages": [
     "npm:pi-cyber-ui",
     "npm:@plannotator/pi-extension",
-    "npm:pi-peon-ping"
+    "npm:pi-peon-ping",
+    "npm:pi-subagents",
+    "npm:pi-web-access"
   ],
-  "defaultProvider": "github-copilot",
-  "defaultModel": "gpt-5.4",
+  "defaultProvider": "kimi-coding",
+  "defaultModel": "kimi-for-coding",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
@@ -33,4 +35,3 @@
     "-extensions/pi-custom-providers/custom-provider-cf-packycode-aws.ts"
   ]
 }
-
