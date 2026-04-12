@@ -3,11 +3,11 @@
   "theme": "cyber-ui-dark",
   "packages": [
     "npm:pi-cyber-ui",
-    "/Users/xinhua/Developer/plannotator/apps/pi-extension",
+    "npm:@plannotator/pi-extension",
     "npm:pi-peon-ping"
   ],
-  "defaultProvider": "kimi-coding",
-  "defaultModel": "kimi-for-coding",
+  "defaultProvider": "github-copilot",
+  "defaultModel": "gpt-5.4",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
@@ -31,6 +31,6 @@
   "extensions": [
     "-extensions/pi-custom-providers/custom-provider-cf-packycode.ts",
     "-extensions/pi-custom-providers/custom-provider-cf-packycode-aws.ts"
-  ],
-  "answerModel": "cf-compat/openrouter/stepfun/step-3.5-flash:free"
+  ]
 }
+
