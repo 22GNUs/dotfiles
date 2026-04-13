@@ -5,11 +5,10 @@
     "npm:pi-cyber-ui",
     "npm:@plannotator/pi-extension",
     "npm:pi-peon-ping",
-    "npm:pi-subagents",
     "npm:pi-web-access"
   ],
-  "defaultProvider": "kimi-coding",
-  "defaultModel": "kimi-for-coding",
+  "defaultProvider": "github-copilot",
+  "defaultModel": "claude-sonnet-4.6",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
@@ -35,3 +34,4 @@
     "-extensions/pi-custom-providers/custom-provider-cf-packycode-aws.ts"
   ]
 }
+
