@@ -87,8 +87,8 @@ export default function (pi: ExtensionAPI) {
         ...createCloudflareAIGatewayPricing(0.1, 0.1),
       },
       {
-        id: "custom-synthetic/hf:nvidia/Kimi-K2.5-NVFP4",
-        name: "Kimi K2.5 (NVFP4)",
+        id: "custom-synthetic/hf:moonshotai/Kimi-K2.5",
+        name: "Kimi K2.5",
         reasoning: true,
         input: ["text", "image"],
         contextWindow: 262144,

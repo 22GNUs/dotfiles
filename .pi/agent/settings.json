@@ -17,7 +17,7 @@
     "npm:@plannotator/pi-extension"
   ],
   "defaultProvider": "cf-compat",
-  "defaultModel": "custom-synthetic/hf:nvidia/Kimi-K2.5-NVFP4",
+  "defaultModel": "custom-synthetic/hf:moonshotai/Kimi-K2.5",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
