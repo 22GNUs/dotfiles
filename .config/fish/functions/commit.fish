@@ -1,3 +1,3 @@
 function commit
-    pi -p "/skill:commit commit code" --model custom-fireworks/accounts/fireworks/models/gpt-oss-20b --no-session $argv
+    pi -p "/skill:commit commit code" --model custom-synthetic/hf:zai-org/GLM-4.7-Flash --no-session $argv
 end

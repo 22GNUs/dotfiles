@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.66.1",
+  "lastChangelogVersion": "0.67.1",
   "theme": "cyber-ui-dark",
   "packages": [
     {
@@ -17,7 +17,7 @@
     "npm:@plannotator/pi-extension"
   ],
   "defaultProvider": "cf-compat",
-  "defaultModel": "custom-synthetic/hf:moonshotai/Kimi-K2.5",
+  "defaultModel": "custom-synthetic/hf:zai-org/GLM-5.1",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
@@ -36,7 +36,7 @@
     "github-copilot/gpt-5.4",
     "github-copilot/claude-sonnet-4.6",
     "github-copilot/claude-opus-4.6",
-    "kimi-coding/kimi-for-coding"
+    "cf-compat/custom-synthetic/hf:zai-org/GLM-5.1"
   ],
   "extensions": [
     "-extensions/pi-custom-providers/custom-provider-cf-packycode.ts",
