@@ -2,7 +2,7 @@
 name: planner
 description: Creates implementation plans from context and requirements
 tools: read, grep, find, ls, write
-model: github-copilot/claude-opus-4.6
+model: github-copilot/claude-sonnet-4.6
 thinking: high
 output: plan.md
 defaultReads: context.md

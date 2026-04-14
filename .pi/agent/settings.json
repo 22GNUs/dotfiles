@@ -2,14 +2,22 @@
   "lastChangelogVersion": "0.66.1",
   "theme": "cyber-ui-dark",
   "packages": [
-    "npm:pi-cyber-ui",
-    "npm:@plannotator/pi-extension",
-    "npm:pi-peon-ping",
+    {
+      "source": "npm:pi-cyber-ui",
+      "extensions": [
+        "+extensions/pi-cyber-ui/index.ts"
+      ],
+      "themes": [
+        "+themes/cyber-ui-dark.json"
+      ]
+    },
     "npm:pi-web-access",
-    "npm:pi-subagents"
+    "npm:pi-subagents",
+    "npm:pi-peon-ping",
+    "npm:@plannotator/pi-extension"
   ],
-  "defaultProvider": "kimi-coding",
-  "defaultModel": "kimi-for-coding",
+  "defaultProvider": "cf-compat",
+  "defaultModel": "custom-synthetic/hf:nvidia/Kimi-K2.5-NVFP4",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
