@@ -2,22 +2,15 @@
   "lastChangelogVersion": "0.67.1",
   "theme": "cyber-ui-dark",
   "packages": [
-    {
-      "source": "npm:pi-cyber-ui",
-      "extensions": [
-        "+extensions/pi-cyber-ui/index.ts"
-      ],
-      "themes": [
-        "+themes/cyber-ui-dark.json"
-      ]
-    },
+    "/Users/xinhua/Developer/pi-cyber-ui",
     "npm:pi-web-access",
     "npm:pi-subagents",
     "npm:pi-peon-ping",
-    "npm:@plannotator/pi-extension"
+    "npm:@plannotator/pi-extension",
+    "npm:@sting8k/pi-vcc"
   ],
-  "defaultProvider": "cf-compat",
-  "defaultModel": "custom-synthetic/hf:zai-org/GLM-5.1",
+  "defaultProvider": "kimi-coding",
+  "defaultModel": "kimi-for-coding",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
@@ -36,10 +29,12 @@
     "github-copilot/gpt-5.4",
     "github-copilot/claude-sonnet-4.6",
     "github-copilot/claude-opus-4.6",
-    "cf-compat/custom-synthetic/hf:zai-org/GLM-5.1"
+    "cf-compat/custom-synthetic/hf:zai-org/GLM-5.1",
+    "kimi-coding/kimi-for-coding"
   ],
   "extensions": [
     "-extensions/pi-custom-providers/custom-provider-cf-packycode.ts",
     "-extensions/pi-custom-providers/custom-provider-cf-packycode-aws.ts"
   ]
 }
+
