@@ -2,15 +2,15 @@
   "lastChangelogVersion": "0.67.1",
   "theme": "cyber-ui-dark",
   "packages": [
-    "/Users/xinhua/Developer/pi-cyber-ui",
+    "npm:pi-cyber-ui",
     "npm:pi-web-access",
     "npm:pi-subagents",
     "npm:pi-peon-ping",
     "npm:@plannotator/pi-extension",
     "npm:@sting8k/pi-vcc"
   ],
-  "defaultProvider": "kimi-coding",
-  "defaultModel": "kimi-for-coding",
+  "defaultProvider": "cf-compat",
+  "defaultModel": "custom-synthetic/hf:zai-org/GLM-5.1",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
