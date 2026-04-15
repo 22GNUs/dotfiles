@@ -9,8 +9,8 @@
     "npm:@plannotator/pi-extension",
     "npm:@sting8k/pi-vcc"
   ],
-  "defaultProvider": "cf-compat",
-  "defaultModel": "custom-synthetic/hf:zai-org/GLM-5.1",
+  "defaultProvider": "cf-packycode",
+  "defaultModel": "gpt-5.4-mini",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
@@ -33,8 +33,7 @@
     "kimi-coding/kimi-for-coding"
   ],
   "extensions": [
-    "-extensions/pi-custom-providers/custom-provider-cf-packycode.ts",
-    "-extensions/pi-custom-providers/custom-provider-cf-packycode-aws.ts"
+    "-extensions/pi-custom-providers/custom-provider-cf-packycode-aws.ts",
+    "+extensions/pi-custom-providers/custom-provider-cf-packycode.ts"
   ]
 }
-
