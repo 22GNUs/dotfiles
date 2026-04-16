@@ -1,0 +1,3 @@
+# Mergiraf: structural merge driver for all files
+# Mergiraf will fall back to standard Git merge for unsupported file types
+* merge=mergiraf

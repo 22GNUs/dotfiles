@@ -55,6 +55,8 @@ show_usage() {
   echo -e "      - lazygit"
   echo -e "      - git-delta"
   echo -e "      - difftastic"
+  echo -e "      - mergiraf"
+  echo -e "      - ec (easy-conflict)"
   echo -e ""
 }
 
@@ -105,6 +107,7 @@ SYNC_FILES=(
   ".bash_profile|$HOME/.bash_profile|🐚 Bash login config"
   ".config/starship.toml|$HOME/.config/starship.toml|🚀 Starship config"
   ".config/git/config|$HOME/.gitconfig|🔧 Git global config"
+  ".config/git/attributes|$HOME/.config/git/attributes|🔧 Git attributes"
   ".config/lazygit/config.yml|$HOME/.config/lazygit/config.yml|🐙 Lazygit config (XDG)"
   ".config/lazygit/config.yml|$HOME/Library/Application Support/lazygit/config.yml|🐙 Lazygit config (macOS default)"
   ".gemini/GEMINI.md|$HOME/.gemini/GEMINI.md|🤖 Gemini config"
@@ -257,7 +260,12 @@ if [ "$INSTALL_DEPS" = true ]; then
     if ! command -v brew &>/dev/null; then
       log_warn "Homebrew not detected, skipping Git/Lazygit dependency installation"
     else
-      GIT_DEPS=("git" "neovim" "lazygit" "git-delta" "difftastic")
+      # Ensure ec tap is available
+      if ! brew tap | grep -q "chojs23/tap"; then
+        brew tap chojs23/tap 2>/dev/null || true
+      fi
+
+      GIT_DEPS=("git" "neovim" "lazygit" "git-delta" "difftastic" "mergiraf" "ec")
       MISSING_GIT_DEPS=()
 
       for dep in "${GIT_DEPS[@]}"; do

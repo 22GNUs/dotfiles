@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.67.1",
+  "lastChangelogVersion": "0.67.2",
   "theme": "cyber-ui-dark",
   "packages": [
     "npm:pi-cyber-ui",
@@ -9,8 +9,8 @@
     "npm:@plannotator/pi-extension",
     "npm:@sting8k/pi-vcc"
   ],
-  "defaultProvider": "cf-packycode",
-  "defaultModel": "gpt-5.4-mini",
+  "defaultProvider": "kimi-coding",
+  "defaultModel": "kimi-for-coding",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {

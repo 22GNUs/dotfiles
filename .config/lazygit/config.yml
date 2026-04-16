@@ -1,3 +1,10 @@
+customCommands:
+  - key: "E"
+    command: "ec"
+    context: "files"
+    loadingText: "opening ec mergetool"
+    description: "Open ec (easy-conflict) for all conflicted files"
+    output: terminal
 git:
   log:
     order: default

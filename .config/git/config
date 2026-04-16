@@ -13,7 +13,19 @@
   navigate = true
   dark = true
 
+[merge "mergiraf"]
+    name = mergiraf
+    driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L
+
+[mergetool "ec"]
+    cmd = ec "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+    trustExitCode = true
+
 [merge]
-  conflictStyle = zdiff3
+    tool = ec
+    conflictStyle = zdiff3
 [feature]
 	manyFiles = true
+
+[rerere]
+	enabled = true
