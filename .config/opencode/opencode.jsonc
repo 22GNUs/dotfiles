@@ -7,11 +7,6 @@
     "auto": true,
     "prune": true,
   },
-  "tui": {
-    "scroll_acceleration": {
-      "enabled": true,
-    },
-  },
   "plugin": [
     "@zhafron/opencode-kiro-auth",
     // https://github.com/backnotprop/plannotator
