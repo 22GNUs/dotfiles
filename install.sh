@@ -58,6 +58,9 @@ show_usage() {
   echo -e "      - mergiraf"
   echo -e "      - ec (easy-conflict)"
   echo -e ""
+  echo -e "    AI / LLM:"
+  echo -e "      - rtk (LLM token proxy)"
+  echo -e ""
 }
 
 # Parse command line arguments
@@ -290,6 +293,30 @@ if [ "$INSTALL_DEPS" = true ]; then
     fi
   else
     log_warn "Non-macOS system, please install Git/Lazygit dependencies manually"
+  fi
+
+  # 3.4 Check and install AI/LLM dependencies
+  log_step "Checking AI/LLM dependencies..."
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    if ! command -v brew &>/dev/null; then
+      log_warn "Homebrew not detected, skipping AI/LLM dependency installation"
+    else
+      if ! brew list "rtk" &>/dev/null; then
+        log_warn "Missing dependency: rtk"
+        read -p "Install now? (y/N): " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+          log_info "Installing: rtk"
+          brew install "rtk" &&
+            log_info "rtk installed successfully ✅" ||
+            log_error "rtk failed to install"
+        fi
+      else
+        log_info "rtk is already installed ✅"
+      fi
+    fi
+  else
+    log_warn "Non-macOS system, please install AI/LLM dependencies manually"
   fi
 
 else
