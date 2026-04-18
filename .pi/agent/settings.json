@@ -9,8 +9,8 @@
     "npm:@plannotator/pi-extension",
     "npm:@sting8k/pi-vcc"
   ],
-  "defaultProvider": "cf-compat",
-  "defaultModel": "custom-synthetic/hf:zai-org/GLM-5.1",
+  "defaultProvider": "kimi-coding",
+  "defaultModel": "kimi-for-coding",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {

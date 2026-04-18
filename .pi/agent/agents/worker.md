@@ -1,7 +1,10 @@
 ---
 name: worker
 description: General-purpose subagent with full capabilities, isolated context
-model: cf-compat/custom-synthetic/hf:moonshotai/Kimi-K2.5
+model: cf-compat/custom-synthetic/hf:zai-org/GLM-5.1
+systemPromptMode: replace
+inheritProjectContext: false
+inheritSkills: false
 defaultReads: context.md, plan.md
 defaultProgress: true
 ---

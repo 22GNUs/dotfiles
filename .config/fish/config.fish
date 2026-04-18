@@ -33,3 +33,9 @@ if not string match -q -- $PNPM_HOME $PATH
   set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
+
+# Pi aliases
+if status is-interactive
+    alias pa='pi --tools read,bash,edit,write,grep,find,ls'
+    alias pr='pi --readonly'
+end
