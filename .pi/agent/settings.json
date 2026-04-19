@@ -3,18 +3,17 @@
   "theme": "cyber-ui-dark",
   "packages": [
     "npm:pi-cyber-ui@0.1.2",
-    "npm:pi-web-access",
+    "git:github.com/22GNUs/pi-web-access@feat/summary-model-config",
     "npm:pi-subagents",
     "npm:pi-peon-ping",
     "npm:@plannotator/pi-extension",
     "npm:@sting8k/pi-vcc",
-    "npm:pi-rtk-optimizer",
     "git:github.com/22GNUs/pi-kimi-full"
   ],
   "defaultProvider": "kimi-for-coding-oauth",
   "defaultModel": "kimi-for-coding",
   "defaultThinkingLevel": "high",
-  "hideThinkingBlock": true,
+  "hideThinkingBlock": false,
   "terminal": {
     "showImages": true
   },
