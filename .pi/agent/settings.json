@@ -13,7 +13,7 @@
   "defaultProvider": "kimi-for-coding-oauth",
   "defaultModel": "kimi-for-coding",
   "defaultThinkingLevel": "high",
-  "hideThinkingBlock": false,
+  "hideThinkingBlock": true,
   "terminal": {
     "showImages": true
   },

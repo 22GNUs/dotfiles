@@ -1,3 +1,3 @@
 function commit
-    pi -p "/skill:commit commit code" --model custom-synthetic/hf:zai-org/GLM-4.7-Flash --no-session $argv
+    git add . && pi -p "/skill:commit commit code" --model custom-synthetic/hf:zai-org/GLM-4.7-Flash --no-session $argv
 end
