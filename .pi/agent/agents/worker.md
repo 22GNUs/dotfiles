@@ -1,7 +1,7 @@
 ---
 name: worker
 description: General-purpose subagent with full capabilities, isolated context
-model: cf-compat/custom-synthetic/hf:zai-org/GLM-5.1
+model: github-copilot/gpt-5.4-mini
 systemPromptMode: replace
 inheritProjectContext: false
 inheritSkills: false

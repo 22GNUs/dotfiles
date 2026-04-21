@@ -113,6 +113,33 @@ export default function (pi: ExtensionAPI) {
         maxTokens: 65536,
         ...createCloudflareAIGatewayPricing(1, 3, 1),
       },
+      {
+        id: "custom-opencode/minimax-m2.7",
+        name: "MiniMax M2.7",
+        reasoning: true,
+        input: ["text"],
+        contextWindow: 204800,
+        maxTokens: 131072,
+        ...createCloudflareAIGatewayPricing(0.3, 1.2, 0.06),
+      },
+      {
+        id: "custom-opencode/glm-5.1",
+        name: "GLM-5.1",
+        reasoning: true,
+        input: ["text"],
+        contextWindow: 204800,
+        maxTokens: 131072,
+        ...createCloudflareAIGatewayPricing(1.4, 4.4, 0.26),
+      },
+      {
+        id: "custom-opencode/kimi-k2.6",
+        name: "Kimi K2.6",
+        reasoning: true,
+        input: ["text", "image"],
+        contextWindow: 262144,
+        maxTokens: 65536,
+        ...createCloudflareAIGatewayPricing(0.32, 1.34, 0.054),
+      },
     ],
   });
 }
