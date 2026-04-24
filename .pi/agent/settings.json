@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.68.0",
+  "lastChangelogVersion": "0.70.0",
   "theme": "cyber-ui-dark",
   "packages": [
     "npm:pi-cyber-ui@0.1.2",
@@ -9,7 +9,9 @@
     "npm:@plannotator/pi-extension",
     "npm:@sting8k/pi-vcc",
     "git:github.com/22GNUs/pi-kimi-full",
-    "git:github.com/fluxgear/pi-thinking-steps"
+    "git:github.com/fluxgear/pi-thinking-steps",
+    "npm:pi-rtk-optimizer",
+    "npm:pi-caveman"
   ],
   "defaultProvider": "cf-compat",
   "defaultModel": "custom-opencode/kimi-k2.6",
@@ -31,7 +33,7 @@
     "github-copilot/gpt-5.4",
     "github-copilot/claude-sonnet-4.6",
     "cf-compat/custom-synthetic/hf:zai-org/GLM-5.1",
-    "kimi-for-coding-oauth/kimi-for-coding"
+    "cf-compat/custom-opencode/kimi-k2.6"
   ],
   "extensions": [
     "-extensions/pi-custom-providers/custom-provider-cf-packycode-aws.ts",

@@ -2,7 +2,10 @@
 name: scout
 description: Fast codebase recon that returns compressed context for handoff
 tools: read, grep, find, ls, bash, write
-model: cf-compat/custom-synthetic/hf:moonshotai/Kimi-K2.5
+model: cf-compat/custom-opencode/minimax-m2.7
+systemPromptMode: replace
+inheritProjectContext: false
+inheritSkills: false
 output: context.md
 defaultProgress: true
 ---

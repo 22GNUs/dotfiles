@@ -1,7 +1,7 @@
 ---
 name: worker
 description: General-purpose subagent with full capabilities, isolated context
-model: github-copilot/gpt-5.4-mini
+model: cf-compat/custom-opencode/kimi-k2.6
 systemPromptMode: replace
 inheritProjectContext: false
 inheritSkills: false
