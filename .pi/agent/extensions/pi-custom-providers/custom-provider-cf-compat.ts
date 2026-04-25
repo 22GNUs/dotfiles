@@ -96,6 +96,15 @@ export default function (pi: ExtensionAPI) {
         ...createCloudflareAIGatewayPricing(0.55, 2.19),
       },
       {
+        id: "custom-synthetic/hf:zai-org/GLM-4.7",
+        name: "GLM-4.7",
+        reasoning: true,
+        input: ["text", "image"],
+        contextWindow: 200000,
+        maxTokens: 64000,
+        ...createCloudflareAIGatewayPricing(0.55, 2.19),
+      },
+      {
         id: "custom-synthetic/hf:zai-org/GLM-4.7-Flash",
         name: "GLM-4.7-Flash",
         reasoning: true,
