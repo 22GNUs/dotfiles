@@ -140,6 +140,24 @@ export default function (pi: ExtensionAPI) {
         maxTokens: 65536,
         ...createCloudflareAIGatewayPricing(0.32, 1.34, 0.054),
       },
+      {
+        id: "custom-opencode/deepseek-v4-flash",
+        name: "DeepSeek V4 Flash",
+        reasoning: true,
+        input: ["text"],
+        contextWindow: 1000000,
+        maxTokens: 384000,
+        ...createCloudflareAIGatewayPricing(0.14, 0.28, 0.028),
+      },
+      {
+        id: "custom-opencode/deepseek-v4-pro",
+        name: "DeepSeek V4 Pro",
+        reasoning: true,
+        input: ["text"],
+        contextWindow: 1000000,
+        maxTokens: 384000,
+        ...createCloudflareAIGatewayPricing(1.74, 3.48, 0.145),
+      },
     ],
   });
 }
