@@ -47,6 +47,7 @@ return {
   {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
+      log_level = "warn", -- suppress INFO-level messages like "Skipping wait for gitignored"
       filesystem = {
         filtered_items = {
           visible = true,
