@@ -3,7 +3,7 @@
   "theme": "cyber-ui-dark",
   "packages": [
     "npm:pi-cyber-ui@0.1.2",
-    "git:github.com/22GNUs/pi-web-access@feat/summary-model-config",
+    "npm:pi-web-access",
     "npm:pi-subagents",
     "npm:pi-peon-ping",
     "npm:@plannotator/pi-extension",
@@ -61,8 +61,9 @@
         "model": "cf-compat/custom-opencode/kimi-k2.6"
       },
       "worker": {
-        "model": "cf-compat/custom-synthetic/hf:zai-org/GLM-5.1"
+        "model": "cf-compat/custom-opencode/kimi-k2.6"
       }
     }
   }
 }
+
