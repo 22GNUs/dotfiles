@@ -71,4 +71,17 @@ return {
       { "<C-n>", "<leader>fe", desc = "Explorer NeoTree (root dir)", remap = true },
     },
   },
+  -- Disable markdown plugins inside Obsidian vaults
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    cond = function()
+      return not require("config.vaults").in_any_vault()
+    end,
+  },
+  {
+    "iamcco/markdown-preview.nvim",
+    cond = function()
+      return not require("config.vaults").in_any_vault()
+    end,
+  },
 }
