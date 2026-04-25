@@ -41,6 +41,27 @@
     "agentOverrides": {
       "context-builder": {
         "model": "cf-compat/custom-opencode/kimi-k2.6"
+      },
+      "oracle-executor": {
+        "model": "cf-packycode/gpt-5.4"
+      },
+      "oracle": {
+        "model": "cf-packycode/gpt-5.4"
+      },
+      "planner": {
+        "model": "cf-packycode/gpt-5.5"
+      },
+      "researcher": {
+        "model": "cf-compat/custom-synthetic/hf:zai-org/GLM-4.7-Flash"
+      },
+      "reviewer": {
+        "model": "cf-packycode/gpt-5.4"
+      },
+      "scout": {
+        "model": "cf-compat/custom-opencode/kimi-k2.6"
+      },
+      "worker": {
+        "model": "cf-compat/custom-synthetic/hf:zai-org/GLM-5.1"
       }
     }
   }
