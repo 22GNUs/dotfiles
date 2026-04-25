@@ -30,13 +30,18 @@
     "enabled": true
   },
   "enabledModels": [
-    "github-copilot/gpt-5.4",
-    "github-copilot/claude-sonnet-4.6",
     "cf-compat/custom-synthetic/hf:zai-org/GLM-5.1",
     "cf-compat/custom-opencode/kimi-k2.6"
   ],
   "extensions": [
     "-extensions/pi-custom-providers/custom-provider-cf-packycode-aws.ts",
     "+extensions/pi-custom-providers/custom-provider-cf-packycode.ts"
-  ]
+  ],
+  "subagents": {
+    "agentOverrides": {
+      "context-builder": {
+        "model": "cf-compat/custom-opencode/kimi-k2.6"
+      }
+    }
+  }
 }

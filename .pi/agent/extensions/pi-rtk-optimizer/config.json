@@ -2,7 +2,7 @@
   "enabled": true,
   "mode": "rewrite",
   "guardWhenRtkMissing": true,
-  "showRewriteNotifications": false,
+  "showRewriteNotifications": true,
   "rewriteGitGithub": true,
   "rewriteFilesystem": true,
   "rewriteRust": true,
