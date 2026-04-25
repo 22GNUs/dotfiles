@@ -10,7 +10,7 @@
   "rewritePython": true,
   "rewriteGo": true,
   "rewriteContainers": true,
-  "rewriteNetwork": true,
+  "rewriteNetwork": false,
   "rewritePackageManagers": true,
   "outputCompaction": {
     "enabled": true,
