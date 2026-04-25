@@ -8,7 +8,6 @@
     "npm:pi-peon-ping",
     "npm:@plannotator/pi-extension",
     "npm:@sting8k/pi-vcc",
-    "git:github.com/fluxgear/pi-thinking-steps",
     "npm:pi-rtk-optimizer",
     "npm:@tmustier/pi-usage-extension",
     "npm:pi-caveman"
