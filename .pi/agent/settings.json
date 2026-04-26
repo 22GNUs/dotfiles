@@ -13,7 +13,7 @@
     "npm:pi-caveman"
   ],
   "defaultProvider": "cf-compat",
-  "defaultModel": "custom-opencode/kimi-k2.6",
+  "defaultModel": "custom-opencode/deepseek-v4-flash",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
   "terminal": {
