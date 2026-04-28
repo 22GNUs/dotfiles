@@ -10,12 +10,13 @@
     "npm:@sting8k/pi-vcc",
     "npm:pi-rtk-optimizer",
     "npm:@tmustier/pi-usage-extension",
-    "npm:pi-caveman"
+    "npm:pi-caveman",
+    "npm:@howaboua/pi-auto-trees"
   ],
-  "defaultProvider": "cf-compat",
-  "defaultModel": "custom-opencode/deepseek-v4-flash",
-  "defaultThinkingLevel": "high",
-  "hideThinkingBlock": false,
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.4-mini",
+  "defaultThinkingLevel": "medium",
+  "hideThinkingBlock": true,
   "terminal": {
     "showImages": true
   },
@@ -29,9 +30,9 @@
     "enabled": true
   },
   "enabledModels": [
+    "openai-codex/gpt-5.5",
     "cf-compat/custom-synthetic/hf:zai-org/GLM-5.1",
-    "cf-compat/custom-opencode/kimi-k2.6",
-    "cf-compat/custom-synthetic/hf:zai-org/GLM-4.7"
+    "cf-compat/custom-opencode/deepseek-v4-pro"
   ],
   "extensions": [
     "-extensions/pi-custom-providers/custom-provider-cf-packycode-aws.ts",

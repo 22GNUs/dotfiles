@@ -15,13 +15,13 @@
   "outputCompaction": {
     "enabled": true,
     "stripAnsi": true,
-    "sourceCodeFilteringEnabled": true,
+    "sourceCodeFilteringEnabled": false,
     "preserveExactSkillReads": false,
     "truncate": {
       "enabled": true,
       "maxChars": 12000
     },
-    "sourceCodeFiltering": "minimal",
+    "sourceCodeFiltering": "none",
     "smartTruncate": {
       "enabled": true,
       "maxLines": 220
