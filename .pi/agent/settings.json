@@ -32,7 +32,7 @@
   "enabledModels": [
     "cf-compat/custom-synthetic/hf:zai-org/GLM-5.1",
     "cf-compat/custom-opencode/deepseek-v4-pro",
-    "openai-codex/gpt-5.5"
+    "cf-codex/gpt-5.5"
   ],
   "extensions": [
     "+extensions/pi-custom-providers/custom-provider-cf-packycode.ts"
