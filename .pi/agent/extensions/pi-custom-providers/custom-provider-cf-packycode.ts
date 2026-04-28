@@ -4,7 +4,6 @@
  * Environment variables: CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_GATEWAY_ID, CLOUDFLARE_API_TOKEN
  *
  * This extension only registers the `cf-packycode` provider.
- * The AWS variant lives in `custom-provider-cf-packycode-aws.ts`.
  */
 
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";

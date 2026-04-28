@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.70.2",
+  "lastChangelogVersion": "0.70.5",
   "theme": "cyber-ui-dark",
   "packages": [
     "npm:pi-cyber-ui@0.1.2",
@@ -13,8 +13,8 @@
     "npm:pi-caveman",
     "npm:@howaboua/pi-auto-trees"
   ],
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.4-mini",
+  "defaultProvider": "cf-compat",
+  "defaultModel": "custom-synthetic/hf:zai-org/GLM-5.1",
   "defaultThinkingLevel": "medium",
   "hideThinkingBlock": true,
   "terminal": {
@@ -30,12 +30,11 @@
     "enabled": true
   },
   "enabledModels": [
-    "openai-codex/gpt-5.5",
     "cf-compat/custom-synthetic/hf:zai-org/GLM-5.1",
-    "cf-compat/custom-opencode/deepseek-v4-pro"
+    "cf-compat/custom-opencode/deepseek-v4-pro",
+    "openai-codex/gpt-5.5"
   ],
   "extensions": [
-    "-extensions/pi-custom-providers/custom-provider-cf-packycode-aws.ts",
     "+extensions/pi-custom-providers/custom-provider-cf-packycode.ts"
   ],
   "subagents": {
