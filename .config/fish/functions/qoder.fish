@@ -1,3 +1,3 @@
 function qoder
-    SHELL=/bin/bash command qodercli $argv
+    SHELL=/bin/bash command qodercli --yolo $argv
 end
