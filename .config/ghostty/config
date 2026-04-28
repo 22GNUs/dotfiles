@@ -27,7 +27,7 @@ keybind = alt+right=unbind
 keybind = unconsumed:ctrl+shift+r=reload_config
 keybind = global:ctrl+shift+.=toggle_quick_terminal
 
-custom-shader = shaders/bloom_custom.glsl
+custom-shader = shaders/bloom_025.glsl
 custom-shader = shaders/cursor_warp.glsl
 
 # 光标
