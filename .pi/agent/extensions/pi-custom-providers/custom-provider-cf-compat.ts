@@ -16,7 +16,8 @@ import { createCloudflareAIGatewayPricing } from "./custom-provider-shared";
 export default function (pi: ExtensionAPI) {
   const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
   const gatewayId = process.env.CLOUDFLARE_GATEWAY_ID;
-  if (!accountId || !gatewayId) return;
+  const apiKey = process.env.CLOUDFLARE_API_TOKEN;
+  if (!accountId || !gatewayId || !apiKey) return;
 
   pi.registerProvider("cf-compat", {
     baseUrl: `https://gateway.ai.cloudflare.com/v1/${accountId}/${gatewayId}/compat`,
