@@ -71,7 +71,7 @@ pi update npm:mitsupi
 
 ## Cloudflare Provider 配置
 
-配置 `cf-compat` / `cf-packycode` 前，请先设置环境变量：
+配置 `cf-compat` / `cf-packycode` / `cf-codex` 前，请先设置环境变量：
 
 ```bash
 export CLOUDFLARE_ACCOUNT_ID="your-account-id"
@@ -83,6 +83,7 @@ export CLOUDFLARE_API_TOKEN="your-api-token"
 
 - `extensions/pi-custom-providers/custom-provider-cf-compat.ts`
 - `extensions/pi-custom-providers/custom-provider-cf-packycode.ts`
+- `extensions/pi-custom-providers/custom-provider-cf-codex.ts`
 
 ---
 

@@ -8,7 +8,7 @@
     "extensions": [
       "./custom-provider-cf-compat.ts",
       "./custom-provider-cf-packycode.ts",
-      "./custom-provider-cf-packycode-aws.ts"
+      "./custom-provider-cf-codex.ts"
     ]
   },
   "peerDependencies": {
