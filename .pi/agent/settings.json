@@ -13,8 +13,8 @@
     "npm:pi-caveman",
     "npm:@howaboua/pi-auto-trees"
   ],
-  "defaultProvider": "cf-compat",
-  "defaultModel": "custom-synthetic/hf:zai-org/GLM-5.1",
+  "defaultProvider": "cf-codex",
+  "defaultModel": "gpt-5.4-mini",
   "defaultThinkingLevel": "medium",
   "hideThinkingBlock": true,
   "terminal": {
