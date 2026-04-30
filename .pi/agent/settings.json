@@ -4,17 +4,18 @@
   "packages": [
     "npm:pi-cyber-ui@0.1.2",
     "npm:pi-web-access",
-    "npm:pi-subagents",
     "npm:pi-peon-ping",
     "npm:@plannotator/pi-extension",
     "npm:@sting8k/pi-vcc",
     "npm:pi-rtk-optimizer",
     "npm:@tmustier/pi-usage-extension",
     "npm:pi-caveman",
-    "npm:@howaboua/pi-auto-trees"
+    "npm:@howaboua/pi-auto-trees",
+    "npm:@howaboua/pi-subagent-review",
+    "npm:@eko24ive/pi-ask"
   ],
-  "defaultProvider": "cf-codex",
-  "defaultModel": "gpt-5.4-mini",
+  "defaultProvider": "cf-compat",
+  "defaultModel": "custom-opencode/deepseek-v4-pro",
   "defaultThinkingLevel": "medium",
   "hideThinkingBlock": true,
   "terminal": {
@@ -32,7 +33,8 @@
   "enabledModels": [
     "cf-compat/custom-synthetic/hf:zai-org/GLM-5.1",
     "cf-compat/custom-opencode/deepseek-v4-pro",
-    "cf-codex/gpt-5.5"
+    "cf-codex/gpt-5.5",
+    "cf-codex/gpt-5.4-mini"
   ],
   "extensions": [
     "+extensions/pi-custom-providers/custom-provider-cf-packycode.ts"
@@ -40,28 +42,30 @@
   "subagents": {
     "agentOverrides": {
       "context-builder": {
-        "model": "cf-compat/custom-opencode/kimi-k2.6"
+        "model": "cf-compat/custom-synthetic/hf:moonshotai/Kimi-K2.5"
       },
       "oracle-executor": {
         "model": "cf-packycode/gpt-5.4"
       },
       "oracle": {
-        "model": "cf-packycode/gpt-5.4"
+        "model": "cf-codex/gpt-5.4"
       },
       "planner": {
-        "model": "cf-packycode/gpt-5.5"
+        "model": "cf-codex/gpt-5.5",
+        "thinking": "medium"
       },
       "researcher": {
         "model": "cf-compat/custom-synthetic/hf:zai-org/GLM-4.7-Flash"
       },
       "reviewer": {
-        "model": "cf-packycode/gpt-5.4"
+        "model": "cf-codex/gpt-5.5",
+        "thinking": "medium"
       },
       "scout": {
-        "model": "cf-compat/custom-opencode/kimi-k2.6"
+        "model": "cf-compat/custom-synthetic/hf:moonshotai/Kimi-K2.5"
       },
       "worker": {
-        "model": "cf-compat/custom-opencode/kimi-k2.6"
+        "model": "cf-compat/custom-synthetic/hf:zai-org/GLM-5.1"
       }
     }
   }
