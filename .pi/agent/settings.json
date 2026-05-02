@@ -34,7 +34,8 @@
   "enabledModels": [
     "cf-compat/custom-synthetic/hf:zai-org/GLM-5.1",
     "cf-compat/custom-synthetic/hf:moonshotai/Kimi-K2.6",
-    "cf-codex/gpt-5.5"
+    "cliproxyapi/gpt-5.5",
+    "cliproxyapi/gpt-5.4-mini"
   ],
   "extensions": [
     "+extensions/pi-custom-providers/custom-provider-cf-packycode.ts",
