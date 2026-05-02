@@ -73,5 +73,5 @@
   "retry": {
     "enabled": true
   },
-  "transport": "sse"
+  "transport": "auto"
 }
