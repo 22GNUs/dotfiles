@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.71.1",
+  "lastChangelogVersion": "0.72.1",
   "theme": "cyber-ui-dark",
   "packages": [
     "npm:pi-cyber-ui@0.1.2",
@@ -15,8 +15,8 @@
     "npm:@howaboua/pi-auto-trees",
     "npm:pi-btw"
   ],
-  "defaultProvider": "cliproxyapi",
-  "defaultModel": "gpt-5.5",
+  "defaultProvider": "cf-packycode",
+  "defaultModel": "gpt-5.4-mini",
   "defaultThinkingLevel": "medium",
   "hideThinkingBlock": true,
   "terminal": {
@@ -33,12 +33,9 @@
   },
   "enabledModels": [
     "cf-compat/custom-synthetic/hf:zai-org/GLM-5.1",
-    "cf-compat/custom-opencode/deepseek-v4-pro",
     "cf-codex/gpt-5.5",
     "cf-codex/gpt-5.4-mini",
-    "cliproxyapi/gpt-5.5",
-    "cliproxyapi/gpt-5.4",
-    "cliproxyapi/gpt-5.4-mini"
+    "cf-codex/gpt-5.4"
   ],
   "extensions": [
     "+extensions/pi-custom-providers/custom-provider-cf-packycode.ts",
