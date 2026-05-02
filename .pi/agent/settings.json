@@ -15,8 +15,8 @@
     "npm:@howaboua/pi-auto-trees",
     "npm:pi-btw"
   ],
-  "defaultProvider": "cf-packycode",
-  "defaultModel": "gpt-5.4-mini",
+  "defaultProvider": "cf-compat",
+  "defaultModel": "custom-synthetic/hf:moonshotai/Kimi-K2.6",
   "defaultThinkingLevel": "medium",
   "hideThinkingBlock": true,
   "terminal": {
@@ -33,9 +33,8 @@
   },
   "enabledModels": [
     "cf-compat/custom-synthetic/hf:zai-org/GLM-5.1",
-    "cf-codex/gpt-5.5",
-    "cf-codex/gpt-5.4-mini",
-    "cf-codex/gpt-5.4"
+    "cf-compat/custom-synthetic/hf:moonshotai/Kimi-K2.6",
+    "cf-codex/gpt-5.5"
   ],
   "extensions": [
     "+extensions/pi-custom-providers/custom-provider-cf-packycode.ts",
