@@ -10,12 +10,12 @@
     "npm:pi-rtk-optimizer",
     "npm:@tmustier/pi-usage-extension",
     "npm:pi-caveman",
-    "npm:@howaboua/pi-auto-trees",
     "npm:@howaboua/pi-subagent-review",
-    "npm:@eko24ive/pi-ask"
+    "npm:@eko24ive/pi-ask",
+    "npm:@howaboua/pi-auto-trees"
   ],
-  "defaultProvider": "cf-codex",
-  "defaultModel": "gpt-5.5",
+  "defaultProvider": "cf-compat",
+  "defaultModel": "custom-synthetic/hf:zai-org/GLM-4.7-Flash",
   "defaultThinkingLevel": "medium",
   "hideThinkingBlock": true,
   "terminal": {
@@ -68,5 +68,8 @@
         "model": "cf-compat/custom-synthetic/hf:zai-org/GLM-5.1"
       }
     }
+  },
+  "retry": {
+    "enabled": true
   }
 }
