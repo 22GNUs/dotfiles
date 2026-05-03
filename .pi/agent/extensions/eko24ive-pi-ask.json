@@ -1,5 +1,19 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
+  "answer": {
+    "extractionModels": [
+      {
+        "provider": "cf-compat",
+        "id": "custom-synthetic/hf:moonshotai/Kimi-K2.6"
+      },
+      {
+        "provider": "cf-codex",
+        "id": "gpt-5.4-mini"
+      }
+    ],
+    "extractionRetries": 1,
+    "extractionTimeoutMs": 30000
+  },
   "behaviour": {
     "autoSubmitWhenAnsweredWithoutNotes": false,
     "confirmDismissWhenDirty": true,

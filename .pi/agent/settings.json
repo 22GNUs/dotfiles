@@ -11,14 +11,13 @@
     "npm:pi-caveman",
     "npm:@howaboua/pi-subagent-review",
     "npm:@eko24ive/pi-ask",
-    "npm:@howaboua/pi-auto-trees",
     "npm:pi-btw",
     "git:github.com/edxeth/pi-openai-ws",
     "npm:pi-slop-review"
   ],
-  "defaultProvider": "cf-compat",
-  "defaultModel": "custom-synthetic/hf:zai-org/GLM-4.7-Flash",
-  "defaultThinkingLevel": "high",
+  "defaultProvider": "cf-codex",
+  "defaultModel": "gpt-5.5",
+  "defaultThinkingLevel": "medium",
   "hideThinkingBlock": true,
   "terminal": {
     "showImages": true
