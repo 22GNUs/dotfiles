@@ -5,7 +5,6 @@
     "npm:pi-cyber-ui@0.1.2",
     "npm:pi-web-access",
     "npm:pi-peon-ping",
-    "npm:@plannotator/pi-extension",
     "npm:@sting8k/pi-vcc",
     "npm:pi-rtk-optimizer",
     "npm:@tmustier/pi-usage-extension",
@@ -14,10 +13,11 @@
     "npm:@eko24ive/pi-ask",
     "npm:@howaboua/pi-auto-trees",
     "npm:pi-btw",
-    "git:github.com/edxeth/pi-openai-ws"
+    "git:github.com/edxeth/pi-openai-ws",
+    "npm:pi-slop-review"
   ],
-  "defaultProvider": "openai-ws",
-  "defaultModel": "gpt-5.4-mini",
+  "defaultProvider": "cf-compat",
+  "defaultModel": "custom-synthetic/hf:zai-org/GLM-4.7-Flash",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
