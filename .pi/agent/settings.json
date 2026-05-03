@@ -13,11 +13,12 @@
     "npm:@howaboua/pi-subagent-review",
     "npm:@eko24ive/pi-ask",
     "npm:@howaboua/pi-auto-trees",
-    "npm:pi-btw"
+    "npm:pi-btw",
+    "git:github.com/edxeth/pi-openai-ws"
   ],
-  "defaultProvider": "cf-compat",
-  "defaultModel": "custom-synthetic/hf:moonshotai/Kimi-K2.6",
-  "defaultThinkingLevel": "medium",
+  "defaultProvider": "openai-ws",
+  "defaultModel": "gpt-5.4-mini",
+  "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
     "showImages": true
@@ -34,8 +35,8 @@
   "enabledModels": [
     "cf-compat/custom-synthetic/hf:zai-org/GLM-5.1",
     "cf-compat/custom-synthetic/hf:moonshotai/Kimi-K2.6",
-    "cliproxyapi/gpt-5.5",
-    "cliproxyapi/gpt-5.4-mini"
+    "openai-ws/gpt-5.5",
+    "openai-ws/gpt-5.4-mini"
   ],
   "extensions": [
     "+extensions/pi-custom-providers/custom-provider-cf-packycode.ts",
