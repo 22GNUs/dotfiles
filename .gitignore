@@ -48,3 +48,4 @@ external/
 /.pi/agent/run-history.jsonl
 /.pi/exa-usage.json
 /.pi/agent/pi-stash.json
+/.config/herdr/session.json

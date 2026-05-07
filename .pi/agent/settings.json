@@ -4,7 +4,6 @@
   "packages": [
     "npm:pi-cyber-ui@0.1.2",
     "npm:pi-web-access",
-    "npm:pi-peon-ping",
     "npm:@sting8k/pi-vcc",
     "npm:pi-rtk-optimizer",
     "npm:@tmustier/pi-usage-extension",
@@ -16,7 +15,7 @@
   ],
   "defaultProvider": "cf-compat",
   "defaultModel": "custom-synthetic/hf:zai-org/GLM-5.1",
-  "defaultThinkingLevel": "low",
+  "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
     "showImages": true
