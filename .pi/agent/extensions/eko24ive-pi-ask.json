@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 5,
   "answer": {
     "extractionModels": [
       {
@@ -18,14 +18,118 @@
     "autoSubmitWhenAnsweredWithoutNotes": false,
     "confirmDismissWhenDirty": true,
     "doublePressReviewShortcuts": true,
+    "presentSingleAsMulti": false,
     "showFooterHints": true
   },
   "keymaps": {
-    "cancel": "esc",
-    "dismiss": "ctrl+c",
-    "toggle": "space",
-    "confirm": "enter",
-    "optionNote": "n",
-    "questionNote": "shift+n"
+    "global": {
+      "dismiss": [
+        "ctrl+c"
+      ],
+      "settings": [
+        "?"
+      ]
+    },
+    "main": {
+      "cancel": [
+        "esc"
+      ],
+      "changeQuestionType": [
+        "t"
+      ],
+      "confirm": [
+        "enter"
+      ],
+      "nextOption": [
+        "down"
+      ],
+      "nextTab": [
+        "tab",
+        "right"
+      ],
+      "optionNote": [
+        "n"
+      ],
+      "previousOption": [
+        "up"
+      ],
+      "previousTab": [
+        "shift+tab",
+        "left"
+      ],
+      "questionNote": [
+        "shift+n"
+      ],
+      "toggle": [
+        "space"
+      ]
+    },
+    "editor": {
+      "close": [
+        "esc"
+      ],
+      "nextOptionWhenEmpty": [
+        "down"
+      ],
+      "nextTabWhenEmpty": [
+        "tab",
+        "right"
+      ],
+      "previousOptionWhenEmpty": [
+        "up"
+      ],
+      "previousTabWhenEmpty": [
+        "shift+tab",
+        "left"
+      ],
+      "submit": [
+        "enter"
+      ]
+    },
+    "noteEditor": {
+      "close": [
+        "esc"
+      ],
+      "nextOptionWhenEmpty": [
+        "down"
+      ],
+      "nextTabWhenEmpty": [
+        "tab",
+        "right"
+      ],
+      "previousOptionWhenEmpty": [
+        "up"
+      ],
+      "previousTabWhenEmpty": [
+        "shift+tab",
+        "left"
+      ],
+      "save": [
+        "enter"
+      ]
+    },
+    "settingsModal": {
+      "close": [
+        "esc",
+        "ctrl+c",
+        "?"
+      ],
+      "nextOption": [
+        "down"
+      ],
+      "previousOption": [
+        "up"
+      ],
+      "toggle": [
+        "enter",
+        "space"
+      ]
+    }
+  },
+  "notifications": {
+    "channels": [
+      "bell"
+    ],
+    "enabled": true
   }
 }
