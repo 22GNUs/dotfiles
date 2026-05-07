@@ -1,6 +1,9 @@
 # Suppress greeting
 set fish_greeting
 
+# Start herdr with fish as pane shell
+alias hf herdr_fish
+
 # Add HomeBrew's bin directory to path
 fish_add_path /opt/homebrew/bin
 fish_add_path $HOME/.local/bin
