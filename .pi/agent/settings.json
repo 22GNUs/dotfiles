@@ -13,11 +13,13 @@
     "git:github.com/edxeth/pi-openai-ws",
     {
       "source": "npm:pi-slop-review",
-      "extensions": ["+extensions/pi/index.ts"]
+      "extensions": [
+        "+extensions/pi/index.ts"
+      ]
     }
   ],
   "defaultProvider": "cf-compat",
-  "defaultModel": "custom-synthetic/hf:moonshotai/Kimi-K2.6",
+  "defaultModel": "custom-synthetic/hf:zai-org/GLM-5.1",
   "defaultThinkingLevel": "medium",
   "hideThinkingBlock": true,
   "terminal": {
@@ -76,4 +78,3 @@
   },
   "transport": "auto"
 }
-
