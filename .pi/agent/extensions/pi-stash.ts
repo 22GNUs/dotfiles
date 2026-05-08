@@ -1,6 +1,6 @@
 import { dirname, join } from "node:path";
 import { mkdir, readFile, unlink, writeFile } from "node:fs/promises";
-import { getAgentDir, type ExtensionAPI, type ExtensionContext } from "@mariozechner/pi-coding-agent";
+import { getAgentDir, type ExtensionAPI, type ExtensionContext } from "@earendil-works/pi-coding-agent";
 
 interface StashEntry {
   text: string;

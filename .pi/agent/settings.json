@@ -1,8 +1,8 @@
 {
-  "lastChangelogVersion": "0.73.0",
+  "lastChangelogVersion": "0.74.0",
   "theme": "cyber-ui-dark",
   "packages": [
-    "npm:pi-cyber-ui@0.1.2",
+    "npm:pi-cyber-ui@0.1.3",
     "npm:pi-web-access",
     "npm:@sting8k/pi-vcc",
     "npm:pi-rtk-optimizer",
@@ -11,7 +11,12 @@
     "npm:@eko24ive/pi-ask",
     "npm:pi-btw",
     "git:github.com/edxeth/pi-openai-ws",
-    "npm:pi-slop-review"
+    {
+      "source": "npm:pi-slop-review",
+      "extensions": [
+        "+extensions/pi/index.ts"
+      ]
+    }
   ],
   "defaultProvider": "cf-compat",
   "defaultModel": "custom-synthetic/hf:zai-org/GLM-5.1",

@@ -6,7 +6,7 @@
  * Proxies an OpenAI Responses-compatible Codex endpoint through Cloudflare AI Gateway.
  */
 
-import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
+import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
 import { createCloudflareAIGatewayPricing } from "./custom-provider-shared";
 

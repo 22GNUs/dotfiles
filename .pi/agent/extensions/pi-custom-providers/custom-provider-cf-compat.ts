@@ -9,7 +9,7 @@
  * This extension is registered on its own so it can be enabled/disabled independently.
  */
 
-import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
+import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
 import { createCloudflareAIGatewayPricing } from "./custom-provider-shared";
 
