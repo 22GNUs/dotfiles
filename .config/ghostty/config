@@ -30,13 +30,13 @@ keybind = global:ctrl+shift+.=toggle_quick_terminal
 custom-shader = shaders/bloom_05.glsl
 custom-shader = shaders/cursor_warp.glsl
 
-# 光标
-cursor-style = bar
+# 光标 - 不设置 cursor-style，让 Neovim 等 TUI 应用自行控制光标形状
+# cursor-style = bar
 cursor-style-blink = true
 mouse-hide-while-typing = true
 
 # Shell 集成
-shell-integration-features = cursor, sudo, title
+shell-integration-features = no-cursor, sudo, title
 
 # 窗口
 window-padding-balance = true
