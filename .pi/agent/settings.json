@@ -2,7 +2,7 @@
   "lastChangelogVersion": "0.74.0",
   "theme": "cyber-ui-dark",
   "packages": [
-    "npm:pi-cyber-ui@0.1.3",
+    "npm:pi-cyber-ui@0.1.6",
     "npm:pi-web-access",
     "npm:@sting8k/pi-vcc",
     "npm:pi-rtk-optimizer",
@@ -13,14 +13,12 @@
     "git:github.com/edxeth/pi-openai-ws",
     {
       "source": "npm:pi-slop-review",
-      "extensions": [
-        "+extensions/pi/index.ts"
-      ]
+      "extensions": ["+extensions/pi/index.ts"]
     }
   ],
   "defaultProvider": "cf-compat",
-  "defaultModel": "custom-synthetic/hf:zai-org/GLM-5.1",
-  "defaultThinkingLevel": "high",
+  "defaultModel": "custom-synthetic/hf:moonshotai/Kimi-K2.6",
+  "defaultThinkingLevel": "medium",
   "hideThinkingBlock": true,
   "terminal": {
     "showImages": true
@@ -78,3 +76,4 @@
   },
   "transport": "auto"
 }
+
