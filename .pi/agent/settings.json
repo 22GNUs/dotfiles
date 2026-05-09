@@ -19,8 +19,8 @@
     }
   ],
   "defaultProvider": "cf-compat",
-  "defaultModel": "custom-synthetic/hf:zai-org/GLM-5.1",
-  "defaultThinkingLevel": "medium",
+  "defaultModel": "custom-opencode/deepseek-v4-pro",
+  "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
     "showImages": true
