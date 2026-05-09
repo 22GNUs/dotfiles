@@ -113,7 +113,6 @@ export default function (pi: ExtensionAPI) {
         contextWindow: 1000000,
         maxTokens: 384000,
         compat: {
-          supportsDeveloperRole: false,
           thinkingFormat: "deepseek",
         },
         ...createCloudflareAIGatewayPricing(0.14, 0.28, 0.028),
@@ -126,7 +125,6 @@ export default function (pi: ExtensionAPI) {
         contextWindow: 1000000,
         maxTokens: 384000,
         compat: {
-          supportsDeveloperRole: false,
           thinkingFormat: "deepseek",
         },
         ...createCloudflareAIGatewayPricing(1.74, 3.48, 0.145),
