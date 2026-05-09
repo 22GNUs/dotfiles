@@ -133,8 +133,9 @@ automatically-unhide-macos-hidden-apps = false
     alt-3 = 'workspace 3'
     alt-b = 'workspace B'
     alt-d = 'workspace D'
-    alt-t = 'workspace T'
     alt-g = 'workspace G'
+    alt-i = 'workspace I'
+    alt-t = 'workspace T'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
     alt-shift-1 = 'move-node-to-workspace 1'
@@ -142,8 +143,9 @@ automatically-unhide-macos-hidden-apps = false
     alt-shift-3 = 'move-node-to-workspace 3'
     alt-shift-b = 'move-node-to-workspace B' # Browser
     alt-shift-d = 'move-node-to-workspace D' # Develop
-    alt-shift-t = 'move-node-to-workspace T' # Terminal
     alt-shift-g = 'move-node-to-workspace G' # Git
+    alt-shift-i = 'move-node-to-workspace I' # Im
+    alt-shift-t = 'move-node-to-workspace T' # Terminal
 
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
@@ -213,8 +215,12 @@ automatically-unhide-macos-hidden-apps = false
   run = 'move-node-to-workspace D'
 
 [[on-window-detected]]
-  if.app-name-regex-substring = 'GitClient'
+  if.app-name-regex-substring = 'Rebased'
   run = 'move-node-to-workspace G'
+
+[[on-window-detected]]
+  if.app-name-regex-substring = '钉'
+  run = 'move-node-to-workspace I'
 
 # Floating
 [[on-window-detected]]
@@ -235,10 +241,6 @@ automatically-unhide-macos-hidden-apps = false
 
 [[on-window-detected]]
   if.app-name-regex-substring = 'telegram'
-  run = 'layout floating'
-
-[[on-window-detected]]
-  if.app-id = 'com.kangfenmao.CherryStudio'
   run = 'layout floating'
 
 # Default workspace for new windows
@@ -270,7 +272,5 @@ automatically-unhide-macos-hidden-apps = false
     g = ['exec-and-forget open -a /Applications/Ghostty.app -n', 'mode main']
 
 [workspace-to-monitor-force-assignment]
-    B = 'secondary'
     T = 'secondary'
-    G = 'secondary'
-    1 = 'secondary'
+    I = 'secondary'
