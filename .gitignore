@@ -49,3 +49,4 @@ external/
 /.pi/exa-usage.json
 /.pi/agent/pi-stash.json
 /.config/herdr/session.json
+/.config/herdr/release-notes.json

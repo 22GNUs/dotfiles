@@ -5,6 +5,8 @@
   editor = nvim
   pager = delta
 	untrackedCache = true
+	fsmonitor = true
+	preloadIndex = true
 
 [interactive]
   diffFilter = delta --color-only
@@ -29,3 +31,14 @@
 
 [rerere]
 	enabled = true
+[index]
+	threads = true
+[pack]
+	threads = 0
+[checkout]
+	workers = 0
+	thresholdForParallelism = 100
+[submodule]
+	fetchJobs = 0
+[fetch]
+	parallel = 0
