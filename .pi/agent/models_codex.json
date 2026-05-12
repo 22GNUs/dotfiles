@@ -1,0 +1,25 @@
+{
+  "providers": {
+    "openai-ws": {
+      "api": "openai-responses",
+      "baseUrl": "https://cxlb.lazycat.vip/v1",
+      "apiKey": "CXLB_API_KEY",
+      "models": [
+        {
+          "id": "gpt-5.3-codex-spark",
+          "name": "GPT-5.3 Codex Spark",
+          "reasoning": true,
+          "input": ["text", "image"],
+          "contextWindow": 100000,
+          "maxTokens": 32000,
+          "cost": {
+            "input": 1.75,
+            "output": 14,
+            "cacheRead": 0.175,
+            "cacheWrite": 0
+          }
+        }
+      ]
+    }
+  }
+}

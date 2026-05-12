@@ -9,7 +9,6 @@
     "npm:pi-caveman",
     "npm:@eko24ive/pi-ask",
     "npm:pi-btw",
-    "git:github.com/edxeth/pi-openai-ws",
     {
       "source": "npm:pi-slop-review",
       "extensions": [
@@ -18,8 +17,8 @@
     },
     "npm:pi-rtk-optimizer"
   ],
-  "defaultProvider": "cf-compat",
-  "defaultModel": "custom-synthetic/hf:moonshotai/Kimi-K2.6",
+  "defaultProvider": "cf-codex",
+  "defaultModel": "gpt-5.4-mini",
   "defaultThinkingLevel": "low",
   "hideThinkingBlock": true,
   "terminal": {
@@ -33,10 +32,9 @@
     "enabled": true
   },
   "enabledModels": [
-    "cf-compat/custom-synthetic/hf:zai-org/GLM-5.1",
-    "cf-compat/custom-synthetic/hf:moonshotai/Kimi-K2.6",
     "cf-codex/gpt-5.5",
-    "cf-compat/custom-opencode/deepseek-v4-pro"
+    "cf-codex/gpt-5.4",
+    "cf-codex/gpt-5.4-mini"
   ],
   "extensions": [
     "+extensions/pi-custom-providers/custom-provider-cf-packycode.ts",
