@@ -216,10 +216,6 @@ automatically-unhide-macos-hidden-apps = false
   if.app-name-regex-substring = 'Rebased'
   run = 'move-node-to-workspace G'
 
-[[on-window-detected]]
-  if.app-name-regex-substring = '钉'
-  run = 'move-node-to-workspace I'
-
 # Floating
 [[on-window-detected]]
   if.app-name-regex-substring = 'logseq'
@@ -271,3 +267,4 @@ automatically-unhide-macos-hidden-apps = false
 
 [workspace-to-monitor-force-assignment]
     T = 'secondary'
+    1 = 'secondary'
