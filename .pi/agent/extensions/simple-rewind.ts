@@ -17,6 +17,7 @@ interface Config {
   enabled: boolean;
   status: boolean;
   maxSteps: number;
+  async: boolean;
 }
 
 interface Point {
@@ -37,7 +38,7 @@ type Entry = {
   message?: { role?: string; content?: unknown };
 };
 
-const DEFAULT_CONFIG: Config = { enabled: true, status: true, maxSteps: 5 };
+const DEFAULT_CONFIG: Config = { enabled: true, status: true, maxSteps: 5, async: true };
 const REWIND_COMPLETIONS: AutocompleteItem[] = [
   { value: "clean", label: "clean", description: "Delete checkpoints" },
   { value: "status", label: "status", description: "Show rewind status" },
@@ -46,6 +47,8 @@ const REWIND_COMPLETIONS: AutocompleteItem[] = [
   { value: "on", label: "on", description: "Enable checkpoints" },
   { value: "off", label: "off", description: "Disable checkpoints" },
   { value: "max ", label: "max N", description: "Set max checkpoints, 1..50" },
+  { value: "async on", label: "async on", description: "Capture checkpoints without blocking prompt" },
+  { value: "async off", label: "async off", description: "Capture checkpoints before agent starts" },
 ];
 const UNDO_COMPLETIONS: AutocompleteItem[] = [
   { value: "all", label: "all", description: "Files + conversation" },
@@ -100,6 +103,7 @@ async function readConfig(): Promise<Config> {
       enabled: parsed.enabled !== false,
       status: parsed.status !== false,
       maxSteps: Number.isFinite(parsed.maxSteps) && (parsed.maxSteps ?? 0) > 0 ? Math.floor(parsed.maxSteps!) : DEFAULT_CONFIG.maxSteps,
+      async: parsed.async !== false,
     };
   } catch {
     return { ...DEFAULT_CONFIG };
@@ -276,7 +280,7 @@ export default function simpleRewind(pi: ExtensionAPI) {
   let root: string | null = null;
   let gitOk = false;
   let activePrompt = "";
-  let pending: { commit: string; tree: string; prompt: string; ts: number } | null = null;
+  let pending: { promise: Promise<{ commit: string; tree: string }>; prompt: string; ts: number } | null = null;
   let redoPoint: { commit: string; tree: string; ts: number; entryId?: string } | null = null;
   let undoCursorTs: number | null = null;
 
@@ -365,7 +369,7 @@ export default function simpleRewind(pi: ExtensionAPI) {
   });
 
   pi.registerCommand("rewind", {
-    description: "User-only rewind. Usage: /rewind [clean|status|on|off|status on|status off|max N]",
+    description: "User-only rewind. Usage: /rewind [clean|status|on|off|async on|async off|status on|status off|max N]",
     getArgumentCompletions: (prefix: string): AutocompleteItem[] | null => completeArgs(REWIND_COMPLETIONS, prefix),
     handler: async (args, ctx) => {
       await refresh(ctx as unknown as ExtensionContext);
@@ -387,7 +391,14 @@ export default function simpleRewind(pi: ExtensionAPI) {
 
       if (action === "status") {
         const points = await livePoints(ctx as unknown as ExtensionContext);
-        ctx.ui.notify(`rewind: ${cfg.enabled ? "on" : "off"}, status ${cfg.status ? "on" : "off"}, ${points.length}/${cfg.maxSteps} points`, "info");
+        ctx.ui.notify(`rewind: ${cfg.enabled ? "on" : "off"}, status ${cfg.status ? "on" : "off"}, async ${cfg.async ? "on" : "off"}, ${points.length}/${cfg.maxSteps} points`, "info");
+        return;
+      }
+
+      if (action === "async on" || action === "async off") {
+        cfg.async = action.endsWith("on");
+        await writeConfig(cfg);
+        ctx.ui.notify(`rewind async: ${cfg.async ? "on" : "off"}`, "info");
         return;
       }
 
