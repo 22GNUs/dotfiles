@@ -339,11 +339,19 @@ export default function simpleRewind(pi: ExtensionAPI) {
 
   pi.on("turn_start", async (event, ctx) => {
     if (!cfg.enabled || !gitOk || !root || event.turnIndex !== 0) return;
+    undoCursorTs = null;
+    redoPoint = null;
+    const prompt = activePrompt;
+    const ts = Date.now();
+    const promise = captureSnapshot(root, "pi simple rewind user checkpoint");
+    promise.catch(() => {});
+    if (cfg.async) {
+      pending = { promise, prompt, ts };
+      return;
+    }
     try {
-      undoCursorTs = null;
-      redoPoint = null;
-      const snap = await captureSnapshot(root, "pi simple rewind user checkpoint");
-      pending = { ...snap, prompt: activePrompt, ts: Date.now() };
+      const snap = await promise;
+      pending = { promise: Promise.resolve(snap), prompt, ts };
       const count = Math.min(cfg.maxSteps, (await livePoints(ctx)).length + 1);
       updateStatus(ctx, cfg, count, gitOk);
     } catch (error) {
@@ -354,16 +362,20 @@ export default function simpleRewind(pi: ExtensionAPI) {
 
   pi.on("agent_end", async (_event, ctx) => {
     if (!pending || !root) return;
+    const current = pending;
     try {
-      const user = findLatestUserEntry(ctx, pending.prompt);
+      const snap = await current.promise;
+      const user = findLatestUserEntry(ctx, current.prompt);
       if (!user?.id) return;
-      const point: Point = { v: 1, entryId: user.id, prompt: pending.prompt, commit: pending.commit, tree: pending.tree, ts: pending.ts };
+      const point: Point = { v: 1, entryId: user.id, prompt: current.prompt, commit: snap.commit, tree: snap.tree, ts: current.ts };
       pi.appendEntry("simple-rewind-point", point);
       const points = await livePoints(ctx, [point]);
       await rewriteStore(root, points.map((p) => p.commit));
       updateStatus(ctx, cfg, points.length, gitOk);
+    } catch (error) {
+      if (ctx.hasUI) ctx.ui.notify(`rewind: checkpoint failed: ${error instanceof Error ? error.message : String(error)}`, "warning");
     } finally {
-      pending = null;
+      if (pending === current) pending = null;
       activePrompt = "";
     }
   });
