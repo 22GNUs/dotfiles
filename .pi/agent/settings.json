@@ -4,7 +4,6 @@
   "packages": [
     "npm:pi-cyber-ui@0.1.6",
     "npm:pi-web-access",
-    "npm:@sting8k/pi-vcc",
     "npm:@tmustier/pi-usage-extension",
     "npm:pi-caveman",
     "npm:@eko24ive/pi-ask",
@@ -21,8 +20,8 @@
       "skills": []
     }
   ],
-  "defaultProvider": "idealab",
-  "defaultModel": "claude-opus-4-7",
+  "defaultProvider": "cf-codex",
+  "defaultModel": "gpt-5.4",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
