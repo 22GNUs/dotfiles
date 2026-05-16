@@ -2,7 +2,7 @@
   "lastChangelogVersion": "0.74.0",
   "theme": "cyber-ui-dark",
   "packages": [
-    "npm:pi-cyber-ui@0.1.6",
+    "/Users/xinhua/Developer/pi-cyber-ui",
     "npm:pi-web-access",
     "npm:@tmustier/pi-usage-extension",
     "npm:pi-caveman",
@@ -21,11 +21,11 @@
     }
   ],
   "defaultProvider": "cf-codex",
-  "defaultModel": "gpt-5.4",
+  "defaultModel": "gpt-5.5",
   "defaultThinkingLevel": "high",
-  "hideThinkingBlock": true,
+  "hideThinkingBlock": false,
   "terminal": {
-    "showImages": true
+    "showImages": false
   },
   "images": {
     "blockImages": false

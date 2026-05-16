@@ -1,5 +1,4 @@
 import { getAgentDir, type ExtensionAPI, type ExtensionContext } from "@earendil-works/pi-coding-agent";
-import type { AutocompleteItem, AutocompleteProvider, AutocompleteSuggestions } from "@earendil-works/pi-tui";
 import { execFile } from "node:child_process";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -39,55 +38,6 @@ type Entry = {
 };
 
 const DEFAULT_CONFIG: Config = { enabled: true, status: true, maxSteps: 5, async: true };
-const REWIND_COMPLETIONS: AutocompleteItem[] = [
-  { value: "clean", label: "clean", description: "Delete checkpoints" },
-  { value: "status", label: "status", description: "Show rewind status" },
-  { value: "status on", label: "status on", description: "Show status bar item" },
-  { value: "status off", label: "status off", description: "Hide status bar item" },
-  { value: "on", label: "on", description: "Enable checkpoints" },
-  { value: "off", label: "off", description: "Disable checkpoints" },
-  { value: "max ", label: "max N", description: "Set max checkpoints, 1..50" },
-  { value: "async on", label: "async on", description: "Capture checkpoints without blocking prompt" },
-  { value: "async off", label: "async off", description: "Capture checkpoints before agent starts" },
-];
-const UNDO_COMPLETIONS: AutocompleteItem[] = [
-  { value: "all", label: "all", description: "Files + conversation" },
-  { value: "files", label: "files", description: "Files only" },
-  { value: "conversation", label: "conversation", description: "Conversation only" },
-];
-
-function completeArgs(items: AutocompleteItem[], prefix = ""): AutocompleteItem[] | null {
-  const normalized = prefix.trimStart().toLowerCase();
-  if (!normalized) return items;
-  const filtered = items.filter((item) => item.value.toLowerCase().startsWith(normalized) || item.label?.toLowerCase().startsWith(normalized));
-  return filtered.length > 0 ? filtered : null;
-}
-
-function createRewindAutocompleteProvider(current: AutocompleteProvider): AutocompleteProvider {
-  return {
-    async getSuggestions(lines, cursorLine, cursorCol, options): Promise<AutocompleteSuggestions | null> {
-      const line = lines[cursorLine] ?? "";
-      const beforeCursor = line.slice(0, cursorCol);
-      const match = beforeCursor.match(/^\/(rewind|undo)\s+(.*)$/);
-      if (!match || !options.force) return current.getSuggestions(lines, cursorLine, cursorCol, options);
-      const command = match[1];
-      const argPrefix = match[2] ?? "";
-      const items = completeArgs(command === "rewind" ? REWIND_COMPLETIONS : UNDO_COMPLETIONS, argPrefix);
-      return items ? { items, prefix: argPrefix } : current.getSuggestions(lines, cursorLine, cursorCol, options);
-    },
-
-    applyCompletion(lines, cursorLine, cursorCol, item, prefix) {
-      return current.applyCompletion(lines, cursorLine, cursorCol, item, prefix);
-    },
-
-    shouldTriggerFileCompletion(lines, cursorLine, cursorCol) {
-      const line = lines[cursorLine] ?? "";
-      const beforeCursor = line.slice(0, cursorCol);
-      if (/^\/(rewind|undo)(?:\s+.*)?$/.test(beforeCursor)) return true;
-      return current.shouldTriggerFileCompletion?.(lines, cursorLine, cursorCol) ?? true;
-    },
-  };
-}
 
 function isPoint(value: unknown): value is Point {
   if (!value || typeof value !== "object") return false;
@@ -250,6 +200,36 @@ function updateStatus(ctx: ExtensionContext, cfg: Config, count: number, gitOk: 
   ctx.ui.setStatus(STATUS_KEY, `↶${count}/${cfg.maxSteps}`);
 }
 
+function isStaleCtxError(error: unknown): boolean {
+  return error instanceof Error && error.message.includes("This extension ctx is stale");
+}
+
+function safeNotify(ctx: ExtensionContext, message: string, level: "info" | "warning" | "error" = "info"): void {
+  try {
+    if (ctx.hasUI) ctx.ui.notify(message, level);
+  } catch (error) {
+    if (!isStaleCtxError(error)) throw error;
+  }
+}
+
+function safeUpdateStatus(ctx: ExtensionContext, cfg: Config, count: number, gitOk: boolean): void {
+  try {
+    updateStatus(ctx, cfg, count, gitOk);
+  } catch (error) {
+    if (!isStaleCtxError(error)) throw error;
+  }
+}
+
+function safeAppendEntry(pi: ExtensionAPI, customType: string, data: unknown): boolean {
+  try {
+    pi.appendEntry(customType, data);
+    return true;
+  } catch (error) {
+    if (!isStaleCtxError(error)) throw error;
+    return false;
+  }
+}
+
 async function choosePoint(ctx: ExtensionContext, points: Point[]): Promise<Point | undefined> {
   const shown = points.slice(0, 25);
   const items = shown.map((p, i) => `#${i + 1} ${new Date(p.ts).toLocaleTimeString()} ${trimOneLine(p.prompt)}`);
@@ -263,14 +243,15 @@ type RestoreMode = "Files + conversation" | "Files only" | "Conversation only";
 async function restorePoint(root: string, ctx: ExtensionContext & { navigateTree?: (id: string, opts?: unknown) => Promise<void> }, point: Point, mode: RestoreMode): Promise<void> {
   if (mode === "Files + conversation" || mode === "Files only") {
     await restore(root, point.commit);
-    ctx.ui.notify("rewind: files restored", "info");
+    safeNotify(ctx, "rewind: files restored", "info");
   }
   if (mode === "Files + conversation" || mode === "Conversation only") {
     try {
       if (typeof ctx.navigateTree === "function") await ctx.navigateTree(point.entryId, { summarize: false });
       else throw new Error("navigateTree unavailable");
-    } catch {
-      ctx.ui.notify("rewind: conversation navigation failed", "warning");
+    } catch (error) {
+      if (isStaleCtxError(error)) return;
+      safeNotify(ctx, "rewind: conversation navigation failed", "warning");
     }
   }
 }
@@ -283,6 +264,7 @@ export default function simpleRewind(pi: ExtensionAPI) {
   let pending: { promise: Promise<{ commit: string; tree: string }>; prompt: string; ts: number } | null = null;
   let redoPoint: { commit: string; tree: string; ts: number; entryId?: string } | null = null;
   let undoCursorTs: number | null = null;
+  let sessionAlive = false;
 
   function uniqueRecent(points: Point[]): Point[] {
     const seen = new Set<string>();
@@ -315,10 +297,12 @@ export default function simpleRewind(pi: ExtensionAPI) {
   }
 
   async function refresh(ctx: ExtensionContext) {
+    const cwd = ctx.cwd;
     cfg = await readConfig();
-    gitOk = await isGitRepo(ctx.cwd);
-    root = gitOk ? await git(ctx.cwd, ["rev-parse", "--show-toplevel"]) : null;
-    updateStatus(ctx, cfg, (await livePoints(ctx)).length, gitOk);
+    gitOk = await isGitRepo(cwd);
+    root = gitOk ? await git(cwd, ["rev-parse", "--show-toplevel"]) : null;
+    if (!sessionAlive) return;
+    safeUpdateStatus(ctx, cfg, (await livePoints(ctx)).length, gitOk);
   }
 
   async function rewriteLiveStore(ctx: ExtensionContext) {
@@ -329,8 +313,14 @@ export default function simpleRewind(pi: ExtensionAPI) {
   }
 
   pi.on("session_start", async (_event, ctx) => {
-    ctx.ui.addAutocompleteProvider((current) => createRewindAutocompleteProvider(current));
+    sessionAlive = true;
     await refresh(ctx);
+  });
+
+  pi.on("session_shutdown", async () => {
+    sessionAlive = false;
+    pending = null;
+    activePrompt = "";
   });
 
   pi.on("before_agent_start", async (event) => {
@@ -353,27 +343,29 @@ export default function simpleRewind(pi: ExtensionAPI) {
       const snap = await promise;
       pending = { promise: Promise.resolve(snap), prompt, ts };
       const count = Math.min(cfg.maxSteps, (await livePoints(ctx)).length + 1);
-      updateStatus(ctx, cfg, count, gitOk);
+      safeUpdateStatus(ctx, cfg, count, gitOk);
     } catch (error) {
       pending = null;
-      if (ctx.hasUI) ctx.ui.notify(`rewind: checkpoint failed: ${error instanceof Error ? error.message : String(error)}`, "warning");
+      if (!isStaleCtxError(error)) safeNotify(ctx, `rewind: checkpoint failed: ${error instanceof Error ? error.message : String(error)}`, "warning");
     }
   });
 
   pi.on("agent_end", async (_event, ctx) => {
     if (!pending || !root) return;
     const current = pending;
+    const checkpointRoot = root;
     try {
       const snap = await current.promise;
+      if (!sessionAlive) return;
       const user = findLatestUserEntry(ctx, current.prompt);
       if (!user?.id) return;
       const point: Point = { v: 1, entryId: user.id, prompt: current.prompt, commit: snap.commit, tree: snap.tree, ts: current.ts };
-      pi.appendEntry("simple-rewind-point", point);
+      if (!safeAppendEntry(pi, "simple-rewind-point", point)) return;
       const points = await livePoints(ctx, [point]);
-      await rewriteStore(root, points.map((p) => p.commit));
-      updateStatus(ctx, cfg, points.length, gitOk);
+      await rewriteStore(checkpointRoot, points.map((p) => p.commit));
+      safeUpdateStatus(ctx, cfg, points.length, gitOk);
     } catch (error) {
-      if (ctx.hasUI) ctx.ui.notify(`rewind: checkpoint failed: ${error instanceof Error ? error.message : String(error)}`, "warning");
+      if (!isStaleCtxError(error)) safeNotify(ctx, `rewind: checkpoint failed: ${error instanceof Error ? error.message : String(error)}`, "warning");
     } finally {
       if (pending === current) pending = null;
       activePrompt = "";
@@ -382,12 +374,11 @@ export default function simpleRewind(pi: ExtensionAPI) {
 
   pi.registerCommand("rewind", {
     description: "User-only rewind. Usage: /rewind [clean|status|on|off|async on|async off|status on|status off|max N]",
-    getArgumentCompletions: (prefix: string): AutocompleteItem[] | null => completeArgs(REWIND_COMPLETIONS, prefix),
     handler: async (args, ctx) => {
       await refresh(ctx as unknown as ExtensionContext);
       const action = args.trim().toLowerCase();
       if (!root || !gitOk) {
-        ctx.ui.notify("rewind: not a git repo", "warning");
+        safeNotify(ctx as unknown as ExtensionContext, "rewind: not a git repo", "warning");
         return;
       }
 
@@ -395,59 +386,59 @@ export default function simpleRewind(pi: ExtensionAPI) {
         const ok = await ctx.ui.confirm("Delete all simple-rewind checkpoints for this repo?", "This only deletes refs/pi-simple-rewind/store; session log remains.");
         if (!ok) return;
         await clean(root);
-        pi.appendEntry("simple-rewind-clean", { v: 1, ts: Date.now() });
-        updateStatus(ctx as unknown as ExtensionContext, cfg, 0, gitOk);
-        ctx.ui.notify("rewind: checkpoints cleaned", "info");
+        safeAppendEntry(pi, "simple-rewind-clean", { v: 1, ts: Date.now() });
+        safeUpdateStatus(ctx as unknown as ExtensionContext, cfg, 0, gitOk);
+        safeNotify(ctx as unknown as ExtensionContext, "rewind: checkpoints cleaned", "info");
         return;
       }
 
       if (action === "status") {
         const points = await livePoints(ctx as unknown as ExtensionContext);
-        ctx.ui.notify(`rewind: ${cfg.enabled ? "on" : "off"}, status ${cfg.status ? "on" : "off"}, async ${cfg.async ? "on" : "off"}, ${points.length}/${cfg.maxSteps} points`, "info");
+        safeNotify(ctx as unknown as ExtensionContext, `rewind: ${cfg.enabled ? "on" : "off"}, status ${cfg.status ? "on" : "off"}, async ${cfg.async ? "on" : "off"}, ${points.length}/${cfg.maxSteps} points`, "info");
         return;
       }
 
       if (action === "async on" || action === "async off") {
         cfg.async = action.endsWith("on");
         await writeConfig(cfg);
-        ctx.ui.notify(`rewind async: ${cfg.async ? "on" : "off"}`, "info");
+        safeNotify(ctx as unknown as ExtensionContext, `rewind async: ${cfg.async ? "on" : "off"}`, "info");
         return;
       }
 
       if (action === "on" || action === "off") {
         cfg.enabled = action === "on";
         await writeConfig(cfg);
-        updateStatus(ctx as unknown as ExtensionContext, cfg, pointsFromSession(ctx as unknown as ExtensionContext).length, gitOk);
-        ctx.ui.notify(`rewind: ${action}`, "info");
+        safeUpdateStatus(ctx as unknown as ExtensionContext, cfg, pointsFromSession(ctx as unknown as ExtensionContext).length, gitOk);
+        safeNotify(ctx as unknown as ExtensionContext, `rewind: ${action}`, "info");
         return;
       }
 
       if (action === "status on" || action === "status off") {
         cfg.status = action.endsWith("on");
         await writeConfig(cfg);
-        updateStatus(ctx as unknown as ExtensionContext, cfg, pointsFromSession(ctx as unknown as ExtensionContext).length, gitOk);
-        ctx.ui.notify(`rewind status: ${cfg.status ? "on" : "off"}`, "info");
+        safeUpdateStatus(ctx as unknown as ExtensionContext, cfg, pointsFromSession(ctx as unknown as ExtensionContext).length, gitOk);
+        safeNotify(ctx as unknown as ExtensionContext, `rewind status: ${cfg.status ? "on" : "off"}`, "info");
         return;
       }
 
       if (action.startsWith("max ")) {
         const n = Number(action.slice(4).trim());
         if (!Number.isFinite(n) || n < 1 || n > 50) {
-          ctx.ui.notify("rewind: max must be 1..50", "warning");
+          safeNotify(ctx as unknown as ExtensionContext, "rewind: max must be 1..50", "warning");
           return;
         }
         cfg.maxSteps = Math.floor(n);
         await writeConfig(cfg);
         const points = pointsFromSession(ctx as unknown as ExtensionContext).slice(0, cfg.maxSteps);
         await rewriteStore(root, points.map((p) => p.commit));
-        updateStatus(ctx as unknown as ExtensionContext, cfg, points.length, gitOk);
-        ctx.ui.notify(`rewind: maxSteps=${cfg.maxSteps}`, "info");
+        safeUpdateStatus(ctx as unknown as ExtensionContext, cfg, points.length, gitOk);
+        safeNotify(ctx as unknown as ExtensionContext, `rewind: maxSteps=${cfg.maxSteps}`, "info");
         return;
       }
 
       const points = await livePoints(ctx as unknown as ExtensionContext);
       if (points.length === 0) {
-        ctx.ui.notify("rewind: no checkpoints", "warning");
+        safeNotify(ctx as unknown as ExtensionContext, "rewind: no checkpoints", "warning");
         return;
       }
 
@@ -461,11 +452,10 @@ export default function simpleRewind(pi: ExtensionAPI) {
 
   pi.registerCommand("undo", {
     description: "Undo latest user turn. Creates one redo slot. Usage: /undo [all|files|conversation]",
-    getArgumentCompletions: (prefix: string): AutocompleteItem[] | null => completeArgs(UNDO_COMPLETIONS, prefix),
     handler: async (args, ctx) => {
       await refresh(ctx as unknown as ExtensionContext);
       if (!root || !gitOk) {
-        ctx.ui.notify("undo: not a git repo", "warning");
+        safeNotify(ctx as unknown as ExtensionContext, "undo: not a git repo", "warning");
         return;
       }
 
@@ -473,7 +463,7 @@ export default function simpleRewind(pi: ExtensionAPI) {
       if (undoCursorTs !== null) points = points.filter((p) => p.ts < undoCursorTs!);
       const point = points[0];
       if (!point) {
-        ctx.ui.notify("undo: no checkpoint", "warning");
+        safeNotify(ctx as unknown as ExtensionContext, "undo: no checkpoint", "warning");
         return;
       }
 
@@ -483,7 +473,7 @@ export default function simpleRewind(pi: ExtensionAPI) {
       if (arg === "files" || arg === "file" || arg === "code") mode = "Files only";
       if (arg === "conversation" || arg === "chat" || arg === "ctx" || arg === "context") mode = "Conversation only";
       if (!mode) {
-        ctx.ui.notify("undo: usage /undo [all|files|conversation]", "warning");
+        safeNotify(ctx as unknown as ExtensionContext, "undo: usage /undo [all|files|conversation]", "warning");
         return;
       }
 
@@ -498,7 +488,7 @@ export default function simpleRewind(pi: ExtensionAPI) {
 
       await restorePoint(root, ctx as unknown as ExtensionContext & { navigateTree?: (id: string, opts?: unknown) => Promise<void> }, point, mode);
       undoCursorTs = point.ts;
-      ctx.ui.notify(`undo: ${trimOneLine(point.prompt, 50)}${redoPoint ? " · redo ready" : ""}`, "info");
+      safeNotify(ctx as unknown as ExtensionContext, `undo: ${trimOneLine(point.prompt, 50)}${redoPoint ? " · redo ready" : ""}`, "info");
     },
   });
 
@@ -507,17 +497,17 @@ export default function simpleRewind(pi: ExtensionAPI) {
     handler: async (_args, ctx) => {
       await refresh(ctx as unknown as ExtensionContext);
       if (!root || !gitOk) {
-        ctx.ui.notify("redo: not a git repo", "warning");
+        safeNotify(ctx as unknown as ExtensionContext, "redo: not a git repo", "warning");
         return;
       }
       if (!redoPoint) {
-        ctx.ui.notify("redo: nothing to redo; run /undo first", "warning");
+        safeNotify(ctx as unknown as ExtensionContext, "redo: nothing to redo; run /undo first", "warning");
         return;
       }
       if (!(await commitExists(root, redoPoint.commit))) {
         redoPoint = null;
         await rewriteLiveStore(ctx as unknown as ExtensionContext);
-        ctx.ui.notify("redo: snapshot missing", "warning");
+        safeNotify(ctx as unknown as ExtensionContext, "redo: snapshot missing", "warning");
         return;
       }
 
@@ -530,10 +520,10 @@ export default function simpleRewind(pi: ExtensionAPI) {
         try {
           await ctx.navigateTree(targetEntryId, { summarize: false });
         } catch {
-          ctx.ui.notify("redo: conversation navigation failed", "warning");
+          safeNotify(ctx as unknown as ExtensionContext, "redo: conversation navigation failed", "warning");
         }
       }
-      ctx.ui.notify("redo: restored; redo slot cleared", "info");
+      safeNotify(ctx as unknown as ExtensionContext, "redo: restored; redo slot cleared", "info");
     },
   });
 }
