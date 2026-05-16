@@ -15,11 +15,15 @@
         "+extensions/pi/index.ts"
       ]
     },
-    "npm:pi-rtk-optimizer"
+    "npm:pi-rtk-optimizer",
+    {
+      "source": "npm:@plannotator/pi-extension",
+      "skills": []
+    }
   ],
-  "defaultProvider": "cf-codex",
-  "defaultModel": "gpt-5.5",
-  "defaultThinkingLevel": "medium",
+  "defaultProvider": "idealab",
+  "defaultModel": "claude-opus-4-7",
+  "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
     "showImages": true
