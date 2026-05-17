@@ -7,15 +7,8 @@
     "npm:@tmustier/pi-usage-extension",
     "npm:pi-caveman",
     "npm:@eko24ive/pi-ask",
-    {
-      "source": "npm:pi-slop-review",
-      "extensions": ["+extensions/pi/index.ts"]
-    },
+    "npm:pi-slop-review",
     "npm:pi-rtk-optimizer",
-    {
-      "source": "npm:@plannotator/pi-extension",
-      "skills": []
-    },
     "npm:pi-btw"
   ],
   "defaultProvider": "cf-codex",
@@ -53,3 +46,4 @@
     }
   }
 }
+
