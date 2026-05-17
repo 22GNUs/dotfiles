@@ -11,10 +11,10 @@
     "npm:pi-rtk-optimizer",
     "npm:pi-btw"
   ],
-  "defaultProvider": "cf-codex",
-  "defaultModel": "gpt-5.5",
+  "defaultProvider": "cf-compat",
+  "defaultModel": "openrouter/deepseek/deepseek-v4-flash:free",
   "defaultThinkingLevel": "low",
-  "hideThinkingBlock": true,
+  "hideThinkingBlock": false,
   "terminal": {
     "showImages": false
   },
@@ -27,8 +27,8 @@
   },
   "enabledModels": [
     "cf-codex/gpt-5.5",
-    "cf-codex/gpt-5.4",
-    "cf-codex/gpt-5.4-mini"
+    "cf-codex/gpt-5.4-mini",
+    "cf-compat/openrouter/deepseek/deepseek-v4-pro"
   ],
   "extensions": [
     "+extensions/pi-custom-providers/custom-provider-cf-packycode.ts",
@@ -46,4 +46,3 @@
     }
   }
 }
-
