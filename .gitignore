@@ -50,3 +50,5 @@ external/
 /.pi/agent/pi-stash.json
 /.config/herdr/session.json
 /.config/herdr/release-notes.json
+/.config/opencode/agentshell-config.json
+/.config/opencode/plugins
