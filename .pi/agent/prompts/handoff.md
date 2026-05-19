@@ -9,13 +9,11 @@ Arguments from user, if any: `$ARGUMENTS`
 
 ## Requirements
 
-1. Create destination path with cross-platform `mktemp` usage:
+1. Create destination path with:
 
    ```bash
-   mktemp "${TMPDIR:-/tmp}/handoff-XXXXXX.md"
+   mktemp -t handoff-XXXXXX.md
    ```
-
-   This yields path like `/tmp/handoff-a1B2c3.md` on Linux or `$TMPDIR/handoff-a1B2c3.md` on macOS.
 
 2. Read generated file path before writing to it.
 
