@@ -1,5 +1,7 @@
 // installed by herdr
 // safe to edit. this integration only activates inside herdr-managed panes.
+// HERDR_INTEGRATION_ID=pi
+// HERDR_INTEGRATION_VERSION=1
 // @ts-nocheck
 
 import { createConnection } from "node:net";
@@ -37,7 +39,38 @@ function sendRequest(request: unknown): Promise<void> {
   });
 }
 
-function sendState(state: "working" | "blocked" | "idle", message?: string): Promise<void> {
+type AgentState = "working" | "blocked" | "idle";
+
+type QueuedState = {
+  state: AgentState;
+  message?: string;
+  seq: number;
+};
+
+const idleDebounceMs = parseDurationEnv("HERDR_PI_IDLE_DEBOUNCE_MS", 250);
+const retryGraceMs = parseDurationEnv("HERDR_PI_RETRY_GRACE_MS", 2500);
+const retryableErrorPattern =
+  /overloaded|provider.?returned.?error|rate.?limit|too many requests|429|500|502|503|504|service.?unavailable|server.?error|internal.?error|network.?error|connection.?error|connection.?refused|connection.?lost|websocket.?closed|websocket.?error|other side closed|fetch failed|upstream.?connect|reset before headers|socket hang up|ended without|http2 request did not get a response|timed? out|timeout|terminated|retry delay/i;
+let reportSeq = Date.now() * 1000;
+
+function nextReportSeq(): number {
+  reportSeq += 1;
+  return reportSeq;
+}
+
+function parseDurationEnv(name: string, fallback: number): number {
+  const raw = process.env[name];
+  if (!raw) {
+    return fallback;
+  }
+  const parsed = Number.parseInt(raw, 10);
+  if (!Number.isFinite(parsed) || parsed < 0) {
+    return fallback;
+  }
+  return parsed;
+}
+
+function sendState(state: AgentState, message?: string, seq = nextReportSeq()): Promise<void> {
   return sendRequest({
     id: `${source}:${Date.now()}:${Math.random().toString(36).slice(2)}`,
     method: "pane.report_agent",
@@ -47,8 +80,63 @@ function sendState(state: "working" | "blocked" | "idle", message?: string): Pro
       agent: "pi",
       state,
       message,
+      seq,
     },
   });
+}
+
+let sendInFlight = false;
+let queuedState: QueuedState | undefined;
+
+function queueState(state: AgentState, message?: string): void {
+  queuedState = { state, message, seq: nextReportSeq() };
+  if (!sendInFlight) {
+    void drainStateQueue();
+  }
+}
+
+async function drainStateQueue(): Promise<void> {
+  if (sendInFlight) {
+    return;
+  }
+
+  sendInFlight = true;
+  try {
+    while (queuedState) {
+      const next = queuedState;
+      queuedState = undefined;
+      await sendState(next.state, next.message, next.seq);
+    }
+  } finally {
+    sendInFlight = false;
+    if (queuedState) {
+      void drainStateQueue();
+    }
+  }
+}
+
+function lastAssistantMessage(messages: unknown[]): any | undefined {
+  for (let i = messages.length - 1; i >= 0; i -= 1) {
+    const message = messages[i] as any;
+    if (message?.role === "assistant") {
+      return message;
+    }
+  }
+  return undefined;
+}
+
+function retryableErrorMessage(event: any): string | undefined {
+  const messages = Array.isArray(event?.messages) ? event.messages : [];
+  const assistant = lastAssistantMessage(messages);
+  if (assistant?.stopReason !== "error") {
+    return undefined;
+  }
+
+  const errorMessage = String(assistant.errorMessage ?? "");
+  if (!retryableErrorPattern.test(errorMessage)) {
+    return undefined;
+  }
+  return errorMessage || "retryable provider error";
 }
 
 function releaseAgent(): Promise<void> {
@@ -59,6 +147,7 @@ function releaseAgent(): Promise<void> {
       pane_id: paneId,
       source,
       agent: "pi",
+      seq: nextReportSeq(),
     },
   });
 }
@@ -69,16 +158,43 @@ export default function (pi) {
   }
 
   let agentActive = false;
+  let retryHoldActive = false;
+  let failureBlocked = false;
+  let failureMessage: string | undefined;
   let blockedCount = 0;
   let blockedMessage: string | undefined;
-  let lastState: "working" | "blocked" | "idle" | undefined;
+  let lastState: AgentState | undefined;
   let lastMessage: string | undefined;
+  let idleTimer: ReturnType<typeof setTimeout> | undefined;
+  let retryTimer: ReturnType<typeof setTimeout> | undefined;
+
+  function clearTimer(timer: ReturnType<typeof setTimeout> | undefined) {
+    if (timer) {
+      clearTimeout(timer);
+    }
+  }
+
+  function clearPendingTimers() {
+    clearTimer(idleTimer);
+    clearTimer(retryTimer);
+    idleTimer = undefined;
+    retryTimer = undefined;
+  }
+
+  function clearFailureState() {
+    retryHoldActive = false;
+    failureBlocked = false;
+    failureMessage = undefined;
+  }
 
   function desiredState() {
     if (blockedCount > 0) {
       return { state: "blocked" as const, message: blockedMessage };
     }
-    if (agentActive) {
+    if (failureBlocked) {
+      return { state: "blocked" as const, message: failureMessage };
+    }
+    if (agentActive || retryHoldActive) {
       return { state: "working" as const, message: undefined };
     }
     return { state: "idle" as const, message: undefined };
@@ -91,7 +207,33 @@ export default function (pi) {
     }
     lastState = next.state;
     lastMessage = next.message;
-    void sendState(next.state, next.message);
+    queueState(next.state, next.message);
+  }
+
+  function scheduleIdle() {
+    clearPendingTimers();
+    clearFailureState();
+    idleTimer = setTimeout(() => {
+      idleTimer = undefined;
+      publishState();
+    }, idleDebounceMs);
+    idleTimer.unref?.();
+  }
+
+  function holdForRetry(message: string) {
+    clearPendingTimers();
+    retryHoldActive = true;
+    failureBlocked = false;
+    failureMessage = message;
+    publishState();
+
+    retryTimer = setTimeout(() => {
+      retryTimer = undefined;
+      retryHoldActive = false;
+      failureBlocked = true;
+      publishState();
+    }, retryGraceMs);
+    retryTimer.unref?.();
   }
 
   pi.events.on("herdr:blocked", (data) => {
@@ -104,22 +246,40 @@ export default function (pi) {
       return;
     }
 
+    clearPendingTimers();
     blockedCount += 1;
     blockedMessage = data.label;
     publishState();
   });
 
   pi.on("agent_start", () => {
+    clearPendingTimers();
+    clearFailureState();
     agentActive = true;
     publishState();
   });
 
-  pi.on("agent_end", () => {
+  pi.on("agent_end", (event) => {
+    if (!agentActive) {
+      // Pi can emit duplicate/late end events while auto-retry is already
+      // holding the pane in Working. Do not let an unqualified duplicate end
+      // cancel the retry hold and publish a false Idle.
+      return;
+    }
+
     agentActive = false;
-    publishState();
+
+    const retryableMessage = retryableErrorMessage(event);
+    if (retryableMessage) {
+      holdForRetry(retryableMessage);
+      return;
+    }
+
+    scheduleIdle();
   });
 
   pi.on("session_shutdown", async () => {
+    clearPendingTimers();
     await releaseAgent();
   });
 }
