@@ -3,9 +3,9 @@ onboarding = false
 [keys]
 previous_tab = "alt+i"
 next_tab = "alt+o"
-reload_config = "shift+r"
 previous_workspace = "alt+shift+i"
 next_workspace = "alt+shift+o"
+reload_config = "prefix+shift+r"
 
 [theme]
 name = "tokyo-night"
