@@ -3,14 +3,24 @@ name: commit
 description: "Read this skill before making git commits"
 ---
 
-Create a git commit for the current changes using a concise Conventional Commits-style subject.
+Create 1-3 git commits for the current changes. Merge related changes together—do NOT split finely.
+Use concise Conventional Commits-style subjects.
+
+## Grouping strategy
+
+- Group related file changes into ONE commit. Same topic → same commit.
+- Result MUST be 1-3 commits total. If changes are all one theme, use 1 commit.
+- Split into separate commits ONLY when changes address clearly unrelated concerns.
+- Examples of good grouping:
+  - All config tweaks → 1 commit (`chore(config): update dotfiles`)
+  - Feature + unrelated bugfix → 2 commits (`feat(ui): ...` + `fix(api): ...`)
 
 ## Format
 
 `<type>(<scope>): <summary>`
 
-- `type` REQUIRED. Use `feat` for new features, `fix` for bug fixes. Other common types: `docs`, `refactor`, `chore`, `test`, `perf`.
-- `scope` OPTIONAL. Short noun in parentheses for the affected area (e.g., `api`, `parser`, `ui`).
+- `type` REQUIRED. `feat`, `fix`, `docs`, `refactor`, `chore`, `test`, `perf`, `style`.
+- `scope` OPTIONAL. Short noun for affected area (e.g., `api`, `ui`, `config`).
 - `summary` REQUIRED. Short, imperative, <= 72 chars, no trailing period.
 
 ## Notes
@@ -29,7 +39,6 @@ Create a git commit for the current changes using a concise Conventional Commits
 
 1. Infer from the prompt if the user provided specific file paths/globs and/or additional instructions.
 2. Review `git status` and `git diff` to understand the current changes (limit to argument-specified files if provided).
-3. (Optional) Run `git log -n 50 --pretty=format:%s` to see commonly used scopes.
-4. If there are ambiguous extra files, ask the user for clarification before committing.
-5. Stage only the intended files (all changes if no files specified).
-6. Run `git commit -m "<subject>"` (and `-m "<body>"` if needed).
+3. Run `git log -n 30 --pretty=format:%s` to see recent commit style and scopes.
+4. Group changes into 1-3 logical commits. If ambiguous, briefly show your proposed grouping and ask for confirmation.
+5. For each commit: stage the intended files, then run `git commit -m "<subject>"` (and `-m "<body>"` if needed).
