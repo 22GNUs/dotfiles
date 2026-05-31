@@ -8,12 +8,8 @@ Use concise Conventional Commits-style subjects.
 
 ## Grouping strategy
 
-- Group related file changes into ONE commit. Same topic → same commit.
-- Result MUST be 1-3 commits total. If changes are all one theme, use 1 commit.
-- Split into separate commits ONLY when changes address clearly unrelated concerns.
-- Examples of good grouping:
-  - All config tweaks → 1 commit (`chore(config): update dotfiles`)
-  - Feature + unrelated bugfix → 2 commits (`feat(ui): ...` + `fix(api): ...`)
+- Prefer 1 commit. Only split if changes are clearly unrelated.
+- Same topic → same commit. Do NOT over-split.
 
 ## Format
 
@@ -35,10 +31,17 @@ Use concise Conventional Commits-style subjects.
   - File paths or globs should limit which files to commit. If files are specified, only stage/commit those unless the user explicitly asks otherwise.
   - If arguments combine files and instructions, honor both.
 
+## Rules
+
+- Minimal tool calls. One `git diff --stat` + one `git diff` is enough.
+- Do NOT ask the user questions. Decide and commit.
+- Do NOT run `git log` unless scope is truly unclear.
+- Commit as fast as possible.
+
 ## Steps
 
-1. Infer from the prompt if the user provided specific file paths/globs and/or additional instructions.
-2. Review `git status` and `git diff` to understand the current changes (limit to argument-specified files if provided).
-3. Run `git log -n 30 --pretty=format:%s` to see recent commit style and scopes.
-4. Group changes into 1-3 logical commits. If ambiguous, briefly show your proposed grouping and ask for confirmation.
-5. For each commit: stage the intended files, then run `git commit -m "<subject>"` (and `-m "<body>"` if needed).
+1. Run `git diff --stat` and `git diff` together in one bash call (use `&&` or `;`).
+2. If argument-specified files exist, add `-- <files>` to the diff commands.
+3. Infer scope from changed files/paths. Infer type from change nature (new = feat, fix = fix, rest = chore/refactor).
+4. `git add -A` (or `git add <files>`) then `git commit -m "<subject>"` in ONE bash call (chain with `&&`).
+5. If changes are clearly 2 unrelated topics, do 2 commits at most. Otherwise 1 commit.
