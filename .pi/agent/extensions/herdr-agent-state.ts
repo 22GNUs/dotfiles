@@ -1,7 +1,8 @@
 // installed by herdr
-// safe to edit. this integration only activates inside herdr-managed panes.
+// managed by herdr; reinstalling or updating the integration overwrites this file.
+// add custom hooks/plugins beside this file instead of editing it.
 // HERDR_INTEGRATION_ID=pi
-// HERDR_INTEGRATION_VERSION=1
+// HERDR_INTEGRATION_VERSION=2
 // @ts-nocheck
 
 import { createConnection } from "node:net";
@@ -52,6 +53,8 @@ const retryGraceMs = parseDurationEnv("HERDR_PI_RETRY_GRACE_MS", 2500);
 const retryableErrorPattern =
   /overloaded|provider.?returned.?error|rate.?limit|too many requests|429|500|502|503|504|service.?unavailable|server.?error|internal.?error|network.?error|connection.?error|connection.?refused|connection.?lost|websocket.?closed|websocket.?error|other side closed|fetch failed|upstream.?connect|reset before headers|socket hang up|ended without|http2 request did not get a response|timed? out|timeout|terminated|retry delay/i;
 let reportSeq = Date.now() * 1000;
+let currentAgentSessionId: string | undefined;
+let currentAgentSessionPath: string | undefined;
 
 function nextReportSeq(): number {
   reportSeq += 1;
@@ -70,18 +73,45 @@ function parseDurationEnv(name: string, fallback: number): number {
   return parsed;
 }
 
+function updateSessionRef(ctx: any): void {
+  try {
+    const file = ctx?.sessionManager?.getSessionFile?.();
+    currentAgentSessionPath =
+      typeof file === "string" && file.startsWith("/") ? file : undefined;
+  } catch {
+    currentAgentSessionPath = undefined;
+  }
+
+  try {
+    const id = ctx?.sessionManager?.getSessionId?.();
+    currentAgentSessionId = typeof id === "string" && id.length > 0 ? id : undefined;
+  } catch {
+    currentAgentSessionId = undefined;
+  }
+}
+
+function withSessionRef(params: Record<string, unknown>): Record<string, unknown> {
+  if (currentAgentSessionPath) {
+    return { ...params, agent_session_path: currentAgentSessionPath };
+  }
+  if (currentAgentSessionId) {
+    return { ...params, agent_session_id: currentAgentSessionId };
+  }
+  return params;
+}
+
 function sendState(state: AgentState, message?: string, seq = nextReportSeq()): Promise<void> {
   return sendRequest({
     id: `${source}:${Date.now()}:${Math.random().toString(36).slice(2)}`,
     method: "pane.report_agent",
-    params: {
+    params: withSessionRef({
       pane_id: paneId,
       source,
       agent: "pi",
       state,
       message,
       seq,
-    },
+    }),
   });
 }
 
@@ -200,9 +230,9 @@ export default function (pi) {
     return { state: "idle" as const, message: undefined };
   }
 
-  function publishState() {
+  function publishState(force = false) {
     const next = desiredState();
-    if (next.state === lastState && next.message === lastMessage) {
+    if (!force && next.state === lastState && next.message === lastMessage) {
       return;
     }
     lastState = next.state;
@@ -219,6 +249,11 @@ export default function (pi) {
     }, idleDebounceMs);
     idleTimer.unref?.();
   }
+
+  pi.on("session_start", (_event, ctx) => {
+    updateSessionRef(ctx);
+    publishState(true);
+  });
 
   function holdForRetry(message: string) {
     clearPendingTimers();
