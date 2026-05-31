@@ -13,7 +13,7 @@
   ],
   "defaultProvider": "cf-compat",
   "defaultModel": "deepseek/deepseek-v4-pro",
-  "defaultThinkingLevel": "medium",
+  "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
     "showImages": false
