@@ -25,6 +25,24 @@ export default function (pi: ExtensionAPI) {
     api: "openai-completions",
     models: [
       {
+        id: "deepseek/deepseek-v4-flash",
+        name: "DeepSeek V4 Flash",
+        reasoning: true,
+        input: ["text"],
+        contextWindow: 1000000,
+        maxTokens: 384000,
+        ...createCloudflareAIGatewayPricing(0.14, 0.28, 0.0028),
+      },
+      {
+        id: "deepseek/deepseek-v4-pro",
+        name: "DeepSeek V4 Pro",
+        reasoning: true,
+        input: ["text"],
+        contextWindow: 1000000,
+        maxTokens: 384000,
+        ...createCloudflareAIGatewayPricing(0.435, 0.87, 0.003625),
+      },
+      {
         id: "openrouter/deepseek/deepseek-v4-flash",
         name: "DeepSeek V4 Flash",
         reasoning: true,
