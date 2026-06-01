@@ -18,7 +18,7 @@ export default function (pi: ExtensionAPI) {
 
   pi.registerProvider("cf-codex", {
     baseUrl: `https://gateway.ai.cloudflare.com/v1/${accountId}/${gatewayId}/custom-codex`,
-    apiKey: "CLOUDFLARE_API_TOKEN",
+    apiKey: "$CLOUDFLARE_API_TOKEN",
     api: "openai-responses",
     models: [
       {

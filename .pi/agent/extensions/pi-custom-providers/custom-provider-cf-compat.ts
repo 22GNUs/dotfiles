@@ -21,7 +21,7 @@ export default function (pi: ExtensionAPI) {
 
   pi.registerProvider("cf-compat", {
     baseUrl: `https://gateway.ai.cloudflare.com/v1/${accountId}/${gatewayId}/compat`,
-    apiKey: "CLOUDFLARE_API_TOKEN",
+    apiKey: "$CLOUDFLARE_API_TOKEN",
     api: "openai-completions",
     models: [
       {
