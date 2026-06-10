@@ -7,11 +7,10 @@
     "npm:@tmustier/pi-usage-extension",
     "npm:pi-caveman",
     "npm:@eko24ive/pi-ask",
-    "npm:pi-slop-review",
-    "git:github.com/MasuRii/pi-rtk-optimizer"
+    "npm:pi-slop-review"
   ],
-  "defaultProvider": "cf-compat",
-  "defaultModel": "deepseek/deepseek-v4-pro",
+  "defaultProvider": "qoder",
+  "defaultModel": "gm51model",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
