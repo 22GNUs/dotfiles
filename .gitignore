@@ -52,3 +52,4 @@ external/
 /.config/herdr/release-notes.json
 /.config/opencode/agentshell-config.json
 /.config/opencode/plugins
+/.pi/agent/trust.json
