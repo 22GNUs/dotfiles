@@ -9,8 +9,8 @@
     "npm:@eko24ive/pi-ask",
     "npm:pi-slop-review"
   ],
-  "defaultProvider": "cf-codex",
-  "defaultModel": "gpt-5.5",
+  "defaultProvider": "qoder",
+  "defaultModel": "ultimate",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
