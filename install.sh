@@ -100,6 +100,7 @@ SYNC_DIRS=(
   ".config/nvim|$HOME/.config/nvim|📝 Neovim config"
   ".config/opencode|$HOME/.config/opencode|🤖 OpenCode config"
   ".config/herdr|$HOME/.config/herdr|📋 Herdr config"
+  ".config/hunk/config.toml|$HOME/.config/hunk/config.toml|🔎 Hunk config"
   ".agents|$HOME/.agents|🤖 AI agents config"
   ".pi|$HOME/.pi|🤖 Pi agent config"
 )
