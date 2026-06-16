@@ -3,7 +3,7 @@
 
 [core]
   editor = nvim
-  pager = delta
+	pager = hunk pager
 	untrackedCache = true
 	fsmonitor = true
 	preloadIndex = true

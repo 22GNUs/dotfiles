@@ -4,6 +4,7 @@
 
 theme = "custom"
 mode = "stack"
+exclude_untracked = false
 
 [custom_theme]
 base = "midnight"
