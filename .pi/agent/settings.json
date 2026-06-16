@@ -1,16 +1,17 @@
 {
-  "lastChangelogVersion": "0.79.1",
+  "lastChangelogVersion": "0.79.4",
   "theme": "cyber-ui-dark",
   "packages": [
-    "/Users/xinhua/Developer/pi-cyber-ui",
     "npm:pi-web-access",
     "npm:@tmustier/pi-usage-extension",
     "npm:pi-caveman",
     "npm:@eko24ive/pi-ask",
-    "npm:pi-slop-review"
+    "npm:pi-slop-review",
+    "git:github.com/22GNUs/pi-qoder-provider",
+    "npm:pi-cyber-ui"
   ],
   "defaultProvider": "qoder",
-  "defaultModel": "ultimate",
+  "defaultModel": "kmodel",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
@@ -25,8 +26,8 @@
   },
   "enabledModels": [
     "cf-codex/gpt-5.5",
-    "cf-codex/gpt-5.4-mini",
-    "cf-compat/deepseek/deepseek-v4-pro"
+    "qoder/ultimate",
+    "qoder/kmodel"
   ],
   "extensions": [
     "+extensions/pi-custom-providers/custom-provider-cf-packycode.ts",
