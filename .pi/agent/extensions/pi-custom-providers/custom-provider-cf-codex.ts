@@ -48,6 +48,15 @@ export default function (pi: ExtensionAPI) {
         maxTokens: 128000,
         ...createCloudflareAIGatewayPricing(0.75, 4.5, 0.075),
       },
+      {
+        id: "grok-composer-2.5-fast",
+        name: "Grok Composer 2.5 Fast",
+        reasoning: false,
+        input: ["text", "image"],
+        contextWindow: 256000,
+        maxTokens: 256000,
+        ...createCloudflareAIGatewayPricing(0.5, 2.5, 0.2),
+      },
     ],
   });
 }

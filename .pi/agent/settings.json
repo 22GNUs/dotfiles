@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.79.4",
+  "lastChangelogVersion": "0.79.6",
   "theme": "cyber-ui-dark",
   "packages": [
     "npm:pi-web-access",
@@ -10,8 +10,8 @@
     "git:github.com/22GNUs/pi-qoder-provider",
     "npm:pi-cyber-ui"
   ],
-  "defaultProvider": "qoder",
-  "defaultModel": "kmodel",
+  "defaultProvider": "cf-codex",
+  "defaultModel": "grok-composer-2.5-fast",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
@@ -27,7 +27,8 @@
   "enabledModels": [
     "cf-codex/gpt-5.5",
     "qoder/ultimate",
-    "qoder/kmodel"
+    "qoder/kmodel",
+    "qoder/gm51model"
   ],
   "extensions": [
     "+extensions/pi-custom-providers/custom-provider-cf-packycode.ts",
