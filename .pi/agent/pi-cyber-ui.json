@@ -1,4 +1,3 @@
 {
-  "vimModeEnabled": true,
-  "jjEscapeTimeoutMs": 180
+  "profile": "safe"
 }

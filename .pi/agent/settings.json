@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.79.6",
+  "lastChangelogVersion": "0.79.7",
   "theme": "cyber-ui-dark",
   "packages": [
     "npm:pi-web-access",
@@ -7,7 +7,8 @@
     "npm:@eko24ive/pi-ask",
     "npm:pi-slop-review",
     "git:github.com/22GNUs/pi-qoder-provider",
-    "npm:pi-cyber-ui"
+    "npm:pi-cyber-ui",
+    "npm:@ff-labs/pi-fff"
   ],
   "defaultProvider": "qoder",
   "defaultModel": "kmodel-highspeed",
