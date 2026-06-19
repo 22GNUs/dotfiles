@@ -4,14 +4,13 @@
   "packages": [
     "npm:pi-web-access",
     "npm:@tmustier/pi-usage-extension",
-    "npm:pi-caveman",
     "npm:@eko24ive/pi-ask",
     "npm:pi-slop-review",
     "git:github.com/22GNUs/pi-qoder-provider",
     "npm:pi-cyber-ui"
   ],
-  "defaultProvider": "cf-codex",
-  "defaultModel": "grok-composer-2.5-fast",
+  "defaultProvider": "qoder",
+  "defaultModel": "kmodel-highspeed",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
@@ -27,8 +26,9 @@
   "enabledModels": [
     "cf-codex/gpt-5.5",
     "qoder/ultimate",
-    "qoder/kmodel",
-    "qoder/gm51model"
+    "qoder/gm51model",
+    "qoder/kmodel-highspeed",
+    "cf-codex/grok-composer-2.5-fast"
   ],
   "extensions": [
     "+extensions/pi-custom-providers/custom-provider-cf-packycode.ts",
