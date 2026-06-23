@@ -1,19 +1,18 @@
 {
-  "lastChangelogVersion": "0.79.8",
+  "lastChangelogVersion": "0.79.10",
   "theme": "cyber-ui-dark",
   "packages": [
     "npm:pi-web-access",
     "npm:@tmustier/pi-usage-extension",
     "npm:@eko24ive/pi-ask",
     "git:github.com/22GNUs/pi-qoder-provider",
-    "npm:pi-cyber-ui",
-    "npm:@ff-labs/pi-fff",
+    "/Users/xinhua/Developer/pi-cyber-ui",
     "npm:@juicesharp/rpiv-todo",
-    "../../Developer/semantic-review"
+    "npm:@ff-labs/pi-fff"
   ],
   "defaultProvider": "qoder",
   "defaultModel": "kmodel-highspeed",
-  "defaultThinkingLevel": "low",
+  "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
     "showImages": false
