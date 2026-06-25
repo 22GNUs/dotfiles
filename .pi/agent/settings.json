@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.79.10",
+  "lastChangelogVersion": "0.80.2",
   "theme": "cyber-ui-dark",
   "packages": [
     "npm:pi-web-access",
@@ -8,10 +8,10 @@
     "git:github.com/22GNUs/pi-qoder-provider",
     "/Users/xinhua/Developer/pi-cyber-ui",
     "npm:@juicesharp/rpiv-todo",
-    "npm:@ff-labs/pi-fff"
+    "npm:pi-dynamic-workflows"
   ],
   "defaultProvider": "qoder",
-  "defaultModel": "kmodel-highspeed",
+  "defaultModel": "gm51model",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
