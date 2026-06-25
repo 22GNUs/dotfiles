@@ -54,3 +54,6 @@ external/
 /.config/opencode/agentshell-config.json
 /.config/opencode/plugins
 /.pi/agent/trust.json
+/.pi/workflows/
+/.pi/agent/mcp-oauth/
+/.pi/pi-atlas-cache.json
