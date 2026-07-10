@@ -1,17 +1,18 @@
 {
-  "lastChangelogVersion": "0.80.2",
+  "lastChangelogVersion": "0.80.3",
   "theme": "cyber-ui-dark",
   "packages": [
     "npm:pi-web-access",
     "npm:@tmustier/pi-usage-extension",
     "npm:@eko24ive/pi-ask",
-    "git:github.com/22GNUs/pi-qoder-provider",
-    "/Users/xinhua/Developer/pi-cyber-ui",
     "npm:@juicesharp/rpiv-todo",
-    "npm:pi-dynamic-workflows"
+    "npm:@aliou/pi-synthetic",
+    "npm:@mohndoe/pi-atlas",
+    "/Users/xinhua/Developer/pi-qoder-provider-inner",
+    "/Users/xinhua/Developer/pi-cyber-ui"
   ],
   "defaultProvider": "qoder",
-  "defaultModel": "gm51model",
+  "defaultModel": "performance",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
@@ -26,10 +27,11 @@
   },
   "enabledModels": [
     "cf-codex/gpt-5.5",
-    "qoder/ultimate",
     "qoder/gm51model",
     "qoder/kmodel-highspeed",
-    "cf-codex/grok-composer-2.5-fast"
+    "cf-codex/grok-composer-2.5-fast",
+    "synthetic/syn:large:text",
+    "qoder/performance"
   ],
   "extensions": [
     "+extensions/pi-custom-providers/custom-provider-cf-packycode.ts",
