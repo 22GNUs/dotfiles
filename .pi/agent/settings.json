@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.80.3",
+  "lastChangelogVersion": "0.80.6",
   "theme": "cyber-ui-dark",
   "packages": [
     "npm:pi-web-access",
@@ -11,8 +11,8 @@
     "/Users/xinhua/Developer/pi-qoder-provider-inner",
     "/Users/xinhua/Developer/pi-cyber-ui"
   ],
-  "defaultProvider": "qoder",
-  "defaultModel": "performance",
+  "defaultProvider": "cliproxy",
+  "defaultModel": "grok-4.3",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
@@ -26,12 +26,13 @@
     "enabled": true
   },
   "enabledModels": [
-    "cf-codex/gpt-5.5",
     "qoder/gm51model",
     "qoder/kmodel-highspeed",
-    "cf-codex/grok-composer-2.5-fast",
     "synthetic/syn:large:text",
-    "qoder/performance"
+    "qoder/performance",
+    "cliproxy/gpt-5.6-sol",
+    "cliproxy/gpt-5.6-terra",
+    "cliproxy/grok-4.3"
   ],
   "extensions": [
     "+extensions/pi-custom-providers/custom-provider-cf-packycode.ts",

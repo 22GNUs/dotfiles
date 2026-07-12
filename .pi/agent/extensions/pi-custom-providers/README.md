@@ -6,7 +6,6 @@ This package splits the Cloudflare provider registrations into separate extensio
 
 - `custom-provider-cf-compat.ts` → `cf-compat`
 - `custom-provider-cf-packycode.ts` → `cf-packycode`
-- `custom-provider-cf-codex.ts` → `cf-codex`
 - `custom-provider-cliproxyapi.ts` → `cliproxyapi`
 
 ## Required environment variables

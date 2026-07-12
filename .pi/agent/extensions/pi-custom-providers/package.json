@@ -8,7 +8,6 @@
     "extensions": [
       "./custom-provider-cf-compat.ts",
       "./custom-provider-cf-packycode.ts",
-      "./custom-provider-cf-codex.ts",
       "./custom-provider-cliproxyapi.ts"
     ]
   },
