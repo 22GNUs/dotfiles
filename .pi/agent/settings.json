@@ -10,15 +10,15 @@
     "/Users/xinhua/Developer/pi-qoder-provider-inner",
     "/Users/xinhua/Developer/pi-cyber-ui",
     {
-      "source": "npm:@router-for-me/pi-cliproxyapi-provider",
+      "source": "git:github.com/router-for-me/pi-cliproxyapi-provider",
       "extensions": [
         "-extensions/tps.ts"
       ]
     }
   ],
   "defaultProvider": "cliproxyapi",
-  "defaultModel": "grok-4.5",
-  "defaultThinkingLevel": "high",
+  "defaultModel": "gpt-5.6-sol",
+  "defaultThinkingLevel": "low",
   "hideThinkingBlock": true,
   "terminal": {
     "showImages": false
@@ -33,10 +33,9 @@
   "enabledModels": [
     "qoder/gm51model",
     "qoder/kmodel-highspeed",
-    "cliproxy/gpt-5.6-sol",
-    "cliproxy/gpt-5.6-terra",
-    "cliproxy/grok-4.3",
-    "qoder/kmodel_latest"
+    "qoder/kmodel_latest",
+    "cliproxyapi/grok-4.5",
+    "cliproxyapi/gpt-5.6-sol"
   ],
   "extensions": [
     "+extensions/pi-custom-providers/custom-provider-cf-packycode.ts",
