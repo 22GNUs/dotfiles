@@ -1,7 +1,7 @@
 {
   "providers": {
     "cliproxy": {
-      "baseUrl": "https://cliproxy.lazycat.vip/v1",
+      "baseUrl": "https://clidirect.lazycat.vip/v1",
       "api": "openai-responses",
       "apiKey": "$CLIPROXYAPI_API_KEY",
       "models": [

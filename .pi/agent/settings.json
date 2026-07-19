@@ -1,9 +1,9 @@
 {
-  "lastChangelogVersion": "0.80.6",
+  "lastChangelogVersion": "0.80.9",
   "theme": "cyber-ui-dark",
+  "externalEditor": "nvim",
   "packages": [
     "npm:pi-web-access",
-    "npm:@tmustier/pi-usage-extension",
     "npm:@eko24ive/pi-ask",
     "npm:@juicesharp/rpiv-todo",
     "npm:@aliou/pi-synthetic",
@@ -13,7 +13,7 @@
   ],
   "defaultProvider": "cliproxy",
   "defaultModel": "grok-4.3",
-  "defaultThinkingLevel": "high",
+  "defaultThinkingLevel": "low",
   "hideThinkingBlock": true,
   "terminal": {
     "showImages": false
@@ -29,16 +29,16 @@
     "qoder/gm51model",
     "qoder/kmodel-highspeed",
     "synthetic/syn:large:text",
-    "qoder/performance",
     "cliproxy/gpt-5.6-sol",
     "cliproxy/gpt-5.6-terra",
-    "cliproxy/grok-4.3"
+    "cliproxy/grok-4.3",
+    "qoder/kmodel_latest"
   ],
   "extensions": [
     "+extensions/pi-custom-providers/custom-provider-cf-packycode.ts",
     "+extensions/pi-custom-providers/custom-provider-cliproxyapi.ts"
   ],
-  "transport": "auto",
+  "transport": "websocket-cached",
   "rewind": {
     "silentCheckpoints": false,
     "retention": {
@@ -48,5 +48,6 @@
       "pinLabeledEntries": true,
       "startupBudgetMs": 100
     }
-  }
+  },
+  "defaultProjectTrust": "always"
 }
