@@ -8,17 +8,15 @@
     "npm:@juicesharp/rpiv-todo",
     "npm:@mohndoe/pi-atlas",
     "/Users/xinhua/Developer/pi-qoder-provider-inner",
-    "/Users/xinhua/Developer/pi-cyber-ui",
     {
       "source": "git:github.com/router-for-me/pi-cliproxyapi-provider",
-      "extensions": [
-        "-extensions/tps.ts"
-      ]
-    }
+      "extensions": ["-extensions/tps.ts"]
+    },
+    "git:github.com/22GNUs/pi-cyber-ui"
   ],
-  "defaultProvider": "cliproxyapi",
-  "defaultModel": "gpt-5.6-sol",
-  "defaultThinkingLevel": "low",
+  "defaultProvider": "qoder",
+  "defaultModel": "kmodel-highspeed",
+  "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
     "showImages": false
@@ -54,3 +52,4 @@
   },
   "defaultProjectTrust": "always"
 }
+
