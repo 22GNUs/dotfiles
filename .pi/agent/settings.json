@@ -6,14 +6,19 @@
     "npm:pi-web-access",
     "npm:@eko24ive/pi-ask",
     "npm:@juicesharp/rpiv-todo",
-    "npm:@aliou/pi-synthetic",
     "npm:@mohndoe/pi-atlas",
     "/Users/xinhua/Developer/pi-qoder-provider-inner",
-    "/Users/xinhua/Developer/pi-cyber-ui"
+    "/Users/xinhua/Developer/pi-cyber-ui",
+    {
+      "source": "npm:@router-for-me/pi-cliproxyapi-provider",
+      "extensions": [
+        "-extensions/tps.ts"
+      ]
+    }
   ],
-  "defaultProvider": "cliproxy",
-  "defaultModel": "grok-4.3",
-  "defaultThinkingLevel": "low",
+  "defaultProvider": "cliproxyapi",
+  "defaultModel": "grok-4.5",
+  "defaultThinkingLevel": "high",
   "hideThinkingBlock": true,
   "terminal": {
     "showImages": false
@@ -28,7 +33,6 @@
   "enabledModels": [
     "qoder/gm51model",
     "qoder/kmodel-highspeed",
-    "synthetic/syn:large:text",
     "cliproxy/gpt-5.6-sol",
     "cliproxy/gpt-5.6-terra",
     "cliproxy/grok-4.3",
