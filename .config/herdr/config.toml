@@ -9,3 +9,7 @@ reload_config = "prefix+shift+r"
 
 [theme]
 name = "tokyo-night"
+
+[terminal]
+default_shell = "fish"
+new_cwd = "follow"

@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.80.9",
+  "lastChangelogVersion": "0.80.10",
   "theme": "cyber-ui-dark",
   "externalEditor": "nvim",
   "packages": [
@@ -10,13 +10,24 @@
     "/Users/xinhua/Developer/pi-qoder-provider-inner",
     {
       "source": "git:github.com/router-for-me/pi-cliproxyapi-provider",
-      "extensions": ["-extensions/tps.ts"]
+      "extensions": [
+        "-extensions/tps.ts"
+      ]
     },
-    "git:github.com/22GNUs/pi-cyber-ui"
+    {
+      "source": "/Users/xinhua/Developer/pi-cyber-ui",
+      "themes": [
+        "+themes/cyber-ui-dark.json"
+      ],
+      "extensions": [
+        "+extensions/pi-cyber-ui/index.ts"
+      ]
+    },
+    "npm:@ff-labs/pi-fff"
   ],
   "defaultProvider": "qoder",
-  "defaultModel": "kmodel-highspeed",
-  "defaultThinkingLevel": "high",
+  "defaultModel": "gm51model",
+  "defaultThinkingLevel": "xhigh",
   "hideThinkingBlock": true,
   "terminal": {
     "showImages": false
@@ -52,4 +63,3 @@
   },
   "defaultProjectTrust": "always"
 }
-
