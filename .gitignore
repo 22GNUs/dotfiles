@@ -57,3 +57,4 @@ external/
 /.pi/workflows/
 /.pi/agent/mcp-oauth/
 /.pi/pi-atlas-cache.json
+/.pi/agent/cliproxyapi-models.json

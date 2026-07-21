@@ -9,7 +9,7 @@
     "npm:@mohndoe/pi-atlas",
     "/Users/xinhua/Developer/pi-qoder-provider-inner",
     {
-      "source": "git:github.com/router-for-me/pi-cliproxyapi-provider",
+      "source": "git:github.com/22GNUs/pi-cliproxyapi-provider@perf/model-catalog-cache",
       "extensions": [
         "-extensions/tps.ts"
       ]
@@ -23,11 +23,12 @@
         "+extensions/pi-cyber-ui/index.ts"
       ]
     },
-    "npm:@ff-labs/pi-fff"
+    "npm:@ff-labs/pi-fff",
+    "npm:@quintinshaw/pi-dynamic-workflows"
   ],
-  "defaultProvider": "qoder",
-  "defaultModel": "gm51model",
-  "defaultThinkingLevel": "xhigh",
+  "defaultProvider": "cliproxyapi",
+  "defaultModel": "gpt-5.6-sol",
+  "defaultThinkingLevel": "low",
   "hideThinkingBlock": true,
   "terminal": {
     "showImages": false
@@ -42,7 +43,6 @@
   "enabledModels": [
     "qoder/gm51model",
     "qoder/kmodel-highspeed",
-    "qoder/kmodel_latest",
     "cliproxyapi/grok-4.5",
     "cliproxyapi/gpt-5.6-sol"
   ],
