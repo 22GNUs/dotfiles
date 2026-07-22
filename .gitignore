@@ -6,6 +6,7 @@
 *.bak
 .intellimacs/.git
 .gitconfig
+.bashrc
 
 # Nvim
 .config/nvim/tt.*
@@ -34,8 +35,8 @@
 .pi/agent/sessions/
 .pi/agent/bin/
 .pi/agent/auth.json
-.pi/agent/extensions/node_modules
-.pi/agent/extensions/*/node_modules
+.pi/agent/settings.json
+.pi/agent/extensions/
 
 # External repos for soft-linking
 external/
