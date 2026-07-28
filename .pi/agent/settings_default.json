@@ -1,0 +1,40 @@
+{
+  "lastChangelogVersion": "0.82.1",
+  "theme": "cyber-ui-dark",
+  "externalEditor": "nvim",
+  "packages": [
+    "npm:pi-web-access",
+    "npm:@eko24ive/pi-ask",
+    "npm:@juicesharp/rpiv-todo",
+    "npm:@mohndoe/pi-atlas",
+    {
+      "source": "git:github.com/22GNUs/pi-cliproxyapi-provider@daily",
+      "extensions": ["-extensions/tps.ts"]
+    },
+    "/Users/xinhua/Developer/pi-cyber-ui"
+  ],
+  "hideThinkingBlock": true,
+  "terminal": {
+    "showImages": false
+  },
+  "images": {
+    "blockImages": false
+  },
+  "quietStartup": false,
+  "compaction": {
+    "enabled": true
+  },
+  "transport": "websocket-cached",
+  "rewind": {
+    "silentCheckpoints": false,
+    "retention": {
+      "maxSnapshots": 100,
+      "maxAgeDays": 1,
+      "scanMode": "ancestor-only",
+      "pinLabeledEntries": true,
+      "startupBudgetMs": 100
+    }
+  },
+  "defaultProjectTrust": "always"
+}
+
