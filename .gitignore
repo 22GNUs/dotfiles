@@ -1,6 +1,7 @@
 .DS_Store
 .config/fish/fish_variables
 .config/fish/conf.d/local.fish
+.config/fish/conf.d/cli-hub.fish
 *.swp
 *.swo
 *.bak
