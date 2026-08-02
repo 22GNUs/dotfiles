@@ -36,7 +36,8 @@
 .pi/agent/bin/
 .pi/agent/auth.json
 .pi/agent/settings.json
-.pi/agent/extensions/
+.pi/agent/extensions/node_modules/
+.pi/agent/extensions/pi-recap/_tmp/
 
 # External repos for soft-linking
 external/
@@ -60,3 +61,5 @@ external/
 /.pi/pi-atlas-cache.json
 /.pi/agent/cliproxyapi-models.json
 /.pi/agent/mcp-onboarding.json
+/.bash_profile
+/.bash_profile
