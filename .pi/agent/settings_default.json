@@ -4,7 +4,6 @@
   "externalEditor": "nvim",
   "packages": [
     "npm:pi-web-access",
-    "npm:@eko24ive/pi-ask",
     "npm:@juicesharp/rpiv-todo",
     "npm:@mohndoe/pi-atlas",
     "npm:pi-cyber-ui",
