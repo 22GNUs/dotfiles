@@ -7,11 +7,17 @@
     "npm:@eko24ive/pi-ask",
     "npm:@juicesharp/rpiv-todo",
     "npm:@mohndoe/pi-atlas",
+    "npm:pi-cyber-ui",
+    "npm:@narumitw/pi-caffeinate",
+    "npm:@ff-labs/pi-fff",
+    "git:github.com/jonjonrankin/pi-caveman",
+    "npm:@quintinshaw/pi-dynamic-workflows",
+    "npm:pi-schedule-prompt",
+    "npm:pi-hashline-edit-pro",
     {
-      "source": "git:github.com/22GNUs/pi-cliproxyapi-provider@daily",
+      "source": "git:github.com/router-for-me/pi-cliproxyapi-provider",
       "extensions": ["-extensions/tps.ts"]
-    },
-    "/Users/xinhua/Developer/pi-cyber-ui"
+    }
   ],
   "hideThinkingBlock": true,
   "terminal": {
@@ -37,4 +43,3 @@
   },
   "defaultProjectTrust": "always"
 }
-
